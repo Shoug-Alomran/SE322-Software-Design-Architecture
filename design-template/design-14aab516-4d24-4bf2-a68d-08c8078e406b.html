@@ -1,0 +1,452 @@
+<html lang="en" class="scroll-smooth" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Architectural Style | SE322 Digital Blueprint</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="6">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="7">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=JetBrains+Mono:wght@100;300;400;500&amp;display=swap" rel="stylesheet" vid="8">
+    <script vid="9">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        blueprint: {
+                            bg: '#030712',
+                            panel: '#060b13',
+                            line: 'rgba(0, 240, 255, 0.15)',
+                            grid: 'rgba(0, 240, 255, 0.03)',
+                            accent: '#00f0ff',
+                            accentMuted: '#06b6d4',
+                            text: '#e2e8f0',
+                            textMuted: '#94a3b8',
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': `
+                            linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                            linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px)
+                        `,
+                        'grid-pattern-dense': `
+                            linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                            linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px)
+                        `
+                    }
+                }
+            }
+        }
+    </script>
+    <style vid="10">
+        body {
+            background-color: #030712;
+            color: #e2e8f0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
+        }
+
+        .blueprint-grid-dense {
+            background-color: rgba(6, 11, 19, 0.4);
+            background-image: 
+                linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.02), transparent);
+            animation: scan 10s linear infinite;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-150px); }
+            100% { transform: translateY(100vh); }
+        }
+
+        
+        .node-glow {
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+            border-left: 1px solid rgba(0, 240, 255, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.3);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 240, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen relative font-sans overflow-x-hidden selection:bg-cyan-900/50 selection:text-cyan-100" vid="11">
+
+    
+    <div class="scanline" vid="12"></div>
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-900/10 rounded-full blur-[120px] pointer-events-none z-0" vid="13"></div>
+
+    
+    <nav class="fixed top-0 w-full border-b border-cyan-500/20 bg-[#030712]/85 backdrop-blur-md z-40" vid="14">
+        <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between" vid="15">
+            
+            <div class="flex items-center gap-4" vid="16">
+                <div class="w-2 h-2 bg-cyan-400 rounded-sm animate-pulse" vid="17"></div>
+                <span class="font-mono font-medium text-cyan-50 tracking-widest text-sm" vid="18">SE322<span class="text-cyan-600" vid="19">_</span></span>
+            </div>
+            
+            
+            <div class="hidden md:flex items-center space-x-8 font-mono text-[11px] uppercase tracking-widest" vid="20">
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors" vid="21">Home</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors" vid="22">Project</a>
+                
+                <a href="#" class="text-cyan-400 relative group flex flex-col items-center" vid="23">
+                    <span vid="24">Architecture</span>
+                    <span class="absolute -bottom-[19px] w-full h-[2px] bg-cyan-400 shadow-[0_0_8px_rgba(0,240,255,0.8)]" vid="25"></span>
+                </a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors" vid="26">Quality</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors" vid="27">Design</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors" vid="28">Documentation</a>
+            </div>
+
+            
+            <button class="md:hidden text-cyan-500" vid="29">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="30"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" vid="31"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    
+    <div class="max-w-7xl mx-auto px-6 pt-28 pb-20 relative z-10 flex" vid="32">
+        
+        
+        <div class="hidden lg:block w-px bg-gradient-to-b from-cyan-500/0 via-cyan-500/20 to-cyan-500/0 absolute left-8 top-32 bottom-20" vid="33"></div>
+
+        <main class="w-full lg:pl-12 flex flex-col gap-16" vid="34">
+
+            
+            <header class="relative" vid="35">
+                <div class="flex items-center gap-3 mb-3" vid="36">
+                    <span class="w-1.5 h-1.5 border border-cyan-400 rotate-45" vid="37"></span>
+                    <span class="font-mono text-cyan-500 text-xs tracking-[0.2em] uppercase" vid="38">Architecture / Architectural Style</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-light text-slate-100 uppercase tracking-wide mb-6" vid="39">
+                    System Architecture
+                </h1>
+                <div class="pl-5 border-l border-cyan-900/50" vid="40">
+                    <p class="max-w-3xl text-slate-400 text-sm leading-relaxed font-light" vid="41">
+                        [Enter a brief introduction about the chosen architectural style, its fundamental role in shaping the system's overarching structure, and how it aligns with the core business objectives of the project.]
+                    </p>
+                </div>
+            </header>
+
+            
+            <section vid="42">
+                <div class="flex items-center gap-2 mb-4" vid="43">
+                    <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase" vid="44">SEC_01</span>
+                    <div class="h-px w-8 bg-cyan-900/50" vid="45"></div>
+                    <h2 class="font-mono text-xs text-cyan-400 tracking-widest uppercase" vid="46">Selected Style</h2>
+                </div>
+                
+                <div class="relative border border-cyan-500/30 p-8 bg-[#060b13]/80 node-glow group transition-all duration-500" vid="47">
+                    
+                    <div class="absolute -top-[4px] -left-[4px] w-2 h-2" vid="48"><div class="absolute top-[3.5px] left-0 w-full h-[1px] bg-cyan-400" vid="49"></div><div class="absolute top-0 left-[3.5px] w-[1px] h-full bg-cyan-400" vid="50"></div></div>
+                    <div class="absolute -top-[4px] -right-[4px] w-2 h-2" vid="51"><div class="absolute top-[3.5px] right-0 w-full h-[1px] bg-cyan-400" vid="52"></div><div class="absolute top-0 right-[3.5px] w-[1px] h-full bg-cyan-400" vid="53"></div></div>
+                    <div class="absolute -bottom-[4px] -left-[4px] w-2 h-2" vid="54"><div class="absolute bottom-[3.5px] left-0 w-full h-[1px] bg-cyan-400" vid="55"></div><div class="absolute bottom-0 left-[3.5px] w-[1px] h-full bg-cyan-400" vid="56"></div></div>
+                    <div class="absolute -bottom-[4px] -right-[4px] w-2 h-2" vid="57"><div class="absolute bottom-[3.5px] right-0 w-full h-[1px] bg-cyan-400" vid="58"></div><div class="absolute bottom-0 right-[3.5px] w-[1px] h-full bg-cyan-400" vid="59"></div></div>
+                    
+                    <div class="flex flex-col items-start relative z-10" vid="60">
+                        <span class="inline-block px-2 py-0.5 border border-cyan-500/20 bg-cyan-500/5 font-mono text-[10px] text-cyan-300 tracking-wider mb-4 uppercase" vid="61">
+                            Primary Architecture
+                        </span>
+                        <h3 class="text-2xl md:text-3xl font-mono font-medium text-slate-100 mb-2 group-hover:text-cyan-50 transition-colors" vid="62">
+                            [Architectural Style Name]
+                        </h3>
+                        <p class="text-cyan-600 font-mono text-sm" vid="63">
+                            &gt; <span class="text-slate-400" vid="64">[Enter a brief tagline or one-line summary of the architectural style placeholder]</span>
+                        </p>
+                    </div>
+                    
+                    
+                    <div class="absolute right-8 top-1/2 -translate-y-1/2 opacity-20 hidden md:flex items-center gap-2" vid="65">
+                        <div class="w-12 h-12 border border-cyan-500 rotate-45 flex items-center justify-center" vid="66"><div class="w-2 h-2 bg-cyan-500" vid="67"></div></div>
+                        <div class="w-8 h-[1px] bg-cyan-500" vid="68"></div>
+                        <div class="w-16 h-16 border border-cyan-500 rotate-45 flex items-center justify-center" vid="69"><div class="w-4 h-4 border border-cyan-500" vid="70"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16" vid="71">
+                
+                
+                <section class="relative" vid="72">
+                    <div class="absolute left-0 top-0 bottom-0 w-px bg-cyan-900/30" vid="73"></div>
+                    <div class="pl-6 relative" vid="74">
+                        
+                        <div class="absolute top-1.5 -left-[4px] w-[9px] h-[9px] border border-cyan-500 bg-[#030712]" vid="75"></div>
+                        
+                        <div class="flex items-center gap-2 mb-4" vid="76">
+                            <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase" vid="77">SEC_02</span>
+                            <h2 class="font-mono text-xs text-cyan-400 tracking-widest uppercase" vid="78">Description</h2>
+                        </div>
+                        
+                        <div class="space-y-4 text-sm text-slate-400 leading-relaxed font-light" vid="79">
+                            <p vid="80">
+                                [Editable placeholder: Paragraph explaining what the architectural style is and its core principles. Describe the foundational concepts that define this approach.]
+                            </p>
+                            <p vid="81">
+                                [Editable placeholder: Paragraph detailing how it structures a system. Mention primary components, connectors, data flow patterns, or isolation boundaries typical of this style.]
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                
+                <section class="relative" vid="82">
+                    <div class="absolute left-0 top-0 bottom-0 w-px bg-cyan-900/30" vid="83"></div>
+                    <div class="pl-6 relative" vid="84">
+                        
+                        <div class="absolute top-1.5 -left-[4px] w-[9px] h-[9px] border border-cyan-500 bg-[#030712]" vid="85"></div>
+                        
+                        <div class="flex items-center gap-2 mb-4" vid="86">
+                            <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase" vid="87">SEC_03</span>
+                            <h2 class="font-mono text-xs text-cyan-400 tracking-widest uppercase" vid="88">Why Selected</h2>
+                        </div>
+                        
+                        <div class="text-sm text-slate-400 leading-relaxed font-light mb-4" vid="89">
+                            [Editable placeholder: Introductory sentence explaining the primary motivation for choosing this specific architectural style for the system.]
+                        </div>
+                        
+                        <ul class="space-y-3" vid="90">
+                            <li class="flex items-start gap-3" vid="91">
+                                <span class="mt-2 w-1 h-1 rounded-none border border-cyan-500 shrink-0 bg-cyan-500/20" vid="92"></span>
+                                <span class="text-sm text-slate-300" vid="93">[Rationale point 1: Aligning with specific non-functional requirements or quality attributes]</span>
+                            </li>
+                            <li class="flex items-start gap-3" vid="94">
+                                <span class="mt-2 w-1 h-1 rounded-none border border-cyan-500 shrink-0 bg-cyan-500/20" vid="95"></span>
+                                <span class="text-sm text-slate-300" vid="96">[Rationale point 2: Addressing complexity, team structure, or deployment constraints]</span>
+                            </li>
+                            <li class="flex items-start gap-3" vid="97">
+                                <span class="mt-2 w-1 h-1 rounded-none border border-cyan-500 shrink-0 bg-cyan-500/20" vid="98"></span>
+                                <span class="text-sm text-slate-300" vid="99">[Rationale point 3: Future-proofing, scalability, or maintainability benefits specific to the project]</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            
+            <section vid="100">
+                <div class="flex items-center gap-2 mb-4" vid="101">
+                    <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase" vid="102">SEC_04</span>
+                    <div class="h-px w-8 bg-cyan-900/50" vid="103"></div>
+                    <h2 class="font-mono text-xs text-cyan-400 tracking-widest uppercase" vid="104">Application to System</h2>
+                </div>
+                
+                <div class="border border-cyan-500/20 bg-[#060b13]/50 p-6 md:p-8 relative" vid="105">
+                    
+                    <div class="absolute top-0 left-0 w-8 h-[2px] bg-cyan-500/50" vid="106"></div>
+                    <div class="absolute top-0 left-0 w-[2px] h-8 bg-cyan-500/50" vid="107"></div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" vid="108">
+                        <div class="lg:col-span-1 border-l border-cyan-900/40 pl-5" vid="109">
+                            <p class="text-sm text-slate-400 leading-relaxed font-light" vid="110">
+                                [Editable placeholder: Describe conceptually how the style maps to the project’s specific modules, layers, or services. Explain the realization of the architectural pattern within the context of your domain.]
+                            </p>
+                        </div>
+                        
+                        
+                        <div class="lg:col-span-2 border border-cyan-900/40 blueprint-grid-dense flex items-center justify-center min-h-[160px] relative p-4" vid="111">
+                            <div class="absolute right-2 bottom-2 text-[9px] font-mono text-cyan-600" vid="112">APP_MAP_01</div>
+                            <span class="font-mono text-xs text-cyan-500/60 uppercase tracking-widest border border-cyan-500/20 px-3 py-1.5 bg-[#030712]/80 backdrop-blur" vid="113">
+                                [ Insert Application Context Diagram ]
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12" vid="114">
+                
+                
+                <section vid="115">
+                    <div class="flex items-center gap-2 mb-4" vid="116">
+                        <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase" vid="117">SEC_05</span>
+                        <h2 class="font-mono text-xs text-cyan-400 tracking-widest uppercase" vid="118">Advantages</h2>
+                    </div>
+                    
+                    <div class="flex flex-col gap-3" vid="119">
+                        
+                        <div class="flex items-start gap-4 p-3 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group" vid="120">
+                            <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors" vid="121"></div>
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 border border-cyan-400 bg-[#030712] relative z-10" vid="122"></div>
+                            <div class="flex flex-col" vid="123">
+                                <span class="font-mono text-xs text-cyan-300 mb-1" vid="124">[Advantage Title 1]</span>
+                                <span class="text-xs text-slate-400 leading-relaxed" vid="125">[Editable placeholder description detailing how this benefit concretely improves the system.]</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-3 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group" vid="126">
+                            <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors" vid="127"></div>
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 border border-cyan-400 bg-[#030712] relative z-10" vid="128"></div>
+                            <div class="flex flex-col" vid="129">
+                                <span class="font-mono text-xs text-cyan-300 mb-1" vid="130">[Advantage Title 2]</span>
+                                <span class="text-xs text-slate-400 leading-relaxed" vid="131">[Editable placeholder description detailing how this benefit concretely improves the system.]</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-3 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group" vid="132">
+                            <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors" vid="133"></div>
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 border border-cyan-400 bg-[#030712] relative z-10" vid="134"></div>
+                            <div class="flex flex-col" vid="135">
+                                <span class="font-mono text-xs text-cyan-300 mb-1" vid="136">[Advantage Title 3]</span>
+                                <span class="text-xs text-slate-400 leading-relaxed" vid="137">[Editable placeholder description detailing how this benefit concretely improves the system.]</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                
+                <section vid="138">
+                    <div class="flex items-center gap-2 mb-4" vid="139">
+                        <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase" vid="140">SEC_06</span>
+                        <h2 class="font-mono text-xs text-slate-400 tracking-widest uppercase" vid="141">Trade-offs &amp; Limitations</h2>
+                    </div>
+                    
+                    <div class="flex flex-col gap-3" vid="142">
+                        
+                        <div class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group" vid="143">
+                            <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors" vid="144"></div>
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 border border-slate-500 bg-[#030712] relative z-10" vid="145"></div>
+                            <div class="flex flex-col" vid="146">
+                                <span class="font-mono text-xs text-slate-300 mb-1" vid="147">[Limitation Title 1]</span>
+                                <span class="text-xs text-slate-500 leading-relaxed" vid="148">[Editable placeholder describing a specific drawback, complexity, or compromise introduced by this style.]</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group" vid="149">
+                            <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors" vid="150"></div>
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 border border-slate-500 bg-[#030712] relative z-10" vid="151"></div>
+                            <div class="flex flex-col" vid="152">
+                                <span class="font-mono text-xs text-slate-300 mb-1" vid="153">[Limitation Title 2]</span>
+                                <span class="text-xs text-slate-500 leading-relaxed" vid="154">[Editable placeholder describing a specific drawback, complexity, or compromise introduced by this style.]</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group" vid="155">
+                            <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors" vid="156"></div>
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 border border-slate-500 bg-[#030712] relative z-10" vid="157"></div>
+                            <div class="flex flex-col" vid="158">
+                                <span class="font-mono text-xs text-slate-300 mb-1" vid="159">[Limitation Title 3]</span>
+                                <span class="text-xs text-slate-500 leading-relaxed" vid="160">[Editable placeholder describing a specific drawback, complexity, or compromise introduced by this style.]</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            
+            <section class="mt-4" vid="161">
+                <div class="flex items-center justify-between mb-4" vid="162">
+                    <div class="flex items-center gap-2" vid="163">
+                        <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase" vid="164">SEC_07</span>
+                        <div class="h-px w-8 bg-cyan-900/50" vid="165"></div>
+                        <h2 class="font-mono text-xs text-cyan-400 tracking-widest uppercase" vid="166">Style Diagram</h2>
+                    </div>
+                    <span class="font-mono text-[9px] text-cyan-600 border border-cyan-900/50 px-2 py-0.5" vid="167">FIG_MAIN</span>
+                </div>
+                
+                <div class="w-full aspect-[16/9] md:aspect-[21/9] border border-cyan-500/30 relative flex items-center justify-center blueprint-grid-dense bg-[#060b13]/60 node-glow" vid="168">
+                    
+                    <div class="absolute -top-[5px] -left-[5px] w-2.5 h-2.5" vid="169"><div class="absolute top-[4px] left-0 w-full h-[1px] bg-cyan-500" vid="170"></div><div class="absolute top-0 left-[4px] w-[1px] h-full bg-cyan-500" vid="171"></div></div>
+                    <div class="absolute -top-[5px] -right-[5px] w-2.5 h-2.5" vid="172"><div class="absolute top-[4px] right-0 w-full h-[1px] bg-cyan-500" vid="173"></div><div class="absolute top-0 right-[4px] w-[1px] h-full bg-cyan-500" vid="174"></div></div>
+                    <div class="absolute -bottom-[5px] -left-[5px] w-2.5 h-2.5" vid="175"><div class="absolute bottom-[4px] left-0 w-full h-[1px] bg-cyan-500" vid="176"></div><div class="absolute bottom-0 left-[4px] w-[1px] h-full bg-cyan-500" vid="177"></div></div>
+                    <div class="absolute -bottom-[5px] -right-[5px] w-2.5 h-2.5" vid="178"><div class="absolute bottom-[4px] right-0 w-full h-[1px] bg-cyan-500" vid="179"></div><div class="absolute bottom-0 right-[4px] w-[1px] h-full bg-cyan-500" vid="180"></div></div>
+                    
+                    
+                    <div class="absolute inset-4 border border-cyan-900/20 pointer-events-none" vid="181"></div>
+                    <div class="absolute top-1/2 left-0 w-full h-px bg-cyan-500/10 pointer-events-none" vid="182"></div>
+                    <div class="absolute top-0 left-1/2 w-px h-full bg-cyan-500/10 pointer-events-none" vid="183"></div>
+
+                    
+                    <div class="relative z-10 flex flex-col items-center gap-3" vid="184">
+                        <div class="w-12 h-12 border border-cyan-400/50 rounded-none flex items-center justify-center animate-[pulse_4s_ease-in-out_infinite]" vid="185">
+                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="186"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" vid="187"></path></svg>
+                        </div>
+                        <span class="font-mono text-sm text-cyan-400/80 uppercase tracking-[0.2em] border border-cyan-500/30 px-6 py-2 bg-[#030712]/90 backdrop-blur" vid="188">
+                            [ Insert Architectural Style Diagram ]
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-center border-b border-cyan-900/30 pb-4" vid="189">
+                    <span class="font-mono text-xs text-slate-500" vid="190">
+                        <span class="text-cyan-700" vid="191">FIG 1.0</span> // [Editable caption describing the architectural style diagram above, explaining the main components and interactions shown.]
+                    </span>
+                </div>
+            </section>
+
+            
+            <nav class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-cyan-500/20 relative" vid="192">
+                
+                <div class="absolute top-0 left-0 w-2 h-[1px] bg-cyan-400" vid="193"></div>
+                <div class="absolute top-0 right-0 w-2 h-[1px] bg-cyan-400" vid="194"></div>
+
+                <a href="#" class="group flex items-center gap-3 px-5 py-2.5 border border-cyan-900/50 bg-[#060b13] hover:border-cyan-500/50 hover:bg-cyan-950/30 transition-all w-full sm:w-auto" vid="195">
+                    <svg class="w-4 h-4 text-cyan-600 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="196"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" vid="197"></path></svg>
+                    <div class="flex flex-col items-start" vid="198">
+                        <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest" vid="199">Previous Node</span>
+                        <span class="font-mono text-xs text-slate-300 group-hover:text-cyan-300 transition-colors" vid="200">[Architecture Overview]</span>
+                    </div>
+                </a>
+
+                <a href="#" class="group flex items-center gap-3 px-5 py-2.5 border border-cyan-900/50 bg-[#060b13] hover:border-cyan-500/50 hover:bg-cyan-950/30 transition-all w-full sm:w-auto text-right flex-row-reverse sm:flex-row" vid="201">
+                    <div class="flex flex-col items-end sm:items-start text-right sm:text-left" vid="202">
+                        <span class="text-[9px] text-slate-500 font-mono uppercase tracking-widest" vid="203">Next Node</span>
+                        <span class="font-mono text-xs text-cyan-400 group-hover:text-cyan-300 transition-colors" vid="204">[Logical View]</span>
+                    </div>
+                    <svg class="w-4 h-4 text-cyan-600 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="205"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" vid="206"></path></svg>
+                </a>
+            </nav>
+
+        </main>
+    </div>
+
+    
+    <footer class="border-t border-cyan-900/30 bg-[#030712] relative z-20" vid="207">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[10px] text-slate-500 uppercase tracking-widest" vid="208">
+            <div class="flex items-center gap-2" vid="209">
+                <span class="w-1.5 h-1.5 bg-cyan-900" vid="210"></span>
+                <span vid="211">SE322 — Software Design &amp; Architecture</span>
+            </div>
+            
+            <div class="flex items-center gap-6" vid="212">
+                <span vid="213">Prince Sultan University</span>
+                <span class="text-cyan-700" vid="214">|</span>
+                <span vid="215">Academic Project — 2026</span>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

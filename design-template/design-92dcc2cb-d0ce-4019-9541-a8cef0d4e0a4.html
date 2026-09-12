@@ -1,0 +1,512 @@
+<html lang="en" class="scroll-smooth" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Quality Attributes | SE322 Digital Blueprint</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="6">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="7">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=JetBrains+Mono:wght@100;300;400;500;700&amp;display=swap" rel="stylesheet" vid="8">
+    
+    <script vid="9">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#030712',
+                            800: '#060b13',
+                            700: '#0a1122',
+                        },
+                        blueprint: {
+                            glow: 'rgba(0, 240, 255, 0.15)',
+                            line: 'rgba(0, 240, 255, 0.2)',
+                            accent: '#00f0ff',
+                            dark: '#06b6d4'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style vid="10">
+        
+        body {
+            background-color: #030712;
+            background-image: 
+                linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
+            color: #e2e8f0;
+        }
+
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%,
+                rgba(0, 0, 0, 0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.3;
+        }
+
+        
+        .blueprint-panel {
+            position: relative;
+            background: rgba(6, 11, 19, 0.6);
+            border: 1px solid var(--tw-colors-blueprint-line);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .blueprint-panel:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.05) inset;
+        }
+
+        
+        .crosshair {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            pointer-events: none;
+        }
+        .crosshair::before, .crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: var(--tw-colors-blueprint-accent);
+            opacity: 0.6;
+        }
+        .crosshair::before { width: 100%; height: 1px; top: 4px; left: 0; }
+        .crosshair::after { height: 100%; width: 1px; left: 4px; top: 0; }
+        
+        .ch-tl { top: -4px; left: -4px; }
+        .ch-tr { top: -4px; right: -4px; }
+        .ch-bl { bottom: -4px; left: -4px; }
+        .ch-br { bottom: -4px; right: -4px; }
+
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #0a1122; border: 1px solid rgba(0, 240, 255, 0.2); }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0, 240, 255, 0.2); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-sans selection:bg-blueprint-accent selection:text-navy-900" vid="11">
+    <div class="scanlines" vid="12"></div>
+
+    
+    <div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blueprint-dark/5 via-navy-900/0 to-transparent -z-10" vid="13"></div>
+
+    
+    <header class="fixed top-0 w-full z-40 bg-navy-900/80 backdrop-blur-md border-b border-blueprint-accent/20" vid="14">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between" vid="15">
+            <div class="flex items-center gap-3" vid="16">
+                
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-blueprint-accent" vid="17">
+                    <path d="M2 12h4l3-9 5 18 3-9h5" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vid="18"></path>
+                </svg>
+                <span class="font-mono text-sm tracking-widest text-slate-200" vid="19">SE322<span class="text-blueprint-accent/50" vid="20">_</span></span>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-8 font-mono text-xs tracking-wider" vid="21">
+                <a href="#" class="text-slate-400 hover:text-blueprint-accent transition-colors" vid="22">HOME</a>
+                <a href="#" class="text-slate-400 hover:text-blueprint-accent transition-colors" vid="23">PROJECT</a>
+                <a href="#" class="text-slate-400 hover:text-blueprint-accent transition-colors" vid="24">ARCHITECTURE</a>
+                <div class="relative group" vid="25">
+                    <a href="#" class="text-blueprint-accent relative z-10 drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]" vid="26">QUALITY</a>
+                    
+                    <div class="absolute -bottom-[21px] left-0 w-full h-[2px] bg-blueprint-accent shadow-[0_0_10px_#00f0ff]" vid="27"></div>
+                </div>
+                <a href="#" class="text-slate-400 hover:text-blueprint-accent transition-colors" vid="28">DESIGN</a>
+                <a href="#" class="text-slate-400 hover:text-blueprint-accent transition-colors" vid="29">DOCUMENTATION</a>
+            </nav>
+
+            <button class="md:hidden text-blueprint-accent" vid="30">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" vid="31"><path d="M4 6h16M4 12h16M4 18h16" vid="32"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    
+    <main class="flex-grow max-w-7xl mx-auto w-full px-6 pt-32 pb-24" vid="33">
+        
+        
+        <section class="mb-20 relative" vid="34">
+            <div class="flex items-center gap-4 mb-4" vid="35">
+                <div class="h-px w-8 bg-blueprint-accent" vid="36"></div>
+                <span class="font-mono text-xs tracking-[0.2em] text-blueprint-accent uppercase" vid="37">Quality /</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-light tracking-tight text-white mb-6 uppercase" vid="38">Quality Attributes</h1>
+            
+            <div class="blueprint-panel p-6 border-l-2 border-l-blueprint-accent max-w-4xl" vid="39">
+                <div class="crosshair ch-tr" vid="40"></div>
+                <div class="crosshair ch-br" vid="41"></div>
+                <p class="font-light text-slate-300 leading-relaxed text-sm md:text-base" vid="42">
+                    [Placeholder] The following quality attributes define the structural and behavioral constraints of the system architecture. They describe how the system must operate under specific conditions to meet business goals. Each attribute is rigorously evaluated through structured scenarios detailing the source, stimulus, environment, and desired measurable response to ensure overall systemic integrity.
+                </p>
+            </div>
+        </section>
+
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12" vid="43">
+            
+            
+            <div class="lg:col-span-8" vid="44">
+                <div class="flex items-center gap-3 mb-10 border-b border-blueprint-accent/20 pb-4" vid="45">
+                    <svg class="w-4 h-4 text-blueprint-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" vid="46"><rect x="3" y="3" width="18" height="18" stroke-width="1.5" stroke-dasharray="4 4" vid="47"></rect></svg>
+                    <h2 class="font-mono text-sm tracking-[0.15em] text-white uppercase" vid="48">Selected Quality Attributes</h2>
+                </div>
+
+                
+                <div class="relative pl-8 md:pl-12" vid="49">
+                    
+                    <div class="absolute left-0 top-2 bottom-0 w-px bg-gradient-to-b from-blueprint-accent/50 via-blueprint-line to-transparent" vid="50"></div>
+
+                    
+                    <div class="relative mb-16 group" vid="51">
+                        
+                        <div class="absolute -left-[4.5px] top-6 w-2 h-2 bg-navy-900 border border-blueprint-accent rotate-45 group-hover:bg-blueprint-accent group-hover:shadow-[0_0_10px_#00f0ff] transition-all" vid="52"></div>
+                        
+                        <div class="absolute left-0 top-[27px] w-8 md:w-12 h-px bg-blueprint-accent/30 group-hover:bg-blueprint-accent/60 transition-colors" vid="53"></div>
+                        
+                        <div class="blueprint-panel p-6 md:p-8" vid="54">
+                            <div class="crosshair ch-tl" vid="55"></div><div class="crosshair ch-tr" vid="56"></div><div class="crosshair ch-bl" vid="57"></div><div class="crosshair ch-br" vid="58"></div>
+                            
+                            <div class="flex items-center justify-between border-b border-blueprint-accent/20 pb-4 mb-4" vid="59">
+                                <h3 class="font-mono text-xl text-white tracking-wide group-hover:text-blueprint-accent transition-colors" vid="60">[Attribute Name 1]</h3>
+                                <span class="font-mono text-xs text-slate-500" vid="61">ID: QA-01</span>
+                            </div>
+                            
+                            <p class="text-sm text-slate-400 font-light mb-6" vid="62">
+                                <span class="text-slate-500 font-mono text-xs mr-2" vid="63">WHY_IT_MATTERS:</span>
+                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
+                            </p>
+
+                            
+                            <div class="bg-navy-900/50 border border-blueprint-accent/20 relative overflow-hidden" vid="64">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-blueprint-dark/40" vid="65"></div>
+                                <div class="p-4 border-b border-blueprint-accent/10 bg-blueprint-dark/5" vid="66">
+                                    <h4 class="font-mono text-xs tracking-widest text-blueprint-accent uppercase" vid="67">Quality Attribute Scenario</h4>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-blueprint-accent/10" vid="68">
+                                    
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="69">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="70">Source</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="71">[Source Entity / Actor]</span>
+                                    </div>
+                                    
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="72">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="73">Stimulus</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="74">[Triggering Event or Condition]</span>
+                                    </div>
+                                    
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="75">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="76">Environment</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="77">[Operational State / Condition]</span>
+                                    </div>
+                                    
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="78">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="79">Artifact</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="80">[Target Component / System]</span>
+                                    </div>
+                                    
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors border-t border-blueprint-accent/10" vid="81">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="82">Response</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="83">[System's Expected Behavior or Action]</span>
+                                    </div>
+                                    
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors" vid="84">
+                                        <span class="font-mono text-[10px] text-blueprint-accent/70 uppercase" vid="85">Response Measure</span>
+                                        <span class="font-mono text-sm text-blueprint-accent" vid="86">[Quantifiable Metric e.g., Latency &lt; 200ms]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="relative mb-16 group" vid="87">
+                        <div class="absolute -left-[4.5px] top-6 w-2 h-2 bg-navy-900 border border-blueprint-accent rotate-45 group-hover:bg-blueprint-accent group-hover:shadow-[0_0_10px_#00f0ff] transition-all" vid="88"></div>
+                        <div class="absolute left-0 top-[27px] w-8 md:w-12 h-px bg-blueprint-accent/30 group-hover:bg-blueprint-accent/60 transition-colors" vid="89"></div>
+                        
+                        <div class="blueprint-panel p-6 md:p-8" vid="90">
+                            <div class="crosshair ch-tl" vid="91"></div><div class="crosshair ch-tr" vid="92"></div><div class="crosshair ch-bl" vid="93"></div><div class="crosshair ch-br" vid="94"></div>
+                            
+                            <div class="flex items-center justify-between border-b border-blueprint-accent/20 pb-4 mb-4" vid="95">
+                                <h3 class="font-mono text-xl text-white tracking-wide group-hover:text-blueprint-accent transition-colors" vid="96">[Attribute Name 2]</h3>
+                                <span class="font-mono text-xs text-slate-500" vid="97">ID: QA-02</span>
+                            </div>
+                            
+                            <p class="text-sm text-slate-400 font-light mb-6" vid="98">
+                                <span class="text-slate-500 font-mono text-xs mr-2" vid="99">WHY_IT_MATTERS:</span>
+                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
+                            </p>
+
+                            <div class="bg-navy-900/50 border border-blueprint-accent/20 relative overflow-hidden" vid="100">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-blueprint-dark/40" vid="101"></div>
+                                <div class="p-4 border-b border-blueprint-accent/10 bg-blueprint-dark/5" vid="102">
+                                    <h4 class="font-mono text-xs tracking-widest text-blueprint-accent uppercase" vid="103">Quality Attribute Scenario</h4>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-blueprint-accent/10" vid="104">
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="105">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="106">Source</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="107">[Source Entity / Actor]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="108">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="109">Stimulus</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="110">[Triggering Event or Condition]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="111">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="112">Environment</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="113">[Operational State / Condition]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="114">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="115">Artifact</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="116">[Target Component / System]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors border-t border-blueprint-accent/10" vid="117">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="118">Response</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="119">[System's Expected Behavior or Action]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors" vid="120">
+                                        <span class="font-mono text-[10px] text-blueprint-accent/70 uppercase" vid="121">Response Measure</span>
+                                        <span class="font-mono text-sm text-blueprint-accent" vid="122">[Quantifiable Metric e.g., 99.99% Uptime]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="relative mb-16 group" vid="123">
+                        <div class="absolute -left-[4.5px] top-6 w-2 h-2 bg-navy-900 border border-blueprint-accent rotate-45 group-hover:bg-blueprint-accent group-hover:shadow-[0_0_10px_#00f0ff] transition-all" vid="124"></div>
+                        <div class="absolute left-0 top-[27px] w-8 md:w-12 h-px bg-blueprint-accent/30 group-hover:bg-blueprint-accent/60 transition-colors" vid="125"></div>
+                        
+                        <div class="blueprint-panel p-6 md:p-8" vid="126">
+                            <div class="crosshair ch-tl" vid="127"></div><div class="crosshair ch-tr" vid="128"></div><div class="crosshair ch-bl" vid="129"></div><div class="crosshair ch-br" vid="130"></div>
+                            
+                            <div class="flex items-center justify-between border-b border-blueprint-accent/20 pb-4 mb-4" vid="131">
+                                <h3 class="font-mono text-xl text-white tracking-wide group-hover:text-blueprint-accent transition-colors" vid="132">[Attribute Name 3]</h3>
+                                <span class="font-mono text-xs text-slate-500" vid="133">ID: QA-03</span>
+                            </div>
+                            
+                            <p class="text-sm text-slate-400 font-light mb-6" vid="134">
+                                <span class="text-slate-500 font-mono text-xs mr-2" vid="135">WHY_IT_MATTERS:</span>
+                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
+                            </p>
+
+                            <div class="bg-navy-900/50 border border-blueprint-accent/20 relative overflow-hidden" vid="136">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-blueprint-dark/40" vid="137"></div>
+                                <div class="p-4 border-b border-blueprint-accent/10 bg-blueprint-dark/5" vid="138">
+                                    <h4 class="font-mono text-xs tracking-widest text-blueprint-accent uppercase" vid="139">Quality Attribute Scenario</h4>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-blueprint-accent/10" vid="140">
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="141">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="142">Source</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="143">[Source Entity / Actor]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="144">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="145">Stimulus</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="146">[Triggering Event or Condition]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="147">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="148">Environment</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="149">[Operational State / Condition]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="150">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="151">Artifact</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="152">[Target Component / System]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors border-t border-blueprint-accent/10" vid="153">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="154">Response</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="155">[System's Expected Behavior or Action]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors" vid="156">
+                                        <span class="font-mono text-[10px] text-blueprint-accent/70 uppercase" vid="157">Response Measure</span>
+                                        <span class="font-mono text-sm text-blueprint-accent" vid="158">[Quantifiable Metric e.g., 0 Data Loss]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="relative mb-8 group" vid="159">
+                        <div class="absolute -left-[4.5px] top-6 w-2 h-2 bg-navy-900 border border-blueprint-accent rotate-45 group-hover:bg-blueprint-accent group-hover:shadow-[0_0_10px_#00f0ff] transition-all" vid="160"></div>
+                        <div class="absolute left-0 top-[27px] w-8 md:w-12 h-px bg-blueprint-accent/30 group-hover:bg-blueprint-accent/60 transition-colors" vid="161"></div>
+                        
+                        <div class="blueprint-panel p-6 md:p-8" vid="162">
+                            <div class="crosshair ch-tl" vid="163"></div><div class="crosshair ch-tr" vid="164"></div><div class="crosshair ch-bl" vid="165"></div><div class="crosshair ch-br" vid="166"></div>
+                            
+                            <div class="flex items-center justify-between border-b border-blueprint-accent/20 pb-4 mb-4" vid="167">
+                                <h3 class="font-mono text-xl text-white tracking-wide group-hover:text-blueprint-accent transition-colors" vid="168">[Attribute Name 4]</h3>
+                                <span class="font-mono text-xs text-slate-500" vid="169">ID: QA-04</span>
+                            </div>
+                            
+                            <p class="text-sm text-slate-400 font-light mb-6" vid="170">
+                                <span class="text-slate-500 font-mono text-xs mr-2" vid="171">WHY_IT_MATTERS:</span>
+                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
+                            </p>
+
+                            <div class="bg-navy-900/50 border border-blueprint-accent/20 relative overflow-hidden" vid="172">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-blueprint-dark/40" vid="173"></div>
+                                <div class="p-4 border-b border-blueprint-accent/10 bg-blueprint-dark/5" vid="174">
+                                    <h4 class="font-mono text-xs tracking-widest text-blueprint-accent uppercase" vid="175">Quality Attribute Scenario</h4>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-blueprint-accent/10" vid="176">
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="177">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="178">Source</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="179">[Source Entity / Actor]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="180">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="181">Stimulus</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="182">[Triggering Event or Condition]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="183">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="184">Environment</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="185">[Operational State / Condition]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 hover:bg-navy-800/80 transition-colors" vid="186">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="187">Artifact</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="188">[Target Component / System]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors border-t border-blueprint-accent/10" vid="189">
+                                        <span class="font-mono text-[10px] text-slate-500 uppercase" vid="190">Response</span>
+                                        <span class="font-mono text-sm text-slate-200" vid="191">[System's Expected Behavior or Action]</span>
+                                    </div>
+                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2 hover:bg-navy-800/80 transition-colors" vid="192">
+                                        <span class="font-mono text-[10px] text-blueprint-accent/70 uppercase" vid="193">Response Measure</span>
+                                        <span class="font-mono text-sm text-blueprint-accent" vid="194">[Quantifiable Metric e.g., Scale in &lt; 1m]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="lg:col-span-4 lg:sticky lg:top-24 h-fit" vid="195">
+                <div class="flex items-center gap-3 mb-10 border-b border-blueprint-accent/20 pb-4" vid="196">
+                    <svg class="w-4 h-4 text-blueprint-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" vid="197"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 4" vid="198"></circle></svg>
+                    <h2 class="font-mono text-sm tracking-[0.15em] text-white uppercase" vid="199">Attribute Comparison</h2>
+                </div>
+
+                <div class="blueprint-panel p-6 w-full flex flex-col items-center" vid="200">
+                    <div class="crosshair ch-tl" vid="201"></div><div class="crosshair ch-tr" vid="202"></div><div class="crosshair ch-bl" vid="203"></div><div class="crosshair ch-br" vid="204"></div>
+                    
+                    <div class="w-full text-center mb-6" vid="205">
+                        <span class="font-mono text-xs text-slate-400" vid="206">PRIORITY MATRIX (PLACEHOLDER)</span>
+                    </div>
+
+                    
+                    <div class="relative w-full aspect-square max-w-[300px]" vid="207">
+                        
+                        <div class="absolute inset-0 bg-blueprint-accent/5 rounded-full animate-pulse" style="animation-duration: 4s;" vid="208"></div>
+                        
+                        <svg viewBox="0 0 400 400" class="w-full h-full text-blueprint-accent drop-shadow-[0_0_5px_rgba(0,240,255,0.3)]" vid="209">
+                            
+                            
+                            <polygon points="200,50 330,125 330,275 200,350 70,275 70,125" fill="none" stroke="rgba(0, 240, 255, 0.1)" stroke-width="1" vid="210"></polygon>
+                            <polygon points="200,80 304,140 304,260 200,320 96,260 96,140" fill="none" stroke="rgba(0, 240, 255, 0.1)" stroke-width="1" vid="211"></polygon>
+                            <polygon points="200,110 278,155 278,245 200,290 122,245 122,155" fill="none" stroke="rgba(0, 240, 255, 0.2)" stroke-width="1" vid="212"></polygon>
+                            <polygon points="200,140 252,170 252,230 200,260 148,230 148,170" fill="none" stroke="rgba(0, 240, 255, 0.1)" stroke-width="1" vid="213"></polygon>
+                            <polygon points="200,170 226,185 226,215 200,230 174,215 174,185" fill="none" stroke="rgba(0, 240, 255, 0.1)" stroke-width="1" vid="214"></polygon>
+                            
+                            
+                            <line x1="200" y1="200" x2="200" y2="50" stroke="rgba(0, 240, 255, 0.3)" stroke-width="1" vid="215"></line>
+                            <line x1="200" y1="200" x2="330" y2="125" stroke="rgba(0, 240, 255, 0.3)" stroke-width="1" vid="216"></line>
+                            <line x1="200" y1="200" x2="330" y2="275" stroke="rgba(0, 240, 255, 0.3)" stroke-width="1" vid="217"></line>
+                            <line x1="200" y1="200" x2="200" y2="350" stroke="rgba(0, 240, 255, 0.3)" stroke-width="1" vid="218"></line>
+                            <line x1="200" y1="200" x2="70" y2="275" stroke="rgba(0, 240, 255, 0.3)" stroke-width="1" vid="219"></line>
+                            <line x1="200" y1="200" x2="70" y2="125" stroke="rgba(0, 240, 255, 0.3)" stroke-width="1" vid="220"></line>
+
+                            
+                            <polygon points="200,80 304,140 278,245 200,260 122,245 122,155" fill="rgba(0, 240, 255, 0.15)" stroke="#00f0ff" stroke-width="2" stroke-linejoin="round" vid="221"></polygon>
+                            
+                            
+                            <circle cx="200" cy="80" r="4" fill="#00f0ff" vid="222"></circle>
+                            <circle cx="304" cy="140" r="4" fill="#00f0ff" vid="223"></circle>
+                            <circle cx="278" cy="245" r="4" fill="#00f0ff" vid="224"></circle>
+                            <circle cx="200" cy="260" r="4" fill="#00f0ff" vid="225"></circle>
+                            <circle cx="122" cy="245" r="4" fill="#00f0ff" vid="226"></circle>
+                            <circle cx="122" cy="155" r="4" fill="#00f0ff" vid="227"></circle>
+
+                            
+                            <text x="200" y="35" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0" text-anchor="middle" vid="228">[ATTR 1]</text>
+                            <text x="350" y="125" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0" text-anchor="start" vid="229">[ATTR 2]</text>
+                            <text x="350" y="285" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0" text-anchor="start" vid="230">[ATTR 3]</text>
+                            <text x="200" y="375" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0" text-anchor="middle" vid="231">[ATTR 4]</text>
+                            <text x="50" y="285" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0" text-anchor="end" vid="232">[ATTR 5]</text>
+                            <text x="50" y="125" font-family="JetBrains Mono, monospace" font-size="12" fill="#e2e8f0" text-anchor="end" vid="233">[ATTR 6]</text>
+                        </svg>
+                    </div>
+
+                    <div class="mt-8 border-t border-blueprint-accent/20 w-full pt-4" vid="234">
+                        <ul class="space-y-2 font-mono text-xs text-slate-400" vid="235">
+                            <li class="flex justify-between border-b border-navy-700 pb-1" vid="236"><span vid="237">Target Profile:</span> <span class="text-blueprint-accent" vid="238">Mission Critical</span></li>
+                            <li class="flex justify-between border-b border-navy-700 pb-1" vid="239"><span vid="240">Trade-off Focus:</span> <span class="text-slate-200" vid="241">[Attr 1] vs [Attr 2]</span></li>
+                            <li class="flex justify-between pb-1" vid="242"><span vid="243">System State:</span> <span class="text-slate-200" vid="244">Steady &amp; Peak</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <nav class="mt-32 pt-8 border-t border-blueprint-accent/20 grid grid-cols-1 sm:grid-cols-2 gap-6" vid="245">
+            <a href="#" class="blueprint-panel group p-6 flex flex-col items-start hover:bg-blueprint-accent/5" vid="246">
+                <div class="crosshair ch-tl" vid="247"></div><div class="crosshair ch-tr" vid="248"></div><div class="crosshair ch-bl" vid="249"></div><div class="crosshair ch-br" vid="250"></div>
+                <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase mb-2 group-hover:text-blueprint-accent/70 transition-colors" vid="251">Previous Node</span>
+                <div class="flex items-center gap-3" vid="252">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-slate-400 group-hover:text-blueprint-accent transition-colors group-hover:-translate-x-1 duration-300" vid="253"><path d="M19 12H5M5 12L12 19M5 12L12 5" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vid="254"></path></svg>
+                    <span class="font-mono text-sm sm:text-base text-slate-200 group-hover:text-white" vid="255">Architecture Overview</span>
+                </div>
+            </a>
+            <a href="#" class="blueprint-panel group p-6 flex flex-col items-end hover:bg-blueprint-accent/5 text-right" vid="256">
+                <div class="crosshair ch-tl" vid="257"></div><div class="crosshair ch-tr" vid="258"></div><div class="crosshair ch-bl" vid="259"></div><div class="crosshair ch-br" vid="260"></div>
+                <span class="font-mono text-[10px] text-slate-500 tracking-widest uppercase mb-2 group-hover:text-blueprint-accent/70 transition-colors" vid="261">Next Node</span>
+                <div class="flex items-center gap-3 justify-end" vid="262">
+                    <span class="font-mono text-sm sm:text-base text-slate-200 group-hover:text-white" vid="263">System Design</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-slate-400 group-hover:text-blueprint-accent transition-colors group-hover:translate-x-1 duration-300" vid="264"><path d="M5 12h14M19 12l-7 7M19 12l-7-7" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vid="265"></path></svg>
+                </div>
+            </a>
+        </nav>
+
+    </main>
+
+    
+    <footer class="w-full border-t border-blueprint-accent/10 bg-navy-900/90 mt-auto backdrop-blur-sm relative z-10" vid="266">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[11px] text-slate-500 tracking-wider" vid="267">
+            <div class="flex items-center gap-4" vid="268">
+                <span class="text-blueprint-accent/70" vid="269">SE322</span>
+                <span class="w-1 h-1 bg-blueprint-accent/30 rounded-full" vid="270"></span>
+                <span vid="271">Software Design &amp; Architecture</span>
+            </div>
+            <div class="flex items-center gap-4" vid="272">
+                <span vid="273">Prince Sultan University</span>
+                <span class="hidden md:inline w-px h-3 bg-blueprint-accent/20" vid="274"></span>
+                <span vid="275">Academic Project — 2026</span>
+            </div>
+        </div>
+    </footer>
+
+</body></html>

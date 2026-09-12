@@ -1,0 +1,59 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # Adds the "Run workflow" button in the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check internal links
+        run: |
+          python3 - <<'EOF'
+          import pathlib, re, sys
+          root = pathlib.Path("site")
+          missing = []
+          for page in root.glob("*.html"):
+              html = re.sub(r"<!--.*?-->", "", page.read_text(), flags=re.S)
+              for ref in re.findall(r'(?:href|src)="(?![a-z]+:|#)([^"#?]+)', html):
+                  if ref.startswith("assets/documents/"):
+                      continue  # documents are added later by the team
+                  if not (root / ref).exists():
+                      missing.append(f"{page.name}: {ref}")
+          print("\n".join(missing) or "All internal links resolve.")
+          sys.exit(1 if missing else 0)
+          EOF
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

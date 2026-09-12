@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development View | SE322 Digital Blueprint</title>
+    <meta name="description" content="Development view: component and package diagrams, layers, modules and technology stack.">
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="development-view" class="font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-100">
+
+    <div id="site-header"></div>
+    <div id="view-tabs"></div>
+
+    <main class="flex-grow">
+
+        <!-- Hero -->
+        <section class="max-w-7xl mx-auto px-6 pt-16 pb-14">
+            <div class="flex flex-col gap-6">
+                <div class="flex items-center gap-3 font-mono text-xs text-cyan-500 tracking-[0.2em] uppercase">
+                    <span class="w-1.5 h-1.5 border border-cyan-400 rotate-45"></span>Architecture / 4+1 / View 04
+                </div>
+                <h1 class="font-mono text-3xl sm:text-4xl md:text-5xl font-light tracking-tighter text-white flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span class="text-cyan-400 font-normal">/</span>ARCHITECTURE
+                    <span class="text-cyan-500/30">/</span><span class="font-bold glow-text">DEVELOPMENT VIEW</span>
+                </h1>
+                <div class="max-w-3xl pl-6 border-l border-cyan-500/30 relative">
+                    <div class="absolute -left-[3px] top-0 w-1.5 h-1.5 bg-cyan-400"></div>
+                    <p class="text-slate-400 text-base md:text-lg leading-relaxed font-light">
+                        [Editable Placeholder] The Development View describes the static organization of the software in its development environment — components, packages, layers and their dependencies — supporting implementation, reuse and team work allocation.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-widest">
+                    <span class="px-2 py-1 border border-cyan-500/20 text-slate-400">Stakeholders: <span class="text-cyan-300">Programmers, Managers</span></span>
+                    <span class="px-2 py-1 border border-cyan-500/20 text-slate-400">Concern: <span class="text-cyan-300">Software Management</span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FIG 1.0 Component diagram -->
+        <section class="max-w-7xl mx-auto px-6 mb-12">
+            <figure class="panel p-1">
+                <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
+                <div class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center justify-between">
+                    <div class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400 flex items-center gap-3">
+                        <i class="ph ph-cube text-base text-cyan-500/70"></i>COMPONENT_DIAGRAM.UML
+                    </div>
+                    <div class="flex gap-2"><span class="w-1.5 h-1.5 bg-cyan-500/20"></span><span class="w-1.5 h-1.5 bg-cyan-500/50"></span><span class="w-1.5 h-1.5 bg-cyan-400"></span></div>
+                </div>
+                <div class="diagram-canvas h-[320px] md:h-[480px]">
+                    <!-- Replace with <img src="assets/diagrams/component-diagram.png" alt="Component diagram"> -->
+                    <div class="diagram-placeholder">
+                        <i class="ph ph-image text-4xl text-cyan-500/50"></i>
+                        [Insert Component Diagram]
+                    </div>
+                </div>
+                <figcaption class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed">
+                    <span class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0">FIG 1.0</span>
+                    <span>[Editable description: Main software components, their provided/required interfaces and dependencies.]</span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <!-- FIG 2.0 Package diagram -->
+        <section class="max-w-7xl mx-auto px-6 mb-20">
+            <figure class="panel p-1">
+                <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
+                <div class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center justify-between">
+                    <div class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400 flex items-center gap-3">
+                        <i class="ph ph-package text-base text-cyan-500/70"></i>PACKAGE_DIAGRAM.UML
+                    </div>
+                    <div class="flex gap-2"><span class="w-1.5 h-1.5 bg-cyan-500/20"></span><span class="w-1.5 h-1.5 bg-cyan-500/50"></span><span class="w-1.5 h-1.5 bg-cyan-400"></span></div>
+                </div>
+                <div class="diagram-canvas h-[320px] md:h-[420px]">
+                    <!-- Replace with <img src="assets/diagrams/package-diagram.png" alt="Package diagram"> -->
+                    <div class="diagram-placeholder">
+                        <i class="ph ph-image text-4xl text-cyan-500/50"></i>
+                        [Insert Package Diagram]
+                    </div>
+                </div>
+                <figcaption class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed">
+                    <span class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0">FIG 2.0</span>
+                    <span>[Editable description: Package organization and allowed dependencies between packages.]</span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <!-- Layers & modules -->
+        <section class="max-w-7xl mx-auto px-6 mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-8 h-px bg-cyan-500"></div>
+                <h2 class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase">Layers &amp; Modules</h2>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <div class="panel panel-hover p-5 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-[10px] text-cyan-500">L1</span>
+                        <span class="font-mono text-sm text-white uppercase tracking-wide">[Presentation]</span>
+                    </div>
+                    <p class="md:col-span-2 text-sm text-slate-400 font-light">[Responsibility of this layer.]</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end">
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                    </div>
+                </div>
+                <div class="flex justify-center"><i class="ph ph-arrow-down text-cyan-700"></i></div>
+                <div class="panel panel-hover p-5 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-[10px] text-cyan-500">L2</span>
+                        <span class="font-mono text-sm text-white uppercase tracking-wide">[Application]</span>
+                    </div>
+                    <p class="md:col-span-2 text-sm text-slate-400 font-light">[Responsibility of this layer.]</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end">
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                    </div>
+                </div>
+                <div class="flex justify-center"><i class="ph ph-arrow-down text-cyan-700"></i></div>
+                <div class="panel panel-hover p-5 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-[10px] text-cyan-500">L3</span>
+                        <span class="font-mono text-sm text-white uppercase tracking-wide">[Domain]</span>
+                    </div>
+                    <p class="md:col-span-2 text-sm text-slate-400 font-light">[Responsibility of this layer.]</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end">
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                    </div>
+                </div>
+                <div class="flex justify-center"><i class="ph ph-arrow-down text-cyan-700"></i></div>
+                <div class="panel panel-hover p-5 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-[10px] text-cyan-500">L4</span>
+                        <span class="font-mono text-sm text-white uppercase tracking-wide">[Infrastructure]</span>
+                    </div>
+                    <p class="md:col-span-2 text-sm text-slate-400 font-light">[Responsibility of this layer.]</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end">
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                        <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300">[module]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech stack + repo structure -->
+        <section class="max-w-7xl mx-auto px-6 mb-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-8 h-px bg-cyan-500"></div>
+                    <h2 class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase">Technology Stack</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-px bg-cyan-500/10 border border-cyan-500/20">
+                    <div class="bg-[#060b13] p-4 flex flex-col gap-1"><span class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"><i class="ph ph-browser"></i>Frontend</span><span class="font-mono text-sm text-slate-200">[Technology]</span></div>
+                    <div class="bg-[#060b13] p-4 flex flex-col gap-1"><span class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"><i class="ph ph-gear"></i>Backend</span><span class="font-mono text-sm text-slate-200">[Technology]</span></div>
+                    <div class="bg-[#060b13] p-4 flex flex-col gap-1"><span class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"><i class="ph ph-database"></i>Database</span><span class="font-mono text-sm text-slate-200">[Technology]</span></div>
+                    <div class="bg-[#060b13] p-4 flex flex-col gap-1"><span class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"><i class="ph ph-envelope-simple"></i>Messaging</span><span class="font-mono text-sm text-slate-200">[Technology]</span></div>
+                    <div class="bg-[#060b13] p-4 flex flex-col gap-1"><span class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"><i class="ph ph-git-branch"></i>CI / CD</span><span class="font-mono text-sm text-slate-200">[Technology]</span></div>
+                    <div class="bg-[#060b13] p-4 flex flex-col gap-1"><span class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"><i class="ph ph-test-tube"></i>Testing</span><span class="font-mono text-sm text-slate-200">[Technology]</span></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-8 h-px bg-cyan-500"></div>
+                    <h2 class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase">Source Structure</h2>
+                </div>
+                <div class="panel overflow-x-auto">
+                    <div class="px-4 py-2 border-b border-cyan-500/20 bg-cyan-950/20 font-mono text-[10px] text-cyan-400 tracking-widest">TREE.TXT</div>
+<pre class="p-5 font-mono text-xs text-slate-400 leading-6">[project-root]/
+├── <span class="text-cyan-300">[presentation]</span>/
+│   └── [module]/
+├── <span class="text-cyan-300">[application]</span>/
+│   └── [module]/
+├── <span class="text-cyan-300">[domain]</span>/
+│   └── [module]/
+├── <span class="text-cyan-300">[infrastructure]</span>/
+│   └── [module]/
+└── tests/</pre>
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-6 mb-16">
+            <div id="site-pager"></div>
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="assets/js/site.js"></script>
+</body>
+</html>

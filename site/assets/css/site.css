@@ -1,0 +1,230 @@
+/* ==========================================================================
+   SE322 Digital Blueprint — shared styles
+   ========================================================================== */
+
+body {
+    background-color: #030712;
+    color: #e2e8f0;
+    overflow-x: hidden;
+}
+
+/* Blueprint grid */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center top;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* CRT scanlines */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.3;
+}
+
+.grid-dense {
+    background-color: rgba(6, 11, 19, 0.4);
+    background-image:
+        linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.bg-blueprint-dots {
+    background-image: radial-gradient(circle at 2px 2px, rgba(6, 182, 212, 0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Panels
+   -------------------------------------------------------------------------- */
+.panel {
+    position: relative;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    background: rgba(6, 11, 19, 0.6);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.panel-hover:hover {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.05) inset;
+}
+
+.node-glow {
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+.glow-text {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+/* Plus-shaped crosshair markers:  <div class="ch ch-tl"></div> */
+.ch {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    pointer-events: none;
+    z-index: 5;
+}
+.ch::before,
+.ch::after {
+    content: "";
+    position: absolute;
+    background: #00f0ff;
+    opacity: 0.7;
+}
+.ch::before { top: 4px; left: 0; width: 100%; height: 1px; }
+.ch::after  { top: 0; left: 4px; width: 1px; height: 100%; }
+.ch-tl { top: -5px; left: -5px; }
+.ch-tr { top: -5px; right: -5px; }
+.ch-bl { bottom: -5px; left: -5px; }
+.ch-br { bottom: -5px; right: -5px; }
+
+/* Bracket corners:  <div class="corner corner-tl"></div> */
+.corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    z-index: 5;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.corner-tl { top: -1px; left: -1px; border-top: 1px solid #00f0ff; border-left: 1px solid #00f0ff; }
+.corner-tr { top: -1px; right: -1px; border-top: 1px solid #00f0ff; border-right: 1px solid #00f0ff; }
+.corner-bl { bottom: -1px; left: -1px; border-bottom: 1px solid #00f0ff; border-left: 1px solid #00f0ff; }
+.corner-br { bottom: -1px; right: -1px; border-bottom: 1px solid #00f0ff; border-right: 1px solid #00f0ff; }
+.group:hover > .corner { width: 12px; height: 12px; }
+
+/* Corner accents drawn with pseudo-elements */
+.tech-border { position: relative; }
+.tech-border::before,
+.tech-border::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #06b6d4;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+.tech-border::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.tech-border::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.tech-border:hover::before,
+.tech-border:hover::after { width: 14px; height: 14px; border-color: #22d3ee; }
+
+/* --------------------------------------------------------------------------
+   Diagram slots
+   -------------------------------------------------------------------------- */
+.diagram-canvas {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #060b13;
+}
+.diagram-canvas::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+.diagram-canvas img {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    padding: 1rem;
+    cursor: zoom-in;
+}
+.diagram-placeholder {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+    padding: 2rem 2.5rem;
+    border: 1px dashed rgba(0, 240, 255, 0.4);
+    background: rgba(3, 7, 18, 0.8);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #67e8f9;
+}
+
+/* Lightbox for diagram images */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background: rgba(3, 7, 18, 0.92);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    cursor: zoom-out;
+}
+.lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    background: #060b13;
+}
+
+/* --------------------------------------------------------------------------
+   Animation helpers
+   -------------------------------------------------------------------------- */
+.flow-line {
+    stroke-dasharray: 6 6;
+    animation: dashFlow 20s linear infinite;
+}
+@keyframes dashFlow {
+    to { stroke-dashoffset: -200; }
+}
+
+.scroll-mt-header { scroll-margin-top: 6rem; }
+
+/* --------------------------------------------------------------------------
+   Scrollbars
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #030712; border-left: 1px solid rgba(0, 240, 255, 0.1); }
+::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.25); }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 240, 255, 0.5); }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -1,0 +1,559 @@
+<html lang="en" class="scroll-smooth" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">SE322 - Design Patterns</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="6">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="7">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet" vid="8">
+    
+    <script vid="9">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        blueprint: {
+                            bg: '#030712',
+                            panel: '#060b13',
+                            line: 'rgba(0, 240, 255, 0.1)',
+                            accent: '#00f0ff',
+                            text: '#cbd5e1'
+                        }
+                    },
+                    animation: {
+                        'scanline': 'scanline 8s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        scanline: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style vid="10">
+        body {
+            background-color: #030712;
+            color: #cbd5e1;
+        }
+
+        
+        .bg-blueprint-grid {
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center top;
+        }
+
+        
+        .corner-tl { top: -1px; left: -1px; border-top: 1px solid #00f0ff; border-left: 1px solid #00f0ff; }
+        .corner-tr { top: -1px; right: -1px; border-top: 1px solid #00f0ff; border-right: 1px solid #00f0ff; }
+        .corner-bl { bottom: -1px; left: -1px; border-bottom: 1px solid #00f0ff; border-left: 1px solid #00f0ff; }
+        .corner-br { bottom: -1px; right: -1px; border-bottom: 1px solid #00f0ff; border-right: 1px solid #00f0ff; }
+        .corner { position: absolute; width: 8px; height: 8px; z-index: 10; transition: all 0.3s ease; }
+        
+        .blueprint-panel:hover .corner {
+            width: 12px;
+            height: 12px;
+            border-color: #22d3ee;
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+            border-left: 1px solid rgba(0, 240, 255, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 240, 255, 0.4);
+        }
+
+        
+        .scanline-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 240, 255, 0.02) 51%, transparent 100%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen w-full relative selection:bg-cyan-500/30 selection:text-cyan-50" vid="11">
+    
+    
+    <div class="fixed inset-0 bg-blueprint-grid pointer-events-none z-[-1]" vid="12"></div>
+    <div class="scanline-effect" vid="13"></div>
+    <div class="fixed inset-0 bg-gradient-to-b from-[#030712]/50 via-transparent to-[#030712]/80 pointer-events-none z-[-1]" vid="14"></div>
+
+    
+    <nav class="sticky top-0 z-40 w-full border-b border-cyan-500/20 bg-[#030712]/80 backdrop-blur-md" vid="15">
+        <div class="w-full max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between" vid="16">
+            <div class="flex items-center gap-4" vid="17">
+                <div class="w-8 h-8 relative border border-cyan-500/50 flex items-center justify-center" vid="18">
+                    <span class="font-mono text-cyan-400 font-bold text-xs" vid="19">SYS</span>
+                    <div class="corner corner-tl w-1 h-1" vid="20"></div>
+                    <div class="corner corner-br w-1 h-1" vid="21"></div>
+                </div>
+                <span class="font-mono text-slate-200 tracking-wider font-semibold text-sm" vid="22">SE322</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest" vid="23">
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors" vid="24">Home</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors" vid="25">Project</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors" vid="26">Architecture</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors" vid="27">Quality</a>
+                <div class="relative group" vid="28">
+                    <a href="#" class="text-cyan-400 font-semibold transition-colors flex items-center gap-2" vid="29">
+                        <span class="w-1.5 h-1.5 bg-cyan-400 rounded-none animate-pulse-slow" vid="30"></span>
+                        Design
+                    </a>
+                    <div class="absolute -bottom-[21px] left-0 w-full h-0.5 bg-cyan-400" vid="31"></div>
+                </div>
+                <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors" vid="32">Documentation</a>
+            </div>
+
+            <button class="md:hidden text-cyan-400 border border-cyan-500/30 p-2 hover:bg-cyan-950/30 transition-colors" vid="33">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" vid="34"><line x1="3" y1="12" x2="21" y2="12" vid="35"></line><line x1="3" y1="6" x2="21" y2="6" vid="36"></line><line x1="3" y1="18" x2="21" y2="18" vid="37"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="w-full max-w-[1400px] mx-auto px-6 py-12 md:py-20 flex flex-col gap-24" vid="38">
+        
+        
+        <section class="relative w-full" vid="39">
+            <div class="flex flex-col gap-6" vid="40">
+                <div class="flex items-center gap-3 font-mono text-cyan-500/70 text-sm" vid="41">
+                    <span vid="42">&gt;</span>
+                    <span class="uppercase tracking-widest" vid="43">/System/Design/Design_Patterns</span>
+                </div>
+                
+                <h1 class="font-mono text-3xl md:text-5xl text-white font-light tracking-tight flex items-center gap-4" vid="44">
+                    DESIGN PATTERNS
+                    <span class="h-[1px] flex-grow bg-gradient-to-r from-cyan-500/50 to-transparent ml-4 hidden md:block" vid="45"></span>
+                </h1>
+                
+                <div class="relative p-6 border border-cyan-500/20 bg-cyan-950/5 max-w-4xl mt-4" vid="46">
+                    <div class="corner corner-tl" vid="47"></div>
+                    <div class="corner corner-tr" vid="48"></div>
+                    <div class="corner corner-bl" vid="49"></div>
+                    <div class="corner corner-br" vid="50"></div>
+                    
+                    <p class="font-sans text-slate-300 leading-relaxed text-lg" vid="51">
+                        [Editable placeholder: Design patterns provide reusable, documented solutions to common software design problems encountered during architectural development. This section outlines the specific patterns selected and applied within the SE322 project architecture, detailing their rationale, application context, and resulting structural benefits.]
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="relative w-full" vid="52">
+            <div class="flex items-center gap-4 mb-8" vid="53">
+                <h2 class="font-mono text-xl text-white uppercase tracking-widest" vid="54">Pattern Overview</h2>
+                <div class="h-[1px] flex-grow bg-cyan-500/20" vid="55"></div>
+            </div>
+
+            <div class="w-full overflow-x-auto" vid="56">
+                <div class="min-w-[800px] border border-cyan-500/20 bg-[#060b13] relative blueprint-panel" vid="57">
+                    <div class="corner corner-tl" vid="58"></div><div class="corner corner-tr" vid="59"></div>
+                    <div class="corner corner-bl" vid="60"></div><div class="corner corner-br" vid="61"></div>
+                    
+                    <div class="grid grid-cols-12 gap-4 p-4 border-b border-cyan-500/20 font-mono text-xs text-cyan-400 uppercase tracking-wider bg-cyan-950/20" vid="62">
+                        <div class="col-span-1" vid="63">ID</div>
+                        <div class="col-span-3" vid="64">Pattern Name</div>
+                        <div class="col-span-3" vid="65">Category</div>
+                        <div class="col-span-5" vid="66">Primary Application Context</div>
+                    </div>
+                    
+                    <div class="flex flex-col" vid="67">
+                        
+                        <div class="grid grid-cols-12 gap-4 p-4 border-b border-cyan-500/10 hover:bg-cyan-500/5 transition-colors font-mono text-sm group cursor-default" vid="68">
+                            <div class="col-span-1 text-slate-500 group-hover:text-cyan-400 transition-colors" vid="69">DP-01</div>
+                            <div class="col-span-3 text-slate-200" vid="70">[Pattern Name Placeholder]</div>
+                            <div class="col-span-3 text-slate-400" vid="71">[Category Placeholder]</div>
+                            <div class="col-span-5 text-slate-400 truncate" vid="72">[Brief Context Summary Placeholder]</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-12 gap-4 p-4 border-b border-cyan-500/10 hover:bg-cyan-500/5 transition-colors font-mono text-sm group cursor-default" vid="73">
+                            <div class="col-span-1 text-slate-500 group-hover:text-cyan-400 transition-colors" vid="74">DP-02</div>
+                            <div class="col-span-3 text-slate-200" vid="75">[Pattern Name Placeholder]</div>
+                            <div class="col-span-3 text-slate-400" vid="76">[Category Placeholder]</div>
+                            <div class="col-span-5 text-slate-400 truncate" vid="77">[Brief Context Summary Placeholder]</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-12 gap-4 p-4 border-b border-cyan-500/10 hover:bg-cyan-500/5 transition-colors font-mono text-sm group cursor-default" vid="78">
+                            <div class="col-span-1 text-slate-500 group-hover:text-cyan-400 transition-colors" vid="79">DP-03</div>
+                            <div class="col-span-3 text-slate-200" vid="80">[Pattern Name Placeholder]</div>
+                            <div class="col-span-3 text-slate-400" vid="81">[Category Placeholder]</div>
+                            <div class="col-span-5 text-slate-400 truncate" vid="82">[Brief Context Summary Placeholder]</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="relative w-full" vid="83">
+            <div class="flex items-center gap-4 mb-12" vid="84">
+                <h2 class="font-mono text-xl text-white uppercase tracking-widest" vid="85">Selected Design Patterns</h2>
+                <div class="h-[1px] flex-grow bg-cyan-500/20" vid="86"></div>
+            </div>
+
+            
+            <div class="relative pl-8 md:pl-16 ml-2 md:ml-4 flex flex-col gap-24" vid="87">
+                
+                
+                <div class="absolute top-8 bottom-12 left-0 border-l border-dashed border-cyan-500/30" vid="88"></div>
+
+                
+                <div class="relative w-full" vid="89">
+                    
+                    <div class="absolute -left-[37px] md:-left-[69px] top-6 w-4 h-4 border border-cyan-400 bg-[#030712] flex items-center justify-center z-10" vid="90">
+                        <div class="w-1.5 h-1.5 bg-cyan-400 animate-pulse-slow" vid="91"></div>
+                    </div>
+                    
+                    <div class="absolute -left-[37px] md:-left-[69px] top-8 w-8 md:w-16 border-t border-dashed border-cyan-500/30" vid="92"></div>
+
+                    
+                    <article class="relative w-full border border-cyan-500/20 bg-[#060b13] border-l-[3px] border-l-cyan-500 p-6 md:p-8 blueprint-panel group hover:shadow-[0_0_20px_rgba(0,240,255,0.05)] transition-all duration-300" vid="93">
+                        <div class="corner corner-tr" vid="94"></div>
+                        <div class="corner corner-br" vid="95"></div>
+                        
+                        
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-cyan-500/10" vid="96">
+                            <div vid="97">
+                                <span class="font-mono text-xs text-cyan-500 tracking-widest block mb-2" vid="98">NODE // DP-01</span>
+                                <h3 class="font-mono text-2xl text-white" vid="99">[Design Pattern Name Placeholder]</h3>
+                            </div>
+                            <div class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50" vid="100">
+                                CLASSIFICATION: [Category]
+                            </div>
+                        </div>
+
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12" vid="101">
+                            
+                            
+                            <div class="lg:col-span-7 flex flex-col gap-8" vid="102">
+                                
+                                <div vid="103">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="104">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="105"></span> Problem Statement
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="106">
+                                        [Editable placeholder: Describe the specific architectural or design problem encountered within the project that necessitated the use of this pattern. Explain the forces or constraints that made a standardized solution necessary.]
+                                    </p>
+                                </div>
+
+                                
+                                <div vid="107">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="108">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="109"></span> Selection Rationale
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="110">
+                                        [Editable placeholder: Explain why this particular pattern was chosen over alternatives. Detail how it aligns with the project's quality attributes, architectural style, and specific domain requirements.]
+                                    </p>
+                                </div>
+
+                                
+                                <div vid="111">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="112">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="113"></span> Project Application
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="114">
+                                        [Editable placeholder: Detail exactly how the pattern is implemented in the codebase or system architecture. Mention specific modules, classes, or components that participate in this pattern.]
+                                    </p>
+                                </div>
+
+                                
+                                <div class="bg-cyan-950/10 border border-cyan-500/10 p-5 mt-2" vid="115">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3" vid="116">Expected Benefits</h4>
+                                    <ul class="font-sans text-slate-300 text-sm space-y-2 list-none" vid="117">
+                                        <li class="flex items-start gap-2" vid="118">
+                                            <span class="text-cyan-500 mt-0.5" vid="119">▹</span>
+                                            <span vid="120">[Editable placeholder: Benefit 1 resulting from application.]</span>
+                                        </li>
+                                        <li class="flex items-start gap-2" vid="121">
+                                            <span class="text-cyan-500 mt-0.5" vid="122">▹</span>
+                                            <span vid="123">[Editable placeholder: Benefit 2 resulting from application.]</span>
+                                        </li>
+                                        <li class="flex items-start gap-2" vid="124">
+                                            <span class="text-cyan-500 mt-0.5" vid="125">▹</span>
+                                            <span vid="126">[Editable placeholder: Benefit 3 resulting from application.]</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            
+                            <div class="lg:col-span-5" vid="127">
+                                <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="128">
+                                    <span class="w-1 h-1 bg-cyan-500" vid="129"></span> Structural Diagram
+                                </h4>
+                                
+                                <div class="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[calc(100%-28px)] border border-cyan-500/30 bg-[#030712] flex items-center justify-center overflow-hidden group/diagram cursor-crosshair" vid="130">
+                                    
+                                    <div class="absolute inset-0 bg-blueprint-grid opacity-30" vid="131"></div>
+                                    
+                                    <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-cyan-500/50" vid="132"></div>
+                                    <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-cyan-500/50" vid="133"></div>
+                                    <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-cyan-500/50" vid="134"></div>
+                                    <div class="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-cyan-500/50" vid="135"></div>
+                                    
+                                    
+                                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-500/40 hidden group-hover/diagram:block animate-scanline" vid="136"></div>
+
+                                    <div class="relative z-10 border border-cyan-500/40 bg-[#060b13] px-6 py-4 flex flex-col items-center gap-3 backdrop-blur-sm shadow-[0_0_15px_rgba(0,240,255,0.1)]" vid="137">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vid="138"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" vid="139"></rect><line x1="9" y1="3" x2="9" y2="21" vid="140"></line><path d="M13 8h4" vid="141"></path><path d="M13 12h4" vid="142"></path></svg>
+                                        <span class="font-mono text-cyan-400 text-xs tracking-wider text-center" vid="143">[INSERT UML DIAGRAM<br vid="144">PLACEHOLDER]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                
+                <div class="relative w-full" vid="145">
+                    
+                    <div class="absolute -left-[37px] md:-left-[69px] top-6 w-4 h-4 border border-cyan-400 bg-[#030712] flex items-center justify-center z-10" vid="146">
+                        <div class="w-1.5 h-1.5 bg-cyan-400 animate-pulse-slow" vid="147"></div>
+                    </div>
+                    
+                    <div class="absolute -left-[37px] md:-left-[69px] top-8 w-8 md:w-16 border-t border-dashed border-cyan-500/30" vid="148"></div>
+
+                    
+                    <article class="relative w-full border border-cyan-500/20 bg-[#060b13] border-l-[3px] border-l-cyan-500 p-6 md:p-8 blueprint-panel group hover:shadow-[0_0_20px_rgba(0,240,255,0.05)] transition-all duration-300" vid="149">
+                        <div class="corner corner-tr" vid="150"></div>
+                        <div class="corner corner-br" vid="151"></div>
+                        
+                        
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-cyan-500/10" vid="152">
+                            <div vid="153">
+                                <span class="font-mono text-xs text-cyan-500 tracking-widest block mb-2" vid="154">NODE // DP-02</span>
+                                <h3 class="font-mono text-2xl text-white" vid="155">[Design Pattern Name Placeholder]</h3>
+                            </div>
+                            <div class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50" vid="156">
+                                CLASSIFICATION: [Category]
+                            </div>
+                        </div>
+
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12" vid="157">
+                            
+                            <div class="lg:col-span-7 flex flex-col gap-8" vid="158">
+                                
+                                <div vid="159">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="160">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="161"></span> Problem Statement
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="162">
+                                        [Editable placeholder: Describe the specific architectural or design problem encountered within the project that necessitated the use of this pattern. Explain the forces or constraints that made a standardized solution necessary.]
+                                    </p>
+                                </div>
+                                
+                                <div vid="163">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="164">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="165"></span> Selection Rationale
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="166">
+                                        [Editable placeholder: Explain why this particular pattern was chosen over alternatives. Detail how it aligns with the project's quality attributes, architectural style, and specific domain requirements.]
+                                    </p>
+                                </div>
+                                
+                                <div vid="167">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="168">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="169"></span> Project Application
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="170">
+                                        [Editable placeholder: Detail exactly how the pattern is implemented in the codebase or system architecture. Mention specific modules, classes, or components that participate in this pattern.]
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-cyan-950/10 border border-cyan-500/10 p-5 mt-2" vid="171">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3" vid="172">Expected Benefits</h4>
+                                    <ul class="font-sans text-slate-300 text-sm space-y-2 list-none" vid="173">
+                                        <li class="flex items-start gap-2" vid="174">
+                                            <span class="text-cyan-500 mt-0.5" vid="175">▹</span>
+                                            <span vid="176">[Editable placeholder: Benefit 1 resulting from application.]</span>
+                                        </li>
+                                        <li class="flex items-start gap-2" vid="177">
+                                            <span class="text-cyan-500 mt-0.5" vid="178">▹</span>
+                                            <span vid="179">[Editable placeholder: Benefit 2 resulting from application.]</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="lg:col-span-5" vid="180">
+                                <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="181">
+                                    <span class="w-1 h-1 bg-cyan-500" vid="182"></span> Structural Diagram
+                                </h4>
+                                <div class="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[calc(100%-28px)] border border-cyan-500/30 bg-[#030712] flex items-center justify-center overflow-hidden group/diagram cursor-crosshair" vid="183">
+                                    <div class="absolute inset-0 bg-blueprint-grid opacity-30" vid="184"></div>
+                                    <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-cyan-500/50" vid="185"></div>
+                                    <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-cyan-500/50" vid="186"></div>
+                                    <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-cyan-500/50" vid="187"></div>
+                                    <div class="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-cyan-500/50" vid="188"></div>
+                                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-500/40 hidden group-hover/diagram:block animate-scanline" vid="189"></div>
+                                    <div class="relative z-10 border border-cyan-500/40 bg-[#060b13] px-6 py-4 flex flex-col items-center gap-3 backdrop-blur-sm shadow-[0_0_15px_rgba(0,240,255,0.1)]" vid="190">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vid="191"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" vid="192"></rect><line x1="9" y1="3" x2="9" y2="21" vid="193"></line><path d="M13 8h4" vid="194"></path><path d="M13 12h4" vid="195"></path></svg>
+                                        <span class="font-mono text-cyan-400 text-xs tracking-wider text-center" vid="196">[INSERT UML DIAGRAM<br vid="197">PLACEHOLDER]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                
+                <div class="relative w-full" vid="198">
+                    
+                    <div class="absolute -left-[37px] md:-left-[69px] top-6 w-4 h-4 border border-cyan-400 bg-[#030712] flex items-center justify-center z-10" vid="199">
+                        <div class="w-1.5 h-1.5 bg-cyan-400 animate-pulse-slow" vid="200"></div>
+                    </div>
+                    
+                    <div class="absolute -left-[37px] md:-left-[69px] top-8 w-8 md:w-16 border-t border-dashed border-cyan-500/30" vid="201"></div>
+
+                    
+                    <article class="relative w-full border border-cyan-500/20 bg-[#060b13] border-l-[3px] border-l-cyan-500 p-6 md:p-8 blueprint-panel group hover:shadow-[0_0_20px_rgba(0,240,255,0.05)] transition-all duration-300" vid="202">
+                        <div class="corner corner-tr" vid="203"></div>
+                        <div class="corner corner-br" vid="204"></div>
+                        
+                        
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-cyan-500/10" vid="205">
+                            <div vid="206">
+                                <span class="font-mono text-xs text-cyan-500 tracking-widest block mb-2" vid="207">NODE // DP-03</span>
+                                <h3 class="font-mono text-2xl text-white" vid="208">[Design Pattern Name Placeholder]</h3>
+                            </div>
+                            <div class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50" vid="209">
+                                CLASSIFICATION: [Category]
+                            </div>
+                        </div>
+
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12" vid="210">
+                            
+                            <div class="lg:col-span-7 flex flex-col gap-8" vid="211">
+                                
+                                <div vid="212">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="213">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="214"></span> Problem Statement
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="215">
+                                        [Editable placeholder: Describe the specific architectural or design problem encountered within the project that necessitated the use of this pattern. Explain the forces or constraints that made a standardized solution necessary.]
+                                    </p>
+                                </div>
+                                
+                                <div vid="216">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="217">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="218"></span> Selection Rationale
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="219">
+                                        [Editable placeholder: Explain why this particular pattern was chosen over alternatives. Detail how it aligns with the project's quality attributes, architectural style, and specific domain requirements.]
+                                    </p>
+                                </div>
+                                
+                                <div vid="220">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="221">
+                                        <span class="w-1 h-1 bg-cyan-500" vid="222"></span> Project Application
+                                    </h4>
+                                    <p class="font-sans text-slate-300 text-sm leading-relaxed" vid="223">
+                                        [Editable placeholder: Detail exactly how the pattern is implemented in the codebase or system architecture. Mention specific modules, classes, or components that participate in this pattern.]
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-cyan-950/10 border border-cyan-500/10 p-5 mt-2" vid="224">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3" vid="225">Expected Benefits</h4>
+                                    <ul class="font-sans text-slate-300 text-sm space-y-2 list-none" vid="226">
+                                        <li class="flex items-start gap-2" vid="227">
+                                            <span class="text-cyan-500 mt-0.5" vid="228">▹</span>
+                                            <span vid="229">[Editable placeholder: Benefit 1 resulting from application.]</span>
+                                        </li>
+                                        <li class="flex items-start gap-2" vid="230">
+                                            <span class="text-cyan-500 mt-0.5" vid="231">▹</span>
+                                            <span vid="232">[Editable placeholder: Benefit 2 resulting from application.]</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="lg:col-span-5" vid="233">
+                                <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2" vid="234">
+                                    <span class="w-1 h-1 bg-cyan-500" vid="235"></span> Structural Diagram
+                                </h4>
+                                <div class="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[calc(100%-28px)] border border-cyan-500/30 bg-[#030712] flex items-center justify-center overflow-hidden group/diagram cursor-crosshair" vid="236">
+                                    <div class="absolute inset-0 bg-blueprint-grid opacity-30" vid="237"></div>
+                                    <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-cyan-500/50" vid="238"></div>
+                                    <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-cyan-500/50" vid="239"></div>
+                                    <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-cyan-500/50" vid="240"></div>
+                                    <div class="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-cyan-500/50" vid="241"></div>
+                                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-500/40 hidden group-hover/diagram:block animate-scanline" vid="242"></div>
+                                    <div class="relative z-10 border border-cyan-500/40 bg-[#060b13] px-6 py-4 flex flex-col items-center gap-3 backdrop-blur-sm shadow-[0_0_15px_rgba(0,240,255,0.1)]" vid="243">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vid="244"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" vid="245"></rect><line x1="9" y1="3" x2="9" y2="21" vid="246"></line><path d="M13 8h4" vid="247"></path><path d="M13 12h4" vid="248"></path></svg>
+                                        <span class="font-mono text-cyan-400 text-xs tracking-wider text-center" vid="249">[INSERT UML DIAGRAM<br vid="250">PLACEHOLDER]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+        </section>
+
+        
+        <section class="w-full flex flex-col sm:flex-row justify-between items-center gap-6 pt-12 border-t border-cyan-500/20" vid="251">
+            <a href="#" class="relative px-6 py-3 border border-cyan-500/30 bg-[#060b13] hover:bg-cyan-950/30 hover:border-cyan-400 transition-all group w-full sm:w-auto blueprint-panel text-center sm:text-left" vid="252">
+                <div class="corner corner-tl" vid="253"></div><div class="corner corner-br" vid="254"></div>
+                <div class="font-mono text-[10px] text-cyan-600 mb-1" vid="255">PREVIOUS_NODE</div>
+                <div class="font-mono text-sm text-slate-300 group-hover:text-white flex items-center gap-2 justify-center sm:justify-start" vid="256">
+                    <span class="text-cyan-400" vid="257">&lt;-</span> Quality Attributes
+                </div>
+            </a>
+
+            <a href="#" class="relative px-6 py-3 border border-cyan-500/30 bg-[#060b13] hover:bg-cyan-950/30 hover:border-cyan-400 transition-all group w-full sm:w-auto blueprint-panel text-center sm:text-right" vid="258">
+                <div class="corner corner-tr" vid="259"></div><div class="corner corner-bl" vid="260"></div>
+                <div class="font-mono text-[10px] text-cyan-600 mb-1" vid="261">NEXT_NODE</div>
+                <div class="font-mono text-sm text-slate-300 group-hover:text-white flex items-center gap-2 justify-center sm:justify-end" vid="262">
+                    Documentation <span class="text-cyan-400" vid="263">-&gt;</span>
+                </div>
+            </a>
+        </section>
+
+    </main>
+
+    
+    <footer class="w-full border-t border-cyan-500/20 bg-[#030712] py-8 mt-auto relative z-10" vid="264">
+        <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500 tracking-wider" vid="265">
+            <div class="flex items-center gap-3" vid="266">
+                <span class="w-2 h-2 border border-cyan-500/50 rotate-45 inline-block" vid="267"></span>
+                <span vid="268">SE322 — Software Design &amp; Architecture</span>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center md:text-right" vid="269">
+                <span vid="270">Prince Sultan University</span>
+                <span class="hidden md:inline text-cyan-500/30" vid="271">|</span>
+                <span vid="272">Academic Project — 2026</span>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

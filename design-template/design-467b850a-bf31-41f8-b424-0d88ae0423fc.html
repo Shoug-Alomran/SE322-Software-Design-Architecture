@@ -1,0 +1,410 @@
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Architecture Overview - SE322 Digital Blueprint</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@100;400;500;700&amp;display=swap" rel="stylesheet" vid="7">
+    
+    
+    <script src="https://unpkg.com/@phosphor-icons/web" vid="8"></script>
+    
+    
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="9"></script>
+    
+    
+    <script vid="10">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        blueprint: {
+                            bg: '#030712',
+                            grid: 'rgba(0, 240, 255, 0.03)',
+                            accent: '#00f0ff',
+                            accentMuted: 'rgba(0, 240, 255, 0.2)',
+                            accentHover: '#22d3ee',
+                            textBase: '#e2e8f0',
+                            textMuted: '#94a3b8'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style vid="11">
+        body {
+            background-color: #030712;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        
+        .blueprint-bg {
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 40;
+        }
+
+        
+        .flow-line {
+            stroke-dasharray: 6 6;
+            animation: dashFlow 20s linear infinite;
+        }
+        
+        .flow-line-reverse {
+            stroke-dasharray: 6 6;
+            animation: dashFlowReverse 20s linear infinite;
+        }
+
+        @keyframes dashFlow {
+            to { stroke-dashoffset: -200; }
+        }
+        @keyframes dashFlowReverse {
+            to { stroke-dashoffset: 200; }
+        }
+
+        
+        .crosshair-corner {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            pointer-events: none;
+        }
+        .tl { top: -1px; left: -1px; border-top: 1px solid #00f0ff; border-left: 1px solid #00f0ff; }
+        .tr { top: -1px; right: -1px; border-top: 1px solid #00f0ff; border-right: 1px solid #00f0ff; }
+        .bl { bottom: -1px; left: -1px; border-bottom: 1px solid #00f0ff; border-left: 1px solid #00f0ff; }
+        .br { bottom: -1px; right: -1px; border-bottom: 1px solid #00f0ff; border-right: 1px solid #00f0ff; }
+
+        .blueprint-panel {
+            position: relative;
+            background: rgba(3, 7, 18, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+            border-left: 1px solid rgba(0,240,255,0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0,240,255,0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,240,255,0.4);
+        }
+    </style>
+</head>
+<body class="blueprint-bg min-h-screen flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-50" vid="12">
+
+    <div class="scanlines" vid="13"></div>
+
+    
+    <nav class="sticky top-0 z-50 border-b border-cyan-900/50 bg-[#030712]/90 backdrop-blur-md" vid="14">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between" vid="15">
+            <div class="flex items-center gap-3 text-cyan-400 font-mono font-bold tracking-wider" vid="16">
+                <i class="ph ph-hexagon text-xl" vid="17"></i>
+                <span class="hidden sm:inline" vid="18">SE322_ARCH</span>
+            </div>
+            
+            <div class="flex space-x-6 sm:space-x-8 text-sm font-mono tracking-wide" vid="19">
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors py-5 border-b-2 border-transparent hover:border-cyan-800" vid="20">Home</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors py-5 border-b-2 border-transparent hover:border-cyan-800" vid="21">Project</a>
+                <a href="#" class="text-cyan-400 py-5 border-b-2 border-cyan-400" vid="22">Architecture</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors py-5 border-b-2 border-transparent hover:border-cyan-800" vid="23">Quality</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors py-5 border-b-2 border-transparent hover:border-cyan-800" vid="24">Design</a>
+                <a href="#" class="text-slate-400 hover:text-cyan-300 transition-colors py-5 border-b-2 border-transparent hover:border-cyan-800 hidden md:block" vid="25">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    
+    <main class="flex-grow w-full max-w-7xl mx-auto px-6 py-12 relative z-10" vid="26">
+        
+        
+        <header class="mb-16 max-w-3xl" vid="27">
+            <div class="inline-flex items-center gap-2 px-3 py-1 border border-cyan-900/50 bg-cyan-950/20 text-cyan-400 font-mono text-xs mb-6" vid="28">
+                <span class="w-1.5 h-1.5 bg-cyan-400 animate-pulse" vid="29"></span>
+                SYS_MODULE: ACTIVE
+            </div>
+            <h1 class="text-4xl md:text-5xl font-mono text-white tracking-tight uppercase mb-6 drop-shadow-[0_0_15px_rgba(0,240,255,0.1)]" vid="30">
+                Architecture / <br vid="31"><span class="text-cyan-400" vid="32">4+1 View Model</span>
+            </h1>
+            <p class="text-slate-300 leading-relaxed font-light text-lg" vid="33">
+                The 4+1 Architectural View Model is a framework used to describe the architecture of software-intensive systems based on multiple, concurrent views. These views address the concerns of different stakeholders, from end-users to developers and system engineers, anchored by defining use cases.
+            </p>
+        </header>
+
+        
+        <section class="mb-24 w-full relative group" vid="34">
+            
+            <div class="blueprint-panel w-full aspect-[4/5] sm:aspect-square md:aspect-[16/9] relative overflow-hidden" vid="35">
+                
+                
+                <div class="absolute top-2 left-2 text-[10px] text-cyan-700 font-mono" vid="36">SYS_ARCH_MATRIX_v1.0</div>
+                <div class="absolute bottom-2 right-2 text-[10px] text-cyan-700 font-mono" vid="37">SCALE: 1:1</div>
+                <div class="absolute top-0 right-4 w-px h-2 bg-cyan-500/50" vid="38"></div>
+                <div class="absolute bottom-0 left-4 w-px h-2 bg-cyan-500/50" vid="39"></div>
+                <div class="absolute left-0 top-1/2 w-2 h-px bg-cyan-500/50" vid="40"></div>
+                <div class="absolute right-0 top-1/2 w-2 h-px bg-cyan-500/50" vid="41"></div>
+
+                
+                <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet" vid="42">
+                    
+                    <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse" vid="43">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,240,255,0.05)" stroke-width="0.5" vid="44"></path>
+                    </pattern>
+                    <rect width="100% " height="100%" fill="url(#smallGrid)" vid="45"></rect>
+                    
+                    
+                    <g class="text-cyan-500/40" stroke="currentColor" stroke-width="1.5" fill="none" vid="46">
+                        
+                        <path d="M 500 150 C 500 330, 200 150, 200 330" class="flow-line" vid="47"></path>
+                        
+                        <path d="M 500 150 C 500 330, 800 150, 800 330" class="flow-line" vid="48"></path>
+                        
+                        <path d="M 500 150 C 500 480, 350 250, 350 480" class="flow-line" vid="49"></path>
+                        
+                        <path d="M 500 150 C 500 480, 650 250, 650 480" class="flow-line" vid="50"></path>
+                        
+                        
+                        <line x1="200" y1="330" x2="350" y2="480" stroke-width="0.5" stroke-dasharray="2 4" stroke="rgba(0,240,255,0.15)" vid="51"></line>
+                        <line x1="800" y1="330" x2="650" y2="480" stroke-width="0.5" stroke-dasharray="2 4" stroke="rgba(0,240,255,0.15)" vid="52"></line>
+                    </g>
+                    
+                    
+                    <circle cx="500" cy="150" r="80" stroke="rgba(0,240,255,0.1)" stroke-width="1" fill="none" stroke-dasharray="4 4" class="animate-[spin_20s_linear_infinite] origin-[500px_150px]" vid="53"></circle>
+                </svg>
+
+                
+                
+                
+                <div class="absolute left-1/2 top-[25%] -translate-x-1/2 -translate-y-1/2 w-[140px] sm:w-[180px] group cursor-pointer z-20" vid="54">
+                    <div class="relative bg-[#030712]/90 border border-cyan-400/40 p-3 sm:p-4 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] group-hover:scale-105 backdrop-blur-md" vid="55">
+                        <div class="crosshair-corner tl" vid="56"></div><div class="crosshair-corner tr" vid="57"></div>
+                        <div class="crosshair-corner bl" vid="58"></div><div class="crosshair-corner br" vid="59"></div>
+                        <i class="ph ph-users text-2xl sm:text-3xl text-cyan-300 mb-2 group-hover:text-cyan-200 transition-colors" vid="60"></i>
+                        <h3 class="font-mono text-xs sm:text-sm text-white uppercase tracking-wider" vid="61">User View</h3>
+                        <span class="font-mono text-[9px] sm:text-[10px] text-cyan-600 mt-1 block" vid="62">(+1 Anchor)</span>
+                    </div>
+                </div>
+
+                
+                <div class="absolute left-[20%] top-[55%] -translate-x-1/2 -translate-y-1/2 w-[120px] sm:w-[160px] group cursor-pointer z-20" vid="63">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md" vid="64">
+                        <div class="crosshair-corner tl" vid="65"></div><div class="crosshair-corner tr" vid="66"></div>
+                        <div class="crosshair-corner bl" vid="67"></div><div class="crosshair-corner br" vid="68"></div>
+                        <i class="ph ph-tree-structure text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors" vid="69"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white" vid="70">Logical View</h3>
+                    </div>
+                </div>
+
+                
+                <div class="absolute left-[80%] top-[55%] -translate-x-1/2 -translate-y-1/2 w-[120px] sm:w-[160px] group cursor-pointer z-20" vid="71">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md" vid="72">
+                        <div class="crosshair-corner tl" vid="73"></div><div class="crosshair-corner tr" vid="74"></div>
+                        <div class="crosshair-corner bl" vid="75"></div><div class="crosshair-corner br" vid="76"></div>
+                        <i class="ph ph-arrows-clockwise text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors" vid="77"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white" vid="78">Process View</h3>
+                    </div>
+                </div>
+
+                
+                <div class="absolute left-[35%] top-[80%] -translate-x-1/2 -translate-y-1/2 w-[120px] sm:w-[160px] group cursor-pointer z-20" vid="79">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md" vid="80">
+                        <div class="crosshair-corner tl" vid="81"></div><div class="crosshair-corner tr" vid="82"></div>
+                        <div class="crosshair-corner bl" vid="83"></div><div class="crosshair-corner br" vid="84"></div>
+                        <i class="ph ph-code text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors" vid="85"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white" vid="86">Dev View</h3>
+                    </div>
+                </div>
+
+                
+                <div class="absolute left-[65%] top-[80%] -translate-x-1/2 -translate-y-1/2 w-[120px] sm:w-[160px] group cursor-pointer z-20" vid="87">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md" vid="88">
+                        <div class="crosshair-corner tl" vid="89"></div><div class="crosshair-corner tr" vid="90"></div>
+                        <div class="crosshair-corner bl" vid="91"></div><div class="crosshair-corner br" vid="92"></div>
+                        <i class="ph ph-hard-drives text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors" vid="93"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white" vid="94">Physical View</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="mb-24" vid="95">
+            <h2 class="text-xl font-mono text-cyan-50 mb-10 border-b border-cyan-900/50 pb-4 inline-flex items-center gap-3" vid="96">
+                <i class="ph ph-magnifying-glass text-cyan-500" vid="97"></i> NODE_INSPECTION // DETAILS
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10" vid="98">
+                
+                
+                <div class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group md:col-span-2" vid="99">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all" vid="100"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide" vid="101">
+                        <i class="ph ph-users text-lg" vid="102"></i> User View (+1)
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-4xl" vid="103">
+                        [EDITABLE PLACEHOLDER] Represents the system from the perspective of the end-users and stakeholders. It defines the core scenarios and use cases that the architecture must support. This view acts as the glue that ties the other four views together, ensuring that structural and behavioral decisions align with actual functional requirements.
+                    </p>
+                </div>
+
+                
+                <div class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group" vid="104">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all" vid="105"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide" vid="106">
+                        <i class="ph ph-tree-structure text-lg" vid="107"></i> Logical View
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed" vid="108">
+                        [EDITABLE PLACEHOLDER] Focuses on the functional requirements of the system. It models the static structure of the software, identifying key abstractions, objects, classes, and their relationships. This perspective is primarily used by systems analysts and designers to outline the domain model.
+                    </p>
+                </div>
+
+                
+                <div class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group" vid="109">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all" vid="110"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide" vid="111">
+                        <i class="ph ph-arrows-clockwise text-lg" vid="112"></i> Process View
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed" vid="113">
+                        [EDITABLE PLACEHOLDER] Addresses the dynamic aspects of the system, including runtime behavior, concurrency, distribution, and performance. It illustrates how elements defined in the logical view interact over time, catering to system integrators and performance engineers.
+                    </p>
+                </div>
+
+                
+                <div class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group" vid="114">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all" vid="115"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide" vid="116">
+                        <i class="ph ph-code text-lg" vid="117"></i> Development View
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed" vid="118">
+                        [EDITABLE PLACEHOLDER] Illustrates the organization of the software modules, packages, and components in the development environment. It focuses on source code structure, library dependencies, and the programmer's perspective for implementation and software management.
+                    </p>
+                </div>
+
+                
+                <div class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group" vid="119">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all" vid="120"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide" vid="121">
+                        <i class="ph ph-hard-drives text-lg" vid="122"></i> Physical View
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed" vid="123">
+                        [EDITABLE PLACEHOLDER] Maps the software artifacts onto the physical hardware topology. It depicts the deployment environment, identifying nodes (servers, devices) and communication paths. This view addresses the concerns of system engineers regarding scalability and availability.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        
+        <section class="mb-12" vid="124">
+            <h2 class="text-xl font-mono text-cyan-50 mb-8 inline-flex items-center gap-3" vid="125">
+                <i class="ph ph-table text-cyan-500" vid="126"></i> ARCHITECTURE AT A GLANCE
+            </h2>
+            
+            <div class="blueprint-panel p-[1px] w-full max-w-4xl" vid="127">
+                <div class="bg-[#030712] w-full" vid="128">
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900 bg-cyan-950/20 p-4 text-cyan-400 font-mono text-xs uppercase tracking-wider" vid="129">
+                        <div class="md:col-span-1" vid="130">Perspective View</div>
+                        <div class="md:col-span-2" vid="131">Associated UML Diagrams</div>
+                    </div>
+                    
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group" vid="132">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3 md:col-span-1" vid="133">
+                            <i class="ph ph-users text-cyan-600 group-hover:text-cyan-400 transition-colors" vid="134"></i> User View
+                        </div>
+                        <div class="font-mono text-slate-400 text-sm flex flex-wrap gap-2 md:col-span-2 items-center" vid="135">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="136">Use Case Diagram</span>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group" vid="137">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3 md:col-span-1" vid="138">
+                            <i class="ph ph-tree-structure text-cyan-600 group-hover:text-cyan-400 transition-colors" vid="139"></i> Logical View
+                        </div>
+                        <div class="font-mono text-slate-400 text-sm flex flex-wrap gap-2 md:col-span-2 items-center" vid="140">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="141">Class Diagram</span>
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="142">Sequence Diagram</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group" vid="143">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3 md:col-span-1" vid="144">
+                            <i class="ph ph-arrows-clockwise text-cyan-600 group-hover:text-cyan-400 transition-colors" vid="145"></i> Process View
+                        </div>
+                        <div class="font-mono text-slate-400 text-sm flex flex-wrap gap-2 md:col-span-2 items-center" vid="146">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="147">Activity Diagram</span>
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="148">State Machine Diagram</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group" vid="149">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3 md:col-span-1" vid="150">
+                            <i class="ph ph-code text-cyan-600 group-hover:text-cyan-400 transition-colors" vid="151"></i> Development View
+                        </div>
+                        <div class="font-mono text-slate-400 text-sm flex flex-wrap gap-2 md:col-span-2 items-center" vid="152">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="153">Component Diagram</span>
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="154">Package Diagram</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 p-4 hover:bg-cyan-900/10 transition-colors group" vid="155">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3 md:col-span-1" vid="156">
+                            <i class="ph ph-hard-drives text-cyan-600 group-hover:text-cyan-400 transition-colors" vid="157"></i> Physical View
+                        </div>
+                        <div class="font-mono text-slate-400 text-sm flex flex-wrap gap-2 md:col-span-2 items-center" vid="158">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm" vid="159">Deployment Diagram</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    
+    <footer class="border-t border-cyan-900/30 bg-[#030712] mt-auto relative z-10" vid="160">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4" vid="161">
+            <div class="font-mono text-xs text-slate-500 uppercase tracking-widest flex items-center gap-2" vid="162">
+                <i class="ph ph-terminal-window text-cyan-700" vid="163"></i>
+                SE322 — Software Design &amp; Architecture
+            </div>
+            
+            <div class="flex items-center gap-4 font-mono text-xs text-slate-500" vid="164">
+                <span vid="165">Prince Sultan University</span>
+                <span class="text-cyan-800" vid="166">|</span>
+                <span vid="167">Academic Project — 2026</span>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

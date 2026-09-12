@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Patterns | SE322 Digital Blueprint</title>
+    <meta name="description" content="Design patterns applied in the project: problem, rationale, application, benefits and structure.">
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="patterns" class="font-sans antialiased min-h-screen flex flex-col w-full relative selection:bg-cyan-500/30 selection:text-cyan-50">
+
+    <div id="site-header"></div>
+    <div class="fixed inset-0 bg-gradient-to-b from-[#030712]/50 via-transparent to-[#030712]/80 pointer-events-none -z-10"></div>
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-24">
+
+        <!-- Intro -->
+        <section class="relative w-full">
+            <div class="flex flex-col gap-6">
+                <div class="flex items-center gap-3 font-mono text-cyan-500/70 text-xs sm:text-sm">
+                    <span>&gt;</span>
+                    <span class="uppercase tracking-widest">/System/Design/Design_Patterns</span>
+                </div>
+                <h1 class="font-mono text-3xl md:text-5xl text-white font-light tracking-tight flex items-center gap-4">
+                    DESIGN PATTERNS
+                    <span class="h-px flex-grow bg-gradient-to-r from-cyan-500/50 to-transparent ml-4 hidden md:block"></span>
+                </h1>
+                <div class="relative p-6 border border-cyan-500/20 bg-cyan-950/5 max-w-4xl mt-4">
+                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                    <p class="text-slate-300 leading-relaxed text-base md:text-lg">
+                        [Editable placeholder: Design patterns provide reusable, documented solutions to common software design problems encountered during architectural development. This section outlines the specific patterns selected and applied within the SE322 project architecture, detailing their rationale, application context, and resulting structural benefits.]
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overview table -->
+        <section class="relative w-full">
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="font-mono text-lg sm:text-xl text-white uppercase tracking-widest">Pattern Overview</h2>
+                <div class="h-px flex-grow bg-cyan-500/20"></div>
+            </div>
+
+            <div class="w-full overflow-x-auto">
+                <div class="min-w-[800px] border border-cyan-500/20 bg-[#060b13] relative group">
+                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                    <div class="grid grid-cols-12 gap-4 p-4 border-b border-cyan-500/20 font-mono text-xs text-cyan-400 uppercase tracking-wider bg-cyan-950/20">
+                        <div class="col-span-1">ID</div>
+                        <div class="col-span-3">Pattern Name</div>
+                        <div class="col-span-3">Category</div>
+                        <div class="col-span-5">Primary Application Context</div>
+                    </div>
+                    <div class="flex flex-col">
+                        <a href="#dp-01" class="grid grid-cols-12 gap-4 p-4 border-b border-cyan-500/10 hover:bg-cyan-500/5 transition-colors font-mono text-sm group/row">
+                            <div class="col-span-1 text-slate-500 group-hover/row:text-cyan-400 transition-colors">DP-01</div>
+                            <div class="col-span-3 text-slate-200">[Pattern Name Placeholder]</div>
+                            <div class="col-span-3 text-slate-400">[Category Placeholder]</div>
+                            <div class="col-span-5 text-slate-400 truncate">[Brief Context Summary Placeholder]</div>
+                        </a>
+                        <a href="#dp-02" class="grid grid-cols-12 gap-4 p-4 border-b border-cyan-500/10 hover:bg-cyan-500/5 transition-colors font-mono text-sm group/row">
+                            <div class="col-span-1 text-slate-500 group-hover/row:text-cyan-400 transition-colors">DP-02</div>
+                            <div class="col-span-3 text-slate-200">[Pattern Name Placeholder]</div>
+                            <div class="col-span-3 text-slate-400">[Category Placeholder]</div>
+                            <div class="col-span-5 text-slate-400 truncate">[Brief Context Summary Placeholder]</div>
+                        </a>
+                        <a href="#dp-03" class="grid grid-cols-12 gap-4 p-4 hover:bg-cyan-500/5 transition-colors font-mono text-sm group/row">
+                            <div class="col-span-1 text-slate-500 group-hover/row:text-cyan-400 transition-colors">DP-03</div>
+                            <div class="col-span-3 text-slate-200">[Pattern Name Placeholder]</div>
+                            <div class="col-span-3 text-slate-400">[Category Placeholder]</div>
+                            <div class="col-span-5 text-slate-400 truncate">[Brief Context Summary Placeholder]</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected patterns -->
+        <section class="relative w-full">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="font-mono text-lg sm:text-xl text-white uppercase tracking-widest">Selected Design Patterns</h2>
+                <div class="h-px flex-grow bg-cyan-500/20"></div>
+            </div>
+
+            <div class="relative pl-8 md:pl-16 ml-2 md:ml-4 flex flex-col gap-24">
+                <div class="absolute top-8 bottom-12 left-0 border-l border-dashed border-cyan-500/30"></div>
+
+                <!-- DP-01 -->
+                <div id="dp-01" class="relative w-full scroll-mt-header">
+                    <div class="absolute -left-[40px] md:-left-[72px] top-6 w-4 h-4 border border-cyan-400 bg-[#030712] flex items-center justify-center z-10">
+                        <div class="w-1.5 h-1.5 bg-cyan-400 animate-pulse-slow"></div>
+                    </div>
+                    <div class="absolute -left-8 md:-left-16 top-8 w-8 md:w-16 border-t border-dashed border-cyan-500/30"></div>
+
+                    <article class="relative w-full border border-cyan-500/20 bg-[#060b13] border-l-[3px] border-l-cyan-500 p-6 md:p-8 group hover:shadow-[0_0_20px_rgba(0,240,255,0.05)] transition-all duration-300">
+                        <div class="corner corner-tr"></div><div class="corner corner-br"></div>
+
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-cyan-500/10">
+                            <div>
+                                <span class="font-mono text-xs text-cyan-500 tracking-widest block mb-2">NODE // DP-01</span>
+                                <h3 class="font-mono text-xl sm:text-2xl text-white">[Design Pattern Name Placeholder]</h3>
+                            </div>
+                            <div class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50 self-start md:self-auto">CLASSIFICATION: [Category]</div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                            <div class="lg:col-span-7 flex flex-col gap-8">
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Problem Statement</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Describe the specific architectural or design problem encountered within the project that necessitated the use of this pattern. Explain the forces or constraints that made a standardized solution necessary.]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Selection Rationale</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Explain why this particular pattern was chosen over alternatives. Detail how it aligns with the project's quality attributes, architectural style, and specific domain requirements.]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Project Application</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Detail exactly how the pattern is implemented in the codebase or system architecture. Mention specific modules, classes, or components that participate in this pattern.]</p>
+                                </div>
+                                <div class="bg-cyan-950/10 border border-cyan-500/10 p-5 mt-2">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3">Expected Benefits</h4>
+                                    <ul class="text-slate-300 text-sm space-y-2">
+                                        <li class="flex items-start gap-2"><span class="text-cyan-500 mt-0.5">▹</span><span>[Editable placeholder: Benefit 1 resulting from application.]</span></li>
+                                        <li class="flex items-start gap-2"><span class="text-cyan-500 mt-0.5">▹</span><span>[Editable placeholder: Benefit 2 resulting from application.]</span></li>
+                                        <li class="flex items-start gap-2"><span class="text-cyan-500 mt-0.5">▹</span><span>[Editable placeholder: Benefit 3 resulting from application.]</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 flex flex-col">
+                                <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Structural Diagram</h4>
+                                <div class="relative w-full aspect-[4/3] lg:aspect-auto lg:flex-grow border border-cyan-500/30 diagram-canvas group/diagram cursor-crosshair">
+                                    <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-cyan-500/50"></div>
+                                    <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-cyan-500/50"></div>
+                                    <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-cyan-500/50"></div>
+                                    <div class="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-cyan-500/50"></div>
+                                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-500/40 hidden group-hover/diagram:block animate-scanline"></div>
+                                    <!-- Replace with <img src="assets/diagrams/dp-01.png" alt="DP-01 structural UML diagram"> -->
+                                    <div class="relative z-10 border border-cyan-500/40 bg-[#060b13] px-6 py-4 flex flex-col items-center gap-3 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+                                        <i class="ph ph-layout text-2xl text-cyan-400"></i>
+                                        <span class="font-mono text-cyan-400 text-xs tracking-wider text-center">[INSERT UML DIAGRAM<br>PLACEHOLDER]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- DP-02 -->
+                <div id="dp-02" class="relative w-full scroll-mt-header">
+                    <div class="absolute -left-[40px] md:-left-[72px] top-6 w-4 h-4 border border-cyan-400 bg-[#030712] flex items-center justify-center z-10">
+                        <div class="w-1.5 h-1.5 bg-cyan-400 animate-pulse-slow"></div>
+                    </div>
+                    <div class="absolute -left-8 md:-left-16 top-8 w-8 md:w-16 border-t border-dashed border-cyan-500/30"></div>
+
+                    <article class="relative w-full border border-cyan-500/20 bg-[#060b13] border-l-[3px] border-l-cyan-500 p-6 md:p-8 group hover:shadow-[0_0_20px_rgba(0,240,255,0.05)] transition-all duration-300">
+                        <div class="corner corner-tr"></div><div class="corner corner-br"></div>
+
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-cyan-500/10">
+                            <div>
+                                <span class="font-mono text-xs text-cyan-500 tracking-widest block mb-2">NODE // DP-02</span>
+                                <h3 class="font-mono text-xl sm:text-2xl text-white">[Design Pattern Name Placeholder]</h3>
+                            </div>
+                            <div class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50 self-start md:self-auto">CLASSIFICATION: [Category]</div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                            <div class="lg:col-span-7 flex flex-col gap-8">
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Problem Statement</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Describe the specific architectural or design problem encountered within the project that necessitated the use of this pattern. Explain the forces or constraints that made a standardized solution necessary.]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Selection Rationale</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Explain why this particular pattern was chosen over alternatives. Detail how it aligns with the project's quality attributes, architectural style, and specific domain requirements.]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Project Application</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Detail exactly how the pattern is implemented in the codebase or system architecture. Mention specific modules, classes, or components that participate in this pattern.]</p>
+                                </div>
+                                <div class="bg-cyan-950/10 border border-cyan-500/10 p-5 mt-2">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3">Expected Benefits</h4>
+                                    <ul class="text-slate-300 text-sm space-y-2">
+                                        <li class="flex items-start gap-2"><span class="text-cyan-500 mt-0.5">▹</span><span>[Editable placeholder: Benefit 1 resulting from application.]</span></li>
+                                        <li class="flex items-start gap-2"><span class="text-cyan-500 mt-0.5">▹</span><span>[Editable placeholder: Benefit 2 resulting from application.]</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 flex flex-col">
+                                <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Structural Diagram</h4>
+                                <div class="relative w-full aspect-[4/3] lg:aspect-auto lg:flex-grow border border-cyan-500/30 diagram-canvas group/diagram cursor-crosshair">
+                                    <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-cyan-500/50"></div>
+                                    <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-cyan-500/50"></div>
+                                    <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-cyan-500/50"></div>
+                                    <div class="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-cyan-500/50"></div>
+                                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-500/40 hidden group-hover/diagram:block animate-scanline"></div>
+                                    <!-- Replace with <img src="assets/diagrams/dp-02.png" alt="DP-02 structural UML diagram"> -->
+                                    <div class="relative z-10 border border-cyan-500/40 bg-[#060b13] px-6 py-4 flex flex-col items-center gap-3 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+                                        <i class="ph ph-layout text-2xl text-cyan-400"></i>
+                                        <span class="font-mono text-cyan-400 text-xs tracking-wider text-center">[INSERT UML DIAGRAM<br>PLACEHOLDER]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- DP-03 -->
+                <div id="dp-03" class="relative w-full scroll-mt-header">
+                    <div class="absolute -left-[40px] md:-left-[72px] top-6 w-4 h-4 border border-cyan-400 bg-[#030712] flex items-center justify-center z-10">
+                        <div class="w-1.5 h-1.5 bg-cyan-400 animate-pulse-slow"></div>
+                    </div>
+                    <div class="absolute -left-8 md:-left-16 top-8 w-8 md:w-16 border-t border-dashed border-cyan-500/30"></div>
+
+                    <article class="relative w-full border border-cyan-500/20 bg-[#060b13] border-l-[3px] border-l-cyan-500 p-6 md:p-8 group hover:shadow-[0_0_20px_rgba(0,240,255,0.05)] transition-all duration-300">
+                        <div class="corner corner-tr"></div><div class="corner corner-br"></div>
+
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-cyan-500/10">
+                            <div>
+                                <span class="font-mono text-xs text-cyan-500 tracking-widest block mb-2">NODE // DP-03</span>
+                                <h3 class="font-mono text-xl sm:text-2xl text-white">[Design Pattern Name Placeholder]</h3>
+                            </div>
+                            <div class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50 self-start md:self-auto">CLASSIFICATION: [Category]</div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                            <div class="lg:col-span-7 flex flex-col gap-8">
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Problem Statement</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Describe the specific architectural or design problem encountered within the project that necessitated the use of this pattern. Explain the forces or constraints that made a standardized solution necessary.]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Selection Rationale</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Explain why this particular pattern was chosen over alternatives. Detail how it aligns with the project's quality attributes, architectural style, and specific domain requirements.]</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Project Application</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">[Editable placeholder: Detail exactly how the pattern is implemented in the codebase or system architecture. Mention specific modules, classes, or components that participate in this pattern.]</p>
+                                </div>
+                                <div class="bg-cyan-950/10 border border-cyan-500/10 p-5 mt-2">
+                                    <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3">Expected Benefits</h4>
+                                    <ul class="text-slate-300 text-sm space-y-2">
+                                        <li class="flex items-start gap-2"><span class="text-cyan-500 mt-0.5">▹</span><span>[Editable placeholder: Benefit 1 resulting from application.]</span></li>
+                                        <li class="flex items-start gap-2"><span class="text-cyan-500 mt-0.5">▹</span><span>[Editable placeholder: Benefit 2 resulting from application.]</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 flex flex-col">
+                                <h4 class="font-mono text-xs text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span class="w-1 h-1 bg-cyan-500"></span> Structural Diagram</h4>
+                                <div class="relative w-full aspect-[4/3] lg:aspect-auto lg:flex-grow border border-cyan-500/30 diagram-canvas group/diagram cursor-crosshair">
+                                    <div class="absolute top-2 left-2 w-2 h-2 border-t border-l border-cyan-500/50"></div>
+                                    <div class="absolute top-2 right-2 w-2 h-2 border-t border-r border-cyan-500/50"></div>
+                                    <div class="absolute bottom-2 left-2 w-2 h-2 border-b border-l border-cyan-500/50"></div>
+                                    <div class="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-cyan-500/50"></div>
+                                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-500/40 hidden group-hover/diagram:block animate-scanline"></div>
+                                    <!-- Replace with <img src="assets/diagrams/dp-03.png" alt="DP-03 structural UML diagram"> -->
+                                    <div class="relative z-10 border border-cyan-500/40 bg-[#060b13] px-6 py-4 flex flex-col items-center gap-3 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+                                        <i class="ph ph-layout text-2xl text-cyan-400"></i>
+                                        <span class="font-mono text-cyan-400 text-xs tracking-wider text-center">[INSERT UML DIAGRAM<br>PLACEHOLDER]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <div id="site-pager"></div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="assets/js/site.js"></script>
+</body>
+</html>

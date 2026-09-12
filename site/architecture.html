@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Overview | SE322 Digital Blueprint</title>
+    <meta name="description" content="Overview of the 4+1 architectural view model used to describe the system.">
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="assets/js/tailwind-config.js"></script>
+    <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body data-page="architecture" class="font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-50">
+
+    <div id="site-header"></div>
+
+    <main class="flex-grow w-full max-w-7xl mx-auto px-6 py-12 relative z-10">
+
+        <header class="mb-16 max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 border border-cyan-900/50 bg-cyan-950/20 text-cyan-400 font-mono text-xs mb-6">
+                <span class="w-1.5 h-1.5 bg-cyan-400 animate-pulse"></span>
+                SYS_MODULE: ACTIVE
+            </div>
+            <h1 class="text-4xl md:text-5xl font-mono text-white tracking-tight uppercase mb-6 drop-shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+                Architecture / <br><span class="text-cyan-400">4+1 View Model</span>
+            </h1>
+            <p class="text-slate-300 leading-relaxed font-light text-lg">
+                The 4+1 Architectural View Model is a framework used to describe the architecture of software-intensive systems based on multiple, concurrent views. These views address the concerns of different stakeholders, from end-users to developers and system engineers, anchored by defining use cases.
+            </p>
+        </header>
+
+        <!-- Interactive matrix -->
+        <section class="mb-24 w-full relative">
+            <div class="panel w-full aspect-[4/5] sm:aspect-square md:aspect-[5/3] relative overflow-hidden">
+                <div class="absolute top-2 left-2 text-[10px] text-cyan-700 font-mono">SYS_ARCH_MATRIX_v1.0</div>
+                <div class="absolute bottom-2 right-2 text-[10px] text-cyan-700 font-mono">SCALE: 1:1</div>
+                <div class="absolute top-0 right-4 w-px h-2 bg-cyan-500/50"></div>
+                <div class="absolute bottom-0 left-4 w-px h-2 bg-cyan-500/50"></div>
+                <div class="absolute left-0 top-1/2 w-2 h-px bg-cyan-500/50"></div>
+                <div class="absolute right-0 top-1/2 w-2 h-px bg-cyan-500/50"></div>
+
+                <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+                    <defs>
+                        <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,240,255,0.05)" stroke-width="0.5"></path>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#smallGrid)"></rect>
+                    <g stroke="rgba(6,182,212,0.4)" stroke-width="1.5" fill="none">
+                        <path d="M 500 150 C 500 330, 200 150, 200 330" class="flow-line" vector-effect="non-scaling-stroke"></path>
+                        <path d="M 500 150 C 500 330, 800 150, 800 330" class="flow-line" vector-effect="non-scaling-stroke"></path>
+                        <path d="M 500 150 C 500 480, 350 250, 350 480" class="flow-line" vector-effect="non-scaling-stroke"></path>
+                        <path d="M 500 150 C 500 480, 650 250, 650 480" class="flow-line" vector-effect="non-scaling-stroke"></path>
+                        <line x1="200" y1="330" x2="350" y2="480" stroke-width="0.5" stroke-dasharray="2 4" stroke="rgba(0,240,255,0.15)" vector-effect="non-scaling-stroke"></line>
+                        <line x1="800" y1="330" x2="650" y2="480" stroke-width="0.5" stroke-dasharray="2 4" stroke="rgba(0,240,255,0.15)" vector-effect="non-scaling-stroke"></line>
+                    </g>
+                </svg>
+
+                <!-- User View (+1) -->
+                <a href="user-view.html" class="absolute left-1/2 top-[25%] -translate-x-1/2 -translate-y-1/2 w-[140px] sm:w-[180px] group z-20">
+                    <div class="relative bg-[#030712]/90 border border-cyan-400/40 p-3 sm:p-4 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_20px_rgba(34,211,238,0.2)] group-hover:scale-105 backdrop-blur-md">
+                        <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                        <i class="ph ph-users text-2xl sm:text-3xl text-cyan-300 mb-2 group-hover:text-cyan-200 transition-colors"></i>
+                        <h3 class="font-mono text-xs sm:text-sm text-white uppercase tracking-wider">User View</h3>
+                        <span class="font-mono text-[9px] sm:text-[10px] text-cyan-600 mt-1 block">(+1 Anchor)</span>
+                    </div>
+                </a>
+
+                <a href="logical-view.html" class="absolute left-[20%] top-[55%] -translate-x-1/2 -translate-y-1/2 w-[110px] sm:w-[160px] group z-20">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md">
+                        <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                        <i class="ph ph-tree-structure text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white">Logical View</h3>
+                    </div>
+                </a>
+
+                <a href="process-view.html" class="absolute left-[80%] top-[55%] -translate-x-1/2 -translate-y-1/2 w-[110px] sm:w-[160px] group z-20">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md">
+                        <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                        <i class="ph ph-arrows-clockwise text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white">Process View</h3>
+                    </div>
+                </a>
+
+                <a href="development-view.html" class="absolute left-[30%] sm:left-[35%] top-[80%] -translate-x-1/2 -translate-y-1/2 w-[110px] sm:w-[160px] group z-20">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md">
+                        <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                        <i class="ph ph-code text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white">Dev View</h3>
+                    </div>
+                </a>
+
+                <a href="physical-view.html" class="absolute left-[70%] sm:left-[65%] top-[80%] -translate-x-1/2 -translate-y-1/2 w-[110px] sm:w-[160px] group z-20">
+                    <div class="relative bg-[#030712]/90 border border-cyan-500/20 p-3 text-center transition-all duration-300 group-hover:border-cyan-400 group-hover:bg-cyan-950/40 group-hover:shadow-[0_0_15px_rgba(34,211,238,0.15)] group-hover:scale-105 backdrop-blur-md">
+                        <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                        <i class="ph ph-hard-drives text-xl sm:text-2xl text-slate-400 mb-2 group-hover:text-cyan-300 transition-colors"></i>
+                        <h3 class="font-mono text-[10px] sm:text-xs text-slate-200 uppercase tracking-wider group-hover:text-white">Physical View</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Node inspection -->
+        <section class="mb-24">
+            <h2 class="text-lg sm:text-xl font-mono text-cyan-50 mb-10 border-b border-cyan-900/50 pb-4 inline-flex items-center gap-3">
+                <i class="ph ph-magnifying-glass text-cyan-500"></i> NODE_INSPECTION // DETAILS
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                <a href="user-view.html" class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group md:col-span-2 block">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide">
+                        <i class="ph ph-users text-lg"></i> User View (+1)
+                        <i class="ph ph-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-4xl">
+                        [EDITABLE PLACEHOLDER] Represents the system from the perspective of the end-users and stakeholders. It defines the core scenarios and use cases that the architecture must support. This view acts as the glue that ties the other four views together, ensuring that structural and behavioral decisions align with actual functional requirements.
+                    </p>
+                </a>
+
+                <a href="logical-view.html" class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group block">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide">
+                        <i class="ph ph-tree-structure text-lg"></i> Logical View
+                        <i class="ph ph-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        [EDITABLE PLACEHOLDER] Focuses on the functional requirements of the system. It models the static structure of the software, identifying key abstractions, objects, classes, and their relationships. This perspective is primarily used by systems analysts and designers to outline the domain model.
+                    </p>
+                </a>
+
+                <a href="process-view.html" class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group block">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide">
+                        <i class="ph ph-arrows-clockwise text-lg"></i> Process View
+                        <i class="ph ph-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        [EDITABLE PLACEHOLDER] Addresses the dynamic aspects of the system, including runtime behavior, concurrency, distribution, and performance. It illustrates how elements defined in the logical view interact over time, catering to system integrators and performance engineers.
+                    </p>
+                </a>
+
+                <a href="development-view.html" class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group block">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide">
+                        <i class="ph ph-code text-lg"></i> Development View
+                        <i class="ph ph-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        [EDITABLE PLACEHOLDER] Illustrates the organization of the software modules, packages, and components in the development environment. It focuses on source code structure, library dependencies, and the programmer's perspective for implementation and software management.
+                    </p>
+                </a>
+
+                <a href="physical-view.html" class="relative pl-6 border-l border-cyan-800/60 hover:border-cyan-400 hover:bg-cyan-950/10 transition-all duration-300 py-2 group block">
+                    <div class="absolute -left-[5px] top-4 w-2 h-2 bg-cyan-950 border border-cyan-500 rounded-full group-hover:bg-cyan-400 group-hover:shadow-[0_0_8px_#00f0ff] transition-all"></div>
+                    <h3 class="font-mono text-cyan-300 text-sm mb-2 flex items-center gap-2 uppercase tracking-wide">
+                        <i class="ph ph-hard-drives text-lg"></i> Physical View
+                        <i class="ph ph-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"></i>
+                    </h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        [EDITABLE PLACEHOLDER] Maps the software artifacts onto the physical hardware topology. It depicts the deployment environment, identifying nodes (servers, devices) and communication paths. This view addresses the concerns of system engineers regarding scalability and availability.
+                    </p>
+                </a>
+            </div>
+        </section>
+
+        <!-- At a glance -->
+        <section class="mb-12">
+            <h2 class="text-lg sm:text-xl font-mono text-cyan-50 mb-8 inline-flex items-center gap-3">
+                <i class="ph ph-table text-cyan-500"></i> ARCHITECTURE AT A GLANCE
+            </h2>
+
+            <div class="panel p-px w-full max-w-4xl">
+                <div class="bg-[#030712] w-full">
+                    <div class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900 bg-cyan-950/20 p-4 text-cyan-400 font-mono text-xs uppercase tracking-wider">
+                        <div>Perspective View</div>
+                        <div class="md:col-span-2">Associated UML Diagrams</div>
+                    </div>
+
+                    <a href="user-view.html" class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3"><i class="ph ph-users text-cyan-600 group-hover:text-cyan-400 transition-colors"></i> User View</div>
+                        <div class="font-mono text-slate-400 text-xs sm:text-sm flex flex-wrap gap-2 md:col-span-2 items-center">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">Use Case Diagram</span>
+                        </div>
+                    </a>
+                    <a href="logical-view.html" class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3"><i class="ph ph-tree-structure text-cyan-600 group-hover:text-cyan-400 transition-colors"></i> Logical View</div>
+                        <div class="font-mono text-slate-400 text-xs sm:text-sm flex flex-wrap gap-2 md:col-span-2 items-center">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">Class Diagram</span>
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">Sequence Diagram</span>
+                        </div>
+                    </a>
+                    <a href="process-view.html" class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3"><i class="ph ph-arrows-clockwise text-cyan-600 group-hover:text-cyan-400 transition-colors"></i> Process View</div>
+                        <div class="font-mono text-slate-400 text-xs sm:text-sm flex flex-wrap gap-2 md:col-span-2 items-center">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">Activity Diagram</span>
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">State Machine Diagram</span>
+                        </div>
+                    </a>
+                    <a href="development-view.html" class="grid grid-cols-2 md:grid-cols-3 border-b border-cyan-900/40 p-4 hover:bg-cyan-900/10 transition-colors group">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3"><i class="ph ph-code text-cyan-600 group-hover:text-cyan-400 transition-colors"></i> Development View</div>
+                        <div class="font-mono text-slate-400 text-xs sm:text-sm flex flex-wrap gap-2 md:col-span-2 items-center">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">Component Diagram</span>
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">Package Diagram</span>
+                        </div>
+                    </a>
+                    <a href="physical-view.html" class="grid grid-cols-2 md:grid-cols-3 p-4 hover:bg-cyan-900/10 transition-colors group">
+                        <div class="font-mono text-slate-300 text-sm flex items-center gap-3"><i class="ph ph-hard-drives text-cyan-600 group-hover:text-cyan-400 transition-colors"></i> Physical View</div>
+                        <div class="font-mono text-slate-400 text-xs sm:text-sm flex flex-wrap gap-2 md:col-span-2 items-center">
+                            <span class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 rounded-sm">Deployment Diagram</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div id="site-pager"></div>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="assets/js/site.js"></script>
+</body>
+</html>
