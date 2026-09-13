@@ -1,7 +1,7 @@
 # SE322-Software-Design-Architecture
 
 [![Deploy to GitHub Pages](https://github.com/Shoug-Alomran/SE322-Software-Design-Architecture/actions/workflows/deploy.yml/badge.svg)](https://github.com/Shoug-Alomran/SE322-Software-Design-Architecture/actions/workflows/deploy.yml)
-[![Live Site](https://img.shields.io/badge/live-site-00f0ff?style=flat&logo=github&logoColor=white&labelColor=030712)](https://shoug-alomran.github.io/SE322-Software-Design-Architecture/)
+[![Live Site](https://img.shields.io/badge/live-site-00f0ff?style=flat&logo=github&logoColor=white&labelColor=030712)](https://software-architecture.shoug-tech.com/)
 
 SE322 Software Design &amp; Architecture project — documenting the system architecture, 4+1 views, quality attributes, architectural styles, design patterns, and validation.
 
@@ -60,4 +60,10 @@ python3 -m http.server 8000
 - Runs automatically on every push to `main`.
 - Run it manually from **Actions → Deploy to GitHub Pages → Run workflow**.
 
-**One-time setup:** in the repository go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+**One-time setup:**
+
+1. In the repository go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+2. In **Settings → Pages → Custom domain** enter `software-architecture.shoug-tech.com`, save, then tick **Enforce HTTPS** once the certificate is issued.
+3. At your DNS provider for `shoug-tech.com`, add a `CNAME` record: `software-architecture` → `shoug-alomran.github.io`.
+
+The site is served at **https://software-architecture.shoug-tech.com/**. `site/CNAME`, `site/robots.txt` and `site/sitemap.xml` are published with it — add a `<url>` entry to the sitemap whenever a new page is created.
