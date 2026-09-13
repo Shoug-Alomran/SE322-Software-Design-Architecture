@@ -23,6 +23,7 @@ Home → Project Overview → Architecture Overview → 4+1 Views (User, Logical
 | Architectural Style | `site/architectural-style.html` |
 | Design Patterns | `site/design-patterns.html` |
 | Documentation & Validation | `site/documentation.html` |
+| Team | `site/team.html` |
 
 ## Project structure
 
@@ -38,6 +39,14 @@ site/
 ```
 
 The navigation bar, footer and the Previous / Next buttons are generated from the `PAGES` list in `site/assets/js/site.js`, so page order and titles only need to be changed in that one place.
+
+## Theme & search
+
+- **Light / dark mode** — the sun/moon button in the header. The site follows the visitor's system setting until they choose, then remembers the choice (`localStorage`). The pages are written with dark Tailwind colours; light mode remaps them via the generated block at the end of `site/assets/css/site.css`. **After adding new colour classes to a page, run:**
+  ```bash
+  python3 tools/build-light-theme.py
+  ```
+- **Search** — the magnifier button, <kbd>⌘K</kbd> / <kbd>Ctrl K</kbd>, or <kbd>/</kbd>. It fetches every page listed in `PAGES` (in `site.js`) the first time it is opened and searches headings and text in the browser, so new content is searchable automatically. It needs the site served over HTTP (it does not work when opening the files directly).
 
 ## Editing content
 

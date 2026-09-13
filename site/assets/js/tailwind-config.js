@@ -1,3 +1,14 @@
+// Apply the saved (or system) colour theme before first paint to avoid a flash.
+(function () {
+    var theme = null;
+    try { theme = localStorage.getItem('se322-theme'); } catch (e) {}
+    if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.style.colorScheme = theme;
+})();
+
 // Shared Tailwind (Play CDN) configuration for every page.
 tailwind.config = {
     theme: {
