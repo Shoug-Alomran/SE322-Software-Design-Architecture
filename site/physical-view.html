@@ -1,176 +1,382 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Physical View | SE322 Digital Blueprint</title>
-    <meta name="description" content="Physical view: deployment diagram, nodes, communication paths and environments.">
-    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <meta
+      name="description"
+      content="Physical view: deployment diagram, nodes, communication paths and environments."
+    />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="assets/img/favicon-32.png"
+      type="image/png"
+      sizes="32x32"
+    />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#030712" />
+    <link
+      rel="canonical"
+      href="https://software-architecture.shoug-tech.com/physical-view.html"
+    />
+    <!-- Social share preview (Open Graph / Twitter) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SE322 Digital Blueprint" />
+    <meta
+      property="og:title"
+      content="Physical View | SE322 Digital Blueprint"
+    />
+    <meta
+      property="og:description"
+      content="Physical view: deployment diagram, nodes, communication paths and environments."
+    />
+    <meta
+      property="og:url"
+      content="https://software-architecture.shoug-tech.com/physical-view.html"
+    />
+    <meta
+      property="og:image"
+      content="https://software-architecture.shoug-tech.com/assets/img/og-banner.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="SE322 Software Design &amp; Architecture — 4+1 view model blueprint"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Physical View | SE322 Digital Blueprint"
+    />
+    <meta
+      name="twitter:description"
+      content="Physical view: deployment diagram, nodes, communication paths and environments."
+    />
+    <meta
+      name="twitter:image"
+      content="https://software-architecture.shoug-tech.com/assets/img/og-banner.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="assets/js/tailwind-config.js"></script>
-    <link rel="stylesheet" href="assets/css/site.css">
-</head>
-<body data-page="physical-view" class="font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-100">
-
+    <link rel="stylesheet" href="assets/css/site.css" />
+  </head>
+  <body
+    data-page="physical-view"
+    class="font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-100"
+  >
     <div id="site-header"></div>
     <div id="view-tabs"></div>
 
     <main class="flex-grow">
-
-        <!-- Hero -->
-        <section class="max-w-7xl mx-auto px-6 pt-16 pb-14">
-            <div class="flex flex-col gap-6">
-                <div class="flex items-center gap-3 font-mono text-xs text-cyan-500 tracking-[0.2em] uppercase">
-                    <span class="w-1.5 h-1.5 border border-cyan-400 rotate-45"></span>Architecture / 4+1 / View 05
-                </div>
-                <h1 class="font-mono text-3xl sm:text-4xl md:text-5xl font-light tracking-tighter text-white flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <span class="text-cyan-400 font-normal">/</span>ARCHITECTURE
-                    <span class="text-cyan-500/30">/</span><span class="font-bold glow-text">PHYSICAL VIEW</span>
-                </h1>
-                <div class="max-w-3xl pl-6 border-l border-cyan-500/30 relative">
-                    <div class="absolute -left-[3px] top-0 w-1.5 h-1.5 bg-cyan-400"></div>
-                    <p class="text-slate-400 text-base md:text-lg leading-relaxed font-light">
-                        [Editable Placeholder] The Physical View maps software onto hardware. It shows the processing nodes, the artifacts deployed on them and the network connections between them, addressing availability, reliability, scalability and performance.
-                    </p>
-                </div>
-                <div class="flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-widest">
-                    <span class="px-2 py-1 border border-cyan-500/20 text-slate-400">Stakeholders: <span class="text-cyan-300">System Engineers</span></span>
-                    <span class="px-2 py-1 border border-cyan-500/20 text-slate-400">Concern: <span class="text-cyan-300">Topology, Deployment</span></span>
-                </div>
-            </div>
-        </section>
-
-        <!-- FIG 1.0 Deployment diagram -->
-        <section class="max-w-7xl mx-auto px-6 mb-20">
-            <figure class="panel p-1">
-                <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
-                <div class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center justify-between">
-                    <div class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400 flex items-center gap-3">
-                        <i class="ph ph-hard-drives text-base text-cyan-500/70"></i>DEPLOYMENT_DIAGRAM.UML
-                    </div>
-                    <div class="flex gap-2"><span class="w-1.5 h-1.5 bg-cyan-500/20"></span><span class="w-1.5 h-1.5 bg-cyan-500/50"></span><span class="w-1.5 h-1.5 bg-cyan-400"></span></div>
-                </div>
-                <div class="diagram-canvas h-[320px] md:h-[500px]">
-                    <!-- Replace with <img src="assets/diagrams/deployment-diagram.png" alt="Deployment diagram"> -->
-                    <div class="diagram-placeholder">
-                        <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-                        [Insert Deployment Diagram]
-                    </div>
-                </div>
-                <figcaption class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed">
-                    <span class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0">FIG 1.0</span>
-                    <span>[Editable description: Runtime nodes, deployed artifacts and the communication paths connecting them.]</span>
-                </figcaption>
-            </figure>
-        </section>
-
-        <!-- Deployment nodes -->
-        <section class="max-w-7xl mx-auto px-6 mb-24">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-8 h-px bg-cyan-500"></div>
-                <h2 class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase">Deployment Nodes</h2>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="panel panel-hover p-5 flex flex-col gap-3 group">
-                    <div class="flex items-center justify-between">
-                        <i class="ph ph-device-mobile text-2xl text-cyan-400"></i>
-                        <span class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest">«Client»</span>
-                    </div>
-                    <span class="font-mono font-bold text-white text-sm">[Node Name]</span>
-                    <p class="text-xs text-slate-400 font-light leading-relaxed">[Hardware / runtime and responsibilities.]</p>
-                    <div class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto">ARTIFACTS: <span class="text-slate-300">[artifact]</span></div>
-                </div>
-                <div class="panel panel-hover p-5 flex flex-col gap-3 group">
-                    <div class="flex items-center justify-between">
-                        <i class="ph ph-cloud text-2xl text-cyan-400"></i>
-                        <span class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest">«Gateway»</span>
-                    </div>
-                    <span class="font-mono font-bold text-white text-sm">[Node Name]</span>
-                    <p class="text-xs text-slate-400 font-light leading-relaxed">[Hardware / runtime and responsibilities.]</p>
-                    <div class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto">ARTIFACTS: <span class="text-slate-300">[artifact]</span></div>
-                </div>
-                <div class="panel panel-hover p-5 flex flex-col gap-3 group">
-                    <div class="flex items-center justify-between">
-                        <i class="ph ph-hard-drives text-2xl text-cyan-400"></i>
-                        <span class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest">«Server»</span>
-                    </div>
-                    <span class="font-mono font-bold text-white text-sm">[Node Name]</span>
-                    <p class="text-xs text-slate-400 font-light leading-relaxed">[Hardware / runtime and responsibilities.]</p>
-                    <div class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto">ARTIFACTS: <span class="text-slate-300">[artifact]</span></div>
-                </div>
-                <div class="panel panel-hover p-5 flex flex-col gap-3 group">
-                    <div class="flex items-center justify-between">
-                        <i class="ph ph-database text-2xl text-cyan-400"></i>
-                        <span class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest">«Database»</span>
-                    </div>
-                    <span class="font-mono font-bold text-white text-sm">[Node Name]</span>
-                    <p class="text-xs text-slate-400 font-light leading-relaxed">[Hardware / runtime and responsibilities.]</p>
-                    <div class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto">ARTIFACTS: <span class="text-slate-300">[artifact]</span></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Communication paths -->
-        <section class="max-w-7xl mx-auto px-6 mb-24">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-8 h-px bg-cyan-500"></div>
-                <h2 class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase">Communication Paths</h2>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full min-w-[640px] panel font-mono text-sm text-left">
-                    <thead class="bg-cyan-950/20 text-cyan-400 text-xs uppercase tracking-wider">
-                        <tr>
-                            <th class="p-4 font-normal border-b border-cyan-500/20">From</th>
-                            <th class="p-4 font-normal border-b border-cyan-500/20">To</th>
-                            <th class="p-4 font-normal border-b border-cyan-500/20">Protocol</th>
-                            <th class="p-4 font-normal border-b border-cyan-500/20">Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-slate-400">
-                        <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5"><td class="p-4 text-slate-200">[Client]</td><td class="p-4 text-slate-200">[Gateway]</td><td class="p-4 text-cyan-300">[HTTPS]</td><td class="p-4">[TLS, port, ...]</td></tr>
-                        <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5"><td class="p-4 text-slate-200">[Gateway]</td><td class="p-4 text-slate-200">[Server]</td><td class="p-4 text-cyan-300">[REST / gRPC]</td><td class="p-4">[Internal network]</td></tr>
-                        <tr class="hover:bg-cyan-500/5"><td class="p-4 text-slate-200">[Server]</td><td class="p-4 text-slate-200">[Database]</td><td class="p-4 text-cyan-300">[TCP / JDBC]</td><td class="p-4">[Private subnet]</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Environments -->
-        <section class="max-w-7xl mx-auto px-6 mb-16">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-8 h-px bg-cyan-500"></div>
-                <h2 class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase">Environments</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="panel panel-hover p-6 flex flex-col gap-3">
-                    <span class="font-mono text-[10px] text-slate-500 tracking-widest">ENV_01</span>
-                    <h3 class="font-mono text-sm text-white uppercase tracking-wide flex items-center gap-2"><i class="ph ph-laptop text-cyan-400"></i>Development</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">[Local setup, containers, test data.]</p>
-                </div>
-                <div class="panel panel-hover p-6 flex flex-col gap-3">
-                    <span class="font-mono text-[10px] text-slate-500 tracking-widest">ENV_02</span>
-                    <h3 class="font-mono text-sm text-white uppercase tracking-wide flex items-center gap-2"><i class="ph ph-flask text-cyan-400"></i>Staging</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">[Pre-production validation environment.]</p>
-                </div>
-                <div class="panel panel-hover p-6 flex flex-col gap-3 !border-cyan-500/40">
-                    <span class="font-mono text-[10px] text-cyan-500 tracking-widest">ENV_03</span>
-                    <h3 class="font-mono text-sm text-white uppercase tracking-wide flex items-center gap-2"><i class="ph ph-globe text-cyan-400"></i>Production</h3>
-                    <p class="text-sm text-slate-400 font-light leading-relaxed">[Hosting, redundancy and scaling strategy.]</p>
-                </div>
-            </div>
-        </section>
-
-        <div class="max-w-7xl mx-auto px-6 mb-16">
-            <div id="site-pager"></div>
+      <!-- Hero -->
+      <section class="max-w-7xl mx-auto px-6 pt-16 pb-14">
+        <div class="flex flex-col gap-6">
+          <div
+            class="flex items-center gap-3 font-mono text-xs text-cyan-500 tracking-[0.2em] uppercase"
+          >
+            <span class="w-1.5 h-1.5 border border-cyan-400 rotate-45"></span
+            >Architecture / 4+1 / View 05
+          </div>
+          <h1
+            class="font-mono text-3xl sm:text-4xl md:text-5xl font-light tracking-tighter text-white flex flex-wrap items-center gap-x-4 gap-y-1"
+          >
+            <span class="text-cyan-400 font-normal">/</span>ARCHITECTURE
+            <span class="text-cyan-500/30">/</span
+            ><span class="font-bold glow-text">PHYSICAL VIEW</span>
+          </h1>
+          <div class="max-w-3xl pl-6 border-l border-cyan-500/30 relative">
+            <div
+              class="absolute -left-[3px] top-0 w-1.5 h-1.5 bg-cyan-400"
+            ></div>
+            <p
+              class="text-slate-400 text-base md:text-lg leading-relaxed font-light"
+            >
+              [Editable Placeholder] The Physical View maps software onto
+              hardware. It shows the processing nodes, the artifacts deployed on
+              them and the network connections between them, addressing
+              availability, reliability, scalability and performance.
+            </p>
+          </div>
+          <div
+            class="flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-widest"
+          >
+            <span class="px-2 py-1 border border-cyan-500/20 text-slate-400"
+              >Stakeholders:
+              <span class="text-cyan-300">System Engineers</span></span
+            >
+            <span class="px-2 py-1 border border-cyan-500/20 text-slate-400"
+              >Concern:
+              <span class="text-cyan-300">Topology, Deployment</span></span
+            >
+          </div>
         </div>
+      </section>
+
+      <!-- FIG 1.0 Deployment diagram -->
+      <section class="max-w-7xl mx-auto px-6 mb-20">
+        <figure class="panel p-1">
+          <div class="ch ch-tl"></div>
+          <div class="ch ch-tr"></div>
+          <div class="ch ch-bl"></div>
+          <div class="ch ch-br"></div>
+          <div
+            class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center justify-between"
+          >
+            <div
+              class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400 flex items-center gap-3"
+            >
+              <i class="ph ph-hard-drives text-base text-cyan-500/70"></i
+              >DEPLOYMENT_DIAGRAM.UML
+            </div>
+            <div class="flex gap-2">
+              <span class="w-1.5 h-1.5 bg-cyan-500/20"></span
+              ><span class="w-1.5 h-1.5 bg-cyan-500/50"></span
+              ><span class="w-1.5 h-1.5 bg-cyan-400"></span>
+            </div>
+          </div>
+          <div class="diagram-canvas h-[320px] md:h-[500px]">
+            <!-- Replace with <img src="assets/diagrams/deployment-diagram.png" alt="Deployment diagram"> -->
+            <div class="diagram-placeholder">
+              <i class="ph ph-image text-4xl text-cyan-500/50"></i>
+              [Insert Deployment Diagram]
+            </div>
+          </div>
+          <figcaption
+            class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed"
+          >
+            <span
+              class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
+              >FIG 1.0</span
+            >
+            <span
+              >[Editable description: Runtime nodes, deployed artifacts and the
+              communication paths connecting them.]</span
+            >
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Deployment nodes -->
+      <section class="max-w-7xl mx-auto px-6 mb-24">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-8 h-px bg-cyan-500"></div>
+          <h2
+            class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase"
+          >
+            Deployment Nodes
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="panel panel-hover p-5 flex flex-col gap-3 group">
+            <div class="flex items-center justify-between">
+              <i class="ph ph-device-mobile text-2xl text-cyan-400"></i>
+              <span
+                class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
+                >«Client»</span
+              >
+            </div>
+            <span class="font-mono font-bold text-white text-sm"
+              >[Node Name]</span
+            >
+            <p class="text-xs text-slate-400 font-light leading-relaxed">
+              [Hardware / runtime and responsibilities.]
+            </p>
+            <div
+              class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
+            >
+              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+            </div>
+          </div>
+          <div class="panel panel-hover p-5 flex flex-col gap-3 group">
+            <div class="flex items-center justify-between">
+              <i class="ph ph-cloud text-2xl text-cyan-400"></i>
+              <span
+                class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
+                >«Gateway»</span
+              >
+            </div>
+            <span class="font-mono font-bold text-white text-sm"
+              >[Node Name]</span
+            >
+            <p class="text-xs text-slate-400 font-light leading-relaxed">
+              [Hardware / runtime and responsibilities.]
+            </p>
+            <div
+              class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
+            >
+              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+            </div>
+          </div>
+          <div class="panel panel-hover p-5 flex flex-col gap-3 group">
+            <div class="flex items-center justify-between">
+              <i class="ph ph-hard-drives text-2xl text-cyan-400"></i>
+              <span
+                class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
+                >«Server»</span
+              >
+            </div>
+            <span class="font-mono font-bold text-white text-sm"
+              >[Node Name]</span
+            >
+            <p class="text-xs text-slate-400 font-light leading-relaxed">
+              [Hardware / runtime and responsibilities.]
+            </p>
+            <div
+              class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
+            >
+              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+            </div>
+          </div>
+          <div class="panel panel-hover p-5 flex flex-col gap-3 group">
+            <div class="flex items-center justify-between">
+              <i class="ph ph-database text-2xl text-cyan-400"></i>
+              <span
+                class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
+                >«Database»</span
+              >
+            </div>
+            <span class="font-mono font-bold text-white text-sm"
+              >[Node Name]</span
+            >
+            <p class="text-xs text-slate-400 font-light leading-relaxed">
+              [Hardware / runtime and responsibilities.]
+            </p>
+            <div
+              class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
+            >
+              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Communication paths -->
+      <section class="max-w-7xl mx-auto px-6 mb-24">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-8 h-px bg-cyan-500"></div>
+          <h2
+            class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase"
+          >
+            Communication Paths
+          </h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[640px] panel font-mono text-sm text-left">
+            <thead
+              class="bg-cyan-950/20 text-cyan-400 text-xs uppercase tracking-wider"
+            >
+              <tr>
+                <th class="p-4 font-normal border-b border-cyan-500/20">
+                  From
+                </th>
+                <th class="p-4 font-normal border-b border-cyan-500/20">To</th>
+                <th class="p-4 font-normal border-b border-cyan-500/20">
+                  Protocol
+                </th>
+                <th class="p-4 font-normal border-b border-cyan-500/20">
+                  Notes
+                </th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-400">
+              <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
+                <td class="p-4 text-slate-200">[Client]</td>
+                <td class="p-4 text-slate-200">[Gateway]</td>
+                <td class="p-4 text-cyan-300">[HTTPS]</td>
+                <td class="p-4">[TLS, port, ...]</td>
+              </tr>
+              <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
+                <td class="p-4 text-slate-200">[Gateway]</td>
+                <td class="p-4 text-slate-200">[Server]</td>
+                <td class="p-4 text-cyan-300">[REST / gRPC]</td>
+                <td class="p-4">[Internal network]</td>
+              </tr>
+              <tr class="hover:bg-cyan-500/5">
+                <td class="p-4 text-slate-200">[Server]</td>
+                <td class="p-4 text-slate-200">[Database]</td>
+                <td class="p-4 text-cyan-300">[TCP / JDBC]</td>
+                <td class="p-4">[Private subnet]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Environments -->
+      <section class="max-w-7xl mx-auto px-6 mb-16">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-8 h-px bg-cyan-500"></div>
+          <h2
+            class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase"
+          >
+            Environments
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="panel panel-hover p-6 flex flex-col gap-3">
+            <span class="font-mono text-[10px] text-slate-500 tracking-widest"
+              >ENV_01</span
+            >
+            <h3
+              class="font-mono text-sm text-white uppercase tracking-wide flex items-center gap-2"
+            >
+              <i class="ph ph-laptop text-cyan-400"></i>Development
+            </h3>
+            <p class="text-sm text-slate-400 font-light leading-relaxed">
+              [Local setup, containers, test data.]
+            </p>
+          </div>
+          <div class="panel panel-hover p-6 flex flex-col gap-3">
+            <span class="font-mono text-[10px] text-slate-500 tracking-widest"
+              >ENV_02</span
+            >
+            <h3
+              class="font-mono text-sm text-white uppercase tracking-wide flex items-center gap-2"
+            >
+              <i class="ph ph-flask text-cyan-400"></i>Staging
+            </h3>
+            <p class="text-sm text-slate-400 font-light leading-relaxed">
+              [Pre-production validation environment.]
+            </p>
+          </div>
+          <div
+            class="panel panel-hover p-6 flex flex-col gap-3 !border-cyan-500/40"
+          >
+            <span class="font-mono text-[10px] text-cyan-500 tracking-widest"
+              >ENV_03</span
+            >
+            <h3
+              class="font-mono text-sm text-white uppercase tracking-wide flex items-center gap-2"
+            >
+              <i class="ph ph-globe text-cyan-400"></i>Production
+            </h3>
+            <p class="text-sm text-slate-400 font-light leading-relaxed">
+              [Hosting, redundancy and scaling strategy.]
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="max-w-7xl mx-auto px-6 mb-16">
+        <div id="site-pager"></div>
+      </div>
     </main>
 
     <div id="site-footer"></div>
     <script src="assets/js/site.js"></script>
-</body>
+  </body>
 </html>

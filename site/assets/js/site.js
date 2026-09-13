@@ -11,7 +11,6 @@
     'use strict';
 
     var REPO_URL = 'https://github.com/Shoug-Alomran/SE322-Software-Design-Architecture';
-    var WORKFLOW_URL = REPO_URL + '/actions/workflows/deploy.yml';
     var THEME_KEY = 'se322-theme';
     var SEARCH_KEY = 'se322-search-v1';
 
@@ -492,18 +491,50 @@
         var mount = document.getElementById('site-footer');
         if (!mount) return;
 
+        function column(title, links) {
+            return '<div>' +
+                '<h3 class="font-mono text-[10px] text-slate-500 uppercase tracking-[0.25em] mb-4">' + esc(title) + '</h3>' +
+                '<ul class="space-y-2.5">' + links.map(function (l) {
+                    var on = !l.external && l.href === current.href;
+                    return '<li><a href="' + l.href + '"' + (l.external ? ' target="_blank" rel="noopener"' : '') +
+                        ' class="text-sm transition-colors inline-flex items-center gap-1.5 ' + (on ? 'text-cyan-400' : 'text-slate-400 hover:text-cyan-300') + '">' +
+                        esc(l.title) + (l.external ? '<i class="ph ph-arrow-up-right text-xs"></i>' : '') + '</a></li>';
+                }).join('') + '</ul></div>';
+        }
+        function pages(ids) {
+            return ids.map(function (id) { return byId[id]; });
+        }
+
         mount.outerHTML =
-            '<footer class="border-t border-cyan-900/30 bg-[#030712]/95 backdrop-blur-sm relative z-10 mt-auto">' +
-            '<div class="max-w-7xl mx-auto px-6 py-8 flex flex-col lg:flex-row items-center justify-between gap-6 font-mono text-[10px] text-slate-500 uppercase tracking-widest text-center">' +
-            '<div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-cyan-700"></span>SE322 — Software Design &amp; Architecture</div>' +
-            '<div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4"><span>Prince Sultan University</span>' +
-            '<span class="hidden sm:inline text-cyan-800">|</span><span>Academic Project — 2026</span></div>' +
-            '<div class="flex items-center gap-3">' +
-            '<a href="' + WORKFLOW_URL + '" target="_blank" rel="noopener" title="GitHub Actions deployment status" class="flex items-center opacity-80 hover:opacity-100 transition-opacity">' +
-            '<img src="' + WORKFLOW_URL + '/badge.svg" alt="Deploy workflow status" class="h-5" loading="lazy"></a>' +
-            '<a href="' + REPO_URL + '" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 transition-colors">' +
-            '<i class="ph ph-github-logo text-sm"></i>Repository</a>' +
-            '</div></div></footer>';
+            '<footer class="relative z-10 mt-auto border-t border-cyan-500/20 bg-[#030712]/95 backdrop-blur-sm">' +
+            '<div class="max-w-7xl mx-auto px-6 pt-14 pb-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10">' +
+
+            '<div class="col-span-2 md:col-span-4 lg:col-span-5 flex flex-col gap-5">' +
+            '<a href="index.html" class="flex items-center gap-3 self-start" aria-label="SE322 home">' +
+            '<img src="assets/img/favicon.svg" alt="" class="w-9 h-9">' +
+            '<span class="flex flex-col"><span class="font-mono text-sm text-slate-100 tracking-widest">SE322<span class="text-cyan-600">_</span></span>' +
+            '<span class="font-mono text-[10px] text-cyan-700 tracking-[0.2em] uppercase">Digital Blueprint</span></span></a>' +
+            '<p class="text-sm text-slate-400 font-light leading-relaxed max-w-sm">Software Design &amp; Architecture project documenting the system architecture, 4+1 views, quality attributes, architectural style, design patterns and validation.</p>' +
+            '<p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2">' +
+            '<i class="ph ph-graduation-cap text-sm text-cyan-600"></i>Prince Sultan University · 2026</p>' +
+            '</div>' +
+
+            '<div class="lg:col-span-3">' + column('Architecture', pages(['architecture', 'user-view', 'logical-view', 'process-view', 'development-view', 'physical-view', 'style'])) + '</div>' +
+            '<div class="lg:col-span-2">' + column('Explore', pages(['home', 'project', 'quality', 'patterns', 'documentation', 'team'])) + '</div>' +
+            '<div class="lg:col-span-2">' + column('Resources', [
+                { title: 'GitHub Repository', href: REPO_URL, external: true },
+                { title: 'Sitemap', href: 'sitemap.xml' }
+            ]) + '</div>' +
+            '</div>' +
+
+            '<div class="border-t border-cyan-500/10">' +
+            '<div class="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px] text-slate-500 tracking-wider">' +
+            '<span>© 2026 SE322 — Software Design &amp; Architecture</span>' +
+            '<a href="https://blueprint.shoug-tech.com/" target="_blank" rel="noopener" class="group inline-flex items-center gap-1.5 text-slate-400 hover:text-cyan-300 transition-colors">' +
+            'Made by <span class="text-cyan-400 group-hover:text-cyan-300">Blueprint</span>' +
+            '<i class="ph ph-arrow-up-right text-xs group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i></a>' +
+            '</div></div>' +
+            '</footer>';
     }
 
     /* ------------------------------------------------------------- behaviour */

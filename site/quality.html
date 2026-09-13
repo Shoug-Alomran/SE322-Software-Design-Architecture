@@ -1,254 +1,781 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quality Attributes | SE322 Digital Blueprint</title>
-    <meta name="description" content="Quality attributes and their scenarios: source, stimulus, environment, artifact, response and response measure.">
-    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <meta
+      name="description"
+      content="Quality attributes and their scenarios: source, stimulus, environment, artifact, response and response measure."
+    />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="assets/img/favicon-32.png"
+      type="image/png"
+      sizes="32x32"
+    />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#030712" />
+    <link
+      rel="canonical"
+      href="https://software-architecture.shoug-tech.com/quality.html"
+    />
+    <!-- Social share preview (Open Graph / Twitter) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SE322 Digital Blueprint" />
+    <meta
+      property="og:title"
+      content="Quality Attributes | SE322 Digital Blueprint"
+    />
+    <meta
+      property="og:description"
+      content="Quality attributes and their scenarios: source, stimulus, environment, artifact, response and response measure."
+    />
+    <meta
+      property="og:url"
+      content="https://software-architecture.shoug-tech.com/quality.html"
+    />
+    <meta
+      property="og:image"
+      content="https://software-architecture.shoug-tech.com/assets/img/og-banner.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="SE322 Software Design &amp; Architecture — 4+1 view model blueprint"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Quality Attributes | SE322 Digital Blueprint"
+    />
+    <meta
+      name="twitter:description"
+      content="Quality attributes and their scenarios: source, stimulus, environment, artifact, response and response measure."
+    />
+    <meta
+      name="twitter:image"
+      content="https://software-architecture.shoug-tech.com/assets/img/og-banner.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="assets/js/tailwind-config.js"></script>
-    <link rel="stylesheet" href="assets/css/site.css">
-</head>
-<body data-page="quality" class="font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-400 selection:text-navy-900">
-
+    <link rel="stylesheet" href="assets/css/site.css" />
+  </head>
+  <body
+    data-page="quality"
+    class="font-sans antialiased min-h-screen flex flex-col selection:bg-cyan-400 selection:text-navy-900"
+  >
     <div id="site-header"></div>
-    <div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/5 via-transparent to-transparent -z-10"></div>
+    <div
+      class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/5 via-transparent to-transparent -z-10"
+    ></div>
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-6 pt-16 pb-16">
+      <!-- Intro -->
+      <section class="mb-20 relative">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="h-px w-8 bg-cyan-400"></div>
+          <span
+            class="font-mono text-xs tracking-[0.2em] text-cyan-400 uppercase"
+            >Quality /</span
+          >
+        </div>
+        <h1
+          class="text-4xl md:text-5xl font-light tracking-tight text-white mb-6 uppercase"
+        >
+          Quality Attributes
+        </h1>
 
-        <!-- Intro -->
-        <section class="mb-20 relative">
-            <div class="flex items-center gap-4 mb-4">
-                <div class="h-px w-8 bg-cyan-400"></div>
-                <span class="font-mono text-xs tracking-[0.2em] text-cyan-400 uppercase">Quality /</span>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-light tracking-tight text-white mb-6 uppercase">Quality Attributes</h1>
+        <div class="panel p-6 !border-l-2 !border-l-cyan-400 max-w-4xl">
+          <div class="ch ch-tr"></div>
+          <div class="ch ch-br"></div>
+          <p
+            class="font-light text-slate-300 leading-relaxed text-sm md:text-base"
+          >
+            [Placeholder] The following quality attributes define the structural
+            and behavioral constraints of the system architecture. They describe
+            how the system must operate under specific conditions to meet
+            business goals. Each attribute is rigorously evaluated through
+            structured scenarios detailing the source, stimulus, environment,
+            and desired measurable response to ensure overall systemic
+            integrity.
+          </p>
+        </div>
+      </section>
 
-            <div class="panel p-6 !border-l-2 !border-l-cyan-400 max-w-4xl">
-                <div class="ch ch-tr"></div><div class="ch ch-br"></div>
-                <p class="font-light text-slate-300 leading-relaxed text-sm md:text-base">
-                    [Placeholder] The following quality attributes define the structural and behavioral constraints of the system architecture. They describe how the system must operate under specific conditions to meet business goals. Each attribute is rigorously evaluated through structured scenarios detailing the source, stimulus, environment, and desired measurable response to ensure overall systemic integrity.
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Attribute timeline -->
+        <div class="lg:col-span-8">
+          <div
+            class="flex items-center gap-3 mb-10 border-b border-cyan-500/20 pb-4"
+          >
+            <svg
+              class="w-4 h-4 text-cyan-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                stroke-width="1.5"
+                stroke-dasharray="4 4"
+              ></rect>
+            </svg>
+            <h2
+              class="font-mono text-sm tracking-[0.15em] text-white uppercase"
+            >
+              Selected Quality Attributes
+            </h2>
+          </div>
+
+          <div class="relative pl-8 md:pl-12">
+            <div
+              class="absolute left-0 top-2 bottom-0 w-px bg-gradient-to-b from-cyan-400/50 via-cyan-500/20 to-transparent"
+            ></div>
+
+            <!-- QA-01 -->
+            <article id="qa-01" class="relative mb-16 group scroll-mt-header">
+              <div
+                class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"
+              ></div>
+              <div
+                class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"
+              ></div>
+
+              <div class="panel panel-hover p-6 md:p-8">
+                <div class="ch ch-tl"></div>
+                <div class="ch ch-tr"></div>
+                <div class="ch ch-bl"></div>
+                <div class="ch ch-br"></div>
+                <div
+                  class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4"
+                >
+                  <h3
+                    class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
+                  >
+                    [Attribute Name 1]
+                  </h3>
+                  <span class="font-mono text-xs text-slate-500 shrink-0"
+                    >ID: QA-01</span
+                  >
+                </div>
+                <p class="text-sm text-slate-400 font-light mb-6">
+                  <span class="text-slate-500 font-mono text-xs mr-2"
+                    >WHY_IT_MATTERS:</span
+                  >
+                  [Placeholder explanation of why this specific quality
+                  attribute is critical for the system's operational success,
+                  user experience, or business goals.]
                 </p>
-            </div>
-        </section>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-
-            <!-- Attribute timeline -->
-            <div class="lg:col-span-8">
-                <div class="flex items-center gap-3 mb-10 border-b border-cyan-500/20 pb-4">
-                    <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" stroke-width="1.5" stroke-dasharray="4 4"></rect></svg>
-                    <h2 class="font-mono text-sm tracking-[0.15em] text-white uppercase">Selected Quality Attributes</h2>
-                </div>
-
-                <div class="relative pl-8 md:pl-12">
-                    <div class="absolute left-0 top-2 bottom-0 w-px bg-gradient-to-b from-cyan-400/50 via-cyan-500/20 to-transparent"></div>
-
-                    <!-- QA-01 -->
-                    <article id="qa-01" class="relative mb-16 group scroll-mt-header">
-                        <div class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"></div>
-                        <div class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"></div>
-
-                        <div class="panel panel-hover p-6 md:p-8">
-                            <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
-                            <div class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4">
-                                <h3 class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors">[Attribute Name 1]</h3>
-                                <span class="font-mono text-xs text-slate-500 shrink-0">ID: QA-01</span>
-                            </div>
-                            <p class="text-sm text-slate-400 font-light mb-6">
-                                <span class="text-slate-500 font-mono text-xs mr-2">WHY_IT_MATTERS:</span>
-                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
-                            </p>
-                            <div class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden">
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"></div>
-                                <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
-                                    <h4 class="font-mono text-xs tracking-widest text-cyan-400 uppercase">Quality Attribute Scenario</h4>
-                                </div>
-                                <dl class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10">
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Source</dt><dd class="font-mono text-sm text-slate-200">[Source Entity / Actor]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Stimulus</dt><dd class="font-mono text-sm text-slate-200">[Triggering Event or Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Environment</dt><dd class="font-mono text-sm text-slate-200">[Operational State / Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Artifact</dt><dd class="font-mono text-sm text-slate-200">[Target Component / System]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-slate-500 uppercase">Response</dt><dd class="font-mono text-sm text-slate-200">[System's Expected Behavior or Action]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-cyan-400/70 uppercase">Response Measure</dt><dd class="font-mono text-sm text-cyan-400">[Quantifiable Metric e.g., Latency &lt; 200ms]</dd></div>
-                                </dl>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- QA-02 -->
-                    <article id="qa-02" class="relative mb-16 group scroll-mt-header">
-                        <div class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"></div>
-                        <div class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"></div>
-
-                        <div class="panel panel-hover p-6 md:p-8">
-                            <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
-                            <div class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4">
-                                <h3 class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors">[Attribute Name 2]</h3>
-                                <span class="font-mono text-xs text-slate-500 shrink-0">ID: QA-02</span>
-                            </div>
-                            <p class="text-sm text-slate-400 font-light mb-6">
-                                <span class="text-slate-500 font-mono text-xs mr-2">WHY_IT_MATTERS:</span>
-                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
-                            </p>
-                            <div class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden">
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"></div>
-                                <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
-                                    <h4 class="font-mono text-xs tracking-widest text-cyan-400 uppercase">Quality Attribute Scenario</h4>
-                                </div>
-                                <dl class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10">
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Source</dt><dd class="font-mono text-sm text-slate-200">[Source Entity / Actor]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Stimulus</dt><dd class="font-mono text-sm text-slate-200">[Triggering Event or Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Environment</dt><dd class="font-mono text-sm text-slate-200">[Operational State / Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Artifact</dt><dd class="font-mono text-sm text-slate-200">[Target Component / System]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-slate-500 uppercase">Response</dt><dd class="font-mono text-sm text-slate-200">[System's Expected Behavior or Action]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-cyan-400/70 uppercase">Response Measure</dt><dd class="font-mono text-sm text-cyan-400">[Quantifiable Metric e.g., 99.99% Uptime]</dd></div>
-                                </dl>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- QA-03 -->
-                    <article id="qa-03" class="relative mb-16 group scroll-mt-header">
-                        <div class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"></div>
-                        <div class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"></div>
-
-                        <div class="panel panel-hover p-6 md:p-8">
-                            <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
-                            <div class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4">
-                                <h3 class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors">[Attribute Name 3]</h3>
-                                <span class="font-mono text-xs text-slate-500 shrink-0">ID: QA-03</span>
-                            </div>
-                            <p class="text-sm text-slate-400 font-light mb-6">
-                                <span class="text-slate-500 font-mono text-xs mr-2">WHY_IT_MATTERS:</span>
-                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
-                            </p>
-                            <div class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden">
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"></div>
-                                <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
-                                    <h4 class="font-mono text-xs tracking-widest text-cyan-400 uppercase">Quality Attribute Scenario</h4>
-                                </div>
-                                <dl class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10">
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Source</dt><dd class="font-mono text-sm text-slate-200">[Source Entity / Actor]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Stimulus</dt><dd class="font-mono text-sm text-slate-200">[Triggering Event or Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Environment</dt><dd class="font-mono text-sm text-slate-200">[Operational State / Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Artifact</dt><dd class="font-mono text-sm text-slate-200">[Target Component / System]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-slate-500 uppercase">Response</dt><dd class="font-mono text-sm text-slate-200">[System's Expected Behavior or Action]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-cyan-400/70 uppercase">Response Measure</dt><dd class="font-mono text-sm text-cyan-400">[Quantifiable Metric e.g., 0 Data Loss]</dd></div>
-                                </dl>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- QA-04 -->
-                    <article id="qa-04" class="relative mb-4 group scroll-mt-header">
-                        <div class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"></div>
-                        <div class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"></div>
-
-                        <div class="panel panel-hover p-6 md:p-8">
-                            <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
-                            <div class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4">
-                                <h3 class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors">[Attribute Name 4]</h3>
-                                <span class="font-mono text-xs text-slate-500 shrink-0">ID: QA-04</span>
-                            </div>
-                            <p class="text-sm text-slate-400 font-light mb-6">
-                                <span class="text-slate-500 font-mono text-xs mr-2">WHY_IT_MATTERS:</span>
-                                [Placeholder explanation of why this specific quality attribute is critical for the system's operational success, user experience, or business goals.]
-                            </p>
-                            <div class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden">
-                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"></div>
-                                <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
-                                    <h4 class="font-mono text-xs tracking-widest text-cyan-400 uppercase">Quality Attribute Scenario</h4>
-                                </div>
-                                <dl class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10">
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Source</dt><dd class="font-mono text-sm text-slate-200">[Source Entity / Actor]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Stimulus</dt><dd class="font-mono text-sm text-slate-200">[Triggering Event or Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Environment</dt><dd class="font-mono text-sm text-slate-200">[Operational State / Condition]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1"><dt class="font-mono text-[10px] text-slate-500 uppercase">Artifact</dt><dd class="font-mono text-sm text-slate-200">[Target Component / System]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-slate-500 uppercase">Response</dt><dd class="font-mono text-sm text-slate-200">[System's Expected Behavior or Action]</dd></div>
-                                    <div class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"><dt class="font-mono text-[10px] text-cyan-400/70 uppercase">Response Measure</dt><dd class="font-mono text-sm text-cyan-400">[Quantifiable Metric e.g., Scale in &lt; 1m]</dd></div>
-                                </dl>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <!-- Comparison sidebar -->
-            <aside class="lg:col-span-4 lg:sticky lg:top-24 h-fit">
-                <div class="flex items-center gap-3 mb-10 border-b border-cyan-500/20 pb-4">
-                    <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9" stroke-width="1.5" stroke-dasharray="2 4"></circle></svg>
-                    <h2 class="font-mono text-sm tracking-[0.15em] text-white uppercase">Attribute Comparison</h2>
-                </div>
-
-                <div class="panel p-6 w-full flex flex-col items-center">
-                    <div class="ch ch-tl"></div><div class="ch ch-tr"></div><div class="ch ch-bl"></div><div class="ch ch-br"></div>
-
-                    <div class="w-full text-center mb-6">
-                        <span class="font-mono text-xs text-slate-400">PRIORITY MATRIX (PLACEHOLDER)</span>
+                <div
+                  class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
+                >
+                  <div
+                    class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"
+                  ></div>
+                  <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
+                    <h4
+                      class="font-mono text-xs tracking-widest text-cyan-400 uppercase"
+                    >
+                      Quality Attribute Scenario
+                    </h4>
+                  </div>
+                  <dl
+                    class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
+                  >
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Source
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Source Entity / Actor]
+                      </dd>
                     </div>
-
-                    <!-- 4-axis radar: edit the data polygon + circles to set each attribute's priority (0–150 from centre) -->
-                    <div class="relative w-full max-w-[320px]">
-                        <svg viewBox="-70 0 540 400" class="w-full h-auto drop-shadow-[0_0_5px_rgba(0,240,255,0.3)]" role="img" aria-label="Priority radar chart of the four quality attributes">
-                            <g fill="none" stroke="rgba(0,240,255,0.12)" stroke-width="1">
-                                <polygon points="200,50 350,200 200,350 50,200"></polygon>
-                                <polygon points="200,80 320,200 200,320 80,200"></polygon>
-                                <polygon points="200,110 290,200 200,290 110,200" stroke="rgba(0,240,255,0.22)"></polygon>
-                                <polygon points="200,140 260,200 200,260 140,200"></polygon>
-                                <polygon points="200,170 230,200 200,230 170,200"></polygon>
-                            </g>
-                            <g stroke="rgba(0,240,255,0.3)" stroke-width="1">
-                                <line x1="200" y1="200" x2="200" y2="50"></line>
-                                <line x1="200" y1="200" x2="350" y2="200"></line>
-                                <line x1="200" y1="200" x2="200" y2="350"></line>
-                                <line x1="200" y1="200" x2="50" y2="200"></line>
-                            </g>
-
-                            <polygon points="200,65 320,200 200,290 95,200" fill="rgba(0,240,255,0.15)" stroke="#00f0ff" stroke-width="2" stroke-linejoin="round"></polygon>
-                            <circle cx="200" cy="65" r="4" fill="#00f0ff"></circle>
-                            <circle cx="320" cy="200" r="4" fill="#00f0ff"></circle>
-                            <circle cx="200" cy="290" r="4" fill="#00f0ff"></circle>
-                            <circle cx="95" cy="200" r="4" fill="#00f0ff"></circle>
-
-                            <g font-family="JetBrains Mono, monospace" font-size="13" fill="#e2e8f0">
-                                <text x="200" y="35" text-anchor="middle">[QA-01]</text>
-                                <text x="362" y="205" text-anchor="start">[QA-02]</text>
-                                <text x="200" y="378" text-anchor="middle">[QA-03]</text>
-                                <text x="38" y="205" text-anchor="end">[QA-04]</text>
-                            </g>
-                        </svg>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Stimulus
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Triggering Event or Condition]
+                      </dd>
                     </div>
-
-                    <div class="mt-8 border-t border-cyan-500/20 w-full pt-4">
-                        <ul class="space-y-2 font-mono text-xs text-slate-400">
-                            <li class="flex justify-between gap-4 border-b border-navy-700 pb-1"><span>Target Profile:</span><span class="text-cyan-400 text-right">Mission Critical</span></li>
-                            <li class="flex justify-between gap-4 border-b border-navy-700 pb-1"><span>Trade-off Focus:</span><span class="text-slate-200 text-right">[Attr 1] vs [Attr 2]</span></li>
-                            <li class="flex justify-between gap-4 pb-1"><span>System State:</span><span class="text-slate-200 text-right">Steady &amp; Peak</span></li>
-                        </ul>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Environment
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Operational State / Condition]
+                      </dd>
                     </div>
-
-                    <nav class="mt-6 w-full grid grid-cols-2 gap-2 font-mono text-[10px] uppercase tracking-widest" aria-label="Jump to attribute">
-                        <a href="#qa-01" class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors">QA-01</a>
-                        <a href="#qa-02" class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors">QA-02</a>
-                        <a href="#qa-03" class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors">QA-03</a>
-                        <a href="#qa-04" class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors">QA-04</a>
-                    </nav>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Artifact
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Target Component / System]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Response
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [System's Expected Behavior or Action]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-cyan-400/70 uppercase"
+                      >
+                        Response Measure
+                      </dt>
+                      <dd class="font-mono text-sm text-cyan-400">
+                        [Quantifiable Metric e.g., Latency &lt; 200ms]
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-            </aside>
+              </div>
+            </article>
+
+            <!-- QA-02 -->
+            <article id="qa-02" class="relative mb-16 group scroll-mt-header">
+              <div
+                class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"
+              ></div>
+              <div
+                class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"
+              ></div>
+
+              <div class="panel panel-hover p-6 md:p-8">
+                <div class="ch ch-tl"></div>
+                <div class="ch ch-tr"></div>
+                <div class="ch ch-bl"></div>
+                <div class="ch ch-br"></div>
+                <div
+                  class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4"
+                >
+                  <h3
+                    class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
+                  >
+                    [Attribute Name 2]
+                  </h3>
+                  <span class="font-mono text-xs text-slate-500 shrink-0"
+                    >ID: QA-02</span
+                  >
+                </div>
+                <p class="text-sm text-slate-400 font-light mb-6">
+                  <span class="text-slate-500 font-mono text-xs mr-2"
+                    >WHY_IT_MATTERS:</span
+                  >
+                  [Placeholder explanation of why this specific quality
+                  attribute is critical for the system's operational success,
+                  user experience, or business goals.]
+                </p>
+                <div
+                  class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
+                >
+                  <div
+                    class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"
+                  ></div>
+                  <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
+                    <h4
+                      class="font-mono text-xs tracking-widest text-cyan-400 uppercase"
+                    >
+                      Quality Attribute Scenario
+                    </h4>
+                  </div>
+                  <dl
+                    class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
+                  >
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Source
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Source Entity / Actor]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Stimulus
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Triggering Event or Condition]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Environment
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Operational State / Condition]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Artifact
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Target Component / System]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Response
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [System's Expected Behavior or Action]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-cyan-400/70 uppercase"
+                      >
+                        Response Measure
+                      </dt>
+                      <dd class="font-mono text-sm text-cyan-400">
+                        [Quantifiable Metric e.g., 99.99% Uptime]
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </article>
+
+            <!-- QA-03 -->
+            <article id="qa-03" class="relative mb-16 group scroll-mt-header">
+              <div
+                class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"
+              ></div>
+              <div
+                class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"
+              ></div>
+
+              <div class="panel panel-hover p-6 md:p-8">
+                <div class="ch ch-tl"></div>
+                <div class="ch ch-tr"></div>
+                <div class="ch ch-bl"></div>
+                <div class="ch ch-br"></div>
+                <div
+                  class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4"
+                >
+                  <h3
+                    class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
+                  >
+                    [Attribute Name 3]
+                  </h3>
+                  <span class="font-mono text-xs text-slate-500 shrink-0"
+                    >ID: QA-03</span
+                  >
+                </div>
+                <p class="text-sm text-slate-400 font-light mb-6">
+                  <span class="text-slate-500 font-mono text-xs mr-2"
+                    >WHY_IT_MATTERS:</span
+                  >
+                  [Placeholder explanation of why this specific quality
+                  attribute is critical for the system's operational success,
+                  user experience, or business goals.]
+                </p>
+                <div
+                  class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
+                >
+                  <div
+                    class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"
+                  ></div>
+                  <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
+                    <h4
+                      class="font-mono text-xs tracking-widest text-cyan-400 uppercase"
+                    >
+                      Quality Attribute Scenario
+                    </h4>
+                  </div>
+                  <dl
+                    class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
+                  >
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Source
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Source Entity / Actor]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Stimulus
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Triggering Event or Condition]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Environment
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Operational State / Condition]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Artifact
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Target Component / System]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Response
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [System's Expected Behavior or Action]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-cyan-400/70 uppercase"
+                      >
+                        Response Measure
+                      </dt>
+                      <dd class="font-mono text-sm text-cyan-400">
+                        [Quantifiable Metric e.g., 0 Data Loss]
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </article>
+
+            <!-- QA-04 -->
+            <article id="qa-04" class="relative mb-4 group scroll-mt-header">
+              <div
+                class="absolute -left-[36.5px] md:-left-[52.5px] top-6 w-2 h-2 bg-navy-900 border border-cyan-400 rotate-45 group-hover:bg-cyan-400 group-hover:shadow-[0_0_10px_#00f0ff] transition-all"
+              ></div>
+              <div
+                class="absolute -left-8 md:-left-12 top-[27px] w-8 md:w-12 h-px bg-cyan-400/30 group-hover:bg-cyan-400/60 transition-colors"
+              ></div>
+
+              <div class="panel panel-hover p-6 md:p-8">
+                <div class="ch ch-tl"></div>
+                <div class="ch ch-tr"></div>
+                <div class="ch ch-bl"></div>
+                <div class="ch ch-br"></div>
+                <div
+                  class="flex items-center justify-between gap-4 border-b border-cyan-500/20 pb-4 mb-4"
+                >
+                  <h3
+                    class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
+                  >
+                    [Attribute Name 4]
+                  </h3>
+                  <span class="font-mono text-xs text-slate-500 shrink-0"
+                    >ID: QA-04</span
+                  >
+                </div>
+                <p class="text-sm text-slate-400 font-light mb-6">
+                  <span class="text-slate-500 font-mono text-xs mr-2"
+                    >WHY_IT_MATTERS:</span
+                  >
+                  [Placeholder explanation of why this specific quality
+                  attribute is critical for the system's operational success,
+                  user experience, or business goals.]
+                </p>
+                <div
+                  class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
+                >
+                  <div
+                    class="absolute left-0 top-0 bottom-0 w-1 bg-cyan-600/40"
+                  ></div>
+                  <div class="p-4 border-b border-cyan-500/10 bg-cyan-600/5">
+                    <h4
+                      class="font-mono text-xs tracking-widest text-cyan-400 uppercase"
+                    >
+                      Quality Attribute Scenario
+                    </h4>
+                  </div>
+                  <dl
+                    class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
+                  >
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Source
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Source Entity / Actor]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Stimulus
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Triggering Event or Condition]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Environment
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Operational State / Condition]
+                      </dd>
+                    </div>
+                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Artifact
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [Target Component / System]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-slate-500 uppercase"
+                      >
+                        Response
+                      </dt>
+                      <dd class="font-mono text-sm text-slate-200">
+                        [System's Expected Behavior or Action]
+                      </dd>
+                    </div>
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1 md:col-span-2"
+                    >
+                      <dt
+                        class="font-mono text-[10px] text-cyan-400/70 uppercase"
+                      >
+                        Response Measure
+                      </dt>
+                      <dd class="font-mono text-sm text-cyan-400">
+                        [Quantifiable Metric e.g., Scale in &lt; 1m]
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
 
-        <div class="mt-16">
-            <div id="site-pager"></div>
-        </div>
+        <!-- Comparison sidebar -->
+        <aside class="lg:col-span-4 lg:sticky lg:top-24 h-fit">
+          <div
+            class="flex items-center gap-3 mb-10 border-b border-cyan-500/20 pb-4"
+          >
+            <svg
+              class="w-4 h-4 text-cyan-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                stroke-width="1.5"
+                stroke-dasharray="2 4"
+              ></circle>
+            </svg>
+            <h2
+              class="font-mono text-sm tracking-[0.15em] text-white uppercase"
+            >
+              Attribute Comparison
+            </h2>
+          </div>
+
+          <div class="panel p-6 w-full flex flex-col items-center">
+            <div class="ch ch-tl"></div>
+            <div class="ch ch-tr"></div>
+            <div class="ch ch-bl"></div>
+            <div class="ch ch-br"></div>
+
+            <div class="w-full text-center mb-6">
+              <span class="font-mono text-xs text-slate-400"
+                >PRIORITY MATRIX (PLACEHOLDER)</span
+              >
+            </div>
+
+            <!-- 4-axis radar: edit the data polygon + circles to set each attribute's priority (0–150 from centre) -->
+            <div class="relative w-full max-w-[320px]">
+              <svg
+                viewBox="-70 0 540 400"
+                class="w-full h-auto drop-shadow-[0_0_5px_rgba(0,240,255,0.3)]"
+                role="img"
+                aria-label="Priority radar chart of the four quality attributes"
+              >
+                <g fill="none" stroke="rgba(0,240,255,0.12)" stroke-width="1">
+                  <polygon points="200,50 350,200 200,350 50,200"></polygon>
+                  <polygon points="200,80 320,200 200,320 80,200"></polygon>
+                  <polygon
+                    points="200,110 290,200 200,290 110,200"
+                    stroke="rgba(0,240,255,0.22)"
+                  ></polygon>
+                  <polygon points="200,140 260,200 200,260 140,200"></polygon>
+                  <polygon points="200,170 230,200 200,230 170,200"></polygon>
+                </g>
+                <g stroke="rgba(0,240,255,0.3)" stroke-width="1">
+                  <line x1="200" y1="200" x2="200" y2="50"></line>
+                  <line x1="200" y1="200" x2="350" y2="200"></line>
+                  <line x1="200" y1="200" x2="200" y2="350"></line>
+                  <line x1="200" y1="200" x2="50" y2="200"></line>
+                </g>
+
+                <polygon
+                  points="200,65 320,200 200,290 95,200"
+                  fill="rgba(0,240,255,0.15)"
+                  stroke="#00f0ff"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                ></polygon>
+                <circle cx="200" cy="65" r="4" fill="#00f0ff"></circle>
+                <circle cx="320" cy="200" r="4" fill="#00f0ff"></circle>
+                <circle cx="200" cy="290" r="4" fill="#00f0ff"></circle>
+                <circle cx="95" cy="200" r="4" fill="#00f0ff"></circle>
+
+                <g
+                  font-family="JetBrains Mono, monospace"
+                  font-size="13"
+                  fill="#e2e8f0"
+                >
+                  <text x="200" y="35" text-anchor="middle">[QA-01]</text>
+                  <text x="362" y="205" text-anchor="start">[QA-02]</text>
+                  <text x="200" y="378" text-anchor="middle">[QA-03]</text>
+                  <text x="38" y="205" text-anchor="end">[QA-04]</text>
+                </g>
+              </svg>
+            </div>
+
+            <div class="mt-8 border-t border-cyan-500/20 w-full pt-4">
+              <ul class="space-y-2 font-mono text-xs text-slate-400">
+                <li
+                  class="flex justify-between gap-4 border-b border-navy-700 pb-1"
+                >
+                  <span>Target Profile:</span
+                  ><span class="text-cyan-400 text-right"
+                    >Mission Critical</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between gap-4 border-b border-navy-700 pb-1"
+                >
+                  <span>Trade-off Focus:</span
+                  ><span class="text-slate-200 text-right"
+                    >[Attr 1] vs [Attr 2]</span
+                  >
+                </li>
+                <li class="flex justify-between gap-4 pb-1">
+                  <span>System State:</span
+                  ><span class="text-slate-200 text-right"
+                    >Steady &amp; Peak</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <nav
+              class="mt-6 w-full grid grid-cols-2 gap-2 font-mono text-[10px] uppercase tracking-widest"
+              aria-label="Jump to attribute"
+            >
+              <a
+                href="#qa-01"
+                class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors"
+                >QA-01</a
+              >
+              <a
+                href="#qa-02"
+                class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors"
+                >QA-02</a
+              >
+              <a
+                href="#qa-03"
+                class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors"
+                >QA-03</a
+              >
+              <a
+                href="#qa-04"
+                class="px-2 py-1.5 border border-cyan-500/20 text-slate-400 hover:text-cyan-300 hover:border-cyan-400 text-center transition-colors"
+                >QA-04</a
+              >
+            </nav>
+          </div>
+        </aside>
+      </div>
+
+      <div class="mt-16">
+        <div id="site-pager"></div>
+      </div>
     </main>
 
     <div id="site-footer"></div>
     <script src="assets/js/site.js"></script>
-</body>
+  </body>
 </html>

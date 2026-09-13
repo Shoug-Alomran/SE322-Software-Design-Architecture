@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#030712"/><rect x="9" y="9" width="14" height="14" fill="none" stroke="#00f0ff" stroke-width="1.5" transform="rotate(45 16 16)"/><rect x="14" y="14" width="4" height="4" fill="#00f0ff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- SE322 mark: four views (outer nodes) framing the +1 scenario view (core) -->
+  <rect width="64" height="64" rx="12" fill="#030712"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="10.5" fill="none" stroke="#00f0ff" stroke-opacity=".28" stroke-width="3"/>
+  <path d="M32 12 L52 32 L32 52 L12 32 Z" fill="none" stroke="#00f0ff" stroke-width="3.5" stroke-linejoin="round"/>
+  <g fill="#030712" stroke="#00f0ff" stroke-width="3">
+    <rect x="27.5" y="7.5" width="9" height="9" rx="1"/>
+    <rect x="47.5" y="27.5" width="9" height="9" rx="1"/>
+    <rect x="27.5" y="47.5" width="9" height="9" rx="1"/>
+    <rect x="7.5" y="27.5" width="9" height="9" rx="1"/>
+  </g>
+  <rect x="25" y="25" width="14" height="14" rx="1.5" fill="#00f0ff"/>
+</svg>
