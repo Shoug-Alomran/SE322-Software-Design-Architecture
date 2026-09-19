@@ -14,21 +14,21 @@ This project continues earlier Intaliq work. Requirements and usability findings
 
 Home → Project Overview → Architecture Overview → 4+1 Views (User, Logical, Process, Development, Physical) → Quality Attributes → Architectural Style → Design Patterns → Documentation & Validation
 
-| Page | File |
-| --- | --- |
-| Home | `site/index.html` |
-| Project Overview | `site/project.html` |
-| Architecture Overview | `site/architecture.html` |
-| User View (+1) | `site/user-view.html` |
-| Logical View | `site/logical-view.html` |
-| Process View | `site/process-view.html` |
-| Development View | `site/development-view.html` |
-| Physical View | `site/physical-view.html` |
-| Quality Attributes | `site/quality.html` |
-| Architectural Style | `site/architectural-style.html` |
-| Design Patterns | `site/design-patterns.html` |
-| Documentation & Validation | `site/documentation.html` |
-| Team | `site/team.html` |
+| Page                       | File                            |
+| -------------------------- | ------------------------------- |
+| Home                       | `site/index.html`               |
+| Project Overview           | `site/project.html`             |
+| Architecture Overview      | `site/architecture.html`        |
+| User View (+1)             | `site/user-view.html`           |
+| Logical View               | `site/logical-view.html`        |
+| Process View               | `site/process-view.html`        |
+| Development View           | `site/development-view.html`    |
+| Physical View              | `site/physical-view.html`       |
+| Quality Attributes         | `site/quality.html`             |
+| Architectural Style        | `site/architectural-style.html` |
+| Design Patterns            | `site/design-patterns.html`     |
+| Documentation & Validation | `site/documentation.html`       |
+| Team                       | `site/team.html`                |
 
 ## Project structure
 

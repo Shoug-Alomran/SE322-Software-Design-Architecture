@@ -523,7 +523,6 @@
             '<div class="lg:col-span-2">' + column('Explore', pages(['home', 'project', 'quality', 'patterns', 'documentation', 'team'])) + '</div>' +
             '<div class="lg:col-span-2">' + column('Resources', [
                 { title: 'GitHub Repository', href: REPO_URL, external: true },
-                { title: 'Sitemap', href: 'sitemap.xml' }
             ]) + '</div>' +
             '</div>' +
 
