@@ -330,12 +330,11 @@
               ></i>
             </h3>
             <p class="text-slate-400 text-sm leading-relaxed max-w-4xl">
-              [EDITABLE PLACEHOLDER] Represents the system from the perspective
-              of the end-users and stakeholders. It defines the core scenarios
-              and use cases that the architecture must support. This view acts
-              as the glue that ties the other four views together, ensuring that
-              structural and behavioral decisions align with actual functional
-              requirements.
+              Represents Intaliq from the perspective of end users and fitness
+              coaches. It defines the core scenarios the architecture must
+              support: booking and creating group sessions, admitting members,
+              setting goals, connecting with partners and using the AI chatbox.
+              It ties the other four views together.
             </p>
           </a>
 
@@ -355,11 +354,10 @@
               ></i>
             </h3>
             <p class="text-slate-400 text-sm leading-relaxed">
-              [EDITABLE PLACEHOLDER] Focuses on the functional requirements of
-              the system. It models the static structure of the software,
-              identifying key abstractions, objects, classes, and their
-              relationships. This perspective is primarily used by systems
-              analysts and designers to outline the domain model.
+              Focuses on the functional requirements. It models the domain
+              entities from the SRS data dictionary (User, Coach, Session, Goal,
+              Activity and Partner) along with their attributes, constraints and
+              relationships.
             </p>
           </a>
 
@@ -379,11 +377,10 @@
               ></i>
             </h3>
             <p class="text-slate-400 text-sm leading-relaxed">
-              [EDITABLE PLACEHOLDER] Addresses the dynamic aspects of the
-              system, including runtime behavior, concurrency, distribution, and
-              performance. It illustrates how elements defined in the logical
-              view interact over time, catering to system integrators and
-              performance engineers.
+              Addresses runtime behaviour: synchronous booking and admission
+              requests, asynchronous push and email notifications, offline
+              action sync, and concurrent access to session capacity, all
+              against the SRS response-time and availability targets.
             </p>
           </a>
 
@@ -403,11 +400,10 @@
               ></i>
             </h3>
             <p class="text-slate-400 text-sm leading-relaxed">
-              [EDITABLE PLACEHOLDER] Illustrates the organization of the
-              software modules, packages, and components in the development
-              environment. It focuses on source code structure, library
-              dependencies, and the programmer's perspective for implementation
-              and software management.
+              Shows how the software is organized for implementation: modules,
+              packages and dependencies, starting from the prototype stack of
+              JavaScript, HTML and CSS with Vite, Supabase, GitHub and
+              Vercel.
             </p>
           </a>
 
@@ -427,11 +423,10 @@
               ></i>
             </h3>
             <p class="text-slate-400 text-sm leading-relaxed">
-              [EDITABLE PLACEHOLDER] Maps the software artifacts onto the
-              physical hardware topology. It depicts the deployment environment,
-              identifying nodes (servers, devices) and communication paths. This
-              view addresses the concerns of system engineers regarding
-              scalability and availability.
+              Maps the software onto hardware and cloud services: iOS/Android
+              devices, frontend hosting, the Supabase backend and database, and
+              external AI, notification and email services connected over
+              HTTPS.
             </p>
           </a>
         </div>

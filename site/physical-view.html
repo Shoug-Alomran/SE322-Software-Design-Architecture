@@ -104,10 +104,12 @@
             <p
               class="text-slate-400 text-base md:text-lg leading-relaxed font-light"
             >
-              [Editable Placeholder] The Physical View maps software onto
-              hardware. It shows the processing nodes, the artifacts deployed on
-              them and the network connections between them, addressing
-              availability, reliability, scalability and performance.
+              The Physical View maps Intaliq's software onto hardware and cloud
+              services: the app on users' and coaches' iOS/Android devices, the
+              hosted frontend, the Supabase backend and database, and external
+              AI, notification and email services, all connected over HTTPS. It
+              addresses the SRS targets for 99% availability, response time
+              and offline operation.
             </p>
           </div>
           <div
@@ -162,8 +164,9 @@
               >FIG 1.0</span
             >
             <span
-              >[Editable description: Runtime nodes, deployed artifacts and the
-              communication paths connecting them.]</span
+              >Runtime nodes (mobile device, frontend hosting, Supabase backend
+              and database, external services) and the HTTPS paths between
+              them.</span
             >
           </figcaption>
         </figure>
@@ -190,15 +193,15 @@
               >
             </div>
             <span class="font-mono font-bold text-white text-sm"
-              >[Node Name]</span
+              >Mobile Device</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              [Hardware / runtime and responsibilities.]
+              iOS or Android smartphone or tablet with touch input (OE-1, UI-9). Uses GPS and sensors for activity tracking and connects over Wi-Fi or 4G/5G.
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+              ARTIFACTS: <span class="text-slate-300">Intaliq app, offline action store</span>
             </div>
           </div>
           <div class="panel panel-hover p-5 flex flex-col gap-3 group">
@@ -206,19 +209,19 @@
               <i class="ph ph-cloud text-2xl text-cyan-400"></i>
               <span
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
-                >«Gateway»</span
+                >«Hosting»</span
               >
             </div>
             <span class="font-mono font-bold text-white text-sm"
-              >[Node Name]</span
+              >Vercel Hosting</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              [Hardware / runtime and responsibilities.]
+              Serves the built frontend over a public URL. The SE365 prototype is deployed at intaliq-se-365.vercel.app.
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+              ARTIFACTS: <span class="text-slate-300">Vite production build</span>
             </div>
           </div>
           <div class="panel panel-hover p-5 flex flex-col gap-3 group">
@@ -230,15 +233,15 @@
               >
             </div>
             <span class="font-mono font-bold text-white text-sm"
-              >[Node Name]</span
+              >Supabase Backend</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              [Hardware / runtime and responsibilities.]
+              Managed cloud backend: authentication (email sign-up, 6-digit verification codes, password reset) and the data API used by the app (SI-1, SI-3).
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+              ARTIFACTS: <span class="text-slate-300">Supabase Auth, data API</span>
             </div>
           </div>
           <div class="panel panel-hover p-5 flex flex-col gap-3 group">
@@ -250,15 +253,15 @@
               >
             </div>
             <span class="font-mono font-bold text-white text-sm"
-              >[Node Name]</span
+              >Supabase PostgreSQL</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              [Hardware / runtime and responsibilities.]
+              Cloud database that stores user profiles, goals, activities, sessions, partner requests and chat messages, with schema constraints from the data dictionary.
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">[artifact]</span>
+              ARTIFACTS: <span class="text-slate-300">Schema, constraints, backups</span>
             </div>
           </div>
         </div>
@@ -294,22 +297,28 @@
             </thead>
             <tbody class="text-slate-400">
               <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
-                <td class="p-4 text-slate-200">[Client]</td>
-                <td class="p-4 text-slate-200">[Gateway]</td>
-                <td class="p-4 text-cyan-300">[HTTPS]</td>
-                <td class="p-4">[TLS, port, ...]</td>
+                <td class="p-4 text-slate-200">Mobile Device</td>
+                <td class="p-4 text-slate-200">Vercel Hosting</td>
+                <td class="p-4 text-cyan-300">HTTPS</td>
+                <td class="p-4">Loads the frontend build</td>
               </tr>
               <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
-                <td class="p-4 text-slate-200">[Gateway]</td>
-                <td class="p-4 text-slate-200">[Server]</td>
-                <td class="p-4 text-cyan-300">[REST / gRPC]</td>
-                <td class="p-4">[Internal network]</td>
+                <td class="p-4 text-slate-200">Mobile Device</td>
+                <td class="p-4 text-slate-200">Supabase Backend</td>
+                <td class="p-4 text-cyan-300">HTTPS</td>
+                <td class="p-4">CI-1; authentication required before personal data is sent (CI-7); responses under 5 s (CI-6)</td>
+              </tr>
+              <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
+                <td class="p-4 text-slate-200">Supabase Backend</td>
+                <td class="p-4 text-slate-200">Supabase PostgreSQL</td>
+                <td class="p-4 text-cyan-300">Managed (internal)</td>
+                <td class="p-4">Data stored and retrieved inside the Supabase platform</td>
               </tr>
               <tr class="hover:bg-cyan-500/5">
-                <td class="p-4 text-slate-200">[Server]</td>
-                <td class="p-4 text-slate-200">[Database]</td>
-                <td class="p-4 text-cyan-300">[TCP / JDBC]</td>
-                <td class="p-4">[Private subnet]</td>
+                <td class="p-4 text-slate-200">Backend / App</td>
+                <td class="p-4 text-slate-200">External services</td>
+                <td class="p-4 text-cyan-300">HTTPS</td>
+                <td class="p-4">AI recommendation service (SI-2), push notifications (SI-4), email (CI-3); maps later (SI-5)</td>
               </tr>
             </tbody>
           </table>
@@ -337,7 +346,7 @@
               <i class="ph ph-laptop text-cyan-400"></i>Development
             </h3>
             <p class="text-sm text-slate-400 font-light leading-relaxed">
-              [Local setup, containers, test data.]
+              Code edited in VS Code, run locally with the Vite dev server against a Supabase project, with changes tracked on GitHub.
             </p>
           </div>
           <div class="panel panel-hover p-6 flex flex-col gap-3">
@@ -365,7 +374,7 @@
               <i class="ph ph-globe text-cyan-400"></i>Production
             </h3>
             <p class="text-sm text-slate-400 font-light leading-relaxed">
-              [Hosting, redundancy and scaling strategy.]
+              Frontend deployed on Vercel with Supabase as the managed backend and database. Must meet at least 99% availability (REL-1) and handle many simultaneous users (AVA-1).
             </p>
           </div>
         </div>

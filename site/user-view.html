@@ -104,10 +104,11 @@
             <p
               class="text-slate-400 text-base md:text-lg leading-relaxed font-light"
             >
-              [Editable Placeholder] The User View presents the system’s
-              functionality as perceived by external actors, organized by use
-              cases that capture behavioral requirements. This (+1) view ties
-              the architectural components to tangible user goals.
+              The User View shows Intaliq as its actors see it, organized by
+              the use cases in the SRS. End users track activities, set goals,
+              book sessions, find partners and use the AI chatbox. Fitness
+              coaches create sessions, admit members and post announcements.
+              This (+1) view ties the other four views to these scenarios.
             </p>
           </div>
         </div>
@@ -151,9 +152,10 @@
               >FIG 1.0</span
             >
             <span
-              >[Editable description: High-level overview of system boundaries,
-              primary actors, and core use cases defining the scope of the
-              architectural user view.]</span
+              >Intaliq system boundary with its primary actors (End User,
+              Fitness Coach) and supporting external services, covering booking,
+              goals, partners, the AI chatbox, session creation, admissions and
+              announcements.</span
             >
           </figcaption>
         </figure>
@@ -179,19 +181,17 @@
                 class="w-2 h-2 bg-cyan-400 rotate-45 shadow-[0_0_8px_#00f0ff] group-hover:scale-125 transition-transform"
               ></div>
               <span class="font-mono font-bold text-white text-sm tracking-wide"
-                >[Actor Name]</span
+                >End User</span
               >
             </div>
             <div class="flex flex-col gap-2.5 flex-grow">
               <div
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest w-max"
               >
-                [Primary]
+                Primary
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                [Description: Briefly describe the actor's role,
-                responsibilities, and interaction with the system. Example: A
-                registered user who initiates the core workflow.]
+                A participant who does outdoor running, cycling or hiking, from beginner to experienced. Logs activities, sets goals, browses and books group sessions, connects and chats with partners, and asks the AI chatbox for fitness advice.
               </p>
             </div>
           </div>
@@ -204,19 +204,17 @@
                 class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
               ></div>
               <span class="font-mono font-bold text-white text-sm tracking-wide"
-                >[Actor Name]</span
+                >Fitness Coach</span
               >
             </div>
             <div class="flex flex-col gap-2.5 flex-grow">
               <div
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest w-max"
               >
-                [Secondary]
+                Primary
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                [Description: Briefly describe the actor's role,
-                responsibilities, and interaction with the system. Example:
-                External payment gateway providing authorization.]
+                Plans and runs outdoor group sessions. Creates sessions (type, date, time, location, capacity, intensity), reviews and admits join requests, and posts announcements to session members.
               </p>
             </div>
           </div>
@@ -229,19 +227,17 @@
                 class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
               ></div>
               <span class="font-mono font-bold text-white text-sm tracking-wide"
-                >[Actor Name]</span
+                >AI Recommendation Service</span
               >
             </div>
             <div class="flex flex-col gap-2.5 flex-grow">
               <div
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest w-max"
               >
-                [System]
+                Secondary
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                [Description: Briefly describe the actor's role,
-                responsibilities, and interaction with the system. Example:
-                Automated background job service.]
+                External AI service behind the chatbox. Gives goal-setting advice, recovery suggestions, progress analysis and activity recommendations, and never gives medical diagnosis or treatment (SI-2).
               </p>
             </div>
           </div>
@@ -254,19 +250,17 @@
                 class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
               ></div>
               <span class="font-mono font-bold text-white text-sm tracking-wide"
-                >[Actor Name]</span
+                >Notification &amp; Auth Services</span
               >
             </div>
             <div class="flex flex-col gap-2.5 flex-grow">
               <div
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest w-max"
               >
-                [Primary]
+                System
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                [Description: Briefly describe the actor's role,
-                responsibilities, and interaction with the system. Example:
-                Administrative user managing global settings.]
+                External services for push notifications (session reminders, partner updates, announcements, goal reminders) and authentication (email login, verification codes, password reset, 2FA), as in SI-3, SI-4 and CI-3.
               </p>
             </div>
           </div>
@@ -320,7 +314,7 @@
                     >
                       UC-01:
                       <span class="text-cyan-300 font-light"
-                        >[Scenario Name]</span
+                        >Book a Group Session</span
                       >
                     </h3>
                     <button
@@ -332,7 +326,7 @@
                       <i
                         class="ph ph-squares-four group-hover:scale-110 transition-transform"
                       ></i
-                      >[Diagram / Details]
+                      >Diagram
                     </button>
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
@@ -344,7 +338,7 @@
                           <span class="w-1 h-1 bg-cyan-500/50"></span> Actor
                         </div>
                         <div class="text-slate-200 text-sm font-mono">
-                          [Actor Name placeholder]
+                          End User
                         </div>
                       </div>
                       <div>
@@ -356,8 +350,7 @@
                         <div
                           class="text-slate-400 text-sm leading-relaxed font-light"
                         >
-                          [Goal description placeholder: Outline what the actor
-                          intends to achieve through this use case.]
+                          Join a coach-led outdoor session (running, cycling or hiking) that matches their schedule and level.
                         </div>
                       </div>
                     </div>
@@ -370,11 +363,11 @@
                       <ol
                         class="list-decimal list-inside text-sm text-slate-300 space-y-2.5 font-mono font-light marker:text-cyan-500/70"
                       >
-                        <li>[Main success scenario step 1]</li>
-                        <li>[Main success scenario step 2]</li>
-                        <li>[Main success scenario step 3]</li>
-                        <li>[Main success scenario step 4]</li>
-                        <li>[Main success scenario step 5]</li>
+                        <li>User logs in and opens the Sessions tab</li>
+                        <li>Browses available sessions and selects one</li>
+                        <li>Reviews session and coach details (time, location, capacity, intensity)</li>
+                        <li>Submits a booking request; system confirms it was sent</li>
+                        <li>Coach accepts; system adds the user and sends a notification</li>
                       </ol>
                     </div>
                   </div>
@@ -422,7 +415,7 @@
                     >
                       UC-02:
                       <span class="text-cyan-300 font-light"
-                        >[Scenario Name]</span
+                        >Create a Group Session</span
                       >
                     </h3>
                     <button
@@ -434,7 +427,7 @@
                       <i
                         class="ph ph-squares-four group-hover:scale-110 transition-transform"
                       ></i
-                      >[Diagram / Details]
+                      >Diagram
                     </button>
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
@@ -446,7 +439,7 @@
                           <span class="w-1 h-1 bg-cyan-500/50"></span> Actor
                         </div>
                         <div class="text-slate-200 text-sm font-mono">
-                          [Actor Name placeholder]
+                          Fitness Coach
                         </div>
                       </div>
                       <div>
@@ -458,8 +451,7 @@
                         <div
                           class="text-slate-400 text-sm leading-relaxed font-light"
                         >
-                          [Goal description placeholder: Outline what the actor
-                          intends to achieve through this use case.]
+                          Publish a new outdoor session that users can discover and request to join.
                         </div>
                       </div>
                     </div>
@@ -472,10 +464,10 @@
                       <ol
                         class="list-decimal list-inside text-sm text-slate-300 space-y-2.5 font-mono font-light marker:text-cyan-500/70"
                       >
-                        <li>[Main success scenario step 1]</li>
-                        <li>[Main success scenario step 2]</li>
-                        <li>[Main success scenario step 3]</li>
-                        <li>[Main success scenario step 4]</li>
+                        <li>Coach logs in and selects “Create Group Session”</li>
+                        <li>Enters activity type, date, time, location, capacity and intensity</li>
+                        <li>Submits; system validates the input (e.g. rejects past dates)</li>
+                        <li>System saves the session and confirms it is visible to users</li>
                       </ol>
                     </div>
                   </div>
@@ -523,7 +515,7 @@
                     >
                       UC-03:
                       <span class="text-cyan-300 font-light"
-                        >[Scenario Name]</span
+                        >Admit Session Members</span
                       >
                     </h3>
                     <button
@@ -535,7 +527,7 @@
                       <i
                         class="ph ph-squares-four group-hover:scale-110 transition-transform"
                       ></i
-                      >[Diagram / Details]
+                      >Diagram
                     </button>
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
@@ -547,7 +539,7 @@
                           <span class="w-1 h-1 bg-cyan-500/50"></span> Actor
                         </div>
                         <div class="text-slate-200 text-sm font-mono">
-                          [Actor Name placeholder]
+                          Fitness Coach
                         </div>
                       </div>
                       <div>
@@ -559,8 +551,7 @@
                         <div
                           class="text-slate-400 text-sm leading-relaxed font-light"
                         >
-                          [Goal description placeholder: Outline what the actor
-                          intends to achieve through this use case.]
+                          Decide which pending requests to accept, respecting session capacity and difficulty level.
                         </div>
                       </div>
                     </div>
@@ -573,9 +564,9 @@
                       <ol
                         class="list-decimal list-inside text-sm text-slate-300 space-y-2.5 font-mono font-light marker:text-cyan-500/70"
                       >
-                        <li>[Main success scenario step 1]</li>
-                        <li>[Main success scenario step 2]</li>
-                        <li>[Main success scenario step 3]</li>
+                        <li>Coach opens a session’s pending membership requests</li>
+                        <li>Reviews the user’s request and profile, then selects Accept or Reject</li>
+                        <li>System checks capacity and fitness-level match, updates the member list and notifies the user</li>
                       </ol>
                     </div>
                   </div>

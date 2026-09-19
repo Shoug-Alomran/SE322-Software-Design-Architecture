@@ -3,7 +3,12 @@
 [![Deploy to GitHub Pages](https://github.com/Shoug-Alomran/SE322-Software-Design-Architecture/actions/workflows/deploy.yml/badge.svg)](https://github.com/Shoug-Alomran/SE322-Software-Design-Architecture/actions/workflows/deploy.yml)
 [![Live Site](https://img.shields.io/badge/live-site-00f0ff?style=flat&logo=github&logoColor=white&labelColor=030712)](https://software-architecture.shoug-tech.com/)
 
-SE322 Software Design &amp; Architecture project — documenting the system architecture, 4+1 views, quality attributes, architectural styles, design patterns, and validation.
+SE322 Software Design &amp; Architecture project for **Intaliq**, an outdoor fitness app for Saudi Arabia. The site documents the system architecture, 4+1 views, quality attributes, architectural styles, design patterns, and validation.
+
+This project continues earlier Intaliq work. Requirements and usability findings on the site come from two reference documents, published in `site/assets/documents/` and linked from the Project and Documentation pages:
+
+- `intaliq-srs.pdf`: Intaliq 2.0 SRS (SE311, v1.0 approved)
+- `intaliq-hifi-prototype-usability-evaluation.pdf`: High-fidelity prototype and usability evaluation (SE365, Milestone 3)
 
 ## Site map
 

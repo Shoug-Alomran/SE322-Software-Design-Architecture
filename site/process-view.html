@@ -104,10 +104,11 @@
             <p
               class="text-slate-400 text-base md:text-lg leading-relaxed font-light"
             >
-              [Editable Placeholder] The Process View captures the dynamic
-              behavior of the system at runtime — the processes and threads, how
-              they communicate, and how the design addresses concurrency,
-              distribution, performance and fault tolerance.
+              The Process View shows how Intaliq behaves at runtime: requests
+              from the mobile app to the backend, notifications pushed to users
+              and coaches, offline actions synced later, and scheduled data
+              clean-up. It also covers how the design handles concurrent
+              bookings, response-time targets and lost connections.
             </p>
           </div>
           <div
@@ -164,8 +165,9 @@
               >FIG 1.0</span
             >
             <span
-              >[Editable description: Control flow of a key workflow, including
-              decisions, parallel branches and swimlanes.]</span
+              >Book-a-session workflow across User, System and Coach swimlanes,
+              covering login check, full-session check, and the coach's
+              accept/reject decision.</span
             >
           </figcaption>
         </figure>
@@ -205,8 +207,9 @@
               >FIG 2.0</span
             >
             <span
-              >[Editable description: Lifecycle states of a core entity and the
-              events that trigger transitions.]</span
+              >Lifecycle of a session membership request: Pending &rarr;
+              Accepted / Rejected, with capacity and fitness-level guards on
+              acceptance.</span
             >
           </figcaption>
         </figure>
@@ -230,18 +233,17 @@
             <div class="flex items-center gap-3 sm:w-56 shrink-0 mt-0.5">
               <span class="font-mono text-[10px] text-cyan-500">P-01</span>
               <span class="font-mono font-bold text-white text-sm tracking-wide"
-                >[Process Name]</span
+                >Session Booking &amp; Admission</span
               >
             </div>
             <div class="flex flex-col gap-2.5 flex-grow">
               <div
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest w-max"
               >
-                [Synchronous]
+                Synchronous
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                [Description: What this process does, what triggers it, and
-                which logical components run inside it.]
+                Triggered when a user submits a join request or a coach accepts or rejects one. The app calls the backend over HTTPS; the backend validates login, checks capacity and fitness-level match, updates the request status and member list, and returns a confirmation or error pop-up.
               </p>
             </div>
           </div>
@@ -251,18 +253,17 @@
             <div class="flex items-center gap-3 sm:w-56 shrink-0 mt-0.5">
               <span class="font-mono text-[10px] text-cyan-500">P-02</span>
               <span class="font-mono font-bold text-white text-sm tracking-wide"
-                >[Process Name]</span
+                >Notification Dispatch</span
               >
             </div>
             <div class="flex flex-col gap-2.5 flex-grow">
               <div
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest w-max"
               >
-                [Asynchronous]
+                Asynchronous
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                [Description: What this process does, what triggers it, and
-                which logical components run inside it.]
+                Triggered by booking decisions, partner request updates, coach announcements and goal reminders. Events are handed to the push notification service (SI-4) and email (CI-3) so the user's request does not wait for delivery.
               </p>
             </div>
           </div>
@@ -272,18 +273,17 @@
             <div class="flex items-center gap-3 sm:w-56 shrink-0 mt-0.5">
               <span class="font-mono text-[10px] text-cyan-500">P-03</span>
               <span class="font-mono font-bold text-white text-sm tracking-wide"
-                >[Process Name]</span
+                >Offline Sync &amp; Data Retention</span
               >
             </div>
             <div class="flex flex-col gap-2.5 flex-grow">
               <div
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest w-max"
               >
-                [Scheduled]
+                Scheduled
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                [Description: What this process does, what triggers it, and
-                which logical components run inside it.]
+                When the connection returns, the app syncs actions it stored locally, such as activity logs and partner requests (CI-4, CI-5). A scheduled policy also permanently deletes passively deleted data after the retention period and clears AI chat inputs after each session (SRS &sect;4.4).
               </p>
             </div>
           </div>
@@ -307,8 +307,10 @@
               Communication Style
             </h3>
             <p class="text-sm text-slate-400 font-light leading-relaxed">
-              [How processes communicate — e.g. REST calls, message queues,
-              events — and why.]
+              The mobile app uses HTTPS request/response calls to the cloud
+              backend (CI-1) over Wi-Fi or 4G/5G (CI-2). Notifications and
+              emails are sent asynchronously through external push and email
+              services, so user actions are never blocked by delivery.
             </p>
           </div>
           <div class="panel panel-hover p-6 flex flex-col gap-4">
@@ -317,8 +319,11 @@
               Synchronization
             </h3>
             <p class="text-sm text-slate-400 font-light leading-relaxed">
-              [How shared resources are protected — locking, transactions,
-              idempotency.]
+              Session capacity is shared by concurrent join requests and coach
+              admissions. The capacity check and member-list update must happen
+              together in one step (for example, a single database transaction)
+              so a session is never over-filled, and repeated offline syncs
+              must not create duplicate records.
             </p>
           </div>
           <div class="panel panel-hover p-6 flex flex-col gap-4">
@@ -327,8 +332,11 @@
               Performance &amp; Fault Tolerance
             </h3>
             <p class="text-sm text-slate-400 font-light leading-relaxed">
-              [Caching, load balancing, retries, timeouts and failure recovery
-              strategies.]
+              Targets: results within 3 s (PER-1), statistics within 4 s
+              (PER-2), server responses under 5 s (CI-6), and 99% availability
+              (REL-1). When the connection drops, the app stores unsent actions
+              locally and retries on reconnect. On a system error the action is
+              not saved and the user is told.
             </p>
           </div>
         </div>

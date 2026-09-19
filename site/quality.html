@@ -104,13 +104,12 @@
           <p
             class="font-light text-slate-300 leading-relaxed text-sm md:text-base"
           >
-            [Placeholder] The following quality attributes define the structural
-            and behavioral constraints of the system architecture. They describe
-            how the system must operate under specific conditions to meet
-            business goals. Each attribute is rigorously evaluated through
-            structured scenarios detailing the source, stimulus, environment,
-            and desired measurable response to ensure overall systemic
-            integrity.
+            These quality attributes come from the Intaliq SRS (&sect;2.4,
+            &sect;5 and &sect;6) and the high-fidelity prototype usability
+            evaluation. They describe how the system must behave for users
+            and coaches on mobile networks in Saudi Arabia. Each one is
+            written as a scenario with a source, stimulus, environment,
+            artifact, response and measurable target.
           </p>
         </div>
       </section>
@@ -168,7 +167,7 @@
                   <h3
                     class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
                   >
-                    [Attribute Name 1]
+                    Performance
                   </h3>
                   <span class="font-mono text-xs text-slate-500 shrink-0"
                     >ID: QA-01</span
@@ -178,9 +177,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  [Placeholder explanation of why this specific quality
-                  attribute is critical for the system's operational success,
-                  user experience, or business goals.]
+                  Users check sessions, stats and goals throughout the day. The SRS requires results within 3 seconds (PER-1), statistics within 4 seconds (PER-2), and app-server responses under 5 seconds (CI-6). If it feels slow, users lose motivation.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -205,7 +202,7 @@
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Source Entity / Actor]
+                        End user (participant)
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -215,7 +212,7 @@
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Triggering Event or Condition]
+                        Requests the list of available group sessions
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -225,7 +222,7 @@
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Operational State / Condition]
+                        Normal operation over Wi-Fi or 4G/5G
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -235,7 +232,7 @@
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Target Component / System]
+                        Mobile app, backend API and cloud database
                       </dd>
                     </div>
                     <div
@@ -247,7 +244,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [System's Expected Behavior or Action]
+                        Sessions are fetched and shown with details (coach, time, location, capacity, intensity)
                       </dd>
                     </div>
                     <div
@@ -259,7 +256,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        [Quantifiable Metric e.g., Latency &lt; 200ms]
+                        Results shown in &le; 3 s; statistics in &le; 4 s
                       </dd>
                     </div>
                   </dl>
@@ -287,7 +284,7 @@
                   <h3
                     class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
                   >
-                    [Attribute Name 2]
+                    Availability
                   </h3>
                   <span class="font-mono text-xs text-slate-500 shrink-0"
                     >ID: QA-02</span
@@ -297,9 +294,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  [Placeholder explanation of why this specific quality
-                  attribute is critical for the system's operational success,
-                  user experience, or business goals.]
+                  Coaches rely on Intaliq to fill sessions and send announcements, and users rely on it to log workouts outdoors where the connection can drop. The SRS requires at least 99% availability (REL-1), support for many simultaneous users (AVA-1), and local storage of unsent actions while offline (CI-5).
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -324,7 +319,7 @@
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Source Entity / Actor]
+                        End user logging an activity outdoors
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -334,7 +329,7 @@
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Triggering Event or Condition]
+                        Mobile connection is lost while the action is submitted
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -344,7 +339,7 @@
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Operational State / Condition]
+                        Degraded network: offline or intermittent coverage
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -354,7 +349,7 @@
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Target Component / System]
+                        Mobile app local store and sync component
                       </dd>
                     </div>
                     <div
@@ -366,7 +361,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [System's Expected Behavior or Action]
+                        The action is saved locally and synced automatically when the connection returns (CI-4, CI-5)
                       </dd>
                     </div>
                     <div
@@ -378,7 +373,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        [Quantifiable Metric e.g., 99.99% Uptime]
+                        99% uptime; 0 lost activity logs after reconnect
                       </dd>
                     </div>
                   </dl>
@@ -406,7 +401,7 @@
                   <h3
                     class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
                   >
-                    [Attribute Name 3]
+                    Security
                   </h3>
                   <span class="font-mono text-xs text-slate-500 shrink-0"
                     >ID: QA-03</span
@@ -416,9 +411,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  [Placeholder explanation of why this specific quality
-                  attribute is critical for the system's operational success,
-                  user experience, or business goals.]
+                  Intaliq stores personal details, locations and activity history. The SRS requires protecting personal data from unauthorized access (SEC-1), strong passwords (SEC-2), authentication before any personal data is sent (CI-7), HTTPS (CI-1), and email verification with two-factor authentication (SI-3, CI-3).
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -443,7 +436,7 @@
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Source Entity / Actor]
+                        Unauthenticated or unauthorized client
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -453,7 +446,7 @@
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Triggering Event or Condition]
+                        Attempts to read another user's profile, session data or activity records
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -463,7 +456,7 @@
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Operational State / Condition]
+                        Normal operation, public internet
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -473,7 +466,7 @@
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Target Component / System]
+                        Authentication service and backend data access
                       </dd>
                     </div>
                     <div
@@ -485,7 +478,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [System's Expected Behavior or Action]
+                        Request is rejected; data is only returned to authenticated, authorized users over HTTPS
                       </dd>
                     </div>
                     <div
@@ -497,7 +490,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        [Quantifiable Metric e.g., 0 Data Loss]
+                        100% of personal-data requests authenticated; 0 unauthorized reads
                       </dd>
                     </div>
                   </dl>
@@ -525,7 +518,7 @@
                   <h3
                     class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
                   >
-                    [Attribute Name 4]
+                    Usability
                   </h3>
                   <span class="font-mono text-xs text-slate-500 shrink-0"
                     >ID: QA-04</span
@@ -535,9 +528,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  [Placeholder explanation of why this specific quality
-                  attribute is critical for the system's operational success,
-                  user experience, or business goals.]
+                  Intaliq serves beginners and experienced athletes in Arabic and English, so essential tasks must take only a few steps (CO-3, USE-1, USE-2). The prototype evaluation praised the clean layout and bottom navigation but found missing pop-up feedback, inconsistent back buttons, and an AI chatbox and help button that did not work yet.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -562,7 +553,7 @@
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Source Entity / Actor]
+                        First-time user or coach
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -572,7 +563,7 @@
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Triggering Event or Condition]
+                        Books a session (or creates one) from the Home screen
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -582,7 +573,7 @@
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Operational State / Condition]
+                        Normal operation, Arabic or English interface
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -592,7 +583,7 @@
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [Target Component / System]
+                        Mobile UI: navigation, forms, confirmation and error pop-ups
                       </dd>
                     </div>
                     <div
@@ -604,7 +595,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        [System's Expected Behavior or Action]
+                        Task completes through the bottom navigation with clear confirmation or error messages next to the related field (UI-8)
                       </dd>
                     </div>
                     <div
@@ -616,7 +607,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        [Quantifiable Metric e.g., Scale in &lt; 1m]
+                        Booking in a few steps (CO-3; proposed: &le; 4 taps); feedback shown for every action
                       </dd>
                     </div>
                   </dl>
@@ -706,10 +697,10 @@
                   font-size="13"
                   fill="#e2e8f0"
                 >
-                  <text x="200" y="35" text-anchor="middle">[QA-01]</text>
-                  <text x="362" y="205" text-anchor="start">[QA-02]</text>
-                  <text x="200" y="378" text-anchor="middle">[QA-03]</text>
-                  <text x="38" y="205" text-anchor="end">[QA-04]</text>
+                  <text x="200" y="35" text-anchor="middle">PERF</text>
+                  <text x="362" y="205" text-anchor="start">AVAIL</text>
+                  <text x="200" y="378" text-anchor="middle">SEC</text>
+                  <text x="38" y="205" text-anchor="end">USAB</text>
                 </g>
               </svg>
             </div>
@@ -721,7 +712,7 @@
                 >
                   <span>Target Profile:</span
                   ><span class="text-cyan-400 text-right"
-                    >Mission Critical</span
+                    >Consumer Mobile</span
                   >
                 </li>
                 <li
@@ -729,7 +720,7 @@
                 >
                   <span>Trade-off Focus:</span
                   ><span class="text-slate-200 text-right"
-                    >[Attr 1] vs [Attr 2]</span
+                    >Security vs Usability</span
                   >
                 </li>
                 <li class="flex justify-between gap-4 pb-1">

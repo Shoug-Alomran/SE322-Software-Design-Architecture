@@ -104,10 +104,11 @@
             <p
               class="text-slate-400 text-base md:text-lg leading-relaxed font-light"
             >
-              [Editable Placeholder] The Logical View describes the
-              functionality the system provides to end users. It decomposes the
-              system into key abstractions — classes, objects and their
-              relationships — derived from the problem domain.
+              The Logical View describes what Intaliq does for users and
+              coaches. It breaks the system into the domain abstractions from
+              the SRS data dictionary (users, coaches, sessions, goals,
+              activities and partners) and the relationships behind booking,
+              admission, goal tracking and partner matching.
             </p>
           </div>
           <div
@@ -162,9 +163,9 @@
               >FIG 1.0</span
             >
             <span
-              >[Editable description: Static structure of the system showing the
-              main classes, their attributes, operations and
-              relationships.]</span
+              >Static structure of Intaliq: User, Coach, Session, Goal, Activity
+              and Partner with their attributes, operations and
+              relationships.</span
             >
           </figcaption>
         </figure>
@@ -207,8 +208,8 @@
               >FIG 2.0</span
             >
             <span
-              >[Editable description: Interaction between objects over time for
-              a key scenario, e.g. UC-01.]</span
+              >Object interactions over time for UC-01 Book a Group Session:
+              user request, coach decision and user notification.</span
             >
           </figcaption>
         </figure>
@@ -234,7 +235,7 @@
                 <span
                   class="w-2 h-2 bg-cyan-400 rotate-45 shadow-[0_0_8px_#00f0ff]"
                 ></span
-                >[ClassName]
+                >User
               </span>
               <span
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
@@ -242,15 +243,23 @@
               >
             </div>
             <p class="text-sm text-slate-400 leading-relaxed font-light">
-              [Responsibility: what this class represents and what it is
-              responsible for.]
+              A registered participant. Holds contact and login details; name lengths, Saudi (+966 5X-XXX-XXXX) or international phone format, email and password strength are validated.
             </p>
             <div class="flex flex-wrap gap-2 font-mono text-[11px]">
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >- [attribute]: Type</span
+                >- firstName: String</span
               >
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >+ [operation]()</span
+                >- lastName: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- phoneNumber: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- email: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- password: String</span
               >
             </div>
           </div>
@@ -263,23 +272,31 @@
                 <span
                   class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
                 ></span
-                >[ClassName]
+                >Coach
               </span>
               <span
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
-                >«Control»</span
+                >«Entity»</span
               >
             </div>
             <p class="text-sm text-slate-400 leading-relaxed font-light">
-              [Responsibility: what this class represents and what it is
-              responsible for.]
+              A fitness coach who creates and manages group sessions. Has the same identity data and validation rules as User.
             </p>
             <div class="flex flex-wrap gap-2 font-mono text-[11px]">
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >- [attribute]: Type</span
+                >- firstName: String</span
               >
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >+ [operation]()</span
+                >- lastName: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- phoneNumber: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- email: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- password: String</span
               >
             </div>
           </div>
@@ -292,23 +309,31 @@
                 <span
                   class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
                 ></span
-                >[ClassName]
+                >Session
               </span>
               <span
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
-                >«Boundary»</span
+                >«Entity»</span
               >
             </div>
             <p class="text-sm text-slate-400 leading-relaxed font-light">
-              [Responsibility: what this class represents and what it is
-              responsible for.]
+              An outdoor group session created by a coach. Date must be DD/MM/YYYY and realistic, time is 24-hour, location must be in Saudi Arabia, capacity must be more than 1.
             </p>
             <div class="flex flex-wrap gap-2 font-mono text-[11px]">
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >- [attribute]: Type</span
+                >- date: String</span
               >
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >+ [operation]()</span
+                >- time: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- location: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- capacity: int</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- intensity: Beginner | Intermediate | Advanced</span
               >
             </div>
           </div>
@@ -321,27 +346,94 @@
                 <span
                   class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
                 ></span
-                >[ClassName]
+                >Goal
               </span>
               <span
                 class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
-                >«Service»</span
+                >«Entity»</span
               >
             </div>
             <p class="text-sm text-slate-400 leading-relaxed font-light">
-              [Responsibility: what this class represents and what it is
-              responsible for.]
+              A personal target set by a user for one of the three supported activities. Deadline cannot be in the past, and calories must be more than 10 kcal.
             </p>
             <div class="flex flex-wrap gap-2 font-mono text-[11px]">
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >- [attribute]: Type</span
+                >- type: Hiking | Biking | Running</span
               >
               <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
-                >+ [operation]()</span
+                >- targetTime: HH:MM</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- caloriesBurnt: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- deadline: String</span
+              >
+            </div>
+          </div>
+
+          <div class="panel panel-hover p-5 flex flex-col gap-3 group">
+            <div class="flex items-center justify-between gap-4">
+              <span
+                class="font-mono font-bold text-white text-sm tracking-wide flex items-center gap-3"
+              >
+                <span
+                  class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
+                ></span
+                >Activity
+              </span>
+              <span
+                class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
+                >«Entity»</span
+              >
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed font-light">
+              A logged workout. Duration must be at least 5 minutes and no more than a day.
+            </p>
+            <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- type: Hiking | Biking | Running</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- duration: String</span
+              >
+            </div>
+          </div>
+
+          <div class="panel panel-hover p-5 flex flex-col gap-3 group">
+            <div class="flex items-center justify-between gap-4">
+              <span
+                class="font-mono font-bold text-white text-sm tracking-wide flex items-center gap-3"
+              >
+                <span
+                  class="w-2 h-2 border border-cyan-500 rotate-45 group-hover:bg-cyan-500 transition-colors"
+                ></span
+                >Partner
+              </span>
+              <span
+                class="px-2 py-0.5 border border-cyan-500/30 bg-cyan-950/40 text-cyan-300 font-mono text-[10px] uppercase tracking-widest"
+                >«Entity»</span
+              >
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed font-light">
+              A suggested fitness partner, matched by location, goals and activities, that a user can send a connection request to.
+            </p>
+            <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- location: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- goals: String</span
+              >
+              <span class="px-2 py-0.5 border border-cyan-900/60 text-slate-400"
+                >- activities: String</span
               >
             </div>
           </div>
         </div>
+        <p class="font-mono text-[10px] text-slate-500 mt-4">
+          Attributes and constraints: Intaliq SRS &sect;4.2 Data Dictionary
+        </p>
       </section>
 
       <!-- Relationships -->
@@ -376,36 +468,44 @@
             </thead>
             <tbody class="text-slate-400">
               <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
-                <td class="p-4 text-slate-200">[ClassA]</td>
+                <td class="p-4 text-slate-200">Coach</td>
                 <td class="p-4">
-                  <span class="text-cyan-300">Association</span>
+                  <span class="text-cyan-300">Association (creates)</span>
                 </td>
-                <td class="p-4 text-slate-200">[ClassB]</td>
+                <td class="p-4 text-slate-200">Session</td>
                 <td class="p-4">1 .. *</td>
               </tr>
               <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
-                <td class="p-4 text-slate-200">[ClassB]</td>
+                <td class="p-4 text-slate-200">User</td>
                 <td class="p-4">
-                  <span class="text-cyan-300">Composition</span>
+                  <span class="text-cyan-300">Association (requests to join)</span>
                 </td>
-                <td class="p-4 text-slate-200">[ClassC]</td>
-                <td class="p-4">1 .. 1</td>
+                <td class="p-4 text-slate-200">Session</td>
+                <td class="p-4">* .. *</td>
               </tr>
               <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
-                <td class="p-4 text-slate-200">[ClassD]</td>
+                <td class="p-4 text-slate-200">User</td>
                 <td class="p-4">
-                  <span class="text-cyan-300">Generalization</span>
+                  <span class="text-cyan-300">Association (sets)</span>
                 </td>
-                <td class="p-4 text-slate-200">[ClassA]</td>
-                <td class="p-4">—</td>
+                <td class="p-4 text-slate-200">Goal</td>
+                <td class="p-4">1 .. *</td>
+              </tr>
+              <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
+                <td class="p-4 text-slate-200">User</td>
+                <td class="p-4">
+                  <span class="text-cyan-300">Association (logs)</span>
+                </td>
+                <td class="p-4 text-slate-200">Activity</td>
+                <td class="p-4">1 .. *</td>
               </tr>
               <tr class="hover:bg-cyan-500/5">
-                <td class="p-4 text-slate-200">[ClassE]</td>
+                <td class="p-4 text-slate-200">User</td>
                 <td class="p-4">
-                  <span class="text-cyan-300">Dependency</span>
+                  <span class="text-cyan-300">Association (connects with)</span>
                 </td>
-                <td class="p-4 text-slate-200">[ClassD]</td>
-                <td class="p-4">—</td>
+                <td class="p-4 text-slate-200">Partner</td>
+                <td class="p-4">* .. *</td>
               </tr>
             </tbody>
           </table>
