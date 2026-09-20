@@ -112,12 +112,7 @@
             <div class="corner corner-bl"></div>
             <div class="corner corner-br"></div>
             <p class="text-slate-300 leading-relaxed text-base md:text-lg">
-              [Editable placeholder: Design patterns provide reusable,
-              documented solutions to common software design problems
-              encountered during architectural development. This section
-              outlines the specific patterns selected and applied within the
-              SE322 project architecture, detailing their rationale, application
-              context, and resulting structural benefits.]
+              Design patterns give Intaliq proven solutions to problems that appear across its features. Three patterns carry most of the design: Observer keeps session members informed, Repository isolates every read and write to Supabase behind one interface, and State governs the life cycle of a booking request. Each one is described below with the problem it solves, why it was chosen over the alternatives, and how it is applied in the Intaliq modules.
             </p>
           </div>
         </div>
@@ -161,13 +156,13 @@
                   DP-01
                 </div>
                 <div class="col-span-3 text-slate-200">
-                  [Pattern Name Placeholder]
+                  Observer
                 </div>
                 <div class="col-span-3 text-slate-400">
-                  [Category Placeholder]
+                  Behavioural
                 </div>
                 <div class="col-span-5 text-slate-400 truncate">
-                  [Brief Context Summary Placeholder]
+                  Announcements and notifications sent to session members
                 </div>
               </a>
               <a
@@ -180,13 +175,13 @@
                   DP-02
                 </div>
                 <div class="col-span-3 text-slate-200">
-                  [Pattern Name Placeholder]
+                  Repository
                 </div>
                 <div class="col-span-3 text-slate-400">
-                  [Category Placeholder]
+                  Structural / Data access
                 </div>
                 <div class="col-span-5 text-slate-400 truncate">
-                  [Brief Context Summary Placeholder]
+                  All reads and writes to Supabase, plus the offline queue
                 </div>
               </a>
               <a
@@ -199,13 +194,13 @@
                   DP-03
                 </div>
                 <div class="col-span-3 text-slate-200">
-                  [Pattern Name Placeholder]
+                  State
                 </div>
                 <div class="col-span-3 text-slate-400">
-                  [Category Placeholder]
+                  Behavioural
                 </div>
                 <div class="col-span-5 text-slate-400 truncate">
-                  [Brief Context Summary Placeholder]
+                  Booking request life cycle: pending, accepted, rejected
                 </div>
               </a>
             </div>
@@ -255,13 +250,13 @@
                     >NODE // DP-01</span
                   >
                   <h3 class="font-mono text-xl sm:text-2xl text-white">
-                    [Design Pattern Name Placeholder]
+                    Observer
                   </h3>
                 </div>
                 <div
                   class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50 self-start md:self-auto"
                 >
-                  CLASSIFICATION: [Category]
+                  CLASSIFICATION: Behavioural
                 </div>
               </div>
 
@@ -275,11 +270,7 @@
                       Statement
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Describe the specific architectural
-                      or design problem encountered within the project that
-                      necessitated the use of this pattern. Explain the forces
-                      or constraints that made a standardized solution
-                      necessary.]
+                      When a coach publishes a session announcement or accepts a join request, several parts of the system have to react at once: the member list, the push-notification service (SI-4), the email service (CI-3), and any screen currently showing that session. Calling each one directly from the coach feature would tie session management to every consumer and force a change here for each new reaction.
                     </p>
                   </div>
                   <div>
@@ -290,10 +281,7 @@
                       Rationale
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Explain why this particular pattern
-                      was chosen over alternatives. Detail how it aligns with
-                      the project's quality attributes, architectural style, and
-                      specific domain requirements.]
+                      Observer lets the session publish one event that interested parties subscribe to. It suits the requirement that announcements reach all registered members (FR-07) while keeping the coach flow independent of how a member is reached, and it supports modifiability: new subscribers, such as an in-app activity feed, can be added without touching the publisher.
                     </p>
                   </div>
                   <div>
@@ -304,10 +292,7 @@
                       Application
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Detail exactly how the pattern is
-                      implemented in the codebase or system architecture.
-                      Mention specific modules, classes, or components that
-                      participate in this pattern.]
+                      The Session module raises events such as announcementPosted, memberAdmitted and requestRejected. The subscribers are the push-notification adapter, the email adapter and the session screens, which refresh the member list and the announcement feed when an event arrives.
                     </p>
                   </div>
                   <div
@@ -322,22 +307,19 @@
                       <li class="flex items-start gap-2">
                         <span class="text-cyan-500 mt-0.5">▹</span
                         ><span
-                          >[Editable placeholder: Benefit 1 resulting from
-                          application.]</span
+                          >A coach action reaches every member through push and email without the session code knowing about either service.</span
                         >
                       </li>
                       <li class="flex items-start gap-2">
                         <span class="text-cyan-500 mt-0.5">▹</span
                         ><span
-                          >[Editable placeholder: Benefit 2 resulting from
-                          application.]</span
+                          >New reactions to session events are added by registering another subscriber.</span
                         >
                       </li>
                       <li class="flex items-start gap-2">
                         <span class="text-cyan-500 mt-0.5">▹</span
                         ><span
-                          >[Editable placeholder: Benefit 3 resulting from
-                          application.]</span
+                          >Screens stay in step with the backend because they react to the same events.</span
                         >
                       </li>
                     </ul>
@@ -375,7 +357,7 @@
                       <i class="ph ph-layout text-2xl text-cyan-400"></i>
                       <span
                         class="font-mono text-cyan-400 text-xs tracking-wider text-center"
-                        >[INSERT UML DIAGRAM<br />PLACEHOLDER]</span
+                        >OBSERVER<br />STRUCTURE DIAGRAM</span
                       >
                     </div>
                   </div>
@@ -410,13 +392,13 @@
                     >NODE // DP-02</span
                   >
                   <h3 class="font-mono text-xl sm:text-2xl text-white">
-                    [Design Pattern Name Placeholder]
+                    Repository
                   </h3>
                 </div>
                 <div
                   class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50 self-start md:self-auto"
                 >
-                  CLASSIFICATION: [Category]
+                  CLASSIFICATION: Structural / Data access
                 </div>
               </div>
 
@@ -430,11 +412,7 @@
                       Statement
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Describe the specific architectural
-                      or design problem encountered within the project that
-                      necessitated the use of this pattern. Explain the forces
-                      or constraints that made a standardized solution
-                      necessary.]
+                      Sessions, activities, goals, partner requests and chat messages all live in the Supabase database (SI-1), and the app must keep working offline: unsent actions are stored locally and synced when the connection returns (CI-4, CI-5). Scattering Supabase calls through the screens would duplicate that offline logic and make the app hard to test or to move to another backend.
                     </p>
                   </div>
                   <div>
@@ -445,10 +423,7 @@
                       Rationale
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Explain why this particular pattern
-                      was chosen over alternatives. Detail how it aligns with
-                      the project's quality attributes, architectural style, and
-                      specific domain requirements.]
+                      A repository gives each entity one interface for reading and writing, with the choice between the local store and the network hidden behind it. It keeps the offline rule in a single place, supports the availability target of no lost activity logs after reconnect, and lets features be tested against a fake repository instead of a live database.
                     </p>
                   </div>
                   <div>
@@ -459,10 +434,7 @@
                       Application
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Detail exactly how the pattern is
-                      implemented in the codebase or system architecture.
-                      Mention specific modules, classes, or components that
-                      participate in this pattern.]
+                      SessionRepository, ActivityRepository, GoalRepository and PartnerRepository sit in the infrastructure layer. Each one reads through the Supabase client, writes through the sync queue when the device is offline, and returns the domain entities defined in the data dictionary.
                     </p>
                   </div>
                   <div
@@ -477,15 +449,13 @@
                       <li class="flex items-start gap-2">
                         <span class="text-cyan-500 mt-0.5">▹</span
                         ><span
-                          >[Editable placeholder: Benefit 1 resulting from
-                          application.]</span
+                          >Offline storage and synchronisation are implemented once, not in every feature.</span
                         >
                       </li>
                       <li class="flex items-start gap-2">
                         <span class="text-cyan-500 mt-0.5">▹</span
                         ><span
-                          >[Editable placeholder: Benefit 2 resulting from
-                          application.]</span
+                          >Features depend on an interface, so the backend can change without rewriting them.</span
                         >
                       </li>
                     </ul>
@@ -523,7 +493,7 @@
                       <i class="ph ph-layout text-2xl text-cyan-400"></i>
                       <span
                         class="font-mono text-cyan-400 text-xs tracking-wider text-center"
-                        >[INSERT UML DIAGRAM<br />PLACEHOLDER]</span
+                        >REPOSITORY<br />STRUCTURE DIAGRAM</span
                       >
                     </div>
                   </div>
@@ -558,13 +528,13 @@
                     >NODE // DP-03</span
                   >
                   <h3 class="font-mono text-xl sm:text-2xl text-white">
-                    [Design Pattern Name Placeholder]
+                    State
                   </h3>
                 </div>
                 <div
                   class="font-mono text-xs text-slate-500 border border-slate-800 px-3 py-1 bg-slate-900/50 self-start md:self-auto"
                 >
-                  CLASSIFICATION: [Category]
+                  CLASSIFICATION: Behavioural
                 </div>
               </div>
 
@@ -578,11 +548,7 @@
                       Statement
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Describe the specific architectural
-                      or design problem encountered within the project that
-                      necessitated the use of this pattern. Explain the forces
-                      or constraints that made a standardized solution
-                      necessary.]
+                      A join request moves through several stages: submitted by the user, reviewed by the coach, then accepted, rejected, or blocked because the session is full or the fitness level does not match (FR-01, FR-06). Expressing this with flags and nested conditions spread across the booking and admission code makes invalid transitions easy to introduce, such as admitting a member into a full session.
                     </p>
                   </div>
                   <div>
@@ -593,10 +559,7 @@
                       Rationale
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Explain why this particular pattern
-                      was chosen over alternatives. Detail how it aligns with
-                      the project's quality attributes, architectural style, and
-                      specific domain requirements.]
+                      State turns each stage into its own object that decides which actions are allowed and which stage comes next. The rules from the SRS alternative scenarios live in one place, the same states drive the state machine diagram in the Process View, and the capacity and fitness-level checks cannot be bypassed.
                     </p>
                   </div>
                   <div>
@@ -607,10 +570,7 @@
                       Application
                     </h4>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                      [Editable placeholder: Detail exactly how the pattern is
-                      implemented in the codebase or system architecture.
-                      Mention specific modules, classes, or components that
-                      participate in this pattern.]
+                      A BookingRequest holds a state of Pending, Accepted, Rejected or Cancelled. The admission feature asks the current state to handle accept or reject; the Pending state checks session capacity and the member fitness level before moving to Accepted and raising the notification event.
                     </p>
                   </div>
                   <div
@@ -625,15 +585,13 @@
                       <li class="flex items-start gap-2">
                         <span class="text-cyan-500 mt-0.5">▹</span
                         ><span
-                          >[Editable placeholder: Benefit 1 resulting from
-                          application.]</span
+                          >Invalid transitions, such as admitting into a full session, are rejected by the state itself.</span
                         >
                       </li>
                       <li class="flex items-start gap-2">
                         <span class="text-cyan-500 mt-0.5">▹</span
                         ><span
-                          >[Editable placeholder: Benefit 2 resulting from
-                          application.]</span
+                          >The booking rules are read in one place and match the state machine diagram.</span
                         >
                       </li>
                     </ul>
@@ -671,7 +629,7 @@
                       <i class="ph ph-layout text-2xl text-cyan-400"></i>
                       <span
                         class="font-mono text-cyan-400 text-xs tracking-wider text-center"
-                        >[INSERT UML DIAGRAM<br />PLACEHOLDER]</span
+                        >STATE<br />STRUCTURE DIAGRAM</span
                       >
                     </div>
                   </div>

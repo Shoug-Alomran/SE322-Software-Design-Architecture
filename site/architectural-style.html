@@ -107,10 +107,7 @@
             <p
               class="max-w-3xl text-slate-400 text-sm leading-relaxed font-light"
             >
-              [Enter a brief introduction about the chosen architectural style,
-              its fundamental role in shaping the system's overarching
-              structure, and how it aligns with the core business objectives of
-              the project.]
+              Intaliq runs as a client–server system: a layered mobile client on iOS and Android talks over HTTPS to a cloud backend that owns authentication and the shared database, with AI, push-notification and email services attached to it. This choice shapes every other view — it decides where session data lives, where capacity and security rules are enforced, and what the app must do when the network drops during an outdoor workout.
             </p>
           </div>
         </header>
@@ -146,13 +143,12 @@
               <h3
                 class="text-2xl md:text-3xl font-mono font-medium text-slate-100 mb-2 group-hover:text-cyan-50 transition-colors"
               >
-                [Architectural Style Name]
+                Client–Server with a Layered Client
               </h3>
               <p class="text-cyan-600 font-mono text-sm">
                 &gt;
                 <span class="text-slate-400"
-                  >[Enter a brief tagline or one-line summary of the
-                  architectural style placeholder]</span
+                  >A layered mobile client over HTTPS to a Supabase backend and external services</span
                 >
               </p>
             </div>
@@ -201,14 +197,10 @@
                 class="space-y-4 text-sm text-slate-400 leading-relaxed font-light"
               >
                 <p>
-                  [Editable placeholder: Paragraph explaining what the
-                  architectural style is and its core principles. Describe the
-                  foundational concepts that define this approach.]
+                  In a client–server style the system is split between clients that request work and a server that owns the shared data and the rules protecting it. Clients never reach the database directly: every request passes through the server, which authenticates the caller and decides what may be read or written. Inside the client, the layered style stacks presentation, application logic, domain and infrastructure so that each layer only depends on the one beneath it.
                 </p>
                 <p>
-                  [Editable placeholder: Paragraph detailing how it structures a
-                  system. Mention primary components, connectors, data flow
-                  patterns, or isolation boundaries typical of this style.]
+                  Intaliq has three tiers. The mobile client holds the screens, the use-case logic and a local store for unsent actions. The backend — Supabase — provides authentication and the PostgreSQL database for users, coaches, sessions, goals, activities and partner requests (SI-1, SI-3). A third tier of external services covers AI advice, push notifications and email (SI-2, SI-4, CI-3). The connector between them is HTTPS (CI-1) over Wi-Fi or mobile data (CI-2), and the client–server boundary is where authentication, capacity and fitness-level checks are enforced.
                 </p>
               </div>
             </div>
@@ -236,9 +228,7 @@
               <div
                 class="text-sm text-slate-400 leading-relaxed font-light mb-4"
               >
-                [Editable placeholder: Introductory sentence explaining the
-                primary motivation for choosing this specific architectural
-                style for the system.]
+                The style follows from what Intaliq has to do: many users and coaches share the same session data from their own phones, and that data must stay consistent and protected.
               </div>
               <ul class="space-y-3">
                 <li class="flex items-start gap-3">
@@ -246,8 +236,7 @@
                     class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
                   ></span
                   ><span class="text-sm text-slate-300"
-                    >[Rationale point 1: Aligning with specific non-functional
-                    requirements or quality attributes]</span
+                    >Shared, consistent data: session capacity, member lists and announcements have one authoritative copy on the server, so two users cannot take the last place in a session (FR-06), and it supports 99% availability with many simultaneous users (REL-1, AVA-1).</span
                   >
                 </li>
                 <li class="flex items-start gap-3">
@@ -255,8 +244,7 @@
                     class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
                   ></span
                   ><span class="text-sm text-slate-300"
-                    >[Rationale point 2: Addressing complexity, team structure,
-                    or deployment constraints]</span
+                    >Security in one place: authentication before any personal data is transmitted, HTTPS transport and password rules are enforced at the server boundary rather than in each screen (CI-1, CI-7, SEC-1, SEC-2).</span
                   >
                 </li>
                 <li class="flex items-start gap-3">
@@ -264,8 +252,7 @@
                     class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
                   ></span
                   ><span class="text-sm text-slate-300"
-                    >[Rationale point 3: Future-proofing, scalability, or
-                    maintainability benefits specific to the project]</span
+                    >Fits the team and the roadmap: it keeps the prototype stack of Vite, Supabase, GitHub and Vercel that the team already knows, and leaves room for the planned map integration, AI partner matching and wearable devices (SI-5, HI-1) as further services behind the same boundary.</span
                   >
                 </li>
               </ul>
@@ -297,10 +284,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div class="border-l border-cyan-900/40 pl-5">
                 <p class="text-sm text-slate-400 leading-relaxed font-light">
-                  [Editable placeholder: Describe conceptually how the style
-                  maps to the project’s specific modules, layers, or services.
-                  Explain the realization of the architectural pattern within
-                  the context of your domain.]
+                  The client holds the Sessions, Activities, Goals, Partners and AI Chatbox features on top of the domain entities and an infrastructure layer with the Supabase client and the offline queue. The server holds the tables and access rules for those entities. Booking is the clearest example: the app submits a join request, the server checks capacity and fitness level, stores the decision and triggers the notification services, and the app shows the result — or queues it locally if the phone is offline (CI-4, CI-5).
                 </p>
               </div>
               <div
@@ -315,7 +299,7 @@
                 <div
                   class="diagram-placeholder !py-3 !px-4 !text-xs !text-cyan-500/70"
                 >
-                  [ Insert Application Context Diagram ]
+                  Application Context Diagram
                 </div>
               </div>
             </div>
@@ -348,10 +332,9 @@
                 ></div>
                 <div class="flex flex-col">
                   <span class="font-mono text-xs text-cyan-300 mb-1"
-                    >[Advantage Title 1]</span
+                    >One source of truth</span
                   ><span class="text-xs text-slate-400 leading-relaxed"
-                    >[Editable placeholder description detailing how this
-                    benefit concretely improves the system.]</span
+                    >Sessions, capacity and member lists live on the server, so coaches and users always see the same state and bookings cannot exceed capacity.</span
                   >
                 </div>
               </div>
@@ -366,10 +349,9 @@
                 ></div>
                 <div class="flex flex-col">
                   <span class="font-mono text-xs text-cyan-300 mb-1"
-                    >[Advantage Title 2]</span
+                    >Security at one boundary</span
                   ><span class="text-xs text-slate-400 leading-relaxed"
-                    >[Editable placeholder description detailing how this
-                    benefit concretely improves the system.]</span
+                    >Authentication, authorization and HTTPS are enforced where the client meets the server, so personal data and activity history are never exposed to an unauthenticated caller.</span
                   >
                 </div>
               </div>
@@ -384,10 +366,9 @@
                 ></div>
                 <div class="flex flex-col">
                   <span class="font-mono text-xs text-cyan-300 mb-1"
-                    >[Advantage Title 3]</span
+                    >Independent evolution</span
                   ><span class="text-xs text-slate-400 leading-relaxed"
-                    >[Editable placeholder description detailing how this
-                    benefit concretely improves the system.]</span
+                    >The layered client can be redesigned — as the usability findings require — and services such as maps or AI matching can be added without changing the data model on the server.</span
                   >
                 </div>
               </div>
@@ -418,10 +399,9 @@
                 ></div>
                 <div class="flex flex-col">
                   <span class="font-mono text-xs text-slate-300 mb-1"
-                    >[Limitation Title 1]</span
+                    >Dependence on connectivity</span
                   ><span class="text-xs text-slate-500 leading-relaxed"
-                    >[Editable placeholder describing a specific drawback,
-                    complexity, or compromise introduced by this style.]</span
+                    >Outdoor workouts happen where coverage is weak, so the client needs a local store and a sync queue to avoid losing activity logs (CI-5) — extra logic that a purely online design would not need.</span
                   >
                 </div>
               </div>
@@ -436,10 +416,9 @@
                 ></div>
                 <div class="flex flex-col">
                   <span class="font-mono text-xs text-slate-300 mb-1"
-                    >[Limitation Title 2]</span
+                    >The backend is a single point of failure</span
                   ><span class="text-xs text-slate-500 leading-relaxed"
-                    >[Editable placeholder describing a specific drawback,
-                    complexity, or compromise introduced by this style.]</span
+                    >If Supabase or the network is down, booking, admission and announcements all stop, which puts pressure on the 99% availability target and makes backups and monitoring necessary.</span
                   >
                 </div>
               </div>
@@ -454,10 +433,9 @@
                 ></div>
                 <div class="flex flex-col">
                   <span class="font-mono text-xs text-slate-300 mb-1"
-                    >[Limitation Title 3]</span
+                    >Round trips cost time</span
                   ><span class="text-xs text-slate-500 leading-relaxed"
-                    >[Editable placeholder describing a specific drawback,
-                    complexity, or compromise introduced by this style.]</span
+                    >Every list and statistic is a network call, so the 3-second and 4-second response targets (PER-1, PER-2) depend on caching and careful queries rather than on local computation.</span
                   >
                 </div>
               </div>
@@ -513,7 +491,7 @@
                 </div>
                 <span
                   class="font-mono text-xs sm:text-sm text-cyan-400/80 uppercase tracking-[0.2em] border border-cyan-500/30 px-4 sm:px-6 py-2 bg-[#030712]/90 backdrop-blur text-center"
-                  >[ Insert Architectural Style Diagram ]</span
+                  >Architectural Style Diagram</span
                 >
               </div>
             </div>
@@ -521,9 +499,7 @@
             <figcaption
               class="mt-4 text-center border-b border-cyan-900/30 pb-4 font-mono text-xs text-slate-500"
             >
-              <span class="text-cyan-700">FIG 1.0</span> // [Editable caption
-              describing the architectural style diagram above, explaining the
-              main components and interactions shown.]
+              <span class="text-cyan-700">FIG 1.0</span> // The three tiers of Intaliq: the layered mobile client, the Supabase backend holding authentication and the database, and the external AI, push-notification and email services — all connected over HTTPS.
             </figcaption>
           </figure>
         </section>

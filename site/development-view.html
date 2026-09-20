@@ -153,7 +153,7 @@
             <!-- Replace with <img src="assets/diagrams/component-diagram.png" alt="Component diagram"> -->
             <div class="diagram-placeholder">
               <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-              [Insert Component Diagram]
+              Component Diagram
             </div>
           </div>
           <figcaption
@@ -164,8 +164,7 @@
               >FIG 1.0</span
             >
             <span
-              >[Editable description: Main software components, their
-              provided/required interfaces and dependencies.]</span
+              >Intaliq components: the mobile UI shell, the feature modules (Sessions, Activities, Goals, Partners, AI Chatbox), the Supabase client, and the external AI, push-notification and email services they depend on.</span
             >
           </figcaption>
         </figure>
@@ -197,7 +196,7 @@
             <!-- Replace with <img src="assets/diagrams/package-diagram.png" alt="Package diagram"> -->
             <div class="diagram-placeholder">
               <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-              [Insert Package Diagram]
+              Package Diagram
             </div>
           </div>
           <figcaption
@@ -208,8 +207,7 @@
               >FIG 2.0</span
             >
             <span
-              >[Editable description: Package organization and allowed
-              dependencies between packages.]</span
+              >Package organisation in four layers — ui, features, domain and infrastructure. Dependencies point inwards: only infrastructure talks to Supabase and the external services.</span
             >
           </figcaption>
         </figure>
@@ -233,22 +231,22 @@
             <div class="flex items-center gap-3">
               <span class="font-mono text-[10px] text-cyan-500">L1</span>
               <span class="font-mono text-sm text-white uppercase tracking-wide"
-                >[Presentation]</span
+                >Presentation</span
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              [Responsibility of this layer.]
+              Screens and shared components for Home, Activities, Sessions, Goals and More, including the bottom navigation bar, forms, and confirmation and error messages shown next to the related field (UI-3, UI-4, UI-8). Arabic and English are switched from Settings (UI-1).
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
             >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >screens</span
               >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >navigation</span
               >
             </div>
           </div>
@@ -261,22 +259,22 @@
             <div class="flex items-center gap-3">
               <span class="font-mono text-[10px] text-cyan-500">L2</span>
               <span class="font-mono text-sm text-white uppercase tracking-wide"
-                >[Application]</span
+                >Application</span
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              [Responsibility of this layer.]
+              Use-case logic: booking a session, admitting members, setting goals, sending partner requests, publishing announcements and querying the AI chatbox. It validates input, enforces the flow and calls infrastructure.
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
             >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >booking</span
               >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >sessions</span
               >
             </div>
           </div>
@@ -289,22 +287,22 @@
             <div class="flex items-center gap-3">
               <span class="font-mono text-[10px] text-cyan-500">L3</span>
               <span class="font-mono text-sm text-white uppercase tracking-wide"
-                >[Domain]</span
+                >Domain</span
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              [Responsibility of this layer.]
+              Entities and rules from the SRS data dictionary — User, Coach, Session, Goal, Activity and Partner — with constraints such as capacity greater than 1, beginner/intermediate/advanced intensity, and locations inside Saudi Arabia.
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
             >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >goals</span
               >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >partners</span
               >
             </div>
           </div>
@@ -317,22 +315,22 @@
             <div class="flex items-center gap-3">
               <span class="font-mono text-[10px] text-cyan-500">L4</span>
               <span class="font-mono text-sm text-white uppercase tracking-wide"
-                >[Infrastructure]</span
+                >Infrastructure</span
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              [Responsibility of this layer.]
+              Supabase client for authentication and PostgreSQL access, the offline queue that stores unsent actions and syncs them when the connection returns (CI-4, CI-5), and adapters for the AI, push-notification and email services.
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
             >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >entities</span
               >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >[module]</span
+                >rules</span
               >
             </div>
           </div>
@@ -400,7 +398,7 @@
                 class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"
                 ><i class="ph ph-test-tube"></i>Testing</span
               ><span class="font-mono text-sm text-slate-200"
-                >[Technology]</span
+                >Vitest &middot; manual test cases</span
               >
             </div>
           </div>
@@ -423,15 +421,15 @@
             </div>
             <pre
               class="p-5 font-mono text-xs text-slate-400 leading-6"
-            >[project-root]/
-├── <span class="text-cyan-300">[presentation]</span>/
-│   └── [module]/
-├── <span class="text-cyan-300">[application]</span>/
-│   └── [module]/
-├── <span class="text-cyan-300">[domain]</span>/
-│   └── [module]/
-├── <span class="text-cyan-300">[infrastructure]</span>/
-│   └── [module]/
+            >intaliq/
+├── <span class="text-cyan-300">ui</span>/
+│   └── screens/
+├── <span class="text-cyan-300">features</span>/
+│   └── sessions/
+├── <span class="text-cyan-300">domain</span>/
+│   └── model/
+├── <span class="text-cyan-300">infrastructure</span>/
+│   └── supabase/
 └── tests/</pre>
           </div>
         </div>
