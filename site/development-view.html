@@ -173,51 +173,6 @@
         </figure>
       </section>
 
-      <!-- FIG 2.0 Package diagram -->
-      <section class="max-w-7xl mx-auto px-6 mb-20">
-        <figure class="panel p-1">
-          <div class="ch ch-tl"></div>
-          <div class="ch ch-tr"></div>
-          <div class="ch ch-bl"></div>
-          <div class="ch ch-br"></div>
-          <div
-            class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center justify-between"
-          >
-            <div
-              class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400 flex items-center gap-3"
-            >
-              <i class="ph ph-package text-base text-cyan-500/70"></i
-              >PACKAGE_DIAGRAM.UML
-            </div>
-            <div class="flex gap-2">
-              <span class="w-1.5 h-1.5 bg-cyan-500/20"></span
-              ><span class="w-1.5 h-1.5 bg-cyan-500/50"></span
-              ><span class="w-1.5 h-1.5 bg-cyan-400"></span>
-            </div>
-          </div>
-          <div class="diagram-canvas h-[320px] md:h-[420px]">
-            <!-- Replace with <img src="assets/diagrams/package-diagram.png" alt="Package diagram"> -->
-            <div class="diagram-placeholder">
-              <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-              Package Diagram
-            </div>
-          </div>
-          <figcaption
-            class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed"
-          >
-            <span
-              class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
-              >FIG 2.0</span
-            >
-            <span
-              >Package organisation in four layers — ui, features, domain and
-              infrastructure. Dependencies point inwards: only infrastructure
-              talks to Supabase and the external services.</span
-            >
-          </figcaption>
-        </figure>
-      </section>
-
       <!-- Layers & modules -->
       <section class="max-w-7xl mx-auto px-6 mb-24">
         <div class="flex items-center gap-4 mb-8">
@@ -313,11 +268,11 @@
             >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >goals</span
+                >entities</span
               >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >partners</span
+                >rules</span
               >
             </div>
           </div>
@@ -344,111 +299,21 @@
             >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >entities</span
+                >supabase-client</span
               >
               <span
                 class="px-2 py-0.5 border border-cyan-800/50 bg-cyan-950/30 text-slate-300"
-                >rules</span
+                >sync-queue</span
               >
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Tech stack + repo structure -->
+      <!-- Technology stack -->
       <section
-        class="max-w-7xl mx-auto px-6 mb-16 grid grid-cols-1 lg:grid-cols-2 gap-12"
+        class="max-w-7xl mx-auto px-6 mb-16"
       >
-        <div>
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-8 h-px bg-cyan-500"></div>
-            <h2
-              class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase"
-            >
-              Technology Stack
-            </h2>
-          </div>
-          <div
-            class="grid grid-cols-2 gap-px bg-cyan-500/10 border border-cyan-500/20"
-          >
-            <div class="bg-[#060b13] p-4 flex flex-col gap-1">
-              <span
-                class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"
-                ><i class="ph ph-browser"></i>Frontend</span
-              ><span class="font-mono text-sm text-slate-200"
-                >JavaScript, HTML, CSS &middot; Vite</span
-              >
-            </div>
-            <div class="bg-[#060b13] p-4 flex flex-col gap-1">
-              <span
-                class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"
-                ><i class="ph ph-gear"></i>Backend</span
-              ><span class="font-mono text-sm text-slate-200"
-                >Supabase (Auth, SQL)</span
-              >
-            </div>
-            <div class="bg-[#060b13] p-4 flex flex-col gap-1">
-              <span
-                class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"
-                ><i class="ph ph-database"></i>Database</span
-              ><span class="font-mono text-sm text-slate-200"
-                >Supabase PostgreSQL</span
-              >
-            </div>
-            <div class="bg-[#060b13] p-4 flex flex-col gap-1">
-              <span
-                class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"
-                ><i class="ph ph-envelope-simple"></i>Messaging</span
-              ><span class="font-mono text-sm text-slate-200"
-                >Push notifications &amp; email (SI-4, CI-3)</span
-              >
-            </div>
-            <div class="bg-[#060b13] p-4 flex flex-col gap-1">
-              <span
-                class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"
-                ><i class="ph ph-git-branch"></i>CI / CD</span
-              ><span class="font-mono text-sm text-slate-200"
-                >GitHub &middot; Vercel</span
-              >
-            </div>
-            <div class="bg-[#060b13] p-4 flex flex-col gap-1">
-              <span
-                class="font-mono text-[10px] text-slate-500 uppercase tracking-widest flex items-center gap-2"
-                ><i class="ph ph-test-tube"></i>Testing</span
-              ><span class="font-mono text-sm text-slate-200"
-                >Vitest &middot; manual test cases</span
-              >
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-8 h-px bg-cyan-500"></div>
-            <h2
-              class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase"
-            >
-              Source Structure
-            </h2>
-          </div>
-          <div class="panel overflow-x-auto">
-            <div
-              class="px-4 py-2 border-b border-cyan-500/20 bg-cyan-950/20 font-mono text-[10px] text-cyan-400 tracking-widest"
-            >
-              TREE.TXT
-            </div>
-            <pre class="p-5 font-mono text-xs text-slate-400 leading-6">intaliq/
-├── <span class="text-cyan-300">ui</span>/
-│   └── screens/
-├── <span class="text-cyan-300">features</span>/
-│   └── sessions/
-├── <span class="text-cyan-300">domain</span>/
-│   └── model/
-├── <span class="text-cyan-300">infrastructure</span>/
-│   └── supabase/
-└── tests/</pre>
-          </div>
-        </div>
       </section>
 
       <div class="max-w-7xl mx-auto px-6 mb-16">

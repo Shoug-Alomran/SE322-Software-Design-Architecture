@@ -29,6 +29,7 @@ Home → Project Overview → Architecture Overview → 4+1 Views (User, Logical
 | Design Patterns            | `site/design-patterns.html`     |
 | Documentation & Validation | `site/documentation.html`       |
 | Team                       | `site/team.html`                |
+| Work Split                 | `site/tasks.html`               |
 
 ## Project structure
 

@@ -112,6 +112,13 @@
       section: "team",
       icon: "ph-users-three",
     },
+    {
+      id: "tasks",
+      title: "Work Split",
+      href: "tasks.html",
+      section: "team",
+      icon: "ph-list-checks",
+    },
   ];
 
   var NAV = [
@@ -140,7 +147,12 @@
       href: "documentation.html",
       section: "documentation",
     },
-    { label: "Team", href: "team.html", section: "team" },
+    {
+      label: "Team",
+      href: "team.html",
+      section: "team",
+      menu: ["team", "tasks"],
+    },
   ];
 
   var byId = {};
@@ -893,6 +905,7 @@
           "patterns",
           "documentation",
           "team",
+          "tasks",
         ]),
       ) +
       "</div>" +
