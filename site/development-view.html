@@ -164,7 +164,10 @@
               >FIG 1.0</span
             >
             <span
-              >Intaliq components: the mobile UI shell, the feature modules (Sessions, Activities, Goals, Partners, AI Chatbox), the Supabase client, and the external AI, push-notification and email services they depend on.</span
+              >Intaliq components: the mobile UI shell, the feature modules
+              (Sessions, Activities, Goals, Partners, AI Chatbox), the Supabase
+              client, and the external AI, push-notification and email services
+              they depend on.</span
             >
           </figcaption>
         </figure>
@@ -207,7 +210,9 @@
               >FIG 2.0</span
             >
             <span
-              >Package organisation in four layers — ui, features, domain and infrastructure. Dependencies point inwards: only infrastructure talks to Supabase and the external services.</span
+              >Package organisation in four layers — ui, features, domain and
+              infrastructure. Dependencies point inwards: only infrastructure
+              talks to Supabase and the external services.</span
             >
           </figcaption>
         </figure>
@@ -235,7 +240,11 @@
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              Screens and shared components for Home, Activities, Sessions, Goals and More, including the bottom navigation bar, forms, and confirmation and error messages shown next to the related field (UI-3, UI-4, UI-8). Arabic and English are switched from Settings (UI-1).
+              Screens and shared components for Home, Activities, Sessions,
+              Goals and More, including the bottom navigation bar, forms, and
+              confirmation and error messages shown next to the related field
+              (UI-3, UI-4, UI-8). Arabic and English are switched from Settings
+              (UI-1).
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
@@ -263,7 +272,10 @@
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              Use-case logic: booking a session, admitting members, setting goals, sending partner requests, publishing announcements and querying the AI chatbox. It validates input, enforces the flow and calls infrastructure.
+              Use-case logic: booking a session, admitting members, setting
+              goals, sending partner requests, publishing announcements and
+              querying the AI chatbox. It validates input, enforces the flow and
+              calls infrastructure.
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
@@ -291,7 +303,10 @@
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              Entities and rules from the SRS data dictionary — User, Coach, Session, Goal, Activity and Partner — with constraints such as capacity greater than 1, beginner/intermediate/advanced intensity, and locations inside Saudi Arabia.
+              Entities and rules from the SRS data dictionary — User, Coach,
+              Session, Goal, Activity and Partner — with constraints such as
+              capacity greater than 1, beginner/intermediate/advanced intensity,
+              and locations inside Saudi Arabia.
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
@@ -319,7 +334,10 @@
               >
             </div>
             <p class="md:col-span-2 text-sm text-slate-400 font-light">
-              Supabase client for authentication and PostgreSQL access, the offline queue that stores unsent actions and syncs them when the connection returns (CI-4, CI-5), and adapters for the AI, push-notification and email services.
+              Supabase client for authentication and PostgreSQL access, the
+              offline queue that stores unsent actions and syncs them when the
+              connection returns (CI-4, CI-5), and adapters for the AI,
+              push-notification and email services.
             </p>
             <div
               class="flex flex-wrap gap-2 font-mono text-[11px] md:justify-end"
@@ -419,9 +437,7 @@
             >
               TREE.TXT
             </div>
-            <pre
-              class="p-5 font-mono text-xs text-slate-400 leading-6"
-            >intaliq/
+            <pre class="p-5 font-mono text-xs text-slate-400 leading-6">intaliq/
 ├── <span class="text-cyan-300">ui</span>/
 │   └── screens/
 ├── <span class="text-cyan-300">features</span>/

@@ -243,7 +243,11 @@
                 Synchronous
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                Triggered when a user submits a join request or a coach accepts or rejects one. The app calls the backend over HTTPS; the backend validates login, checks capacity and fitness-level match, updates the request status and member list, and returns a confirmation or error pop-up.
+                Triggered when a user submits a join request or a coach accepts
+                or rejects one. The app calls the backend over HTTPS; the
+                backend validates login, checks capacity and fitness-level
+                match, updates the request status and member list, and returns a
+                confirmation or error pop-up.
               </p>
             </div>
           </div>
@@ -263,7 +267,10 @@
                 Asynchronous
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                Triggered by booking decisions, partner request updates, coach announcements and goal reminders. Events are handed to the push notification service (SI-4) and email (CI-3) so the user's request does not wait for delivery.
+                Triggered by booking decisions, partner request updates, coach
+                announcements and goal reminders. Events are handed to the push
+                notification service (SI-4) and email (CI-3) so the user's
+                request does not wait for delivery.
               </p>
             </div>
           </div>
@@ -283,7 +290,11 @@
                 Scheduled
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                When the connection returns, the app syncs actions it stored locally, such as activity logs and partner requests (CI-4, CI-5). A scheduled policy also permanently deletes passively deleted data after the retention period and clears AI chat inputs after each session (SRS &sect;4.4).
+                When the connection returns, the app syncs actions it stored
+                locally, such as activity logs and partner requests (CI-4,
+                CI-5). A scheduled policy also permanently deletes passively
+                deleted data after the retention period and clears AI chat
+                inputs after each session (SRS &sect;4.4).
               </p>
             </div>
           </div>
@@ -322,8 +333,8 @@
               Session capacity is shared by concurrent join requests and coach
               admissions. The capacity check and member-list update must happen
               together in one step (for example, a single database transaction)
-              so a session is never over-filled, and repeated offline syncs
-              must not create duplicate records.
+              so a session is never over-filled, and repeated offline syncs must
+              not create duplicate records.
             </p>
           </div>
           <div class="panel panel-hover p-6 flex flex-col gap-4">

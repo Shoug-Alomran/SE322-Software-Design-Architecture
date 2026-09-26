@@ -108,8 +108,8 @@
               services: the app on users' and coaches' iOS/Android devices, the
               hosted frontend, the Supabase backend and database, and external
               AI, notification and email services, all connected over HTTPS. It
-              addresses the SRS targets for 99% availability, response time
-              and offline operation.
+              addresses the SRS targets for 99% availability, response time and
+              offline operation.
             </p>
           </div>
           <div
@@ -196,12 +196,17 @@
               >Mobile Device</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              iOS or Android smartphone or tablet with touch input (OE-1, UI-9). Uses GPS and sensors for activity tracking and connects over Wi-Fi or 4G/5G.
+              iOS or Android smartphone or tablet with touch input (OE-1, UI-9).
+              Uses GPS and sensors for activity tracking and connects over Wi-Fi
+              or 4G/5G.
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">Intaliq app, offline action store</span>
+              ARTIFACTS:
+              <span class="text-slate-300"
+                >Intaliq app, offline action store</span
+              >
             </div>
           </div>
           <div class="panel panel-hover p-5 flex flex-col gap-3 group">
@@ -216,12 +221,14 @@
               >Vercel Hosting</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              Serves the built frontend over a public URL. The SE365 prototype is deployed at intaliq-se-365.vercel.app.
+              Serves the built frontend over a public URL. The SE365 prototype
+              is deployed at intaliq-se-365.vercel.app.
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">Vite production build</span>
+              ARTIFACTS:
+              <span class="text-slate-300">Vite production build</span>
             </div>
           </div>
           <div class="panel panel-hover p-5 flex flex-col gap-3 group">
@@ -236,12 +243,15 @@
               >Supabase Backend</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              Managed cloud backend: authentication (email sign-up, 6-digit verification codes, password reset) and the data API used by the app (SI-1, SI-3).
+              Managed cloud backend: authentication (email sign-up, 6-digit
+              verification codes, password reset) and the data API used by the
+              app (SI-1, SI-3).
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">Supabase Auth, data API</span>
+              ARTIFACTS:
+              <span class="text-slate-300">Supabase Auth, data API</span>
             </div>
           </div>
           <div class="panel panel-hover p-5 flex flex-col gap-3 group">
@@ -256,12 +266,15 @@
               >Supabase PostgreSQL</span
             >
             <p class="text-xs text-slate-400 font-light leading-relaxed">
-              Cloud database that stores user profiles, goals, activities, sessions, partner requests and chat messages, with schema constraints from the data dictionary.
+              Cloud database that stores user profiles, goals, activities,
+              sessions, partner requests and chat messages, with schema
+              constraints from the data dictionary.
             </p>
             <div
               class="font-mono text-[10px] text-slate-500 border-t border-cyan-500/10 pt-2 mt-auto"
             >
-              ARTIFACTS: <span class="text-slate-300">Schema, constraints, backups</span>
+              ARTIFACTS:
+              <span class="text-slate-300">Schema, constraints, backups</span>
             </div>
           </div>
         </div>
@@ -306,19 +319,27 @@
                 <td class="p-4 text-slate-200">Mobile Device</td>
                 <td class="p-4 text-slate-200">Supabase Backend</td>
                 <td class="p-4 text-cyan-300">HTTPS</td>
-                <td class="p-4">CI-1; authentication required before personal data is sent (CI-7); responses under 5 s (CI-6)</td>
+                <td class="p-4">
+                  CI-1; authentication required before personal data is sent
+                  (CI-7); responses under 5 s (CI-6)
+                </td>
               </tr>
               <tr class="border-b border-cyan-500/10 hover:bg-cyan-500/5">
                 <td class="p-4 text-slate-200">Supabase Backend</td>
                 <td class="p-4 text-slate-200">Supabase PostgreSQL</td>
                 <td class="p-4 text-cyan-300">Managed (internal)</td>
-                <td class="p-4">Data stored and retrieved inside the Supabase platform</td>
+                <td class="p-4">
+                  Data stored and retrieved inside the Supabase platform
+                </td>
               </tr>
               <tr class="hover:bg-cyan-500/5">
                 <td class="p-4 text-slate-200">Backend / App</td>
                 <td class="p-4 text-slate-200">External services</td>
                 <td class="p-4 text-cyan-300">HTTPS</td>
-                <td class="p-4">AI recommendation service (SI-2), push notifications (SI-4), email (CI-3); maps later (SI-5)</td>
+                <td class="p-4">
+                  AI recommendation service (SI-2), push notifications (SI-4),
+                  email (CI-3); maps later (SI-5)
+                </td>
               </tr>
             </tbody>
           </table>
@@ -346,7 +367,8 @@
               <i class="ph ph-laptop text-cyan-400"></i>Development
             </h3>
             <p class="text-sm text-slate-400 font-light leading-relaxed">
-              Code edited in VS Code, run locally with the Vite dev server against a Supabase project, with changes tracked on GitHub.
+              Code edited in VS Code, run locally with the Vite dev server
+              against a Supabase project, with changes tracked on GitHub.
             </p>
           </div>
           <div class="panel panel-hover p-6 flex flex-col gap-3">
@@ -374,7 +396,9 @@
               <i class="ph ph-globe text-cyan-400"></i>Production
             </h3>
             <p class="text-sm text-slate-400 font-light leading-relaxed">
-              Frontend deployed on Vercel with Supabase as the managed backend and database. Must meet at least 99% availability (REL-1) and handle many simultaneous users (AVA-1).
+              Frontend deployed on Vercel with Supabase as the managed backend
+              and database. Must meet at least 99% availability (REL-1) and
+              handle many simultaneous users (AVA-1).
             </p>
           </div>
         </div>

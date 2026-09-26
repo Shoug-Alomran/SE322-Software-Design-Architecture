@@ -106,10 +106,10 @@
           >
             These quality attributes come from the Intaliq SRS (&sect;2.4,
             &sect;5 and &sect;6) and the high-fidelity prototype usability
-            evaluation. They describe how the system must behave for users
-            and coaches on mobile networks in Saudi Arabia. Each one is
-            written as a scenario with a source, stimulus, environment,
-            artifact, response and measurable target.
+            evaluation. They describe how the system must behave for users and
+            coaches on mobile networks in Saudi Arabia. Each one is written as a
+            scenario with a source, stimulus, environment, artifact, response
+            and measurable target.
           </p>
         </div>
       </section>
@@ -177,7 +177,10 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Users check sessions, stats and goals throughout the day. The SRS requires results within 3 seconds (PER-1), statistics within 4 seconds (PER-2), and app-server responses under 5 seconds (CI-6). If it feels slow, users lose motivation.
+                  Users check sessions, stats and goals throughout the day. The
+                  SRS requires results within 3 seconds (PER-1), statistics
+                  within 4 seconds (PER-2), and app-server responses under 5
+                  seconds (CI-6). If it feels slow, users lose motivation.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -244,7 +247,8 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Sessions are fetched and shown with details (coach, time, location, capacity, intensity)
+                        Sessions are fetched and shown with details (coach,
+                        time, location, capacity, intensity)
                       </dd>
                     </div>
                     <div
@@ -294,7 +298,12 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Coaches rely on Intaliq to fill sessions and send announcements, and users rely on it to log workouts outdoors where the connection can drop. The SRS requires at least 99% availability (REL-1), support for many simultaneous users (AVA-1), and local storage of unsent actions while offline (CI-5).
+                  Coaches rely on Intaliq to fill sessions and send
+                  announcements, and users rely on it to log workouts outdoors
+                  where the connection can drop. The SRS requires at least 99%
+                  availability (REL-1), support for many simultaneous users
+                  (AVA-1), and local storage of unsent actions while offline
+                  (CI-5).
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -361,7 +370,8 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        The action is saved locally and synced automatically when the connection returns (CI-4, CI-5)
+                        The action is saved locally and synced automatically
+                        when the connection returns (CI-4, CI-5)
                       </dd>
                     </div>
                     <div
@@ -411,7 +421,12 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Intaliq stores personal details, locations and activity history. The SRS requires protecting personal data from unauthorized access (SEC-1), strong passwords (SEC-2), authentication before any personal data is sent (CI-7), HTTPS (CI-1), and email verification with two-factor authentication (SI-3, CI-3).
+                  Intaliq stores personal details, locations and activity
+                  history. The SRS requires protecting personal data from
+                  unauthorized access (SEC-1), strong passwords (SEC-2),
+                  authentication before any personal data is sent (CI-7), HTTPS
+                  (CI-1), and email verification with two-factor authentication
+                  (SI-3, CI-3).
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -446,7 +461,8 @@
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Attempts to read another user's profile, session data or activity records
+                        Attempts to read another user's profile, session data or
+                        activity records
                       </dd>
                     </div>
                     <div class="bg-navy-800 p-3 flex flex-col gap-1">
@@ -478,7 +494,8 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Request is rejected; data is only returned to authenticated, authorized users over HTTPS
+                        Request is rejected; data is only returned to
+                        authenticated, authorized users over HTTPS
                       </dd>
                     </div>
                     <div
@@ -490,7 +507,8 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        100% of personal-data requests authenticated; 0 unauthorized reads
+                        100% of personal-data requests authenticated; 0
+                        unauthorized reads
                       </dd>
                     </div>
                   </dl>
@@ -528,7 +546,12 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Intaliq serves beginners and experienced athletes in Arabic and English, so essential tasks must take only a few steps (CO-3, USE-1, USE-2). The prototype evaluation praised the clean layout and bottom navigation but found missing pop-up feedback, inconsistent back buttons, and an AI chatbox and help button that did not work yet.
+                  Intaliq serves beginners and experienced athletes in Arabic
+                  and English, so essential tasks must take only a few steps
+                  (CO-3, USE-1, USE-2). The prototype evaluation praised the
+                  clean layout and bottom navigation but found missing pop-up
+                  feedback, inconsistent back buttons, and an AI chatbox and
+                  help button that did not work yet.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -583,7 +606,8 @@
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Mobile UI: navigation, forms, confirmation and error pop-ups
+                        Mobile UI: navigation, forms, confirmation and error
+                        pop-ups
                       </dd>
                     </div>
                     <div
@@ -595,7 +619,9 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Task completes through the bottom navigation with clear confirmation or error messages next to the related field (UI-8)
+                        Task completes through the bottom navigation with clear
+                        confirmation or error messages next to the related field
+                        (UI-8)
                       </dd>
                     </div>
                     <div
@@ -607,7 +633,8 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        Booking in a few steps (CO-3; proposed: &le; 4 taps); feedback shown for every action
+                        Booking in a few steps (CO-3; proposed: &le; 4 taps);
+                        feedback shown for every action
                       </dd>
                     </div>
                   </dl>
@@ -711,9 +738,7 @@
                   class="flex justify-between gap-4 border-b border-navy-700 pb-1"
                 >
                   <span>Target Profile:</span
-                  ><span class="text-cyan-400 text-right"
-                    >Consumer Mobile</span
-                  >
+                  ><span class="text-cyan-400 text-right">Consumer Mobile</span>
                 </li>
                 <li
                   class="flex justify-between gap-4 border-b border-navy-700 pb-1"

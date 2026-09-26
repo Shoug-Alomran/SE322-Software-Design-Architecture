@@ -104,11 +104,11 @@
             <p
               class="text-slate-400 text-base md:text-lg leading-relaxed font-light"
             >
-              The User View shows Intaliq as its actors see it, organized by
-              the use cases in the SRS. End users track activities, set goals,
-              book sessions, find partners and use the AI chatbox. Fitness
-              coaches create sessions, admit members and post announcements.
-              This (+1) view ties the other four views to these scenarios.
+              The User View shows Intaliq as its actors see it, organized by the
+              use cases in the SRS. End users track activities, set goals, book
+              sessions, find partners and use the AI chatbox. Fitness coaches
+              create sessions, admit members and post announcements. This (+1)
+              view ties the other four views to these scenarios.
             </p>
           </div>
         </div>
@@ -191,7 +191,10 @@
                 Primary
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                A participant who does outdoor running, cycling or hiking, from beginner to experienced. Logs activities, sets goals, browses and books group sessions, connects and chats with partners, and asks the AI chatbox for fitness advice.
+                A participant who does outdoor running, cycling or hiking, from
+                beginner to experienced. Logs activities, sets goals, browses
+                and books group sessions, connects and chats with partners, and
+                asks the AI chatbox for fitness advice.
               </p>
             </div>
           </div>
@@ -214,7 +217,9 @@
                 Primary
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                Plans and runs outdoor group sessions. Creates sessions (type, date, time, location, capacity, intensity), reviews and admits join requests, and posts announcements to session members.
+                Plans and runs outdoor group sessions. Creates sessions (type,
+                date, time, location, capacity, intensity), reviews and admits
+                join requests, and posts announcements to session members.
               </p>
             </div>
           </div>
@@ -237,7 +242,10 @@
                 Secondary
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                External AI service behind the chatbox. Gives goal-setting advice, recovery suggestions, progress analysis and activity recommendations, and never gives medical diagnosis or treatment (SI-2).
+                External AI service behind the chatbox. Gives goal-setting
+                advice, recovery suggestions, progress analysis and activity
+                recommendations, and never gives medical diagnosis or treatment
+                (SI-2).
               </p>
             </div>
           </div>
@@ -260,7 +268,10 @@
                 System
               </div>
               <p class="text-sm text-slate-400 leading-relaxed font-light">
-                External services for push notifications (session reminders, partner updates, announcements, goal reminders) and authentication (email login, verification codes, password reset, 2FA), as in SI-3, SI-4 and CI-3.
+                External services for push notifications (session reminders,
+                partner updates, announcements, goal reminders) and
+                authentication (email login, verification codes, password reset,
+                2FA), as in SI-3, SI-4 and CI-3.
               </p>
             </div>
           </div>
@@ -350,7 +361,8 @@
                         <div
                           class="text-slate-400 text-sm leading-relaxed font-light"
                         >
-                          Join a coach-led outdoor session (running, cycling or hiking) that matches their schedule and level.
+                          Join a coach-led outdoor session (running, cycling or
+                          hiking) that matches their schedule and level.
                         </div>
                       </div>
                     </div>
@@ -365,9 +377,17 @@
                       >
                         <li>User logs in and opens the Sessions tab</li>
                         <li>Browses available sessions and selects one</li>
-                        <li>Reviews session and coach details (time, location, capacity, intensity)</li>
-                        <li>Submits a booking request; system confirms it was sent</li>
-                        <li>Coach accepts; system adds the user and sends a notification</li>
+                        <li>
+                          Reviews session and coach details (time, location,
+                          capacity, intensity)
+                        </li>
+                        <li>
+                          Submits a booking request; system confirms it was sent
+                        </li>
+                        <li>
+                          Coach accepts; system adds the user and sends a
+                          notification
+                        </li>
                       </ol>
                     </div>
                   </div>
@@ -377,8 +397,8 @@
                   >
                     <!-- Replace with <img src="assets/diagrams/uc-01.png" alt="UC-01 sequence diagram"> -->
                     <div class="diagram-placeholder">
-                      <i class="ph ph-image text-3xl text-cyan-500/50"></i
-                      >UC-01 Sequence Diagram
+                      <i class="ph ph-image text-3xl text-cyan-500/50"></i>UC-01
+                      Sequence Diagram
                     </div>
                   </div>
                 </div>
@@ -451,7 +471,8 @@
                         <div
                           class="text-slate-400 text-sm leading-relaxed font-light"
                         >
-                          Publish a new outdoor session that users can discover and request to join.
+                          Publish a new outdoor session that users can discover
+                          and request to join.
                         </div>
                       </div>
                     </div>
@@ -464,10 +485,21 @@
                       <ol
                         class="list-decimal list-inside text-sm text-slate-300 space-y-2.5 font-mono font-light marker:text-cyan-500/70"
                       >
-                        <li>Coach logs in and selects “Create Group Session”</li>
-                        <li>Enters activity type, date, time, location, capacity and intensity</li>
-                        <li>Submits; system validates the input (e.g. rejects past dates)</li>
-                        <li>System saves the session and confirms it is visible to users</li>
+                        <li>
+                          Coach logs in and selects “Create Group Session”
+                        </li>
+                        <li>
+                          Enters activity type, date, time, location, capacity
+                          and intensity
+                        </li>
+                        <li>
+                          Submits; system validates the input (e.g. rejects past
+                          dates)
+                        </li>
+                        <li>
+                          System saves the session and confirms it is visible to
+                          users
+                        </li>
                       </ol>
                     </div>
                   </div>
@@ -477,8 +509,8 @@
                   >
                     <!-- Replace with <img src="assets/diagrams/uc-02.png" alt="UC-02 sequence diagram"> -->
                     <div class="diagram-placeholder">
-                      <i class="ph ph-image text-3xl text-cyan-500/50"></i
-                      >UC-02 Sequence Diagram
+                      <i class="ph ph-image text-3xl text-cyan-500/50"></i>UC-02
+                      Sequence Diagram
                     </div>
                   </div>
                 </div>
@@ -551,7 +583,8 @@
                         <div
                           class="text-slate-400 text-sm leading-relaxed font-light"
                         >
-                          Decide which pending requests to accept, respecting session capacity and difficulty level.
+                          Decide which pending requests to accept, respecting
+                          session capacity and difficulty level.
                         </div>
                       </div>
                     </div>
@@ -564,9 +597,17 @@
                       <ol
                         class="list-decimal list-inside text-sm text-slate-300 space-y-2.5 font-mono font-light marker:text-cyan-500/70"
                       >
-                        <li>Coach opens a session’s pending membership requests</li>
-                        <li>Reviews the user’s request and profile, then selects Accept or Reject</li>
-                        <li>System checks capacity and fitness-level match, updates the member list and notifies the user</li>
+                        <li>
+                          Coach opens a session’s pending membership requests
+                        </li>
+                        <li>
+                          Reviews the user’s request and profile, then selects
+                          Accept or Reject
+                        </li>
+                        <li>
+                          System checks capacity and fitness-level match,
+                          updates the member list and notifies the user
+                        </li>
                       </ol>
                     </div>
                   </div>
@@ -576,8 +617,8 @@
                   >
                     <!-- Replace with <img src="assets/diagrams/uc-03.png" alt="UC-03 sequence diagram"> -->
                     <div class="diagram-placeholder">
-                      <i class="ph ph-image text-3xl text-cyan-500/50"></i
-                      >UC-03 Sequence Diagram
+                      <i class="ph ph-image text-3xl text-cyan-500/50"></i>UC-03
+                      Sequence Diagram
                     </div>
                   </div>
                 </div>
