@@ -247,7 +247,7 @@ footer{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);color:v
   <section id="deadlines" class="rise" style="--i:4">
     <div class="sec-head">
       <div><span class="eyebrow">Deadlines</span><h2>When things are due</h2></div>
-      <p>Send your finished work to the group a day or two before each deadline, so there is time to put everything together.</p>
+      <p>Each person is responsible for their own part. Finish it a day or two before each deadline and share it with the group leader.</p>
     </div>
     <div class="timeline" id="timeline"><div class="progress" id="tl-progress"></div></div>
   </section>
@@ -311,7 +311,7 @@ const D={
   D1:{n:'1',c:'var(--d1)',s:'var(--d1-soft)',done:true,name:'SRS and 4+1 architecture document',date:'2026-09-30',hand:'2026-09-29',w:'40%',items:['Introduction and goals','All UML diagrams','Short description under each diagram']},
   D2:{n:'2',c:'var(--d2)',s:'var(--d2-soft)',name:'Quality and architecture style',date:'2026-10-10',hand:'2026-10-08',w:'20%',items:['4 quality attributes','A drawn scenario for each','Chosen architecture style']},
   D3:{n:'3',c:'var(--d3)',s:'var(--d3-soft)',name:'Design patterns',date:'2026-10-25',hand:'2026-10-23',w:'20%',items:['3 design patterns','Why we chose each one']},
-  D4:{n:'4',c:'var(--d4)',s:'var(--d4-soft)',name:'Review and presentation',date:'2026-11-04',hand:'2026-11-02',w:'20%',items:['Check everything fits together','Final PDFs','Presentation']}
+  D4:{n:'4',c:'var(--d4)',s:'var(--d4-soft)',name:'Review and presentation',date:'2026-11-04',hand:'2026-11-02',w:'20%',items:['Review the design','Presentation']}
 };
 const fmt=iso=>{const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const [y,mo,d]=iso.split('-');return (+d)+' '+m[+mo-1]};
 const today=new Date();today.setHours(0,0,0,0);
@@ -356,37 +356,46 @@ const mem=l=>MEMBERS[l];
 const num=l=>'ABCDEF'.indexOf(l)+1;
 /* tasks */
 const P=[
-{l:'A',name:'Architecture Style',focus:'Explains the architecture style we chose, why, and how Intaliq uses it. This is the largest writing piece in Deliverable 2.',
- files:['(no diagrams)'],
+{l:'A',name:'Architecture Style & Review',focus:'Explains the architecture style we chose and why, then reviews the Deliverable 1 document at the end.',
+ files:['style-general.png'],
  tasks:[
- {d:'D2',t:'Architecture style',sub:'Which style we chose, why, and how we use it.',size:'Large',dep:'Nothing',
+ {d:'D2',t:'Architecture style: what it is and why we chose it',sub:'First half of the architecture style section.',size:'Medium',dep:'Nothing',
   steps:[
    ['Learn the style','Our style is client–server with layers: the phone app talks to a server, and the app is organised in layers. Read about it in the lecture slides.'],
-   ['Explain it in detail','Describe how the style works: its parts, how they connect, and its rules.'],
-   ['Why we chose it','Give the reasons it fits Intaliq, e.g. one server keeps session spots accurate and keeps data safe.'],
-   ['How we use it','Explain how Intaliq follows the style, e.g. booking a session goes from the app to the server and back.','Our website’s Architectural Style page has a draft to start from.'],
+   ['Explain it in detail','Describe how the style works in general: its parts, how they connect, and its rules (e.g. the app never talks to the database directly).'],
+   ['Draw it','A general diagram of the style: clients, the server, and the layers inside the client. Save as <code>style-general.png</code>.'],
+   ['Why we chose it','Give 3 reasons it fits Intaliq, e.g. one server keeps session spots accurate, and security checks happen in one place.','Our website’s Architectural Style page has a draft to start from.'],
    ['Send it','By 8 Oct.']
-  ],done:['Covers all three: the style, why, and how']}
+  ],done:['Diagram with a short description','3 reasons, each linked to Intaliq']},
+ {d:'D4',t:'Review Deliverable 1',sub:'Check that the 4+1 architecture document covers everything the instructor asked for.',size:'Medium',dep:'The submitted Deliverable 1 document',
+  steps:[
+   ['Make a checklist','List every section of the Deliverable 1 outline: introduction (a–e), 4+1 background, goals and constraints, and the User, Logical, Process, Development and Physical views.'],
+   ['Check everything','Go through the Deliverable 1 document on 25–27 Oct. Note anything missing or inconsistent, like a class name that doesn’t match between diagrams.'],
+   ['Tell the owners','Each person fixes their own items by 30 Oct.'],
+   ['Write a short summary','Half a page on what you checked and what was fixed, ready by 2 Nov.']
+  ],done:['Every checklist item is done or fixed','Summary written']}
  ]},
 
-{l:'B',name:'Usability & Presentation',focus:'Covers “easy to use”, puts the Deliverable 2 document together, and makes the presentation.',
- files:['qa-usability.png'],
+{l:'B',name:'Style in Intaliq & Presentation',focus:'Shows how Intaliq uses the architecture style, then makes the final presentation.',
+ files:['style-intaliq.png'],
  tasks:[
- {d:'D2',t:'Quality: easy to use',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
-  steps:qaSteps({name:'Usability',reqs:'USE-1, USE-2 and UI-8',normal:'a new user books a session from the Home screen in 4 taps or fewer',file:'qa-usability'})},
- {d:'D2',t:'Put the Deliverable 2 document together',sub:'Combine the 4 quality attributes and the architecture style.',size:'Small',dep:'The other Deliverable 2 sections',
+ {d:'D2',t:'Architecture style: how Intaliq uses it',sub:'Second half of the architecture style section.',size:'Medium',dep:'Nothing (the style is already decided: client–server with layers)',
   steps:[
-   ['Set up the document','Headings: Quality attributes (4 scenarios), then Architecture style.'],
-   ['Paste in sections','Add each person’s work and keep the style the same.'],
-   ['Export','Export as PDF and give it to the group leader to submit by 10 Oct.']
-  ],done:['4 quality attributes and the style section included']},
- {d:'D4',t:'Presentation slides',sub:'The final presentation.',size:'Small',dep:'2 slides from each member',
+   ['Read the draft','Read the Architectural Style page on our website.'],
+   ['Draw Intaliq’s architecture','The phone app with its layers (screens, features, data, connection), the Supabase server and database, and outside services (AI, notifications, email). Save as <code>style-intaliq.png</code>.'],
+   ['Explain each part','One or two sentences on what each layer and service does in Intaliq.'],
+   ['Walk through an example','Follow “book a session” from the app to the server and back, naming each part it passes through.'],
+   ['Send it','By 8 Oct.']
+  ],done:['Diagram with a short description','Example walk-through included']},
+ {d:'D4',t:'Presentation',sub:'The final presentation.',size:'Medium',dep:'2 slides from each member',
   steps:[
-   ['Make a template','Google Slides, shared by 25 Oct.'],
-   ['Give each member a spot','Add 2 empty slides for each of Member 1–6.'],
-   ['Put it together','Check that the slides flow and fit the time limit.'],
-   ['Export','Save as PDF and give it to Member 6 by 2 Nov.']
-  ],done:['Every member’s slides are in']}
+   ['Make a template','Google Slides, shared with everyone by 25 Oct.'],
+   ['Plan the order','About 14 slides for 12–15 minutes: intro, project, the 4+1 views, quality attributes, style, patterns, review, Q&A.'],
+   ['Give each member a spot','Add 2 empty slides for each of Member 1–6 in the right order.'],
+   ['Make the opening and closing','Title, agenda, project overview, and Q&A slides.'],
+   ['Practise','Run one timed practice with everyone a few days before 4 Nov.'],
+   ['Export','Save as PDF and share it with the group leader by 2 Nov.']
+  ],done:['Every member’s slides are in','Fits the time limit']}
  ]},
 
 {l:'C',name:'Performance & Observer',focus:'Covers “fast” and writes the Observer pattern.',
@@ -400,7 +409,7 @@ const P=[
    ['How we use it','The session sends one message, and everything that cares receives it. Show it in a small diagram: <code>dp-observer.png</code>.'],
    ['Why we chose it','Explain why it fits Intaliq.'],
    ['Send it','By 23 Oct.']
-  ],done:['Problem, how it’s used, and why']}
+  ],done:['Problem, diagram, and why']}
  ]},
 
 {l:'D',name:'Availability & Repository',focus:'Covers “always works” and writes the Repository pattern. Both are about saving data safely, even offline.',
@@ -414,7 +423,7 @@ const P=[
    ['How we use it','One class per data type handles all saving and loading, e.g. SessionRepository. Show it in a small diagram: <code>dp-repository.png</code>.'],
    ['Why we chose it','Explain why it fits Intaliq.'],
    ['Send it','By 23 Oct.']
-  ],done:['Problem, how it’s used, and why']}
+  ],done:['Problem, diagram, and why']}
  ]},
 
 {l:'E',name:'Security & State',focus:'Covers “secure” and writes the State pattern.',
@@ -428,37 +437,28 @@ const P=[
    ['How we use it','Each status becomes its own class that knows what’s allowed. Show it in a small diagram: <code>dp-state.png</code>.'],
    ['Why we chose it','Explain why it fits Intaliq.'],
    ['Send it','By 23 Oct.']
-  ],done:['Problem, how it’s used, and why']}
+  ],done:['Problem, diagram, and why']}
  ]},
 
-{l:'F',name:'Review & Final Submission',focus:'Puts the Deliverable 3 document together, reviews the whole design, and prepares the final submission.',
- files:['(no diagrams)'],
+{l:'F',name:'Usability & Review',focus:'Covers “easy to use”, then reviews the Deliverable 2 and 3 work at the end.',
+ files:['qa-usability.png'],
  tasks:[
- {d:'D3',t:'Put the Deliverable 3 document together',sub:'Combine the 3 design patterns into the design document.',size:'Small',dep:'The 3 patterns',
+ {d:'D2',t:'Quality: easy to use',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
+  steps:qaSteps({name:'Usability',reqs:'USE-1, USE-2 and UI-8',normal:'a new user books a session from the Home screen in 4 taps or fewer',file:'qa-usability'})},
+ {d:'D4',t:'Review Deliverables 2 and 3',sub:'Check that the quality, style and pattern work covers everything the instructor asked for.',size:'Medium',dep:'The finished Deliverable 2 and 3 work',
   steps:[
-   ['Paste in sections','Add the 3 patterns under one heading each, with a short introduction.'],
-   ['Export','Export as PDF and give it to the group leader to submit by 25 Oct.']
-  ],done:['All 3 patterns included']},
- {d:'D4',t:'Review the design',sub:'Make sure we made every design decision required.',size:'Medium',dep:'Everyone’s finished documents',
-  steps:[
-   ['Make a checklist','List every item the instructor asked for in Deliverables 1–3.'],
-   ['Check everything','Go through all 3 documents on 25–27 Oct and note anything missing or inconsistent, like a class name that doesn’t match.'],
+   ['Make a checklist','List every item the instructor asked for in Deliverables 2 and 3: 3–4 quality attributes with drawn scenarios, the style (what, why, how), and at least 3 patterns with reasons.'],
+   ['Check everything','Go through the Deliverable 2 and 3 work on 25–27 Oct. Note anything missing or inconsistent, like a class name in a pattern diagram that doesn’t match the class diagram.'],
    ['Tell the owners','Each person fixes their own items by 30 Oct.'],
-   ['Write a short summary','Half a page on what you checked and what was fixed.']
-  ],done:['Every item on the checklist is done']},
- {d:'D4',t:'Final submission',sub:'Put the final package together.',size:'Small',dep:'The slides from Member 2',
-  steps:[
-   ['Apply the fixes','Make sure the documents include everyone’s fixes from the review.'],
-   ['Add the review summary','Add your review summary to the final package.'],
-   ['Hand over','Give the final PDFs and slides to the group leader to submit by 4 Nov.']
-  ],done:['Final documents and slides ready']}
+   ['Write a short summary','Half a page on what you checked and what was fixed, ready by 2 Nov.']
+  ],done:['Every checklist item is done or fixed','Summary written']}
  ]}
 ];
 
 /* overview table */
 const tb=document.getElementById('balance-body');
 P.forEach(p=>{
-  const cell=k=>{const ts=p.tasks.filter(t=>t.d===k);if(!ts.length)return `<td class="none">${k==='D4'?'Present own slides':'—'}</td>`;
+  const cell=k=>{const ts=p.tasks.filter(t=>t.d===k||(t.also||[]).includes(k));if(!ts.length)return `<td class="none">${k==='D4'?'Present own slides':'—'}</td>`;
     return `<td>${ts.map(t=>`${t.t}<span class="pts">${t.size}</span>`).join('<br>')}</td>`};
   const tr=document.createElement('tr');tr.tabIndex=0;
   tr.innerHTML=`<td class="pk"><span class="pk-badge">${num(p.l)}</span><b>${mem(p.l)}</b><span class="pts">${p.name}</span></td>${cell('D2')}${cell('D3')}${cell('D4')}`;
@@ -475,7 +475,7 @@ P.forEach(p=>{
   b.innerHTML=`<span class="l">${num(p.l)}</span><span>${mem(p.l)}<small>${p.name}</small></span>`;
   b.addEventListener('click',()=>select(p.l));sw.appendChild(b);
 });
-const key=l=>'iws3-steps-'+l;
+const key=l=>'iws5-steps-'+l;
 function loadTicks(l){try{return JSON.parse(store.get(key(l))||'{}')}catch(e){return {}}}
 let cur=null;
 function select(l,scroll){
