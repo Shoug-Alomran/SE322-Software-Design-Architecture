@@ -66,196 +66,938 @@
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="assets/js/tailwind-config.js"></script>
     <link rel="stylesheet" href="assets/css/site.css" />
-  <style>
-/* Work split page. Scoped to #ws; dark by default like the rest of the site, light when html.light is set by the site's theme toggle. */
-#ws{
-  --bg:#f2f6f9; --surface:#ffffff; --surface-2:#f7fafc; --ink:#0b1b2b; --muted:#4a5f70; --faint:#7a8e9d;
-  --line:#d5e1e9; --line-strong:#b7cad7; --accent:#0e7490; --accent-ink:#ffffff; --accent-soft:#e1f1f6;
-  --grid:rgba(14,116,144,.06);
-  --d1:#0e7490; --d1-soft:#e1f1f6; --d2:#b45309; --d2-soft:#fbefdf; --d3:#6d4bc4; --d3-soft:#eee9fb; --d4:#15803d; --d4-soft:#e3f4e8;
-  --shadow:0 1px 2px rgba(11,27,43,.05),0 8px 24px -12px rgba(11,27,43,.18);
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --r:10px;
+    <style>
+      /* Work split page. Scoped to #ws; dark by default like the rest of the site, light when html.light is set by the site's theme toggle. */
+      #ws {
+        --bg: #f2f6f9;
+        --surface: #ffffff;
+        --surface-2: #f7fafc;
+        --ink: #0b1b2b;
+        --muted: #4a5f70;
+        --faint: #7a8e9d;
+        --line: #d5e1e9;
+        --line-strong: #b7cad7;
+        --accent: #0e7490;
+        --accent-ink: #ffffff;
+        --accent-soft: #e1f1f6;
+        --grid: rgba(14, 116, 144, 0.06);
+        --d1: #0e7490;
+        --d1-soft: #e1f1f6;
+        --d2: #b45309;
+        --d2-soft: #fbefdf;
+        --d3: #6d4bc4;
+        --d3-soft: #eee9fb;
+        --d4: #15803d;
+        --d4-soft: #e3f4e8;
+        --shadow:
+          0 1px 2px rgba(11, 27, 43, 0.05),
+          0 8px 24px -12px rgba(11, 27, 43, 0.18);
+        --mono:
+          "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+          monospace;
+        --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        --r: 10px;
 
-  
-  --bg:#030712; --surface:#07111d; --surface-2:#0a1624; --ink:#e4eef5; --muted:#93a8b8; --faint:#667d8f;
-  --line:#142638; --line-strong:#1f3a52; --accent:#22d3ee; --accent-ink:#03131a; --accent-soft:#0a2632;
-  --grid:rgba(34,211,238,.05);
-  --d1:#22d3ee; --d1-soft:#0a2632; --d2:#f5a524; --d2-soft:#2a1d08; --d3:#a78bfa; --d3-soft:#1c1533; --d4:#4ade80; --d4-soft:#0b2716;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -14px rgba(0,0,0,.7);
-}
-html.light #ws{
-  --bg:#f2f6f9; --surface:#ffffff; --surface-2:#f7fafc; --ink:#0b1b2b; --muted:#4a5f70; --faint:#7a8e9d;
-  --line:#d5e1e9; --line-strong:#b7cad7; --accent:#0e7490; --accent-ink:#ffffff; --accent-soft:#e1f1f6;
-  --grid:rgba(14,116,144,.06);
-  --d1:#0e7490; --d1-soft:#e1f1f6; --d2:#b45309; --d2-soft:#fbefdf; --d3:#6d4bc4; --d3-soft:#eee9fb; --d4:#15803d; --d4-soft:#e3f4e8;
-  --shadow:0 1px 2px rgba(11,27,43,.05),0 8px 24px -12px rgba(11,27,43,.18);
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --r:10px;
-}
-@keyframes pulse{50%{box-shadow:0 0 0 11px color-mix(in srgb,var(--dc) 6%,transparent)}}
-@keyframes enter{from{opacity:.25;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes rise{from{opacity:.3;transform:translateY(12px)}to{opacity:1;transform:none}}
-#ws{
-color:var(--ink);font:15px/1.6 var(--sans);
-*,*::before,*::after{box-sizing:border-box}
-ul{list-style:disc}
+        --bg: #030712;
+        --surface: #07111d;
+        --surface-2: #0a1624;
+        --ink: #e4eef5;
+        --muted: #93a8b8;
+        --faint: #667d8f;
+        --line: #142638;
+        --line-strong: #1f3a52;
+        --accent: #22d3ee;
+        --accent-ink: #03131a;
+        --accent-soft: #0a2632;
+        --grid: rgba(34, 211, 238, 0.05);
+        --d1: #22d3ee;
+        --d1-soft: #0a2632;
+        --d2: #f5a524;
+        --d2-soft: #2a1d08;
+        --d3: #a78bfa;
+        --d3-soft: #1c1533;
+        --d4: #4ade80;
+        --d4-soft: #0b2716;
+        --shadow:
+          0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -14px rgba(0, 0, 0, 0.7);
+      }
+      html.light #ws {
+        --bg: #f2f6f9;
+        --surface: #ffffff;
+        --surface-2: #f7fafc;
+        --ink: #0b1b2b;
+        --muted: #4a5f70;
+        --faint: #7a8e9d;
+        --line: #d5e1e9;
+        --line-strong: #b7cad7;
+        --accent: #0e7490;
+        --accent-ink: #ffffff;
+        --accent-soft: #e1f1f6;
+        --grid: rgba(14, 116, 144, 0.06);
+        --d1: #0e7490;
+        --d1-soft: #e1f1f6;
+        --d2: #b45309;
+        --d2-soft: #fbefdf;
+        --d3: #6d4bc4;
+        --d3-soft: #eee9fb;
+        --d4: #15803d;
+        --d4-soft: #e3f4e8;
+        --shadow:
+          0 1px 2px rgba(11, 27, 43, 0.05),
+          0 8px 24px -12px rgba(11, 27, 43, 0.18);
+        --mono:
+          "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+          monospace;
+        --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        --r: 10px;
+      }
+      @keyframes pulse {
+        50% {
+          box-shadow: 0 0 0 11px color-mix(in srgb, var(--dc) 6%, transparent);
+        }
+      }
+      @keyframes enter {
+        from {
+          opacity: 0.25;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes rise {
+        from {
+          opacity: 0.3;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      #ws {
+        color: var(--ink);
+        font: 15px/1.6 var(--sans);
+        *,
+        *::before,
+        *::after {
+          box-sizing: border-box;
+        }
+        ul {
+          list-style: disc;
+        }
 
-h1,h2,h3,h4{text-wrap:balance;margin:0;line-height:1.2}
-p{margin:0}
-.mono{font-family:var(--mono)}
-.eyebrow{font:500 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
-a{color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-/* top bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
-/* hero */
-.hero{position:relative;padding-block:8px 36px;display:grid;gap:18px}
-.hero h1{font:600 clamp(30px,5.2vw,52px)/1.05 var(--sans);letter-spacing:-.025em;max-width:16ch}
-.hero h1 span{color:var(--accent)}
-.lead{color:var(--muted);max-width:64ch;font-size:16px}
-.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.chip{font:500 11.5px/1 var(--mono);padding:7px 10px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--muted)}
-.chip b{color:var(--ink);font-weight:600}
-section{padding-block:28px}
-.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 20px;margin-bottom:18px}
-.sec-head h2{font:600 22px/1.2 var(--sans);letter-spacing:-.01em;margin-top:8px}
-.sec-head p{color:var(--muted);max-width:60ch;font-size:14px}
-/* timeline */
-.timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.timeline::before{content:"";position:absolute;left:0;right:0;top:19px;height:2px;background:var(--line)}
-.timeline .progress{position:absolute;left:0;top:19px;height:2px;background:var(--accent);width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
-.tl{position:relative;display:grid;gap:8px}
-.tl-dot{width:40px;height:40px;border-radius:50%;background:var(--surface);border:2px solid var(--dc);display:grid;place-items:center;font:600 12px/1 var(--mono);color:var(--dc);position:relative;z-index:1}
-.tl.next .tl-dot{background:var(--dc);color:var(--surface);box-shadow:0 0 0 6px color-mix(in srgb,var(--dc) 18%,transparent);animation:pulse 2.4s ease-in-out infinite}
-.tl.done .tl-dot{background:var(--dc);color:var(--surface)}
-.tl.done h3,.tl.done ul{opacity:.6}
-.tl h3{font:600 14.5px/1.3 var(--sans)}
-.tl .d{font:500 12px/1.4 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
-.tl .left{font:600 12px/1 var(--mono);color:var(--dc);font-variant-numeric:tabular-nums}
-.tl ul{margin:0;padding-left:16px;color:var(--muted);font-size:13px;display:grid;gap:2px}
-/* balance table */
-.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow)}
-table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
-th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
-thead th{font:500 10.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);background:var(--surface-2)}
-tbody tr{transition:background .2s;cursor:pointer}
-tbody tr:hover{background:var(--surface-2)}
-tbody tr:last-child td{border-bottom:0}
-td.pk{white-space:nowrap}
-.pk-badge{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:7px;background:var(--accent-soft);color:var(--accent);font:600 13px/1 var(--mono);margin-right:10px;vertical-align:middle}
-td .pts{font:500 11px/1 var(--mono);color:var(--faint);display:block;margin-top:4px;font-variant-numeric:tabular-nums}
-td.none{color:var(--faint);font-style:italic}
-td.total{font:600 14px/1 var(--mono);text-align:right;font-variant-numeric:tabular-nums}
-th.total{text-align:right}
-/* contract */
-.contract{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px}
-.contract .card h3{font:600 14px/1.3 var(--sans);display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.contract .card h3 .n{font:500 11px/1 var(--mono);color:var(--accent)}
-.contract .card p,.contract .card li{font-size:13.5px;color:var(--muted)}
-.contract ul{margin:0;padding-left:18px;display:grid;gap:4px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.tag{font:500 11.5px/1 var(--mono);padding:5px 7px;border-radius:5px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink)}
-code{font:500 .88em var(--mono);background:var(--surface-2);border:1px solid var(--line);padding:1px 5px;border-radius:4px;word-break:break-word}
-/* package switcher */
-.switch{position:sticky;top:64px;z-index:10;display:flex;gap:8px;overflow-x:auto;padding:10px 2px;margin-bottom:6px;
-  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);scrollbar-width:none}
-.switch::-webkit-scrollbar{display:none}
-.sw{flex:0 0 auto;display:flex;align-items:center;gap:10px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 12px 8px 8px;cursor:pointer;font:500 13px/1.1 var(--sans);transition:border-color .2s,transform .2s,background .2s}
-.sw:hover{transform:translateY(-1px);border-color:var(--accent)}
-.sw .l{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font:600 13px/1 var(--mono);transition:background .2s,color .2s}
-.sw small{display:block;font:500 10.5px/1 var(--mono);color:var(--faint);margin-top:3px}
-.sw[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft)}
-.sw[aria-selected="true"] .l{background:var(--accent);color:var(--accent-ink)}
-/* package panel */
-.pkg{display:grid;gap:18px}
-.pkg.enter{animation:enter .45s cubic-bezier(.2,.8,.2,1)}
-.pkg-head{display:grid;grid-template-columns:auto 1fr;gap:18px 22px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.pkg-head::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border:1px solid var(--line);border-radius:50%;pointer-events:none}
-.big-l{width:72px;height:72px;border-radius:16px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font:600 34px/1 var(--mono)}
-.pkg-head h2{font:600 clamp(22px,3.4vw,30px)/1.15 var(--sans);letter-spacing:-.015em}
-.pkg-head .focus{color:var(--muted);margin-top:6px;max-width:66ch}
-.pkg-stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px;position:relative;z-index:1}
-.stat{border-top:1px solid var(--line);padding-top:12px}
-.stat .k{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-.stat .v{margin-top:8px;font-size:13.5px;color:var(--ink)}
-.meter{display:flex;gap:3px;margin-top:9px}
-.meter i{height:8px;flex:1;border-radius:2px;background:var(--line);transform-origin:left;position:relative;overflow:hidden}
-.meter i b{position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.meter i.half b{right:50%}
-.prog-v{font:600 13px/1 var(--mono);font-variant-numeric:tabular-nums}
-.prog-bar{height:6px;border-radius:99px;background:var(--line);margin-top:10px;overflow:hidden}
-.prog-bar b{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
-.task{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.task-top{display:grid;grid-template-columns:1fr auto;gap:8px 16px;padding:18px 20px;border-bottom:1px solid var(--line);align-items:start;
-  background:linear-gradient(90deg,var(--ds) 0,transparent 70%)}
-.dl{display:inline-flex;align-items:center;gap:8px;font:600 11px/1 var(--mono);letter-spacing:.1em;color:var(--dc);text-transform:uppercase}
-.dl::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--dc)}
-.task h3{font:600 18px/1.3 var(--sans);margin-top:8px}
-.task .sub{color:var(--muted);font-size:13.5px;margin-top:4px}
-.diff{display:grid;justify-items:end;gap:6px;font:500 11px/1 var(--mono);color:var(--faint);white-space:nowrap}
-.diff .pts{font:600 18px/1 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
-.task-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:0}
-.steps{list-style:none;margin:0;padding:10px 12px 14px;counter-reset:s;display:grid;gap:2px}
-.step{counter-increment:s}
-.step label{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:10px 8px;border-radius:8px;cursor:pointer;transition:background .2s}
-.step label:hover{background:var(--surface-2)}
-.step input{position:absolute;opacity:0;pointer-events:none}
-.box{width:26px;height:26px;border-radius:7px;border:1.5px solid var(--line-strong);display:grid;place-items:center;font:600 11px/1 var(--mono);color:var(--faint);transition:all .25s;position:relative}
-.box::before{content:counter(s)}
-.box svg{position:absolute;width:14px;height:14px;stroke:var(--accent-ink);stroke-width:3;fill:none;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s .05s}
-.step input:checked + label .box{background:var(--accent);border-color:var(--accent);color:transparent;transform:scale(1.04)}
-.step input:checked + label .box svg{stroke-dashoffset:0}
-.step input:focus-visible + label{outline:2px solid var(--accent);outline-offset:-2px}
-.st{font-size:14px;line-height:1.55}
-.st strong{font-weight:600}
-.st .hint{display:block;color:var(--muted);font-size:13px;margin-top:3px}
-.step input:checked + label .st{color:var(--faint)}
-.step input:checked + label .st strong{text-decoration:line-through;text-decoration-color:var(--line-strong)}
-aside.side{border-left:1px solid var(--line);padding:18px 18px 20px;background:var(--surface-2);display:grid;gap:18px;align-content:start}
-aside h4{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
-aside ul{margin:0;padding-left:16px;font-size:13px;color:var(--muted);display:grid;gap:5px}
-.files{display:flex;flex-wrap:wrap;gap:5px}
-.dep{font-size:13px;color:var(--muted)}
-.dep b{color:var(--ink);font-weight:600}
-/* shared duties */
-.duties{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
-.duties .card h3{font:600 14.5px/1.3 var(--sans);margin-bottom:6px}
-.duties .card p{font-size:13.5px;color:var(--muted)}
-.duties .when{font:500 11px/1 var(--mono);color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;display:block}
-.ring{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-footer{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);color:var(--faint);font:500 11.5px/1.6 var(--mono);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
-.reset{border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);font:500 11.5px/1 var(--mono);padding:8px 12px;border-radius:7px;cursor:pointer}
-.reset:hover{color:var(--ink);border-color:var(--accent)}
-/* load reveal: starts visible, eases up */
-.rise{animation:rise .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 70ms)}
-.ws-corner{position:absolute;width:12px;height:12px;border-color:var(--accent);border-style:solid;opacity:.6}
-.ws-corner.tl1{left:-14px;top:40px;border-width:1.5px 0 0 1.5px}
-.ws-corner.tr1{right:-14px;top:40px;border-width:1.5px 1.5px 0 0}
-@media (max-width:820px){
-  .task-body{grid-template-columns:1fr}
-  aside.side{border-left:0;border-top:1px solid var(--line)}
-  .timeline{grid-template-columns:repeat(2,1fr);row-gap:26px}
-  .timeline::before,.timeline .progress{display:none}
-}
-@media (max-width:520px){
-  .timeline{grid-template-columns:1fr}
-  .pkg-head{grid-template-columns:1fr;padding:18px}
-  .big-l{width:56px;height:56px;font-size:26px;border-radius:13px}
-  .task-top{grid-template-columns:1fr}
-  .diff{justify-items:start;grid-auto-flow:column;align-items:center;justify-content:start;gap:10px}
-  .brand span{display:none}
-}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  html{scroll-behavior:auto}
-}
-}
-</style>
+        h1,
+        h2,
+        h3,
+        h4 {
+          text-wrap: balance;
+          margin: 0;
+          line-height: 1.2;
+        }
+        p {
+          margin: 0;
+        }
+        .mono {
+          font-family: var(--mono);
+        }
+        .eyebrow {
+          font: 500 11px/1 var(--mono);
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: var(--accent);
+        }
+        a {
+          color: var(--accent);
+        }
+        :focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 2px;
+          border-radius: 4px;
+        }
+        /* top bar */
+        .bar {
+          position: sticky;
+          top: env(safe-area-inset-top, 0px);
+          z-index: 20;
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          background: color-mix(in srgb, var(--bg) 82%, transparent);
+          border-bottom: 1px solid var(--line);
+        }
+        /* hero */
+        .hero {
+          position: relative;
+          padding-block: 8px 36px;
+          display: grid;
+          gap: 18px;
+        }
+        .hero h1 {
+          font: 600 clamp(30px, 5.2vw, 52px)/1.05 var(--sans);
+          letter-spacing: -0.025em;
+          max-width: 16ch;
+        }
+        .hero h1 span {
+          color: var(--accent);
+        }
+        .lead {
+          color: var(--muted);
+          max-width: 64ch;
+          font-size: 16px;
+        }
+        .meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-top: 4px;
+        }
+        .chip {
+          font: 500 11.5px/1 var(--mono);
+          padding: 7px 10px;
+          border: 1px solid var(--line-strong);
+          border-radius: 6px;
+          background: var(--surface);
+          color: var(--muted);
+        }
+        .chip b {
+          color: var(--ink);
+          font-weight: 600;
+        }
+        section {
+          padding-block: 28px;
+        }
+        .sec-head {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: 8px 20px;
+          margin-bottom: 18px;
+        }
+        .sec-head h2 {
+          font: 600 22px/1.2 var(--sans);
+          letter-spacing: -0.01em;
+          margin-top: 8px;
+        }
+        .sec-head p {
+          color: var(--muted);
+          max-width: 60ch;
+          font-size: 14px;
+        }
+        /* timeline */
+        .timeline {
+          position: relative;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 14px;
+        }
+        .timeline::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 19px;
+          height: 2px;
+          background: var(--line);
+        }
+        .timeline .progress {
+          position: absolute;
+          left: 0;
+          top: 19px;
+          height: 2px;
+          background: var(--accent);
+          width: 0;
+          transition: width 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .tl {
+          position: relative;
+          display: grid;
+          gap: 8px;
+        }
+        .tl-dot {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: var(--surface);
+          border: 2px solid var(--dc);
+          display: grid;
+          place-items: center;
+          font: 600 12px/1 var(--mono);
+          color: var(--dc);
+          position: relative;
+          z-index: 1;
+        }
+        .tl.next .tl-dot {
+          background: var(--dc);
+          color: var(--surface);
+          box-shadow: 0 0 0 6px color-mix(in srgb, var(--dc) 18%, transparent);
+          animation: pulse 2.4s ease-in-out infinite;
+        }
+        .tl.done .tl-dot {
+          background: var(--dc);
+          color: var(--surface);
+        }
+        .tl.done h3,
+        .tl.done ul {
+          opacity: 0.6;
+        }
+        .tl h3 {
+          font: 600 14.5px/1.3 var(--sans);
+        }
+        .tl .d {
+          font: 500 12px/1.4 var(--mono);
+          color: var(--muted);
+          font-variant-numeric: tabular-nums;
+        }
+        .tl .left {
+          font: 600 12px/1 var(--mono);
+          color: var(--dc);
+          font-variant-numeric: tabular-nums;
+        }
+        .tl ul {
+          margin: 0;
+          padding-left: 16px;
+          color: var(--muted);
+          font-size: 13px;
+          display: grid;
+          gap: 2px;
+        }
+        /* balance table */
+        .tbl-wrap {
+          overflow-x: auto;
+          border: 1px solid var(--line);
+          border-radius: var(--r);
+          background: var(--surface);
+          box-shadow: var(--shadow);
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          min-width: 760px;
+          font-size: 13px;
+        }
+        th,
+        td {
+          text-align: left;
+          padding: 12px 14px;
+          border-bottom: 1px solid var(--line);
+          vertical-align: top;
+        }
+        thead th {
+          font: 500 10.5px/1.2 var(--mono);
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--faint);
+          background: var(--surface-2);
+        }
+        tbody tr {
+          transition: background 0.2s;
+          cursor: pointer;
+        }
+        tbody tr:hover {
+          background: var(--surface-2);
+        }
+        tbody tr:last-child td {
+          border-bottom: 0;
+        }
+        td.pk {
+          white-space: nowrap;
+        }
+        .pk-badge {
+          display: inline-grid;
+          place-items: center;
+          width: 28px;
+          height: 28px;
+          border-radius: 7px;
+          background: var(--accent-soft);
+          color: var(--accent);
+          font: 600 13px/1 var(--mono);
+          margin-right: 10px;
+          vertical-align: middle;
+        }
+        td .pts {
+          font: 500 11px/1 var(--mono);
+          color: var(--faint);
+          display: block;
+          margin-top: 4px;
+          font-variant-numeric: tabular-nums;
+        }
+        td.none {
+          color: var(--faint);
+          font-style: italic;
+        }
+        td.total {
+          font: 600 14px/1 var(--mono);
+          text-align: right;
+          font-variant-numeric: tabular-nums;
+        }
+        th.total {
+          text-align: right;
+        }
+        /* contract */
+        .contract {
+          display: grid;
+          grid-template-columns: repeat(
+            auto-fit,
+            minmax(min(100%, 420px), 1fr)
+          );
+          gap: 14px;
+        }
+        .card {
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: var(--r);
+          padding: 18px 18px 16px;
+        }
+        .contract .card h3 {
+          font: 600 14px/1.3 var(--sans);
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .contract .card h3 .n {
+          font: 500 11px/1 var(--mono);
+          color: var(--accent);
+        }
+        .contract .card p,
+        .contract .card li {
+          font-size: 13.5px;
+          color: var(--muted);
+        }
+        .contract ul {
+          margin: 0;
+          padding-left: 18px;
+          display: grid;
+          gap: 4px;
+        }
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 8px;
+        }
+        .tag {
+          font: 500 11.5px/1 var(--mono);
+          padding: 5px 7px;
+          border-radius: 5px;
+          background: var(--surface-2);
+          border: 1px solid var(--line);
+          color: var(--ink);
+        }
+        code {
+          font: 500 0.88em var(--mono);
+          background: var(--surface-2);
+          border: 1px solid var(--line);
+          padding: 1px 5px;
+          border-radius: 4px;
+          word-break: break-word;
+        }
+        /* package switcher */
+        .switch {
+          position: sticky;
+          top: 64px;
+          z-index: 10;
+          display: flex;
+          gap: 8px;
+          overflow-x: auto;
+          padding: 10px 2px;
+          margin-bottom: 6px;
+          background: color-mix(in srgb, var(--bg) 88%, transparent);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          scrollbar-width: none;
+        }
+        .switch::-webkit-scrollbar {
+          display: none;
+        }
+        .sw {
+          flex: 0 0 auto;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border: 1px solid var(--line-strong);
+          background: var(--surface);
+          color: var(--ink);
+          border-radius: 10px;
+          padding: 8px 12px 8px 8px;
+          cursor: pointer;
+          font: 500 13px/1.1 var(--sans);
+          transition:
+            border-color 0.2s,
+            transform 0.2s,
+            background 0.2s;
+        }
+        .sw:hover {
+          transform: translateY(-1px);
+          border-color: var(--accent);
+        }
+        .sw .l {
+          width: 28px;
+          height: 28px;
+          border-radius: 7px;
+          display: grid;
+          place-items: center;
+          background: var(--accent-soft);
+          color: var(--accent);
+          font: 600 13px/1 var(--mono);
+          transition:
+            background 0.2s,
+            color 0.2s;
+        }
+        .sw small {
+          display: block;
+          font: 500 10.5px/1 var(--mono);
+          color: var(--faint);
+          margin-top: 3px;
+        }
+        .sw[aria-selected="true"] {
+          border-color: var(--accent);
+          background: var(--accent-soft);
+        }
+        .sw[aria-selected="true"] .l {
+          background: var(--accent);
+          color: var(--accent-ink);
+        }
+        /* package panel */
+        .pkg {
+          display: grid;
+          gap: 18px;
+        }
+        .pkg.enter {
+          animation: enter 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .pkg-head {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 18px 22px;
+          align-items: start;
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: 14px;
+          padding: 22px;
+          box-shadow: var(--shadow);
+          position: relative;
+          overflow: hidden;
+        }
+        .pkg-head::after {
+          content: "";
+          position: absolute;
+          right: -60px;
+          top: -60px;
+          width: 220px;
+          height: 220px;
+          border: 1px solid var(--line);
+          border-radius: 50%;
+          pointer-events: none;
+        }
+        .big-l {
+          width: 72px;
+          height: 72px;
+          border-radius: 16px;
+          background: var(--accent);
+          color: var(--accent-ink);
+          display: grid;
+          place-items: center;
+          font: 600 34px/1 var(--mono);
+        }
+        .pkg-head h2 {
+          font: 600 clamp(22px, 3.4vw, 30px)/1.15 var(--sans);
+          letter-spacing: -0.015em;
+        }
+        .pkg-head .focus {
+          color: var(--muted);
+          margin-top: 6px;
+          max-width: 66ch;
+        }
+        .pkg-stats {
+          grid-column: 1/-1;
+          display: grid;
+          grid-template-columns: repeat(
+            auto-fit,
+            minmax(min(100%, 200px), 1fr)
+          );
+          gap: 14px;
+          position: relative;
+          z-index: 1;
+        }
+        .stat {
+          border-top: 1px solid var(--line);
+          padding-top: 12px;
+        }
+        .stat .k {
+          font: 500 10.5px/1 var(--mono);
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--faint);
+        }
+        .stat .v {
+          margin-top: 8px;
+          font-size: 13.5px;
+          color: var(--ink);
+        }
+        .meter {
+          display: flex;
+          gap: 3px;
+          margin-top: 9px;
+        }
+        .meter i {
+          height: 8px;
+          flex: 1;
+          border-radius: 2px;
+          background: var(--line);
+          transform-origin: left;
+          position: relative;
+          overflow: hidden;
+        }
+        .meter i b {
+          position: absolute;
+          inset: 0;
+          background: var(--accent);
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .meter i.half b {
+          right: 50%;
+        }
+        .prog-v {
+          font: 600 13px/1 var(--mono);
+          font-variant-numeric: tabular-nums;
+        }
+        .prog-bar {
+          height: 6px;
+          border-radius: 99px;
+          background: var(--line);
+          margin-top: 10px;
+          overflow: hidden;
+        }
+        .prog-bar b {
+          display: block;
+          height: 100%;
+          width: 0;
+          background: var(--accent);
+          border-radius: 99px;
+          transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .task {
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: 14px;
+          overflow: hidden;
+        }
+        .task-top {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 8px 16px;
+          padding: 18px 20px;
+          border-bottom: 1px solid var(--line);
+          align-items: start;
+          background: linear-gradient(90deg, var(--ds) 0, transparent 70%);
+        }
+        .dl {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font: 600 11px/1 var(--mono);
+          letter-spacing: 0.1em;
+          color: var(--dc);
+          text-transform: uppercase;
+        }
+        .dl::before {
+          content: "";
+          width: 8px;
+          height: 8px;
+          border-radius: 2px;
+          background: var(--dc);
+        }
+        .task h3 {
+          font: 600 18px/1.3 var(--sans);
+          margin-top: 8px;
+        }
+        .task .sub {
+          color: var(--muted);
+          font-size: 13.5px;
+          margin-top: 4px;
+        }
+        .diff {
+          display: grid;
+          justify-items: end;
+          gap: 6px;
+          font: 500 11px/1 var(--mono);
+          color: var(--faint);
+          white-space: nowrap;
+        }
+        .diff .pts {
+          font: 600 18px/1 var(--mono);
+          color: var(--ink);
+          font-variant-numeric: tabular-nums;
+        }
+        .task-body {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 280px);
+          gap: 0;
+        }
+        .steps {
+          list-style: none;
+          margin: 0;
+          padding: 10px 12px 14px;
+          counter-reset: s;
+          display: grid;
+          gap: 2px;
+        }
+        .step {
+          counter-increment: s;
+        }
+        .step label {
+          display: grid;
+          grid-template-columns: 28px 1fr;
+          gap: 12px;
+          padding: 10px 8px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+        .step label:hover {
+          background: var(--surface-2);
+        }
+        .step input {
+          position: absolute;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .box {
+          width: 26px;
+          height: 26px;
+          border-radius: 7px;
+          border: 1.5px solid var(--line-strong);
+          display: grid;
+          place-items: center;
+          font: 600 11px/1 var(--mono);
+          color: var(--faint);
+          transition: all 0.25s;
+          position: relative;
+        }
+        .box::before {
+          content: counter(s);
+        }
+        .box svg {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          stroke: var(--accent-ink);
+          stroke-width: 3;
+          fill: none;
+          stroke-dasharray: 20;
+          stroke-dashoffset: 20;
+          transition: stroke-dashoffset 0.35s 0.05s;
+        }
+        .step input:checked + label .box {
+          background: var(--accent);
+          border-color: var(--accent);
+          color: transparent;
+          transform: scale(1.04);
+        }
+        .step input:checked + label .box svg {
+          stroke-dashoffset: 0;
+        }
+        .step input:focus-visible + label {
+          outline: 2px solid var(--accent);
+          outline-offset: -2px;
+        }
+        .st {
+          font-size: 14px;
+          line-height: 1.55;
+        }
+        .st strong {
+          font-weight: 600;
+        }
+        .st .hint {
+          display: block;
+          color: var(--muted);
+          font-size: 13px;
+          margin-top: 3px;
+        }
+        .step input:checked + label .st {
+          color: var(--faint);
+        }
+        .step input:checked + label .st strong {
+          text-decoration: line-through;
+          text-decoration-color: var(--line-strong);
+        }
+        aside.side {
+          border-left: 1px solid var(--line);
+          padding: 18px 18px 20px;
+          background: var(--surface-2);
+          display: grid;
+          gap: 18px;
+          align-content: start;
+        }
+        aside h4 {
+          font: 500 10.5px/1 var(--mono);
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--faint);
+          margin-bottom: 8px;
+        }
+        aside ul {
+          margin: 0;
+          padding-left: 16px;
+          font-size: 13px;
+          color: var(--muted);
+          display: grid;
+          gap: 5px;
+        }
+        .files {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 5px;
+        }
+        .dep {
+          font-size: 13px;
+          color: var(--muted);
+        }
+        .dep b {
+          color: var(--ink);
+          font-weight: 600;
+        }
+        /* shared duties */
+        .duties {
+          display: grid;
+          grid-template-columns: repeat(
+            auto-fit,
+            minmax(min(100%, 240px), 1fr)
+          );
+          gap: 14px;
+        }
+        .duties .card h3 {
+          font: 600 14.5px/1.3 var(--sans);
+          margin-bottom: 6px;
+        }
+        .duties .card p {
+          font-size: 13.5px;
+          color: var(--muted);
+        }
+        .duties .when {
+          font: 500 11px/1 var(--mono);
+          color: var(--accent);
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+          display: block;
+        }
+        .ring {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: 10px;
+        }
+        footer {
+          margin-top: 32px;
+          padding-top: 20px;
+          border-top: 1px solid var(--line);
+          color: var(--faint);
+          font: 500 11.5px/1.6 var(--mono);
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px 24px;
+          justify-content: space-between;
+        }
+        .reset {
+          border: 1px solid var(--line-strong);
+          background: var(--surface);
+          color: var(--muted);
+          font: 500 11.5px/1 var(--mono);
+          padding: 8px 12px;
+          border-radius: 7px;
+          cursor: pointer;
+        }
+        .reset:hover {
+          color: var(--ink);
+          border-color: var(--accent);
+        }
+        /* load reveal: starts visible, eases up */
+        .rise {
+          animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+          animation-delay: calc(var(--i, 0) * 70ms);
+        }
+        .ws-corner {
+          position: absolute;
+          width: 12px;
+          height: 12px;
+          border-color: var(--accent);
+          border-style: solid;
+          opacity: 0.6;
+        }
+        .ws-corner.tl1 {
+          left: -14px;
+          top: 40px;
+          border-width: 1.5px 0 0 1.5px;
+        }
+        .ws-corner.tr1 {
+          right: -14px;
+          top: 40px;
+          border-width: 1.5px 1.5px 0 0;
+        }
+        @media (max-width: 820px) {
+          .task-body {
+            grid-template-columns: 1fr;
+          }
+          aside.side {
+            border-left: 0;
+            border-top: 1px solid var(--line);
+          }
+          .timeline {
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: 26px;
+          }
+          .timeline::before,
+          .timeline .progress {
+            display: none;
+          }
+        }
+        @media (max-width: 520px) {
+          .timeline {
+            grid-template-columns: 1fr;
+          }
+          .pkg-head {
+            grid-template-columns: 1fr;
+            padding: 18px;
+          }
+          .big-l {
+            width: 56px;
+            height: 56px;
+            font-size: 26px;
+            border-radius: 13px;
+          }
+          .task-top {
+            grid-template-columns: 1fr;
+          }
+          .diff {
+            justify-items: start;
+            grid-auto-flow: column;
+            align-items: center;
+            justify-content: start;
+            gap: 10px;
+          }
+          .brand span {
+            display: none;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation: none !important;
+            transition: none !important;
+          }
+          html {
+            scroll-behavior: auto;
+          }
+        }
+      }
+    </style>
   </head>
   <body
     data-page="tasks"
@@ -263,69 +1005,115 @@ footer{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);color:v
   >
     <div id="site-header"></div>
 
-    <div class="max-w-7xl w-full mx-auto px-6 pt-16 pb-20 relative z-10 flex-grow">
+    <div
+      class="max-w-7xl w-full mx-auto px-6 pt-16 pb-20 relative z-10 flex-grow"
+    >
       <main class="w-full flex flex-col">
         <div id="ws" class="wrap">
-  <div class="hero">
-    <span class="ws-corner tl1"></span><span class="ws-corner tr1"></span>
-    <span class="eyebrow rise">SE322 · Intaliq project</span>
-    <h1 class="rise" style="--i:1">Who does <span>what</span></h1>
-    <p class="lead rise" style="--i:2">The project is split between 6 members. Everyone gets about the same amount of work, and you can do most of it on your own. Find your member number, then follow the steps and tick them off.</p>
-    <div class="meta rise" style="--i:3">
-      <span class="chip"><b>6</b> members</span>
-      <span class="chip">only what the <b>instructor asked</b></span>
-      <span class="chip">Deliverable 1 <b>submitted</b></span>
-    </div>
-  </div>
+          <div class="hero">
+            <span class="ws-corner tl1"></span
+            ><span class="ws-corner tr1"></span>
+            <span class="eyebrow rise">SE322 · Intaliq project</span>
+            <h1 class="rise" style="--i: 1">Who does <span>what</span></h1>
+            <p class="lead rise" style="--i: 2">
+              The project is split between 6 members. Everyone gets about the
+              same amount of work, and you can do most of it on your own. Find
+              your member number, then follow the steps and tick them off.
+            </p>
+            <div class="meta rise" style="--i: 3">
+              <span class="chip"><b>6</b> members</span>
+              <span class="chip">only what the <b>instructor asked</b></span>
+              <span class="chip">Deliverable 1 <b>submitted</b></span>
+            </div>
+          </div>
 
-  <section id="deadlines" class="rise" style="--i:4">
-    <div class="sec-head">
-      <div><span class="eyebrow">Deadlines</span><h2>When things are due</h2></div>
-      <p>Each person is responsible for their own part. Finish it a day or two before each deadline and share it with the group leader.</p>
-    </div>
-    <div class="timeline" id="timeline"><div class="progress" id="tl-progress"></div></div>
-  </section>
+          <section id="deadlines" class="rise" style="--i: 4">
+            <div class="sec-head">
+              <div>
+                <span class="eyebrow">Deadlines</span>
+                <h2>When things are due</h2>
+              </div>
+              <p>
+                Each person is responsible for their own part. Finish it a day
+                or two before each deadline and share it with the group leader.
+              </p>
+            </div>
+            <div class="timeline" id="timeline">
+              <div class="progress" id="tl-progress"></div>
+            </div>
+          </section>
 
-  <section id="overview">
-    <div class="sec-head">
-      <div><span class="eyebrow">Overview</span><h2>All 6 members at a glance</h2></div>
-      <p>Tap a row to see the steps for that member.</p>
-    </div>
-    <div class="tbl-wrap"><table>
-      <thead><tr><th>Member</th><th style="color:var(--d2)">Deliverable 2</th><th style="color:var(--d3)">Deliverable 3</th><th style="color:var(--d4)">Deliverable 4</th></tr></thead>
-      <tbody id="balance-body"></tbody>
-    </table></div>
-  </section>
+          <section id="overview">
+            <div class="sec-head">
+              <div>
+                <span class="eyebrow">Overview</span>
+                <h2>All 6 members at a glance</h2>
+              </div>
+              <p>Tap a row to see the steps for that member.</p>
+            </div>
+            <div class="tbl-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th style="color: var(--d2)">Deliverable 2</th>
+                    <th style="color: var(--d3)">Deliverable 3</th>
+                    <th style="color: var(--d4)">Deliverable 4</th>
+                  </tr>
+                </thead>
+                <tbody id="balance-body"></tbody>
+              </table>
+            </div>
+          </section>
 
-  <section id="rules">
-    <div class="sec-head">
-      <div><span class="eyebrow">Before you start</span><h2>Rules everyone follows</h2></div>
-      <p>If everyone uses the same names, nobody has to wait for anyone else. All of these already match the team website.</p>
-    </div>
-    <div class="contract" id="contract-grid"></div>
-  </section>
+          <section id="rules">
+            <div class="sec-head">
+              <div>
+                <span class="eyebrow">Before you start</span>
+                <h2>Rules everyone follows</h2>
+              </div>
+              <p>
+                If everyone uses the same names, nobody has to wait for anyone
+                else. All of these already match the team website.
+              </p>
+            </div>
+            <div class="contract" id="contract-grid"></div>
+          </section>
 
-  <section id="packages">
-    <div class="sec-head">
-      <div><span class="eyebrow">Your tasks</span><h2>Step-by-step guide</h2></div>
-      <p>Your ticks are saved on your device only.</p>
-    </div>
-    <div class="switch" role="tablist" aria-label="Parts" id="switch"></div>
-    <div id="panel" role="tabpanel"></div>
-  </section>
+          <section id="packages">
+            <div class="sec-head">
+              <div>
+                <span class="eyebrow">Your tasks</span>
+                <h2>Step-by-step guide</h2>
+              </div>
+              <p>Your ticks are saved on your device only.</p>
+            </div>
+            <div
+              class="switch"
+              role="tablist"
+              aria-label="Parts"
+              id="switch"
+            ></div>
+            <div id="panel" role="tabpanel"></div>
+          </section>
 
-  <section id="everyone">
-    <div class="sec-head">
-      <div><span class="eyebrow">Everyone</span><h2>Things everyone does</h2></div>
-    </div>
-    <div class="duties" id="duties"></div>
-  </section>
+          <section id="everyone">
+            <div class="sec-head">
+              <div>
+                <span class="eyebrow">Everyone</span>
+                <h2>Things everyone does</h2>
+              </div>
+            </div>
+            <div class="duties" id="duties"></div>
+          </section>
 
-  <footer>
-    <span>Intaliq · SE322 · Prince Sultan University</span>
-    <button type="button" class="reset" id="reset">Clear my ticks for this member</button>
-  </footer>
-</div>
+          <footer>
+            <span>Intaliq · SE322 · Prince Sultan University</span>
+            <button type="button" class="reset" id="reset">
+              Clear my ticks for this member
+            </button>
+          </footer>
+        </div>
         <div id="site-pager"></div>
       </main>
     </div>
@@ -333,231 +1121,780 @@ footer{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);color:v
     <div id="site-footer"></div>
     <script src="assets/js/site.js"></script>
     <script>
-(function(){
-const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+      (function () {
+        const store = {
+          get(k) {
+            try {
+              return localStorage.getItem(k);
+            } catch (e) {
+              return null;
+            }
+          },
+          set(k, v) {
+            try {
+              localStorage.setItem(k, v);
+            } catch (e) {}
+          },
+          del(k) {
+            try {
+              localStorage.removeItem(k);
+            } catch (e) {}
+          },
+        };
 
-/* deadlines */
-const D={
-  D1:{n:'1',c:'var(--d1)',s:'var(--d1-soft)',done:true,name:'SRS and 4+1 architecture document',date:'2026-09-30',hand:'2026-09-29',w:'40%',items:['Introduction and goals','All UML diagrams','Short description under each diagram']},
-  D2:{n:'2',c:'var(--d2)',s:'var(--d2-soft)',name:'Quality and architecture style',date:'2026-10-10',hand:'2026-10-08',w:'20%',items:['4 quality attributes','A drawn scenario for each','Chosen architecture style']},
-  D3:{n:'3',c:'var(--d3)',s:'var(--d3-soft)',name:'Design patterns',date:'2026-10-25',hand:'2026-10-23',w:'20%',items:['3 design patterns','Why we chose each one']},
-  D4:{n:'4',c:'var(--d4)',s:'var(--d4-soft)',name:'Review and presentation',date:'2026-11-04',hand:'2026-11-02',w:'20%',items:['Review the design','Presentation']}
-};
-const fmt=iso=>{const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const [y,mo,d]=iso.split('-');return (+d)+' '+m[+mo-1]};
-const today=new Date();today.setHours(0,0,0,0);
-const daysTo=iso=>Math.round((new Date(iso+'T00:00:00')-today)/864e5);
-const tl=document.getElementById('timeline');
-let nextKey=null;
-Object.keys(D).forEach(k=>{if(!nextKey&&!D[k].done&&daysTo(D[k].date)>=0)nextKey=k});
-Object.entries(D).forEach(([k,v])=>{
-  const n=daysTo(v.date);
-  const left=v.done?'✓ Submitted':n>1?n+' days left':n===1?'Due tomorrow':n===0?'Due today':'Done';
-  const el=document.createElement('div');
-  el.className='tl'+(k===nextKey?' next':'')+(v.done?' done':'');el.style.setProperty('--dc',v.c);
-  el.innerHTML=`<div class="tl-dot">${v.done?'✓':v.n}</div><h3>${v.name}</h3><div class="d">Due ${fmt(v.date)} · ${v.w} of the grade${v.done?'':'<br>Send to group by '+fmt(v.hand)}</div><div class="left">${left}</div><ul>${v.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
-  tl.appendChild(el);
-});
-const idx=nextKey?Object.keys(D).indexOf(nextKey):4;
-requestAnimationFrame(()=>requestAnimationFrame(()=>{document.getElementById('tl-progress').style.width=Math.min(100,idx*25+2)+'%'}));
+        /* deadlines */
+        const D = {
+          D1: {
+            n: "1",
+            c: "var(--d1)",
+            s: "var(--d1-soft)",
+            done: true,
+            name: "SRS and 4+1 architecture document",
+            date: "2026-09-30",
+            hand: "2026-09-29",
+            w: "40%",
+            items: [
+              "Introduction and goals",
+              "All UML diagrams",
+              "Short description under each diagram",
+            ],
+          },
+          D2: {
+            n: "2",
+            c: "var(--d2)",
+            s: "var(--d2-soft)",
+            name: "Quality and architecture style",
+            date: "2026-10-10",
+            hand: "2026-10-08",
+            w: "20%",
+            items: [
+              "4 quality attributes",
+              "A drawn scenario for each",
+              "Chosen architecture style",
+            ],
+          },
+          D3: {
+            n: "3",
+            c: "var(--d3)",
+            s: "var(--d3-soft)",
+            name: "Design patterns",
+            date: "2026-10-25",
+            hand: "2026-10-23",
+            w: "20%",
+            items: ["3 design patterns", "Why we chose each one"],
+          },
+          D4: {
+            n: "4",
+            c: "var(--d4)",
+            s: "var(--d4-soft)",
+            name: "Review and presentation",
+            date: "2026-11-04",
+            hand: "2026-11-02",
+            w: "20%",
+            items: ["Check your own work", "Presentation"],
+          },
+        };
+        const fmt = (iso) => {
+          const m = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ];
+          const [y, mo, d] = iso.split("-");
+          return +d + " " + m[+mo - 1];
+        };
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const daysTo = (iso) =>
+          Math.round((new Date(iso + "T00:00:00") - today) / 864e5);
+        const tl = document.getElementById("timeline");
+        let nextKey = null;
+        Object.keys(D).forEach((k) => {
+          if (!nextKey && !D[k].done && daysTo(D[k].date) >= 0) nextKey = k;
+        });
+        Object.entries(D).forEach(([k, v]) => {
+          const n = daysTo(v.date);
+          const left = v.done
+            ? "✓ Submitted"
+            : n > 1
+              ? n + " days left"
+              : n === 1
+                ? "Due tomorrow"
+                : n === 0
+                  ? "Due today"
+                  : "Done";
+          const el = document.createElement("div");
+          el.className =
+            "tl" + (k === nextKey ? " next" : "") + (v.done ? " done" : "");
+          el.style.setProperty("--dc", v.c);
+          el.innerHTML = `<div class="tl-dot">${v.done ? "✓" : v.n}</div><h3>${v.name}</h3><div class="d">Due ${fmt(v.date)} · ${v.w} of the grade${v.done ? "" : "<br>Send to group by " + fmt(v.hand)}</div><div class="left">${left}</div><ul>${v.items.map((i) => `<li>${i}</li>`).join("")}</ul>`;
+          tl.appendChild(el);
+        });
+        const idx = nextKey ? Object.keys(D).indexOf(nextKey) : 4;
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            document.getElementById("tl-progress").style.width =
+              Math.min(100, idx * 25 + 2) + "%";
+          }),
+        );
 
-/* rules */
-const contract=[
-  {h:'Class names',p:'Use these exact names in every diagram.',t:['User','Coach','Session','JoinRequest','Announcement','Goal','Activity','Partner']},
-  {h:'Helper class names',p:'Use these when a diagram needs something that does the work.',t:['BookingService','SessionService','NotificationService','SessionRepository']},
-  {h:'Drawing diagrams',list:['Use <b>draw.io</b> (diagrams.net). It’s free and runs in the browser.','Save the draw.io file in the shared Drive folder.','Export as PNG, using the file name listed for you.']},
-  {h:'Writing',list:['Write in your own Google Doc, using the shared template.','Put a short description under every diagram.','Post the Doc link in the group chat when you’re done.']}
-];
-document.getElementById('contract-grid').innerHTML=contract.map((c,i)=>`<div class="card rise" style="--i:${i}"><h3>${c.h}</h3>${c.p?`<p>${c.p}</p>`:''}${c.t?`<div class="tags">${c.t.map(x=>`<span class="tag">${x}</span>`).join('')}</div>`:''}${c.list?`<ul>${c.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}</div>`).join('');
+        /* rules */
+        const contract = [
+          {
+            h: "Class names",
+            p: "Use these exact names in every diagram.",
+            t: [
+              "User",
+              "Coach",
+              "Session",
+              "JoinRequest",
+              "Announcement",
+              "Goal",
+              "Activity",
+              "Partner",
+            ],
+          },
+          {
+            h: "Helper class names",
+            p: "Use these when a diagram needs something that does the work.",
+            t: [
+              "BookingService",
+              "SessionService",
+              "NotificationService",
+              "SessionRepository",
+            ],
+          },
+          {
+            h: "Drawing diagrams",
+            list: [
+              "Use <b>draw.io</b> (diagrams.net). It’s free and runs in the browser.",
+              "Save the draw.io file in the shared Drive folder.",
+              "Export as PNG, using the file name listed for you.",
+            ],
+          },
+          {
+            h: "Writing",
+            list: [
+              "Write in your own Google Doc, using the shared template.",
+              "Put a short description under every diagram.",
+              "Post the Doc link in the group chat when you’re done.",
+            ],
+          },
+        ];
+        document.getElementById("contract-grid").innerHTML = contract
+          .map(
+            (c, i) =>
+              `<div class="card rise" style="--i:${i}"><h3>${c.h}</h3>${c.p ? `<p>${c.p}</p>` : ""}${c.t ? `<div class="tags">${c.t.map((x) => `<span class="tag">${x}</span>`).join("")}</div>` : ""}${c.list ? `<ul>${c.list.map((x) => `<li>${x}</li>`).join("")}</ul>` : ""}</div>`,
+          )
+          .join("");
 
+        /* quality attribute steps (same for Members 2, 4, 5, 6) */
+        function qaSteps(o) {
+          return [
+            [
+              "Read",
+              `Read the ${o.name} part of the Quality page on our website, and the SRS requirements ${o.reqs}.`,
+            ],
+            [
+              "Say why it matters",
+              "Two or three sentences on why this quality is important for Intaliq.",
+            ],
+            [
+              "Write the scenario",
+              `Fill in the 6 parts: who causes it, what happens, the conditions, which part of the system, how the system responds, and a number to measure it. Example: ${o.normal}.`,
+            ],
+            [
+              "Draw it",
+              `Draw the scenario in draw.io as a row of boxes: who → what happens → system → response → measure. Save as <code>${o.file}.png</code>.`,
+            ],
+            ["Send it", "Post your Doc link in the group chat by 8 Oct."],
+          ];
+        }
 
-/* quality attribute steps (same for Members 2, 4, 5, 6) */
-function qaSteps(o){return [
-  ['Read',`Read the ${o.name} part of the Quality page on our website, and the SRS requirements ${o.reqs}.`],
-  ['Say why it matters','Two or three sentences on why this quality is important for Intaliq.'],
-  ['Write the scenario',`Fill in the 6 parts: who causes it, what happens, the conditions, which part of the system, how the system responds, and a number to measure it. Example: ${o.normal}.`],
-  ['Draw it',`Draw the scenario in draw.io as a row of boxes: who → what happens → system → response → measure. Save as <code>${o.file}.png</code>.`],
-  ['Send it','Post your Doc link in the group chat by 8 Oct.']
-]}
+        /* pattern halves (Deliverable 3): "how we use it" and "why we chose it" */
+        function patternHow(o) {
+          return [
+            [
+              "Read",
+              "Read the " +
+                o.name +
+                " part of the Design Patterns page on our website and your lecture notes on the pattern.",
+            ],
+            [
+              "Draw it",
+              `A class diagram of the pattern in Intaliq: ${o.classes}. Save as <code>${o.file}.png</code>.`,
+            ],
+            [
+              "Explain each class",
+              "One or two sentences on what each class in your diagram does.",
+            ],
+            ["Walk through an example", o.example],
+            ["Send it", "Share your part with the group leader by 23 Oct."],
+          ];
+        }
+        function patternWhy(o) {
+          return [
+            [
+              "Read",
+              "Read the " +
+                o.name +
+                " part of the Design Patterns page on our website and your lecture notes on the pattern.",
+            ],
+            ["The problem", o.problem],
+            [
+              "Draw before and after",
+              `Two small pictures side by side: Intaliq without the pattern, and with it. Save as <code>${o.file}.png</code>.`,
+            ],
+            [
+              "Why we chose it",
+              "Give 3 reasons the pattern fits Intaliq, and what would go wrong without it.",
+            ],
+            ["Send it", "Share your part with the group leader by 23 Oct."],
+          ];
+        }
+        /* Deliverable 4: everyone checks their own work and presents it */
+        function d4Task(o) {
+          return {
+            d: "D4",
+            t: "Check your own work and present it",
+            sub: "Your part of the validation and the presentation.",
+            size: "Medium",
+            dep: o.dep || "Nothing",
+            steps: [
+              [
+                "Check your own work",
+                `Go through your Deliverable 2 and 3 parts against the instructor’s brief on 25–27 Oct. ${o.check}`,
+              ],
+              [
+                "Check your names",
+                "Make sure the class names in your diagrams match the rules above and the class diagram from Deliverable 1.",
+              ],
+              ["Fix it", "Fix anything missing or wrong by 30 Oct."],
+              [
+                "Write your validation note",
+                "2–3 sentences on what you checked and what you fixed. Share it with the group leader by 2 Nov.",
+              ],
+              [
+                "Make your slides",
+                `One slide for your Deliverable 2 work, one for your Deliverable 3 work, and one for ${o.view}. Add them to the shared deck by 30 Oct.` +
+                  (o.extra ? " " + o.extra : ""),
+              ],
+              [
+                "Present",
+                "Present your 3 slides on 4 Nov, about 2 minutes in total.",
+              ],
+            ],
+            done: [
+              "Your parts match the brief",
+              "Validation note shared",
+              "3 slides in the deck",
+            ],
+          };
+        }
 
-/* Members: replace "Member 1" … "Member 6" with names once everyone has chosen.
+        /* Members: replace "Member 1" … "Member 6" with names once everyone has chosen.
    A find-and-replace of each "Member N" updates the whole page. */
-const MEMBERS={A:'Member 1',B:'Member 2',C:'Member 3',D:'Member 4',E:'Member 5',F:'Member 6'};
-const mem=l=>MEMBERS[l];
-const num=l=>'ABCDEF'.indexOf(l)+1;
-/* tasks */
-const P=[
-{l:'A',name:'Architecture Style & Review',focus:'Explains the architecture style we chose and why, then reviews the Deliverable 1 document at the end.',
- files:['style-general.png'],
- tasks:[
- {d:'D2',t:'Architecture style: what it is and why we chose it',sub:'First half of the architecture style section.',size:'Medium',dep:'Nothing',
-  steps:[
-   ['Learn the style','Our style is client–server with layers: the phone app talks to a server, and the app is organised in layers. Read about it in the lecture slides.'],
-   ['Explain it in detail','Describe how the style works in general: its parts, how they connect, and its rules (e.g. the app never talks to the database directly).'],
-   ['Draw it','A general diagram of the style: clients, the server, and the layers inside the client. Save as <code>style-general.png</code>.'],
-   ['Why we chose it','Give 3 reasons it fits Intaliq, e.g. one server keeps session spots accurate, and security checks happen in one place.','Our website’s Architectural Style page has a draft to start from.'],
-   ['Send it','By 8 Oct.']
-  ],done:['Diagram with a short description','3 reasons, each linked to Intaliq']},
- {d:'D4',t:'Review Deliverable 1',sub:'Check that the 4+1 architecture document covers everything the instructor asked for.',size:'Medium',dep:'The submitted Deliverable 1 document',
-  steps:[
-   ['Make a checklist','List every section of the Deliverable 1 outline: introduction (a–e), 4+1 background, goals and constraints, and the User, Logical, Process, Development and Physical views.'],
-   ['Check everything','Go through the Deliverable 1 document on 25–27 Oct. Note anything missing or inconsistent, like a class name that doesn’t match between diagrams.'],
-   ['Tell the owners','Each person fixes their own items by 30 Oct.'],
-   ['Write a short summary','Half a page on what you checked and what was fixed, ready by 2 Nov.']
-  ],done:['Every checklist item is done or fixed','Summary written']}
- ]},
+        const MEMBERS = {
+          A: "Member 1",
+          B: "Member 2",
+          C: "Member 3",
+          D: "Member 4",
+          E: "Member 5",
+          F: "Member 6",
+        };
+        const mem = (l) => MEMBERS[l];
+        const num = (l) => "ABCDEF".indexOf(l) + 1;
+        /* tasks */
+        const P = [
+          {
+            l: "A",
+            name: "Style & Observer",
+            focus:
+              "Explains the architecture style, shows how Observer is used, then checks and presents their own work.",
+            files: ["style-general.png", "dp-observer.png"],
+            tasks: [
+              {
+                d: "D2",
+                t: "Architecture style: what it is and why we chose it",
+                sub: "First half of the architecture style section.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: [
+                  [
+                    "Learn the style",
+                    "Our style is client–server with layers: the phone app talks to a server, and the app is organised in layers. Read about it in the lecture slides.",
+                  ],
+                  [
+                    "Explain it in detail",
+                    "Describe how the style works in general: its parts, how they connect, and its rules (e.g. the app never talks to the database directly).",
+                  ],
+                  [
+                    "Draw it",
+                    "A general diagram of the style: clients, the server, and the layers inside the client. Save as <code>style-general.png</code>.",
+                  ],
+                  [
+                    "Why we chose it",
+                    "Give 3 reasons it fits Intaliq, e.g. one server keeps session spots accurate, and security checks happen in one place.",
+                    "Our website’s Architectural Style page has a draft to start from.",
+                  ],
+                  [
+                    "Send it",
+                    "Share your part with the group leader by 8 Oct.",
+                  ],
+                ],
+                done: [
+                  "Diagram with a short description",
+                  "3 reasons, each linked to Intaliq",
+                ],
+              },
+              {
+                d: "D3",
+                t: "Observer: how we use it",
+                sub: "Half of the Observer pattern.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: patternHow({
+                  name: "Observer",
+                  file: "dp-observer",
+                  classes:
+                    "SessionEventPublisher, a Subscriber interface, and PushNotificationSubscriber, EmailSubscriber and SessionScreen",
+                  example:
+                    "Follow what happens when a coach posts an announcement: the session sends one event and each subscriber reacts.",
+                }),
+                done: [
+                  "Class diagram with a description",
+                  "Example walk-through included",
+                ],
+              },
+              d4Task({
+                check:
+                  "Your style section must explain the style in detail and give reasons; your Observer part needs its class diagram and example.",
+                view: "the project introduction (problem, purpose, scope)",
+                extra:
+                  "Also create the empty shared deck in Google Slides and share it by 25 Oct.",
+              }),
+            ],
+          },
 
-{l:'B',name:'Style in Intaliq & Presentation',focus:'Shows how Intaliq uses the architecture style, then makes the final presentation.',
- files:['style-intaliq.png'],
- tasks:[
- {d:'D2',t:'Architecture style: how Intaliq uses it',sub:'Second half of the architecture style section.',size:'Medium',dep:'Nothing (the style is already decided: client–server with layers)',
-  steps:[
-   ['Read the draft','Read the Architectural Style page on our website.'],
-   ['Draw Intaliq’s architecture','The phone app with its layers (screens, features, data, connection), the Supabase server and database, and outside services (AI, notifications, email). Save as <code>style-intaliq.png</code>.'],
-   ['Explain each part','One or two sentences on what each layer and service does in Intaliq.'],
-   ['Walk through an example','Follow “book a session” from the app to the server and back, naming each part it passes through.'],
-   ['Send it','By 8 Oct.']
-  ],done:['Diagram with a short description','Example walk-through included']},
- {d:'D4',t:'Presentation',sub:'The final presentation.',size:'Medium',dep:'2 slides from each member',
-  steps:[
-   ['Make a template','Google Slides, shared with everyone by 25 Oct.'],
-   ['Plan the order','About 14 slides for 12–15 minutes: intro, project, the 4+1 views, quality attributes, style, patterns, review, Q&A.'],
-   ['Give each member a spot','Add 2 empty slides for each of Member 1–6 in the right order.'],
-   ['Make the opening and closing','Title, agenda, project overview, and Q&A slides.'],
-   ['Practise','Run one timed practice with everyone a few days before 4 Nov.'],
-   ['Export','Save as PDF and share it with the group leader by 2 Nov.']
-  ],done:['Every member’s slides are in','Fits the time limit']}
- ]},
+          {
+            l: "B",
+            name: "Style in Intaliq & Observer",
+            focus:
+              "Shows how Intaliq uses the style, explains why we chose Observer, then checks and presents their own work.",
+            files: ["style-intaliq.png", "dp-observer-why.png"],
+            tasks: [
+              {
+                d: "D2",
+                t: "Architecture style: how Intaliq uses it",
+                sub: "Second half of the architecture style section.",
+                size: "Medium",
+                dep: "Nothing (the style is already decided: client–server with layers)",
+                steps: [
+                  [
+                    "Read the draft",
+                    "Read the Architectural Style page on our website.",
+                  ],
+                  [
+                    "Draw Intaliq’s architecture",
+                    "The phone app with its layers (screens, features, data, connection), the Supabase server and database, and outside services (AI, notifications, email). Save as <code>style-intaliq.png</code>.",
+                  ],
+                  [
+                    "Explain each part",
+                    "One or two sentences on what each layer and service does in Intaliq.",
+                  ],
+                  [
+                    "Walk through an example",
+                    "Follow “book a session” from the app to the server and back, naming each part it passes through.",
+                  ],
+                  [
+                    "Send it",
+                    "Share your part with the group leader by 8 Oct.",
+                  ],
+                ],
+                done: [
+                  "Diagram with a short description",
+                  "Example walk-through included",
+                ],
+              },
+              {
+                d: "D3",
+                t: "Observer: why we chose it",
+                sub: "Half of the Observer pattern.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: patternWhy({
+                  name: "Observer",
+                  file: "dp-observer-why",
+                  problem:
+                    "When a coach posts an announcement or accepts a request, many things must react: push notifications, email and open screens. Without a pattern, the session code has to call each one directly.",
+                }),
+                done: ["Before and after diagram", "3 reasons"],
+              },
+              d4Task({
+                check:
+                  "Your style section must show how Intaliq uses the style; your Observer part needs its before-and-after diagram and 3 reasons.",
+                view: "the User View (use case diagram)",
+              }),
+            ],
+          },
 
-{l:'C',name:'Performance & Observer',focus:'Covers “fast” and writes the Observer pattern.',
- files:['qa-performance.png','dp-observer.png'],
- tasks:[
- {d:'D2',t:'Quality: fast',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
-  steps:qaSteps({name:'Performance',reqs:'PER-1 and PER-2',normal:'a user opens the Sessions tab and sees results within 3 seconds',file:'qa-performance'})},
- {d:'D3',t:'Pattern: Observer',sub:'One of the 3 design patterns.',size:'Medium',dep:'Nothing',
-  steps:[
-   ['The problem','When a coach posts an announcement, many things must react: push notifications, email and open screens.'],
-   ['How we use it','The session sends one message, and everything that cares receives it. Show it in a small diagram: <code>dp-observer.png</code>.'],
-   ['Why we chose it','Explain why it fits Intaliq.'],
-   ['Send it','By 23 Oct.']
-  ],done:['Problem, diagram, and why']}
- ]},
+          {
+            l: "C",
+            name: "Performance & Repository",
+            focus:
+              "Covers “fast”, shows how Repository is used, then checks and presents their own work.",
+            files: ["qa-performance.png", "dp-repository.png"],
+            tasks: [
+              {
+                d: "D2",
+                t: "Quality: fast",
+                sub: "One of the 4 quality attributes.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: qaSteps({
+                  name: "Performance",
+                  reqs: "PER-1 and PER-2",
+                  normal:
+                    "a user opens the Sessions tab and sees results within 3 seconds",
+                  file: "qa-performance",
+                }),
+              },
+              {
+                d: "D3",
+                t: "Repository: how we use it",
+                sub: "Half of the Repository pattern.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: patternHow({
+                  name: "Repository",
+                  file: "dp-repository",
+                  classes:
+                    "a SessionRepository interface, SupabaseSessionRepository, OfflineQueue, and BookingService using the interface",
+                  example:
+                    "Follow what happens when a user books a session: BookingService asks the repository to save it, online or offline.",
+                }),
+                done: [
+                  "Class diagram with a description",
+                  "Example walk-through included",
+                ],
+              },
+              d4Task({
+                check:
+                  "Your scenario must have all 6 parts and a drawing; your Repository part needs its class diagram and example.",
+                view: "the Logical View (class and sequence diagrams)",
+              }),
+            ],
+          },
 
-{l:'D',name:'Availability & Repository',focus:'Covers “always works” and writes the Repository pattern. Both are about saving data safely, even offline.',
- files:['qa-availability.png','dp-repository.png'],
- tasks:[
- {d:'D2',t:'Quality: always works',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
-  steps:qaSteps({name:'Availability',reqs:'REL-1 and CI-5',normal:'a user logs a hike, loses signal, and the log is saved and sent later',file:'qa-availability'})},
- {d:'D3',t:'Pattern: Repository',sub:'One of the 3 design patterns.',size:'Medium',dep:'Nothing',
-  steps:[
-   ['The problem','If every screen talks to the database directly, the same saving and loading code gets copied everywhere.'],
-   ['How we use it','One class per data type handles all saving and loading, e.g. SessionRepository. Show it in a small diagram: <code>dp-repository.png</code>.'],
-   ['Why we chose it','Explain why it fits Intaliq.'],
-   ['Send it','By 23 Oct.']
-  ],done:['Problem, diagram, and why']}
- ]},
+          {
+            l: "D",
+            name: "Availability & Repository",
+            focus:
+              "Covers “always works”, explains why we chose Repository, then checks and presents their own work.",
+            files: ["qa-availability.png", "dp-repository-why.png"],
+            tasks: [
+              {
+                d: "D2",
+                t: "Quality: always works",
+                sub: "One of the 4 quality attributes.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: qaSteps({
+                  name: "Availability",
+                  reqs: "REL-1 and CI-5",
+                  normal:
+                    "a user logs a hike, loses signal, and the log is saved and sent later",
+                  file: "qa-availability",
+                }),
+              },
+              {
+                d: "D3",
+                t: "Repository: why we chose it",
+                sub: "Half of the Repository pattern.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: patternWhy({
+                  name: "Repository",
+                  file: "dp-repository-why",
+                  problem:
+                    "If every screen talks to the database directly, the same saving and loading code, including the offline saving, gets copied everywhere.",
+                }),
+                done: ["Before and after diagram", "3 reasons"],
+              },
+              d4Task({
+                check:
+                  "Your scenario must have all 6 parts and a drawing; your Repository part needs its before-and-after diagram and 3 reasons.",
+                view: "the Process View (activity diagram)",
+              }),
+            ],
+          },
 
-{l:'E',name:'Security & State',focus:'Covers “secure” and writes the State pattern.',
- files:['qa-security.png','dp-state.png'],
- tasks:[
- {d:'D2',t:'Quality: secure',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
-  steps:qaSteps({name:'Security',reqs:'SEC-1 and CI-7',normal:'a user tries to see another user’s workouts and is blocked every time',file:'qa-security'})},
- {d:'D3',t:'Pattern: State',sub:'One of the 3 design patterns.',size:'Medium',dep:'Nothing',
-  steps:[
-   ['The problem','Accept and reject should work differently depending on a request’s status (Pending, Accepted, Rejected). Lots of if/else gets messy.'],
-   ['How we use it','Each status becomes its own class that knows what’s allowed. Show it in a small diagram: <code>dp-state.png</code>.'],
-   ['Why we chose it','Explain why it fits Intaliq.'],
-   ['Send it','By 23 Oct.']
-  ],done:['Problem, diagram, and why']}
- ]},
+          {
+            l: "E",
+            name: "Security & State",
+            focus:
+              "Covers “secure”, shows how State is used, then checks and presents their own work.",
+            files: ["qa-security.png", "dp-state.png"],
+            tasks: [
+              {
+                d: "D2",
+                t: "Quality: secure",
+                sub: "One of the 4 quality attributes.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: qaSteps({
+                  name: "Security",
+                  reqs: "SEC-1 and CI-7",
+                  normal:
+                    "a user tries to see another user’s workouts and is blocked every time",
+                  file: "qa-security",
+                }),
+              },
+              {
+                d: "D3",
+                t: "State: how we use it",
+                sub: "Half of the State pattern.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: patternHow({
+                  name: "State",
+                  file: "dp-state",
+                  classes:
+                    "JoinRequest holding a RequestState, and PendingState, AcceptedState and RejectedState classes, each with accept() and reject()",
+                  example:
+                    "Follow a request from Pending to Accepted, and show that accepting it twice isn’t allowed.",
+                }),
+                done: [
+                  "Class diagram with a description",
+                  "Example walk-through included",
+                ],
+              },
+              d4Task({
+                check:
+                  "Your scenario must have all 6 parts and a drawing; your State part needs its class diagram and example.",
+                view: "the Development View (component diagram)",
+              }),
+            ],
+          },
 
-{l:'F',name:'Usability & Review',focus:'Covers “easy to use”, then reviews the Deliverable 2 and 3 work at the end.',
- files:['qa-usability.png'],
- tasks:[
- {d:'D2',t:'Quality: easy to use',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
-  steps:qaSteps({name:'Usability',reqs:'USE-1, USE-2 and UI-8',normal:'a new user books a session from the Home screen in 4 taps or fewer',file:'qa-usability'})},
- {d:'D4',t:'Review Deliverables 2 and 3',sub:'Check that the quality, style and pattern work covers everything the instructor asked for.',size:'Medium',dep:'The finished Deliverable 2 and 3 work',
-  steps:[
-   ['Make a checklist','List every item the instructor asked for in Deliverables 2 and 3: 3–4 quality attributes with drawn scenarios, the style (what, why, how), and at least 3 patterns with reasons.'],
-   ['Check everything','Go through the Deliverable 2 and 3 work on 25–27 Oct. Note anything missing or inconsistent, like a class name in a pattern diagram that doesn’t match the class diagram.'],
-   ['Tell the owners','Each person fixes their own items by 30 Oct.'],
-   ['Write a short summary','Half a page on what you checked and what was fixed, ready by 2 Nov.']
-  ],done:['Every checklist item is done or fixed','Summary written']}
- ]}
-];
+          {
+            l: "F",
+            name: "Usability & State",
+            focus:
+              "Covers “easy to use”, explains why we chose State, then checks and presents their own work.",
+            files: ["qa-usability.png", "dp-state-why.png"],
+            tasks: [
+              {
+                d: "D2",
+                t: "Quality: easy to use",
+                sub: "One of the 4 quality attributes.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: qaSteps({
+                  name: "Usability",
+                  reqs: "USE-1, USE-2 and UI-8",
+                  normal:
+                    "a new user books a session from the Home screen in 4 taps or fewer",
+                  file: "qa-usability",
+                }),
+              },
+              {
+                d: "D3",
+                t: "State: why we chose it",
+                sub: "Half of the State pattern.",
+                size: "Medium",
+                dep: "Nothing",
+                steps: patternWhy({
+                  name: "State",
+                  file: "dp-state-why",
+                  problem:
+                    "Accept and reject should work differently depending on a request’s status (Pending, Accepted, Rejected). Without a pattern, the code fills up with if/else checks.",
+                }),
+                done: ["Before and after diagram", "3 reasons"],
+              },
+              d4Task({
+                check:
+                  "Your scenario must have all 6 parts and a drawing; your State part needs its before-and-after diagram and 3 reasons.",
+                view: "the Physical View (deployment diagram)",
+              }),
+            ],
+          },
+        ];
 
-/* overview table */
-const tb=document.getElementById('balance-body');
-P.forEach(p=>{
-  const cell=k=>{const ts=p.tasks.filter(t=>t.d===k||(t.also||[]).includes(k));if(!ts.length)return `<td class="none">${k==='D4'?'Present own slides':'—'}</td>`;
-    return `<td>${ts.map(t=>`${t.t}<span class="pts">${t.size}</span>`).join('<br>')}</td>`};
-  const tr=document.createElement('tr');tr.tabIndex=0;
-  tr.innerHTML=`<td class="pk"><span class="pk-badge">${num(p.l)}</span><b>${mem(p.l)}</b><span class="pts">${p.name}</span></td>${cell('D2')}${cell('D3')}${cell('D4')}`;
-  const go=()=>select(p.l,true);
-  tr.addEventListener('click',go);tr.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
-  tb.appendChild(tr);
-});
+        /* overview table */
+        const tb = document.getElementById("balance-body");
+        P.forEach((p) => {
+          const cell = (k) => {
+            const ts = p.tasks.filter(
+              (t) => t.d === k || (t.also || []).includes(k),
+            );
+            if (!ts.length)
+              return `<td class="none">${k === "D4" ? "Present own slides" : "—"}</td>`;
+            return `<td>${ts.map((t) => `${t.t}<span class="pts">${t.size}</span>`).join("<br>")}</td>`;
+          };
+          const tr = document.createElement("tr");
+          tr.tabIndex = 0;
+          tr.innerHTML = `<td class="pk"><span class="pk-badge">${num(p.l)}</span><b>${mem(p.l)}</b><span class="pts">${p.name}</span></td>${cell("D2")}${cell("D3")}${cell("D4")}`;
+          const go = () => select(p.l, true);
+          tr.addEventListener("click", go);
+          tr.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") go();
+          });
+          tb.appendChild(tr);
+        });
 
-/* part switcher */
-const sw=document.getElementById('switch'),panel=document.getElementById('panel');
-const check='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
-P.forEach(p=>{
-  const b=document.createElement('button');b.className='sw';b.type='button';b.setAttribute('role','tab');b.id='tab-'+p.l;
-  b.innerHTML=`<span class="l">${num(p.l)}</span><span>${mem(p.l)}<small>${p.name}</small></span>`;
-  b.addEventListener('click',()=>select(p.l));sw.appendChild(b);
-});
-const key=l=>'iws5-steps-'+l;
-function loadTicks(l){try{return JSON.parse(store.get(key(l))||'{}')}catch(e){return {}}}
-let cur=null;
-function select(l,scroll){
-  const p=P.find(x=>x.l===l)||P[0];cur=p.l;store.set('iws-pkg',p.l);
-  sw.querySelectorAll('.sw').forEach(b=>b.setAttribute('aria-selected',String(b.id==='tab-'+p.l)));
-  const ticks=loadTicks(p.l);
-  panel.innerHTML=`<div class="pkg enter">
+        /* part switcher */
+        const sw = document.getElementById("switch"),
+          panel = document.getElementById("panel");
+        const check =
+          '<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+        P.forEach((p) => {
+          const b = document.createElement("button");
+          b.className = "sw";
+          b.type = "button";
+          b.setAttribute("role", "tab");
+          b.id = "tab-" + p.l;
+          b.innerHTML = `<span class="l">${num(p.l)}</span><span>${mem(p.l)}<small>${p.name}</small></span>`;
+          b.addEventListener("click", () => select(p.l));
+          sw.appendChild(b);
+        });
+        const key = (l) => "iws7-steps-" + l;
+        function loadTicks(l) {
+          try {
+            return JSON.parse(store.get(key(l)) || "{}");
+          } catch (e) {
+            return {};
+          }
+        }
+        let cur = null;
+        function select(l, scroll) {
+          const p = P.find((x) => x.l === l) || P[0];
+          cur = p.l;
+          store.set("iws-pkg", p.l);
+          sw.querySelectorAll(".sw").forEach((b) =>
+            b.setAttribute("aria-selected", String(b.id === "tab-" + p.l)),
+          );
+          const ticks = loadTicks(p.l);
+          panel.innerHTML = `<div class="pkg enter">
     <div class="pkg-head">
       <div class="big-l">${num(p.l)}</div>
       <div><span class="eyebrow">${p.name}</span><h2 style="margin-top:8px">${mem(p.l)}</h2><p class="focus">${p.focus}</p></div>
       <div class="pkg-stats">
-        <div class="stat"><div class="k">Tasks</div><div class="v">${p.tasks.map(t=>'Deliverable '+D[t.d].n).join(' · ')}</div></div>
+        <div class="stat"><div class="k">Tasks</div><div class="v">${p.tasks.map((t) => "Deliverable " + D[t.d].n).join(" · ")}</div></div>
         <div class="stat"><div class="k">My progress</div><div class="v"><span class="prog-v" id="prog-v">0%</span></div><div class="prog-bar"><b id="prog-b"></b></div></div>
       </div>
     </div>
-    ${p.tasks.map((t,ti)=>`<article class="task" style="--dc:${D[t.d].c};--ds:${D[t.d].s}">
+    ${p.tasks
+      .map(
+        (
+          t,
+          ti,
+        ) => `<article class="task" style="--dc:${D[t.d].c};--ds:${D[t.d].s}">
       <div class="task-top"><div><span class="dl">Deliverable ${D[t.d].n} · send by ${fmt(D[t.d].hand)}</span><h3>${t.t}</h3><p class="sub">${t.sub}</p></div>
         <div class="diff"><span>Size</span><span class="pts">${t.size}</span></div></div>
       <div class="task-body">
-        <ol class="steps">${t.steps.map((s,si)=>{const id=`s-${p.l}-${ti}-${si}`;return `<li class="step"><input type="checkbox" id="${id}" data-k="${ti}-${si}" ${ticks[ti+'-'+si]?'checked':''}><label for="${id}"><span class="box">${check}</span><span class="st"><strong>${s[0]}.</strong> ${s[1]}${s[2]?`<span class="hint">${s[2]}</span>`:''}</span></label></li>`}).join('')}</ol>
+        <ol class="steps">${t.steps
+          .map((s, si) => {
+            const id = `s-${p.l}-${ti}-${si}`;
+            return `<li class="step"><input type="checkbox" id="${id}" data-k="${ti}-${si}" ${ticks[ti + "-" + si] ? "checked" : ""}><label for="${id}"><span class="box">${check}</span><span class="st"><strong>${s[0]}.</strong> ${s[1]}${s[2] ? `<span class="hint">${s[2]}</span>` : ""}</span></label></li>`;
+          })
+          .join("")}</ol>
         <aside class="side">
-          <div><h4>Finished when</h4><ul>${t.done?t.done.map(x=>`<li>${x}</li>`).join(''):'<li>2 scenarios written and drawn</li><li>Each one has a number to measure</li>'}</ul></div>
+          <div><h4>Finished when</h4><ul>${t.done ? t.done.map((x) => `<li>${x}</li>`).join("") : "<li>2 scenarios written and drawn</li><li>Each one has a number to measure</li>"}</ul></div>
           <div><h4>Needs from others</h4><p class="dep">${t.dep}</p></div>
         </aside>
-      </div></article>`).join('')}
-    <div class="card"><h4 class="eyebrow" style="margin-bottom:10px">Your file names</h4><div class="files">${p.files.map(f=>`<span class="tag">${f}</span>`).join('')}</div></div>
+      </div></article>`,
+      )
+      .join("")}
+    <div class="card"><h4 class="eyebrow" style="margin-bottom:10px">Your file names</h4><div class="files">${p.files.map((f) => `<span class="tag">${f}</span>`).join("")}</div></div>
   </div>`;
-  panel.querySelectorAll('.step input').forEach(i=>i.addEventListener('change',()=>{
-    const tk=loadTicks(p.l);if(i.checked)tk[i.dataset.k]=1;else delete tk[i.dataset.k];store.set(key(p.l),JSON.stringify(tk));progress();
-  }));
-  requestAnimationFrame(()=>requestAnimationFrame(progress));
-  if(scroll)document.getElementById('packages').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
-  if(history.replaceState){try{history.replaceState(null,'','#part-'+p.l.toLowerCase())}catch(e){}}
-}
-function progress(){
-  const all=panel.querySelectorAll('.step input'),done=panel.querySelectorAll('.step input:checked').length;
-  const pct=all.length?Math.round(done/all.length*100):0;
-  const v=document.getElementById('prog-v'),b=document.getElementById('prog-b');
-  if(v)v.textContent=pct+'% · '+done+' of '+all.length+' steps';if(b)b.style.width=pct+'%';
-}
-document.getElementById('reset').addEventListener('click',()=>{if(cur){store.del(key(cur));select(cur)}});
-const hash=(location.hash.match(/^#part-([a-f])$/i)||[])[1];
-select((hash||store.get('iws-pkg')||'A').toUpperCase());
+          panel.querySelectorAll(".step input").forEach((i) =>
+            i.addEventListener("change", () => {
+              const tk = loadTicks(p.l);
+              if (i.checked) tk[i.dataset.k] = 1;
+              else delete tk[i.dataset.k];
+              store.set(key(p.l), JSON.stringify(tk));
+              progress();
+            }),
+          );
+          requestAnimationFrame(() => requestAnimationFrame(progress));
+          if (scroll)
+            document
+              .getElementById("packages")
+              .scrollIntoView({
+                behavior: matchMedia("(prefers-reduced-motion:reduce)").matches
+                  ? "auto"
+                  : "smooth",
+              });
+          if (history.replaceState) {
+            try {
+              history.replaceState(null, "", "#part-" + p.l.toLowerCase());
+            } catch (e) {}
+          }
+        }
+        function progress() {
+          const all = panel.querySelectorAll(".step input"),
+            done = panel.querySelectorAll(".step input:checked").length;
+          const pct = all.length ? Math.round((done / all.length) * 100) : 0;
+          const v = document.getElementById("prog-v"),
+            b = document.getElementById("prog-b");
+          if (v)
+            v.textContent =
+              pct + "% · " + done + " of " + all.length + " steps";
+          if (b) b.style.width = pct + "%";
+        }
+        document.getElementById("reset").addEventListener("click", () => {
+          if (cur) {
+            store.del(key(cur));
+            select(cur);
+          }
+        });
+        const hash = (location.hash.match(/^#part-([a-f])$/i) || [])[1];
+        select((hash || store.get("iws-pkg") || "A").toUpperCase());
 
-/* everyone */
-const duties=[
-  {w:'By 30 Oct',h:'Send 2 slides',p:'Add 2 slides about your own work to Member 2’s presentation.'},
-  {w:'4 Nov',h:'Present your part',p:'Everyone presents their own slides, about 2 minutes each.'},
-  {w:'Every deliverable',h:'Group leader submits',p:'The instructor says only the group leader submits, on behalf of everyone.'}
-];
-document.getElementById('duties').innerHTML=duties.map((d,i)=>`<div class="card rise" style="--i:${i}"><span class="when">${d.w}</span><h3>${d.h}</h3><p>${d.p}</p>${d.ring?`<div class="ring">${['1 checks 2','2 checks 3','3 checks 4','4 checks 5','5 checks 6','6 checks 1'].map(x=>x.replace(/\d/g,d=>'Member '+d)).map(x=>`<span class="tag">${x}</span>`).join('')}</div>`:''}</div>`).join('');
-})();
-</script>
+        /* everyone */
+        const duties = [
+          {
+            w: "Every deliverable",
+            h: "You own your part",
+            p: "You write it, draw it, check it and fix it yourself. Nobody reviews anyone else’s work.",
+          },
+          {
+            w: "Every deliverable",
+            h: "Group leader submits",
+            p: "The instructor says only the group leader submits, on behalf of everyone.",
+          },
+        ];
+        document.getElementById("duties").innerHTML = duties
+          .map(
+            (d, i) =>
+              `<div class="card rise" style="--i:${i}"><span class="when">${d.w}</span><h3>${d.h}</h3><p>${d.p}</p>${
+                d.ring
+                  ? `<div class="ring">${[
+                      "1 checks 2",
+                      "2 checks 3",
+                      "3 checks 4",
+                      "4 checks 5",
+                      "5 checks 6",
+                      "6 checks 1",
+                    ]
+                      .map((x) => x.replace(/\d/g, (d) => "Member " + d))
+                      .map((x) => `<span class="tag">${x}</span>`)
+                      .join("")}</div>`
+                  : ""
+              }</div>`,
+          )
+          .join("");
+      })();
+    </script>
   </body>
 </html>

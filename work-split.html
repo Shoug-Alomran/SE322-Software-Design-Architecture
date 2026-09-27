@@ -311,7 +311,7 @@ const D={
   D1:{n:'1',c:'var(--d1)',s:'var(--d1-soft)',done:true,name:'SRS and 4+1 architecture document',date:'2026-09-30',hand:'2026-09-29',w:'40%',items:['Introduction and goals','All UML diagrams','Short description under each diagram']},
   D2:{n:'2',c:'var(--d2)',s:'var(--d2-soft)',name:'Quality and architecture style',date:'2026-10-10',hand:'2026-10-08',w:'20%',items:['4 quality attributes','A drawn scenario for each','Chosen architecture style']},
   D3:{n:'3',c:'var(--d3)',s:'var(--d3-soft)',name:'Design patterns',date:'2026-10-25',hand:'2026-10-23',w:'20%',items:['3 design patterns','Why we chose each one']},
-  D4:{n:'4',c:'var(--d4)',s:'var(--d4-soft)',name:'Review and presentation',date:'2026-11-04',hand:'2026-11-02',w:'20%',items:['Review the design','Presentation']}
+  D4:{n:'4',c:'var(--d4)',s:'var(--d4-soft)',name:'Review and presentation',date:'2026-11-04',hand:'2026-11-02',w:'20%',items:['Check your own work','Presentation']}
 };
 const fmt=iso=>{const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const [y,mo,d]=iso.split('-');return (+d)+' '+m[+mo-1]};
 const today=new Date();today.setHours(0,0,0,0);
@@ -349,6 +349,32 @@ function qaSteps(o){return [
   ['Send it','Post your Doc link in the group chat by 8 Oct.']
 ]}
 
+/* pattern halves (Deliverable 3): "how we use it" and "why we chose it" */
+function patternHow(o){return [
+  ['Read','Read the '+o.name+' part of the Design Patterns page on our website and your lecture notes on the pattern.'],
+  ['Draw it',`A class diagram of the pattern in Intaliq: ${o.classes}. Save as <code>${o.file}.png</code>.`],
+  ['Explain each class','One or two sentences on what each class in your diagram does.'],
+  ['Walk through an example',o.example],
+  ['Send it','Share your part with the group leader by 23 Oct.']
+]}
+function patternWhy(o){return [
+  ['Read','Read the '+o.name+' part of the Design Patterns page on our website and your lecture notes on the pattern.'],
+  ['The problem',o.problem],
+  ['Draw before and after',`Two small pictures side by side: Intaliq without the pattern, and with it. Save as <code>${o.file}.png</code>.`],
+  ['Why we chose it','Give 3 reasons the pattern fits Intaliq, and what would go wrong without it.'],
+  ['Send it','Share your part with the group leader by 23 Oct.']
+]}
+/* Deliverable 4: everyone checks their own work and presents it */
+function d4Task(o){return {d:'D4',t:'Check your own work and present it',sub:'Your part of the validation and the presentation.',size:'Medium',dep:o.dep||'Nothing',
+  steps:[
+   ['Check your own work',`Go through your Deliverable 2 and 3 parts against the instructor’s brief on 25–27 Oct. ${o.check}`],
+   ['Check your names','Make sure the class names in your diagrams match the rules above and the class diagram from Deliverable 1.'],
+   ['Fix it','Fix anything missing or wrong by 30 Oct.'],
+   ['Write your validation note','2–3 sentences on what you checked and what you fixed. Share it with the group leader by 2 Nov.'],
+   ['Make your slides',`One slide for your Deliverable 2 work, one for your Deliverable 3 work, and one for ${o.view}. Add them to the shared deck by 30 Oct.`+(o.extra?' '+o.extra:'')],
+   ['Present','Present your 3 slides on 4 Nov, about 2 minutes in total.']
+  ],done:['Your parts match the brief','Validation note shared','3 slides in the deck']}}
+
 /* Members: replace "Member 1" … "Member 6" with names once everyone has chosen.
    A find-and-replace of each "Member N" updates the whole page. */
 const MEMBERS={A:'Member 1',B:'Member 2',C:'Member 3',D:'Member 4',E:'Member 5',F:'Member 6'};
@@ -356,8 +382,8 @@ const mem=l=>MEMBERS[l];
 const num=l=>'ABCDEF'.indexOf(l)+1;
 /* tasks */
 const P=[
-{l:'A',name:'Architecture Style & Review',focus:'Explains the architecture style we chose and why, then reviews the Deliverable 1 document at the end.',
- files:['style-general.png'],
+{l:'A',name:'Style & Observer',focus:'Explains the architecture style, shows how Observer is used, then checks and presents their own work.',
+ files:['style-general.png','dp-observer.png'],
  tasks:[
  {d:'D2',t:'Architecture style: what it is and why we chose it',sub:'First half of the architecture style section.',size:'Medium',dep:'Nothing',
   steps:[
@@ -365,19 +391,16 @@ const P=[
    ['Explain it in detail','Describe how the style works in general: its parts, how they connect, and its rules (e.g. the app never talks to the database directly).'],
    ['Draw it','A general diagram of the style: clients, the server, and the layers inside the client. Save as <code>style-general.png</code>.'],
    ['Why we chose it','Give 3 reasons it fits Intaliq, e.g. one server keeps session spots accurate, and security checks happen in one place.','Our website’s Architectural Style page has a draft to start from.'],
-   ['Send it','By 8 Oct.']
+   ['Send it','Share your part with the group leader by 8 Oct.']
   ],done:['Diagram with a short description','3 reasons, each linked to Intaliq']},
- {d:'D4',t:'Review Deliverable 1',sub:'Check that the 4+1 architecture document covers everything the instructor asked for.',size:'Medium',dep:'The submitted Deliverable 1 document',
-  steps:[
-   ['Make a checklist','List every section of the Deliverable 1 outline: introduction (a–e), 4+1 background, goals and constraints, and the User, Logical, Process, Development and Physical views.'],
-   ['Check everything','Go through the Deliverable 1 document on 25–27 Oct. Note anything missing or inconsistent, like a class name that doesn’t match between diagrams.'],
-   ['Tell the owners','Each person fixes their own items by 30 Oct.'],
-   ['Write a short summary','Half a page on what you checked and what was fixed, ready by 2 Nov.']
-  ],done:['Every checklist item is done or fixed','Summary written']}
+ {d:'D3',t:'Observer: how we use it',sub:'Half of the Observer pattern.',size:'Medium',dep:'Nothing',
+  steps:patternHow({name:'Observer',file:'dp-observer',classes:'SessionEventPublisher, a Subscriber interface, and PushNotificationSubscriber, EmailSubscriber and SessionScreen',example:'Follow what happens when a coach posts an announcement: the session sends one event and each subscriber reacts.'}),
+  done:['Class diagram with a description','Example walk-through included']},
+ d4Task({check:'Your style section must explain the style in detail and give reasons; your Observer part needs its class diagram and example.',view:'the project introduction (problem, purpose, scope)',extra:'Also create the empty shared deck in Google Slides and share it by 25 Oct.'})
  ]},
 
-{l:'B',name:'Style in Intaliq & Presentation',focus:'Shows how Intaliq uses the architecture style, then makes the final presentation.',
- files:['style-intaliq.png'],
+{l:'B',name:'Style in Intaliq & Observer',focus:'Shows how Intaliq uses the style, explains why we chose Observer, then checks and presents their own work.',
+ files:['style-intaliq.png','dp-observer-why.png'],
  tasks:[
  {d:'D2',t:'Architecture style: how Intaliq uses it',sub:'Second half of the architecture style section.',size:'Medium',dep:'Nothing (the style is already decided: client–server with layers)',
   steps:[
@@ -385,73 +408,56 @@ const P=[
    ['Draw Intaliq’s architecture','The phone app with its layers (screens, features, data, connection), the Supabase server and database, and outside services (AI, notifications, email). Save as <code>style-intaliq.png</code>.'],
    ['Explain each part','One or two sentences on what each layer and service does in Intaliq.'],
    ['Walk through an example','Follow “book a session” from the app to the server and back, naming each part it passes through.'],
-   ['Send it','By 8 Oct.']
+   ['Send it','Share your part with the group leader by 8 Oct.']
   ],done:['Diagram with a short description','Example walk-through included']},
- {d:'D4',t:'Presentation',sub:'The final presentation.',size:'Medium',dep:'2 slides from each member',
-  steps:[
-   ['Make a template','Google Slides, shared with everyone by 25 Oct.'],
-   ['Plan the order','About 14 slides for 12–15 minutes: intro, project, the 4+1 views, quality attributes, style, patterns, review, Q&A.'],
-   ['Give each member a spot','Add 2 empty slides for each of Member 1–6 in the right order.'],
-   ['Make the opening and closing','Title, agenda, project overview, and Q&A slides.'],
-   ['Practise','Run one timed practice with everyone a few days before 4 Nov.'],
-   ['Export','Save as PDF and share it with the group leader by 2 Nov.']
-  ],done:['Every member’s slides are in','Fits the time limit']}
+ {d:'D3',t:'Observer: why we chose it',sub:'Half of the Observer pattern.',size:'Medium',dep:'Nothing',
+  steps:patternWhy({name:'Observer',file:'dp-observer-why',problem:'When a coach posts an announcement or accepts a request, many things must react: push notifications, email and open screens. Without a pattern, the session code has to call each one directly.'}),
+  done:['Before and after diagram','3 reasons']},
+ d4Task({check:'Your style section must show how Intaliq uses the style; your Observer part needs its before-and-after diagram and 3 reasons.',view:'the User View (use case diagram)'})
  ]},
 
-{l:'C',name:'Performance & Observer',focus:'Covers “fast” and writes the Observer pattern.',
- files:['qa-performance.png','dp-observer.png'],
+{l:'C',name:'Performance & Repository',focus:'Covers “fast”, shows how Repository is used, then checks and presents their own work.',
+ files:['qa-performance.png','dp-repository.png'],
  tasks:[
  {d:'D2',t:'Quality: fast',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
   steps:qaSteps({name:'Performance',reqs:'PER-1 and PER-2',normal:'a user opens the Sessions tab and sees results within 3 seconds',file:'qa-performance'})},
- {d:'D3',t:'Pattern: Observer',sub:'One of the 3 design patterns.',size:'Medium',dep:'Nothing',
-  steps:[
-   ['The problem','When a coach posts an announcement, many things must react: push notifications, email and open screens.'],
-   ['How we use it','The session sends one message, and everything that cares receives it. Show it in a small diagram: <code>dp-observer.png</code>.'],
-   ['Why we chose it','Explain why it fits Intaliq.'],
-   ['Send it','By 23 Oct.']
-  ],done:['Problem, diagram, and why']}
+ {d:'D3',t:'Repository: how we use it',sub:'Half of the Repository pattern.',size:'Medium',dep:'Nothing',
+  steps:patternHow({name:'Repository',file:'dp-repository',classes:'a SessionRepository interface, SupabaseSessionRepository, OfflineQueue, and BookingService using the interface',example:'Follow what happens when a user books a session: BookingService asks the repository to save it, online or offline.'}),
+  done:['Class diagram with a description','Example walk-through included']},
+ d4Task({check:'Your scenario must have all 6 parts and a drawing; your Repository part needs its class diagram and example.',view:'the Logical View (class and sequence diagrams)'})
  ]},
 
-{l:'D',name:'Availability & Repository',focus:'Covers “always works” and writes the Repository pattern. Both are about saving data safely, even offline.',
- files:['qa-availability.png','dp-repository.png'],
+{l:'D',name:'Availability & Repository',focus:'Covers “always works”, explains why we chose Repository, then checks and presents their own work.',
+ files:['qa-availability.png','dp-repository-why.png'],
  tasks:[
  {d:'D2',t:'Quality: always works',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
   steps:qaSteps({name:'Availability',reqs:'REL-1 and CI-5',normal:'a user logs a hike, loses signal, and the log is saved and sent later',file:'qa-availability'})},
- {d:'D3',t:'Pattern: Repository',sub:'One of the 3 design patterns.',size:'Medium',dep:'Nothing',
-  steps:[
-   ['The problem','If every screen talks to the database directly, the same saving and loading code gets copied everywhere.'],
-   ['How we use it','One class per data type handles all saving and loading, e.g. SessionRepository. Show it in a small diagram: <code>dp-repository.png</code>.'],
-   ['Why we chose it','Explain why it fits Intaliq.'],
-   ['Send it','By 23 Oct.']
-  ],done:['Problem, diagram, and why']}
+ {d:'D3',t:'Repository: why we chose it',sub:'Half of the Repository pattern.',size:'Medium',dep:'Nothing',
+  steps:patternWhy({name:'Repository',file:'dp-repository-why',problem:'If every screen talks to the database directly, the same saving and loading code, including the offline saving, gets copied everywhere.'}),
+  done:['Before and after diagram','3 reasons']},
+ d4Task({check:'Your scenario must have all 6 parts and a drawing; your Repository part needs its before-and-after diagram and 3 reasons.',view:'the Process View (activity diagram)'})
  ]},
 
-{l:'E',name:'Security & State',focus:'Covers “secure” and writes the State pattern.',
+{l:'E',name:'Security & State',focus:'Covers “secure”, shows how State is used, then checks and presents their own work.',
  files:['qa-security.png','dp-state.png'],
  tasks:[
  {d:'D2',t:'Quality: secure',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
   steps:qaSteps({name:'Security',reqs:'SEC-1 and CI-7',normal:'a user tries to see another user’s workouts and is blocked every time',file:'qa-security'})},
- {d:'D3',t:'Pattern: State',sub:'One of the 3 design patterns.',size:'Medium',dep:'Nothing',
-  steps:[
-   ['The problem','Accept and reject should work differently depending on a request’s status (Pending, Accepted, Rejected). Lots of if/else gets messy.'],
-   ['How we use it','Each status becomes its own class that knows what’s allowed. Show it in a small diagram: <code>dp-state.png</code>.'],
-   ['Why we chose it','Explain why it fits Intaliq.'],
-   ['Send it','By 23 Oct.']
-  ],done:['Problem, diagram, and why']}
+ {d:'D3',t:'State: how we use it',sub:'Half of the State pattern.',size:'Medium',dep:'Nothing',
+  steps:patternHow({name:'State',file:'dp-state',classes:'JoinRequest holding a RequestState, and PendingState, AcceptedState and RejectedState classes, each with accept() and reject()',example:'Follow a request from Pending to Accepted, and show that accepting it twice isn’t allowed.'}),
+  done:['Class diagram with a description','Example walk-through included']},
+ d4Task({check:'Your scenario must have all 6 parts and a drawing; your State part needs its class diagram and example.',view:'the Development View (component diagram)'})
  ]},
 
-{l:'F',name:'Usability & Review',focus:'Covers “easy to use”, then reviews the Deliverable 2 and 3 work at the end.',
- files:['qa-usability.png'],
+{l:'F',name:'Usability & State',focus:'Covers “easy to use”, explains why we chose State, then checks and presents their own work.',
+ files:['qa-usability.png','dp-state-why.png'],
  tasks:[
  {d:'D2',t:'Quality: easy to use',sub:'One of the 4 quality attributes.',size:'Medium',dep:'Nothing',
   steps:qaSteps({name:'Usability',reqs:'USE-1, USE-2 and UI-8',normal:'a new user books a session from the Home screen in 4 taps or fewer',file:'qa-usability'})},
- {d:'D4',t:'Review Deliverables 2 and 3',sub:'Check that the quality, style and pattern work covers everything the instructor asked for.',size:'Medium',dep:'The finished Deliverable 2 and 3 work',
-  steps:[
-   ['Make a checklist','List every item the instructor asked for in Deliverables 2 and 3: 3–4 quality attributes with drawn scenarios, the style (what, why, how), and at least 3 patterns with reasons.'],
-   ['Check everything','Go through the Deliverable 2 and 3 work on 25–27 Oct. Note anything missing or inconsistent, like a class name in a pattern diagram that doesn’t match the class diagram.'],
-   ['Tell the owners','Each person fixes their own items by 30 Oct.'],
-   ['Write a short summary','Half a page on what you checked and what was fixed, ready by 2 Nov.']
-  ],done:['Every checklist item is done or fixed','Summary written']}
+ {d:'D3',t:'State: why we chose it',sub:'Half of the State pattern.',size:'Medium',dep:'Nothing',
+  steps:patternWhy({name:'State',file:'dp-state-why',problem:'Accept and reject should work differently depending on a request’s status (Pending, Accepted, Rejected). Without a pattern, the code fills up with if/else checks.'}),
+  done:['Before and after diagram','3 reasons']},
+ d4Task({check:'Your scenario must have all 6 parts and a drawing; your State part needs its before-and-after diagram and 3 reasons.',view:'the Physical View (deployment diagram)'})
  ]}
 ];
 
@@ -475,7 +481,7 @@ P.forEach(p=>{
   b.innerHTML=`<span class="l">${num(p.l)}</span><span>${mem(p.l)}<small>${p.name}</small></span>`;
   b.addEventListener('click',()=>select(p.l));sw.appendChild(b);
 });
-const key=l=>'iws5-steps-'+l;
+const key=l=>'iws7-steps-'+l;
 function loadTicks(l){try{return JSON.parse(store.get(key(l))||'{}')}catch(e){return {}}}
 let cur=null;
 function select(l,scroll){
@@ -522,8 +528,7 @@ select((hash||store.get('iws-pkg')||'A').toUpperCase());
 
 /* everyone */
 const duties=[
-  {w:'By 30 Oct',h:'Send 2 slides',p:'Add 2 slides about your own work to Member 2’s presentation.'},
-  {w:'4 Nov',h:'Present your part',p:'Everyone presents their own slides, about 2 minutes each.'},
+  {w:'Every deliverable',h:'You own your part',p:'You write it, draw it, check it and fix it yourself. Nobody reviews anyone else’s work.'},
   {w:'Every deliverable',h:'Group leader submits',p:'The instructor says only the group leader submits, on behalf of everyone.'}
 ];
 document.getElementById('duties').innerHTML=duties.map((d,i)=>`<div class="card rise" style="--i:${i}"><span class="when">${d.w}</span><h3>${d.h}</h3><p>${d.p}</p>${d.ring?`<div class="ring">${['1 checks 2','2 checks 3','3 checks 4','4 checks 5','5 checks 6','6 checks 1'].map(x=>x.replace(/\d/g,d=>'Member '+d)).map(x=>`<span class="tag">${x}</span>`).join('')}</div>`:''}</div>`).join('');
