@@ -128,7 +128,7 @@
 
       <!-- Diagrams -->
       <section
-        class="max-w-7xl mx-auto px-6 mb-20"
+        class="max-w-7xl mx-auto px-6 mb-20 grid grid-cols-1 lg:grid-cols-2 gap-10"
       >
         <figure class="panel p-1 flex flex-col">
           <div class="ch ch-tl"></div>
@@ -150,12 +150,12 @@
               ><span class="w-1.5 h-1.5 bg-cyan-400"></span>
             </div>
           </div>
-          <div class="diagram-canvas h-[320px] md:h-[480px]">
-            <!-- Replace with <img src="assets/diagrams/activity-diagram.png" alt="Activity diagram"> -->
-            <div class="diagram-placeholder">
-              <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-              Activity Diagram
-            </div>
+          <div class="diagram-canvas h-[340px] md:h-[520px]">
+            <img
+              src="assets/diagrams/activity-set-goal.png"
+              alt="Activity diagram: setting an activity goal"
+              loading="lazy"
+            />
           </div>
           <figcaption
             class="mt-auto px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start gap-3 leading-relaxed"
@@ -165,9 +165,44 @@
               >FIG 1.0</span
             >
             <span
-              >Book-a-session workflow across User, System and Coach swimlanes,
-              covering login check, full-session check, and the coach's
-              accept/reject decision.</span
+              >Setting an activity goal (user): log in, open the Goals tab,
+              choose a running, hiking or cycling goal, specify time period,
+              calories burnt and deadline, then save once all fields are
+              valid.</span
+            >
+          </figcaption>
+        </figure>
+
+        <figure class="panel p-1 flex flex-col">
+          <div class="ch ch-tl"></div>
+          <div class="ch ch-br"></div>
+          <div
+            class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center gap-3"
+          >
+            <i class="ph ph-flow-arrow text-base text-cyan-500/70"></i>
+            <span
+              class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400"
+              >ACTIVITY_DIAGRAM_COACH.UML</span
+            >
+          </div>
+          <div class="diagram-canvas h-[340px] md:h-[520px]">
+            <img
+              src="assets/diagrams/activity-admit-members.png"
+              alt="Activity diagram: admitting session members"
+              loading="lazy"
+            />
+          </div>
+          <figcaption
+            class="mt-auto px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start gap-3 leading-relaxed"
+          >
+            <span
+              class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
+              >FIG 2.0</span
+            >
+            <span
+              >Admitting members (coach): review the users requesting to join,
+              check session capacity and whether the user meets the activity
+              level, then accept or decline and record the decision.</span
             >
           </figcaption>
         </figure>

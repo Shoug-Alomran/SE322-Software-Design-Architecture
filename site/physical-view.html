@@ -149,12 +149,12 @@
               ><span class="w-1.5 h-1.5 bg-cyan-400"></span>
             </div>
           </div>
-          <div class="diagram-canvas h-[320px] md:h-[500px]">
-            <!-- Replace with <img src="assets/diagrams/deployment-diagram.png" alt="Deployment diagram"> -->
-            <div class="diagram-placeholder">
-              <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-              Deployment Diagram
-            </div>
+          <div class="diagram-canvas h-[360px] md:h-[660px]">
+            <img
+              src="assets/diagrams/deployment-diagram.png"
+              alt="Intaliq deployment diagram: smartphone, application server, database and AI service"
+              loading="lazy"
+            />
           </div>
           <figcaption
             class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed"
@@ -164,9 +164,11 @@
               >FIG 1.0</span
             >
             <span
-              >Runtime nodes (mobile device, frontend hosting, Supabase backend
-              and database, external services) and the HTTPS paths between
-              them.</span
+              >The user smartphone runs the Intaliq mobile application and
+              reaches the application server over HTTPS. The server holds
+              authentication, user, activity, goal, session and partner
+              management, and connects to the Intaliq database and to the
+              external AI service over API/HTTPS.</span
             >
           </figcaption>
         </figure>

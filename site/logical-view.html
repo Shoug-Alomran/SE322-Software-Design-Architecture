@@ -147,13 +147,12 @@
               ><span class="w-1.5 h-1.5 bg-cyan-400"></span>
             </div>
           </div>
-          <div class="diagram-canvas h-[320px] md:h-[500px]">
-            <!-- To add the diagram: save it as assets/diagrams/class-diagram.png and replace the placeholder below with
-                         <img src="assets/diagrams/class-diagram.png" alt="Class diagram"> -->
-            <div class="diagram-placeholder">
-              <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-              Class Diagram
-            </div>
+          <div class="diagram-canvas h-[360px] md:h-[600px]">
+            <img
+              src="assets/diagrams/class-diagram.png"
+              alt="Intaliq class diagram: Session, User, Coach, Goal, Partner and Activity"
+              loading="lazy"
+            />
           </div>
           <figcaption
             class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed"
@@ -171,48 +170,183 @@
         </figure>
       </section>
 
-      <!-- FIG 2.0 Sequence diagram -->
+      <!-- FIG 2.x Sequence diagrams -->
       <section class="max-w-7xl mx-auto px-6 mb-20">
-        <figure class="panel p-1">
-          <div class="ch ch-tl"></div>
-          <div class="ch ch-tr"></div>
-          <div class="ch ch-bl"></div>
-          <div class="ch ch-br"></div>
-          <div
-            class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center justify-between"
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-8 h-px bg-cyan-500"></div>
+          <h2
+            class="font-mono text-xl md:text-2xl tracking-widest text-white uppercase"
           >
+            Sequence Diagrams
+          </h2>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <figure class="panel p-1 flex flex-col">
+            <div class="ch ch-tl"></div>
+            <div class="ch ch-br"></div>
             <div
-              class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400 flex items-center gap-3"
+              class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center gap-3"
             >
-              <i class="ph ph-list-numbers text-base text-cyan-500/70"></i
-              >SEQUENCE_DIAGRAM.UML
+              <i class="ph ph-list-numbers text-base text-cyan-500/70"></i>
+              <span
+                class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400"
+                >LOG_ACTIVITY.UML</span
+              >
             </div>
-            <div class="flex gap-2">
-              <span class="w-1.5 h-1.5 bg-cyan-500/20"></span
-              ><span class="w-1.5 h-1.5 bg-cyan-500/50"></span
-              ><span class="w-1.5 h-1.5 bg-cyan-400"></span>
+            <div class="diagram-canvas h-[340px] md:h-[520px]">
+              <img
+                src="assets/diagrams/sequence-log-activity.png"
+                alt="Sequence diagram: Logging an Activity"
+                loading="lazy"
+              />
             </div>
-          </div>
-          <div class="diagram-canvas h-[320px] md:h-[450px]">
-            <!-- Replace with <img src="assets/diagrams/sequence-diagram.png" alt="Sequence diagram"> -->
-            <div class="diagram-placeholder">
-              <i class="ph ph-image text-4xl text-cyan-500/50"></i>
-              Sequence Diagram
-            </div>
-          </div>
-          <figcaption
-            class="px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start sm:items-center gap-3 leading-relaxed"
-          >
-            <span
-              class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
-              >FIG 2.0</span
+            <figcaption
+              class="mt-auto px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start gap-3 leading-relaxed"
             >
-            <span
-              >Object interactions over time for UC-01 Book a Group Session:
-              user request, coach decision and user notification.</span
+              <span
+                class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
+                >FIG 2.1</span
+              >
+              <span
+                >Logging an Activity &mdash; The user opens the app, logs in,
+                picks an activity and a duration; Intaliq saves the activity
+                data and sends a confirmation.</span
+              >
+            </figcaption>
+          </figure>
+          <figure class="panel p-1 flex flex-col">
+            <div class="ch ch-tl"></div>
+            <div class="ch ch-br"></div>
+            <div
+              class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center gap-3"
             >
-          </figcaption>
-        </figure>
+              <i class="ph ph-list-numbers text-base text-cyan-500/70"></i>
+              <span
+                class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400"
+                >SET_GOAL.UML</span
+              >
+            </div>
+            <div class="diagram-canvas h-[340px] md:h-[520px]">
+              <img
+                src="assets/diagrams/sequence-set-goal.png"
+                alt="Sequence diagram: Setting an Activity Goal"
+                loading="lazy"
+              />
+            </div>
+            <figcaption
+              class="mt-auto px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start gap-3 leading-relaxed"
+            >
+              <span
+                class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
+                >FIG 2.2</span
+              >
+              <span
+                >Setting an Activity Goal &mdash; The user opens the Goals tab,
+                selects a running, cycling or hiking goal, then specifies time
+                period, calories and deadline before saving.</span
+              >
+            </figcaption>
+          </figure>
+          <figure class="panel p-1 flex flex-col">
+            <div class="ch ch-tl"></div>
+            <div class="ch ch-br"></div>
+            <div
+              class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center gap-3"
+            >
+              <i class="ph ph-list-numbers text-base text-cyan-500/70"></i>
+              <span
+                class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400"
+                >BOOK_SESSION.UML</span
+              >
+            </div>
+            <div class="diagram-canvas h-[340px] md:h-[520px]">
+              <img
+                src="assets/diagrams/sequence-book-session.png"
+                alt="Sequence diagram: Booking a Group Session"
+                loading="lazy"
+              />
+            </div>
+            <figcaption
+              class="mt-auto px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start gap-3 leading-relaxed"
+            >
+              <span
+                class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
+                >FIG 2.3</span
+              >
+              <span
+                >Booking a Group Session &mdash; The user views the available
+                sessions, selects a time, reviews the session information and
+                books it, then receives a confirmation message.</span
+              >
+            </figcaption>
+          </figure>
+          <figure class="panel p-1 flex flex-col">
+            <div class="ch ch-tl"></div>
+            <div class="ch ch-br"></div>
+            <div
+              class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center gap-3"
+            >
+              <i class="ph ph-list-numbers text-base text-cyan-500/70"></i>
+              <span
+                class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400"
+                >CREATE_SESSION.UML</span
+              >
+            </div>
+            <div class="diagram-canvas h-[340px] md:h-[520px]">
+              <img
+                src="assets/diagrams/sequence-create-session.png"
+                alt="Sequence diagram: Creating a Group Session"
+                loading="lazy"
+              />
+            </div>
+            <figcaption
+              class="mt-auto px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start gap-3 leading-relaxed"
+            >
+              <span
+                class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
+                >FIG 2.4</span
+              >
+              <span
+                >Creating a Group Session &mdash; The coach opens the session
+                creation form and enters date, time, location, capacity and
+                intensity before submitting.</span
+              >
+            </figcaption>
+          </figure>
+          <figure class="panel p-1 flex flex-col">
+            <div class="ch ch-tl"></div>
+            <div class="ch ch-br"></div>
+            <div
+              class="bg-cyan-950/20 px-5 py-3 border-b border-cyan-500/20 flex items-center gap-3"
+            >
+              <i class="ph ph-list-numbers text-base text-cyan-500/70"></i>
+              <span
+                class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400"
+                >ADMIT_MEMBERS.UML</span
+              >
+            </div>
+            <div class="diagram-canvas h-[340px] md:h-[520px]">
+              <img
+                src="assets/diagrams/sequence-admit-members.png"
+                alt="Sequence diagram: Admitting Members"
+                loading="lazy"
+              />
+            </div>
+            <figcaption
+              class="mt-auto px-5 py-3 bg-cyan-950/10 border-t border-cyan-500/20 font-mono text-[11px] text-slate-400 flex items-start gap-3 leading-relaxed"
+            >
+              <span
+                class="text-cyan-500 font-bold bg-cyan-500/10 px-2 py-0.5 border border-cyan-500/20 shrink-0"
+                >FIG 2.5</span
+              >
+              <span
+                >Admitting Members &mdash; The coach checks each request against
+                the user goals and activity level, then accepts or declines, and
+                the admitted user data is updated.</span
+              >
+            </figcaption>
+          </figure>
+        </div>
       </section>
 
       <!-- Key abstractions -->
