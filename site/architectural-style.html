@@ -6,7 +6,7 @@
     <title>Architectural Style | SE322 Digital Blueprint</title>
     <meta
       name="description"
-      content="The selected architectural style, why it was chosen, how it applies to the system, and its trade-offs."
+      content="Intaliq's client–server architecture: the selected style, why it was chosen, its four components and the communication process."
     />
     <link rel="icon" href="favicon.ico" sizes="48x48" />
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
@@ -32,7 +32,7 @@
     />
     <meta
       property="og:description"
-      content="The selected architectural style, why it was chosen, how it applies to the system, and its trade-offs."
+      content="Intaliq's client–server architecture: the selected style, why it was chosen, its four components and the communication process."
     />
     <meta
       property="og:url"
@@ -56,7 +56,7 @@
     />
     <meta
       name="twitter:description"
-      content="The selected architectural style, why it was chosen, how it applies to the system, and its trade-offs."
+      content="Intaliq's client–server architecture: the selected style, why it was chosen, its four components and the communication process."
     />
     <meta
       name="twitter:image"
@@ -107,13 +107,19 @@
             <p
               class="max-w-3xl text-slate-400 text-sm leading-relaxed font-light"
             >
-              Intaliq runs as a client–server system: a layered mobile client on
-              iOS and Android talks over HTTPS to a cloud backend that owns
-              authentication and the shared database, with AI, push-notification
-              and email services attached to it. This choice shapes every other
-              view — it decides where session data lives, where capacity and
-              security rules are enforced, and what the app must do when the
-              network drops during an outdoor workout.
+              Intaliq uses a client–server architecture: the mobile application
+              is the client, and it communicates with a centralized backend
+              server that owns authentication, the application logic, the
+              database and the connection to an external AI service. This page
+              presents the selected style, the reasons for choosing it, and how
+              it is implemented, as set out in Deliverable 2.
+              <a
+                href="assets/documents/deliverable-2.pdf"
+                target="_blank"
+                rel="noopener"
+                class="text-cyan-400 hover:text-cyan-300 underline underline-offset-4 decoration-cyan-500/40"
+                >Read Deliverable 2 (PDF)</a
+              >.
             </p>
           </div>
         </header>
@@ -149,13 +155,13 @@
               <h3
                 class="text-2xl md:text-3xl font-mono font-medium text-slate-100 mb-2 group-hover:text-cyan-50 transition-colors"
               >
-                Client–Server with a Layered Client
+                Client–Server Architecture
               </h3>
               <p class="text-cyan-600 font-mono text-sm">
                 &gt;
                 <span class="text-slate-400"
-                  >A layered mobile client over HTTPS to a Supabase backend and
-                  external services</span
+                  >The Intaliq mobile app as the client, communicating over
+                  HTTPS with a centralized backend server</span
                 >
               </p>
             </div>
@@ -204,26 +210,25 @@
                 class="space-y-4 text-sm text-slate-400 leading-relaxed font-light"
               >
                 <p>
-                  In a client–server style the system is split between clients
-                  that request work and a server that owns the shared data and
-                  the rules protecting it. Clients never reach the database
-                  directly: every request passes through the server, which
-                  authenticates the caller and decides what may be read or
-                  written. Inside the client, the layered style stacks
-                  presentation, application logic, domain and infrastructure so
-                  that each layer only depends on the one beneath it.
+                  The <span class="text-slate-200">client</span> provides the
+                  user interface for the application&rsquo;s features: activity
+                  monitoring, goal setting, session booking, partner matching
+                  and the AI Chatbox.
                 </p>
                 <p>
-                  Intaliq has three tiers. The mobile client holds the screens,
-                  the use-case logic and a local store for unsent actions. The
-                  backend — Supabase — provides authentication and the
-                  PostgreSQL database for users, coaches, sessions, goals,
-                  activities and partner requests (SI-1, SI-3). A third tier of
-                  external services covers AI advice, push notifications and
-                  email (SI-2, SI-4, CI-3). The connector between them is HTTPS
-                  (CI-1) over Wi-Fi or mobile data (CI-2), and the client–server
-                  boundary is where authentication, capacity and fitness-level
-                  checks are enforced.
+                  The <span class="text-slate-200">application server</span>
+                  handles user interaction with the system and processes
+                  requests. It is responsible for authentication and
+                  authorization and for application-level operations, and it
+                  communicates with the database and with other external
+                  services.
+                </p>
+                <p>
+                  The <span class="text-slate-200">database</span> stores
+                  information about users, coaches, activities, goals, sessions
+                  and partners. The backend also communicates with an
+                  <span class="text-slate-200">external AI service</span> to
+                  provide the AI Chatbox features.
                 </p>
               </div>
             </div>
@@ -245,52 +250,57 @@
                 <h2
                   class="font-mono text-xs text-cyan-400 tracking-widest uppercase"
                 >
-                  Why Selected
+                  Justification
                 </h2>
               </div>
               <div
                 class="text-sm text-slate-400 leading-relaxed font-light mb-4"
               >
-                The style follows from what Intaliq has to do: many users and
-                coaches share the same session data from their own phones, and
-                that data must stay consistent and protected.
+                Client–server was chosen because it clearly separates the mobile
+                application from the system&rsquo;s backend processes, and it
+                organizes the Intaliq system in a logical way.
               </div>
               <ul class="space-y-3">
-                <li class="flex items-start gap-3">
-                  <span
-                    class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
-                  ></span
-                  ><span class="text-sm text-slate-300"
-                    >Shared, consistent data: session capacity, member lists and
-                    announcements have one authoritative copy on the server, so
-                    two users cannot take the last place in a session (FR-06),
-                    and it supports 99% availability with many simultaneous
-                    users (REL-1, AVA-1).</span
-                  >
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
-                  ></span
-                  ><span class="text-sm text-slate-300"
-                    >Security in one place: authentication before any personal
-                    data is transmitted, HTTPS transport and password rules are
-                    enforced at the server boundary rather than in each screen
-                    (CI-1, CI-7, SEC-1, SEC-2).</span
-                  >
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
-                  ></span
-                  ><span class="text-sm text-slate-300"
-                    >Fits the team and the roadmap: it keeps the prototype stack
-                    of Vite, Supabase, GitHub and Vercel that the team already
-                    knows, and leaves room for the planned map integration, AI
-                    partner matching and wearable devices (SI-5, HI-1) as
-                    further services behind the same boundary.</span
-                  >
-                </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
+                ></span
+                ><span class="text-sm text-slate-300"
+                  ><span class="font-mono text-cyan-300">Data centralization:</span> user information, user actions, fitness goals and sessions are controlled through the backend and the database.</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
+                ></span
+                ><span class="text-sm text-slate-300"
+                  ><span class="font-mono text-cyan-300">Security:</span> authentication and authorization run on the server, which prevents unauthorized access to user information.</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
+                ></span
+                ><span class="text-sm text-slate-300"
+                  ><span class="font-mono text-cyan-300">Maintainability:</span> the backend and the mobile application can be maintained independently of each other.</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
+                ></span
+                ><span class="text-sm text-slate-300"
+                  ><span class="font-mono text-cyan-300">Performance:</span> data processing and database interactions are handled by the backend, while the mobile application focuses on interacting with the user.</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-2 w-1 h-1 border border-cyan-500 shrink-0 bg-cyan-500/20"
+                ></span
+                ><span class="text-sm text-slate-300"
+                  ><span class="font-mono text-cyan-300">Integration:</span> the architecture supports data exchange with third-party services such as the AI service behind the AI Chatbox.</span
+                >
+              </li>
               </ul>
             </div>
           </section>
@@ -307,202 +317,310 @@
             <h2
               class="font-mono text-xs text-cyan-400 tracking-widest uppercase"
             >
-              Application to System
+              How It Is Implemented in Intaliq
             </h2>
           </div>
-
+          <p
+            class="max-w-3xl text-sm text-slate-400 leading-relaxed font-light mb-6"
+          >
+            The client–server architecture is implemented in Intaliq through
+            four key components.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div
-            class="border border-cyan-500/20 bg-[#060b13]/50 p-6 md:p-8 relative"
+            class="flex flex-col p-5 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group"
+          >
+            <div
+              class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors"
+            ></div>
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <span
+                class="font-mono text-[10px] text-cyan-500 tracking-widest uppercase"
+                >01 / Client</span
+              >
+              <i class="ph ph-device-mobile text-lg text-cyan-400/70"></i>
+            </div>
+            <h3 class="font-mono text-sm text-slate-100 mb-2">Intaliq Mobile Application</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              The application users interact with to log their activities, set goals, book sessions, find partners and talk to the AI Chatbox.
+            </p>
+          </div>
+          <div
+            class="flex flex-col p-5 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group"
+          >
+            <div
+              class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors"
+            ></div>
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <span
+                class="font-mono text-[10px] text-cyan-500 tracking-widest uppercase"
+                >02 / Application Server</span
+              >
+              <i class="ph ph-hard-drives text-lg text-cyan-400/70"></i>
+            </div>
+            <h3 class="font-mono text-sm text-slate-100 mb-2">Intaliq Backend</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Receives the operations requested by the mobile application over HTTPS and processes them:
+            </p>
+              <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Authentication &amp; Authorization
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  User Management
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Activity Management
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Goal Management
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Session Management
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Partner Matching
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  AI Chatbox Integration
+                </li>
+              </ul>
+          </div>
+          <div
+            class="flex flex-col p-5 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group"
+          >
+            <div
+              class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors"
+            ></div>
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <span
+                class="font-mono text-[10px] text-cyan-500 tracking-widest uppercase"
+                >03 / Database</span
+              >
+              <i class="ph ph-database text-lg text-cyan-400/70"></i>
+            </div>
+            <h3 class="font-mono text-sm text-slate-100 mb-2">Intaliq Database</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Stores the information the application needs to operate:
+            </p>
+              <ul class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  User Information
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Coach Information
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Activity Information
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Goal Information
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Session Information
+                </li>
+                <li
+                  class="font-mono text-[11px] text-slate-300 border border-cyan-500/20 bg-cyan-950/10 px-2 py-1"
+                >
+                  Partner Information
+                </li>
+              </ul>
+          </div>
+          <div
+            class="flex flex-col p-5 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group"
+          >
+            <div
+              class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors"
+            ></div>
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <span
+                class="font-mono text-[10px] text-cyan-500 tracking-widest uppercase"
+                >04 / External Service</span
+              >
+              <i class="ph ph-robot text-lg text-cyan-400/70"></i>
+            </div>
+            <h3 class="font-mono text-sm text-slate-100 mb-2">External AI Service</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              The backend connects to the AI service through an API over HTTPS. It powers the AI Chatbox, so users can ask questions and get fitness tips.
+            </p>
+          </div>
+          </div>
+        </section>
+
+        <!-- SEC_05 -->
+        <section>
+          <div class="flex items-center gap-2 mb-4">
+            <span
+              class="font-mono text-[10px] text-slate-500 tracking-widest uppercase"
+              >SEC_05</span
+            >
+            <div class="h-px w-8 bg-cyan-900/50"></div>
+            <h2
+              class="font-mono text-xs text-cyan-400 tracking-widest uppercase"
+            >
+              Communication Process
+            </h2>
+          </div>
+          <div
+            class="border border-cyan-500/20 bg-[#060b13]/50 p-4 md:p-6 relative"
           >
             <div class="absolute top-0 left-0 w-8 h-[2px] bg-cyan-500/50"></div>
             <div class="absolute top-0 left-0 w-[2px] h-8 bg-cyan-500/50"></div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div class="border-l border-cyan-900/40 pl-5">
-                <p class="text-sm text-slate-400 leading-relaxed font-light">
-                  The client holds the Sessions, Activities, Goals, Partners and
-                  AI Chatbox features on top of the domain entities and an
-                  infrastructure layer with the Supabase client and the offline
-                  queue. The server holds the tables and access rules for those
-                  entities. Booking is the clearest example: the app submits a
-                  join request, the server checks capacity and fitness level,
-                  stores the decision and triggers the notification services,
-                  and the app shows the result — or queues it locally if the
-                  phone is offline (CI-4, CI-5).
-                </p>
-              </div>
-              <div
-                class="lg:col-span-2 border border-cyan-900/40 diagram-canvas min-h-[220px]"
+            <ol class="flex flex-col">
+            <li class="flex items-start gap-4 p-3 border-b border-cyan-900/30 last:border-b-0">
+              <span
+                class="font-mono text-xs text-cyan-400 border border-cyan-500/40 w-7 h-7 shrink-0 flex items-center justify-center bg-[#030712]"
+                >01</span
               >
-                <div
-                  class="absolute right-2 bottom-2 text-[9px] font-mono text-cyan-600 z-10"
+              <span class="text-sm text-slate-300 leading-relaxed pt-1">The user performs an action in the Intaliq Mobile Application.</span>
+            </li>
+            <li class="flex items-start gap-4 p-3 border-b border-cyan-900/30 last:border-b-0">
+              <span
+                class="font-mono text-xs text-cyan-400 border border-cyan-500/40 w-7 h-7 shrink-0 flex items-center justify-center bg-[#030712]"
+                >02</span
+              >
+              <span class="text-sm text-slate-300 leading-relaxed pt-1">The application sends the request to the backend server over HTTPS.</span>
+            </li>
+            <li class="flex items-start gap-4 p-3 border-b border-cyan-900/30 last:border-b-0">
+              <span
+                class="font-mono text-xs text-cyan-400 border border-cyan-500/40 w-7 h-7 shrink-0 flex items-center justify-center bg-[#030712]"
+                >03</span
+              >
+              <span class="text-sm text-slate-300 leading-relaxed pt-1">The backend authenticates the request and processes it as needed.</span>
+            </li>
+            <li class="flex items-start gap-4 p-3 border-b border-cyan-900/30 last:border-b-0">
+              <span
+                class="font-mono text-xs text-cyan-400 border border-cyan-500/40 w-7 h-7 shrink-0 flex items-center justify-center bg-[#030712]"
+                >04</span
+              >
+              <span class="text-sm text-slate-300 leading-relaxed pt-1">When required, the backend communicates with the database or the external AI service.</span>
+            </li>
+            <li class="flex items-start gap-4 p-3 border-b border-cyan-900/30 last:border-b-0">
+              <span
+                class="font-mono text-xs text-cyan-400 border border-cyan-500/40 w-7 h-7 shrink-0 flex items-center justify-center bg-[#030712]"
+                >05</span
+              >
+              <span class="text-sm text-slate-300 leading-relaxed pt-1">The backend returns the result of the operation to the application.</span>
+            </li>
+            <li class="flex items-start gap-4 p-3 border-b border-cyan-900/30 last:border-b-0">
+              <span
+                class="font-mono text-xs text-cyan-400 border border-cyan-500/40 w-7 h-7 shrink-0 flex items-center justify-center bg-[#030712]"
+                >06</span
+              >
+              <span class="text-sm text-slate-300 leading-relaxed pt-1">The application shows the result to the user.</span>
+            </li>
+            </ol>
+            <p
+              class="mt-4 text-xs text-slate-500 leading-relaxed font-mono"
+            >
+              This design matches the component diagram in the
+              <a href="development-view.html" class="text-cyan-500 hover:text-cyan-300">Development View</a>
+              and the deployment diagram in the
+              <a href="physical-view.html" class="text-cyan-500 hover:text-cyan-300">Physical View</a>.
+            </p>
+          </div>
+        </section>
+
+        <!-- SEC_06 -->
+        <section>
+          <div class="flex items-center gap-2 mb-4">
+            <span
+              class="font-mono text-[10px] text-slate-500 tracking-widest uppercase"
+              >SEC_06</span
+            >
+            <h2
+              class="font-mono text-xs text-slate-400 tracking-widest uppercase"
+            >
+              Trade-offs &amp; Limitations
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div
+              class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group"
+            >
+              <div
+                class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors"
+              ></div>
+              <div
+                class="mt-1 shrink-0 w-2 h-2 border border-slate-500 bg-[#030712]"
+              ></div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs text-slate-300 mb-1"
+                  >Dependence on connectivity</span
+                ><span class="text-xs text-slate-500 leading-relaxed"
+                  >Outdoor workouts happen where coverage is weak, so the
+                  client needs a local store and a sync queue to avoid losing
+                  activity logs (CI-5) — extra logic that a purely online
+                  design would not need.</span
                 >
-                  APP_MAP_01
-                </div>
-                <!-- Replace with <img src="assets/diagrams/application-context.png" alt="Application context diagram"> -->
-                <div
-                  class="diagram-placeholder !py-3 !px-4 !text-xs !text-cyan-500/70"
+              </div>
+            </div>
+            <div
+              class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group"
+            >
+              <div
+                class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors"
+              ></div>
+              <div
+                class="mt-1 shrink-0 w-2 h-2 border border-slate-500 bg-[#030712]"
+              ></div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs text-slate-300 mb-1"
+                  >The backend is a single point of failure</span
+                ><span class="text-xs text-slate-500 leading-relaxed"
+                  >If Supabase or the network is down, booking, admission and
+                  announcements all stop, which puts pressure on the 99%
+                  availability target and makes backups and monitoring
+                  necessary.</span
                 >
-                  Application Context Diagram
-                </div>
+              </div>
+            </div>
+            <div
+              class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group"
+            >
+              <div
+                class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors"
+              ></div>
+              <div
+                class="mt-1 shrink-0 w-2 h-2 border border-slate-500 bg-[#030712]"
+              ></div>
+              <div class="flex flex-col">
+                <span class="font-mono text-xs text-slate-300 mb-1"
+                  >Round trips cost time</span
+                ><span class="text-xs text-slate-500 leading-relaxed"
+                  >Every list and statistic is a network call, so the 3-second
+                  and 4-second response targets (PER-1, PER-2) depend on
+                  caching and careful queries rather than on local
+                  computation.</span
+                >
               </div>
             </div>
           </div>
         </section>
-
-        <!-- SEC_05 / SEC_06 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          <section>
-            <div class="flex items-center gap-2 mb-4">
-              <span
-                class="font-mono text-[10px] text-slate-500 tracking-widest uppercase"
-                >SEC_05</span
-              >
-              <h2
-                class="font-mono text-xs text-cyan-400 tracking-widest uppercase"
-              >
-                Advantages
-              </h2>
-            </div>
-            <div class="flex flex-col gap-3">
-              <div
-                class="flex items-start gap-4 p-3 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group"
-              >
-                <div
-                  class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors"
-                ></div>
-                <div
-                  class="mt-1 shrink-0 w-2 h-2 border border-cyan-400 bg-[#030712]"
-                ></div>
-                <div class="flex flex-col">
-                  <span class="font-mono text-xs text-cyan-300 mb-1"
-                    >One source of truth</span
-                  ><span class="text-xs text-slate-400 leading-relaxed"
-                    >Sessions, capacity and member lists live on the server, so
-                    coaches and users always see the same state and bookings
-                    cannot exceed capacity.</span
-                  >
-                </div>
-              </div>
-              <div
-                class="flex items-start gap-4 p-3 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group"
-              >
-                <div
-                  class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors"
-                ></div>
-                <div
-                  class="mt-1 shrink-0 w-2 h-2 border border-cyan-400 bg-[#030712]"
-                ></div>
-                <div class="flex flex-col">
-                  <span class="font-mono text-xs text-cyan-300 mb-1"
-                    >Security at one boundary</span
-                  ><span class="text-xs text-slate-400 leading-relaxed"
-                    >Authentication, authorization and HTTPS are enforced where
-                    the client meets the server, so personal data and activity
-                    history are never exposed to an unauthenticated
-                    caller.</span
-                  >
-                </div>
-              </div>
-              <div
-                class="flex items-start gap-4 p-3 border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 transition-colors relative group"
-              >
-                <div
-                  class="absolute left-0 top-0 bottom-0 w-[2px] bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors"
-                ></div>
-                <div
-                  class="mt-1 shrink-0 w-2 h-2 border border-cyan-400 bg-[#030712]"
-                ></div>
-                <div class="flex flex-col">
-                  <span class="font-mono text-xs text-cyan-300 mb-1"
-                    >Independent evolution</span
-                  ><span class="text-xs text-slate-400 leading-relaxed"
-                    >The layered client can be redesigned — as the usability
-                    findings require — and services such as maps or AI matching
-                    can be added without changing the data model on the
-                    server.</span
-                  >
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section>
-            <div class="flex items-center gap-2 mb-4">
-              <span
-                class="font-mono text-[10px] text-slate-500 tracking-widest uppercase"
-                >SEC_06</span
-              >
-              <h2
-                class="font-mono text-xs text-slate-400 tracking-widest uppercase"
-              >
-                Trade-offs &amp; Limitations
-              </h2>
-            </div>
-            <div class="flex flex-col gap-3">
-              <div
-                class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group"
-              >
-                <div
-                  class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors"
-                ></div>
-                <div
-                  class="mt-1 shrink-0 w-2 h-2 border border-slate-500 bg-[#030712]"
-                ></div>
-                <div class="flex flex-col">
-                  <span class="font-mono text-xs text-slate-300 mb-1"
-                    >Dependence on connectivity</span
-                  ><span class="text-xs text-slate-500 leading-relaxed"
-                    >Outdoor workouts happen where coverage is weak, so the
-                    client needs a local store and a sync queue to avoid losing
-                    activity logs (CI-5) — extra logic that a purely online
-                    design would not need.</span
-                  >
-                </div>
-              </div>
-              <div
-                class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group"
-              >
-                <div
-                  class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors"
-                ></div>
-                <div
-                  class="mt-1 shrink-0 w-2 h-2 border border-slate-500 bg-[#030712]"
-                ></div>
-                <div class="flex flex-col">
-                  <span class="font-mono text-xs text-slate-300 mb-1"
-                    >The backend is a single point of failure</span
-                  ><span class="text-xs text-slate-500 leading-relaxed"
-                    >If Supabase or the network is down, booking, admission and
-                    announcements all stop, which puts pressure on the 99%
-                    availability target and makes backups and monitoring
-                    necessary.</span
-                  >
-                </div>
-              </div>
-              <div
-                class="flex items-start gap-4 p-3 border border-slate-700/40 bg-slate-900/20 hover:border-slate-500/50 transition-colors relative group"
-              >
-                <div
-                  class="absolute left-0 top-0 bottom-0 w-[2px] bg-slate-600/50 group-hover:bg-slate-500 transition-colors"
-                ></div>
-                <div
-                  class="mt-1 shrink-0 w-2 h-2 border border-slate-500 bg-[#030712]"
-                ></div>
-                <div class="flex flex-col">
-                  <span class="font-mono text-xs text-slate-300 mb-1"
-                    >Round trips cost time</span
-                  ><span class="text-xs text-slate-500 leading-relaxed"
-                    >Every list and statistic is a network call, so the 3-second
-                    and 4-second response targets (PER-1, PER-2) depend on
-                    caching and careful queries rather than on local
-                    computation.</span
-                  >
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
 
         <!-- SEC_07 -->
         <section class="mt-4">
@@ -527,7 +645,7 @@
 
           <figure>
             <div
-              class="w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] border border-cyan-500/30 relative diagram-canvas node-glow"
+              class="w-full border border-cyan-500/30 relative diagram-canvas node-glow"
             >
               <div class="ch ch-tl"></div>
               <div class="ch ch-tr"></div>
@@ -537,33 +655,69 @@
                 class="absolute inset-4 border border-cyan-900/20 pointer-events-none"
               ></div>
               <div
-                class="absolute top-1/2 left-0 w-full h-px bg-cyan-500/10 pointer-events-none"
-              ></div>
-              <div
-                class="absolute top-0 left-1/2 w-px h-full bg-cyan-500/10 pointer-events-none"
-              ></div>
-
-              <!-- Replace the block below with <img src="assets/diagrams/architectural-style.png" alt="Architectural style diagram"> -->
-              <div class="relative z-10 flex flex-col items-center gap-3 px-4">
+                class="relative z-10 w-full px-4 py-8 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3"
+                role="img"
+                aria-label="Client–server diagram: the Intaliq mobile application talks to the Intaliq backend over HTTPS; the backend reads and writes the Intaliq database and calls the external AI service over HTTPS."
+              >
                 <div
-                  class="w-12 h-12 border border-cyan-400/50 flex items-center justify-center animate-[pulse_4s_ease-in-out_infinite]"
+                  class="flex flex-col items-center gap-2 px-4 py-3 border border-cyan-500/40 bg-[#030712]/90 min-w-[150px] text-center"
                 >
-                  <i class="ph ph-layout text-xl text-cyan-400"></i>
+                  <i class="ph ph-device-mobile text-xl text-cyan-400"></i>
+                  <span class="font-mono text-xs text-slate-100 uppercase tracking-wider">Mobile App</span>
+                  <span class="font-mono text-[10px] text-slate-500">Client</span>
                 </div>
-                <span
-                  class="font-mono text-xs sm:text-sm text-cyan-400/80 uppercase tracking-[0.2em] border border-cyan-500/30 px-4 sm:px-6 py-2 bg-[#030712]/90 backdrop-blur text-center"
-                  >Architectural Style Diagram</span
+                <div class="flex md:flex-col items-center gap-1 text-cyan-600" aria-hidden="true">
+                  <span class="block w-px h-6 md:w-12 md:h-px bg-cyan-500/50"></span>
+                  <span class="font-mono text-[9px] tracking-widest uppercase">HTTPS</span>
+                  <span class="block w-px h-6 md:w-12 md:h-px bg-cyan-500/50"></span>
+                </div>
+                <div
+                  class="flex flex-col items-center gap-2 px-4 py-3 border border-cyan-500/40 bg-[#030712]/90 min-w-[150px] text-center"
                 >
+                  <i class="ph ph-hard-drives text-xl text-cyan-400"></i>
+                  <span class="font-mono text-xs text-slate-100 uppercase tracking-wider">Intaliq Backend</span>
+                  <span class="font-mono text-[10px] text-slate-500">Application Server</span>
+                </div>
+                <div class="flex flex-col items-center md:items-start gap-2 md:gap-3">
+                  <div class="flex flex-col md:flex-row items-center gap-2 md:gap-3">
+                <div class="flex md:flex-col items-center gap-1 text-cyan-600" aria-hidden="true">
+                  <span class="block w-px h-6 md:w-12 md:h-px bg-cyan-500/50"></span>
+                  <span class="font-mono text-[9px] tracking-widest uppercase">Queries</span>
+                  <span class="block w-px h-6 md:w-12 md:h-px bg-cyan-500/50"></span>
+                </div>
+                <div
+                  class="flex flex-col items-center gap-2 px-4 py-3 border border-cyan-500/40 bg-[#030712]/90 min-w-[150px] text-center"
+                >
+                  <i class="ph ph-database text-xl text-cyan-400"></i>
+                  <span class="font-mono text-xs text-slate-100 uppercase tracking-wider">Database</span>
+                  <span class="font-mono text-[10px] text-slate-500">Intaliq Database</span>
+                </div>
+                  </div>
+                  <div class="flex flex-col md:flex-row items-center gap-2 md:gap-3">
+                <div class="flex md:flex-col items-center gap-1 text-cyan-600" aria-hidden="true">
+                  <span class="block w-px h-6 md:w-12 md:h-px bg-cyan-500/50"></span>
+                  <span class="font-mono text-[9px] tracking-widest uppercase">HTTPS API</span>
+                  <span class="block w-px h-6 md:w-12 md:h-px bg-cyan-500/50"></span>
+                </div>
+                <div
+                  class="flex flex-col items-center gap-2 px-4 py-3 border border-cyan-500/40 bg-[#030712]/90 min-w-[150px] text-center"
+                >
+                  <i class="ph ph-robot text-xl text-cyan-400"></i>
+                  <span class="font-mono text-xs text-slate-100 uppercase tracking-wider">AI Service</span>
+                  <span class="font-mono text-[10px] text-slate-500">External</span>
+                </div>
+                  </div>
+                </div>
               </div>
             </div>
 
             <figcaption
               class="mt-4 text-center border-b border-cyan-900/30 pb-4 font-mono text-xs text-slate-500"
             >
-              <span class="text-cyan-700">FIG 1.0</span> // The three tiers of
-              Intaliq: the layered mobile client, the Supabase backend holding
-              authentication and the database, and the external AI,
-              push-notification and email services — all connected over HTTPS.
+              <span class="text-cyan-700">FIG 1.0</span> // The four components
+              of Intaliq&rsquo;s client–server architecture: the mobile
+              application (client), the Intaliq backend (application server),
+              the Intaliq database, and the external AI service.
             </figcaption>
           </figure>
         </section>

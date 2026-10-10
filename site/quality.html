@@ -6,7 +6,7 @@
     <title>Quality Attributes | SE322 Digital Blueprint</title>
     <meta
       name="description"
-      content="Quality attributes and their scenarios: source, stimulus, environment, artifact, response and response measure."
+      content="Intaliq's four quality attributes — security, availability, performance and usability — with their quality attribute scenarios."
     />
     <link rel="icon" href="favicon.ico" sizes="48x48" />
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
@@ -32,7 +32,7 @@
     />
     <meta
       property="og:description"
-      content="Quality attributes and their scenarios: source, stimulus, environment, artifact, response and response measure."
+      content="Intaliq's four quality attributes — security, availability, performance and usability — with their quality attribute scenarios."
     />
     <meta
       property="og:url"
@@ -56,7 +56,7 @@
     />
     <meta
       name="twitter:description"
-      content="Quality attributes and their scenarios: source, stimulus, environment, artifact, response and response measure."
+      content="Intaliq's four quality attributes — security, availability, performance and usability — with their quality attribute scenarios."
     />
     <meta
       name="twitter:image"
@@ -104,12 +104,18 @@
           <p
             class="font-light text-slate-300 leading-relaxed text-sm md:text-base"
           >
-            These quality attributes come from the Intaliq SRS (&sect;2.4,
-            &sect;5 and &sect;6) and the high-fidelity prototype usability
-            evaluation. They describe how the system must behave for users and
-            coaches on mobile networks in Saudi Arabia. Each one is written as a
-            scenario with a source, stimulus, environment, artifact, response
-            and measurable target.
+            Deliverable 2 selects four quality attributes for Intaliq: security,
+            availability, performance and usability. Each one is explained
+            below and given a quality attribute scenario with a source,
+            stimulus, environment, artifact, response and a measurable response
+            target.
+            <a
+              href="assets/documents/deliverable-2.pdf"
+              target="_blank"
+              rel="noopener"
+              class="text-cyan-400 hover:text-cyan-300 underline underline-offset-4 decoration-cyan-500/40"
+              >Read Deliverable 2 (PDF)</a
+            >.
           </p>
         </div>
       </section>
@@ -167,7 +173,7 @@
                   <h3
                     class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
                   >
-                    Performance
+                    Security
                   </h3>
                   <span class="font-mono text-xs text-slate-500 shrink-0"
                     >ID: QA-01</span
@@ -177,10 +183,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Users check sessions, stats and goals throughout the day. The
-                  SRS requires results within 3 seconds (PER-1), statistics
-                  within 4 seconds (PER-2), and app-server responses under 5
-                  seconds (CI-6). If it feels slow, users lose motivation.
+                  Intaliq holds private data such as user account details, activity logs and personal fitness goals. That data must be protected from unauthorized access, and users must be authenticated before they reach their accounts. Authentication and authorization must also make sure that coaches and regular users can only run the functions they are authorized for.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -198,44 +201,52 @@
                   <dl
                     class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
                   >
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        End user (participant)
+                        An unauthorized user
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Requests the list of available group sessions
+                        Attempts to access another user&rsquo;s fitness information without authentication
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Normal operation over Wi-Fi or 4G/5G
+                        Normal system operation
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Mobile app, backend API and cloud database
+                        Authentication and Authorization component
                       </dd>
                     </div>
                     <div
@@ -247,8 +258,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Sessions are fetched and shown with details (coach,
-                        time, location, capacity, intensity)
+                        The system verifies the user&rsquo;s authentication and permissions and denies unauthorized access
                       </dd>
                     </div>
                     <div
@@ -260,7 +270,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        Results shown in &le; 3 s; statistics in &le; 4 s
+                        100% of unauthorized access attempts in the defined security test cases are rejected
                       </dd>
                     </div>
                   </dl>
@@ -298,12 +308,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Coaches rely on Intaliq to fill sessions and send
-                  announcements, and users rely on it to log workouts outdoors
-                  where the connection can drop. The SRS requires at least 99%
-                  availability (REL-1), support for many simultaneous users
-                  (AVA-1), and local storage of unsent actions while offline
-                  (CI-5).
+                  Users need Intaliq to track their activities, set fitness goals, find partners and book group sessions. It should be available during normal operation; if a service becomes unavailable, the app must warn the user and must not treat incomplete operations as completed. The Offline Sync component holds actions until the device is back online.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -321,44 +326,52 @@
                   <dl
                     class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
                   >
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        End user logging an activity outdoors
+                        A user experiencing an internet connection failure
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Mobile connection is lost while the action is submitted
+                        The user attempts to log an activity while the internet connection is unavailable
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Degraded network: offline or intermittent coverage
+                        Mobile application operating without internet access
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Mobile app local store and sync component
+                        Intaliq Mobile Application and Offline Sync component
                       </dd>
                     </div>
                     <div
@@ -370,8 +383,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        The action is saved locally and synced automatically
-                        when the connection returns (CI-4, CI-5)
+                        The system temporarily stores the activity locally and synchronizes it when the internet connection is restored
                       </dd>
                     </div>
                     <div
@@ -383,7 +395,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        99% uptime; 0 lost activity logs after reconnect
+                        100% of successfully queued test activities synchronize after reconnection without data loss
                       </dd>
                     </div>
                   </dl>
@@ -411,7 +423,7 @@
                   <h3
                     class="font-mono text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-400 transition-colors"
                   >
-                    Security
+                    Performance
                   </h3>
                   <span class="font-mono text-xs text-slate-500 shrink-0"
                     >ID: QA-03</span
@@ -421,12 +433,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Intaliq stores personal details, locations and activity
-                  history. The SRS requires protecting personal data from
-                  unauthorized access (SEC-1), strong passwords (SEC-2),
-                  authentication before any personal data is sent (CI-7), HTTPS
-                  (CI-1), and email verification with two-factor authentication
-                  (SI-3, CI-3).
+                  Checking available sessions, logging activities and recording fitness goals should happen without noticeable delay. Both the mobile app and the backend server have to process user input efficiently so that people can use the application smoothly.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -444,45 +451,52 @@
                   <dl
                     class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
                   >
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Unauthenticated or unauthorized client
+                        An authenticated user
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Attempts to read another user's profile, session data or
-                        activity records
+                        Requests to view available group sessions
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Normal operation, public internet
+                        Normal system operation with an active internet connection
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Authentication service and backend data access
+                        Intaliq Mobile Application, Backend API, and Database
                       </dd>
                     </div>
                     <div
@@ -494,8 +508,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Request is rejected; data is only returned to
-                        authenticated, authorized users over HTTPS
+                        The system retrieves the available sessions and displays their details
                       </dd>
                     </div>
                     <div
@@ -507,8 +520,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        100% of personal-data requests authenticated; 0
-                        unauthorized reads
+                        95% of session-list requests complete within 3 seconds under the agreed normal-load test conditions
                       </dd>
                     </div>
                   </dl>
@@ -546,12 +558,7 @@
                   <span class="text-slate-500 font-mono text-xs mr-2"
                     >WHY_IT_MATTERS:</span
                   >
-                  Intaliq serves beginners and experienced athletes in Arabic
-                  and English, so essential tasks must take only a few steps
-                  (CO-3, USE-1, USE-2). The prototype evaluation praised the
-                  clean layout and bottom navigation but found missing pop-up
-                  feedback, inconsistent back buttons, and an AI chatbox and
-                  help button that did not work yet.
+                  Intaliq exists to motivate people in Saudi Arabia to exercise outdoors, so it has to be easy to use. The mobile interface must let users reach every feature without complex steps, and the app must confirm when an action has completed successfully.
                 </p>
                 <div
                   class="bg-navy-900/50 border border-cyan-500/20 relative overflow-hidden"
@@ -569,45 +576,52 @@
                   <dl
                     class="grid grid-cols-1 md:grid-cols-2 gap-px bg-cyan-500/10"
                   >
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Source
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        First-time user or coach
+                        A new Intaliq user
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Stimulus
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Books a session (or creates one) from the Home screen
+                        Attempts to create a personal fitness goal
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Environment
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Normal operation, Arabic or English interface
+                        Normal mobile application operation
                       </dd>
                     </div>
-                    <div class="bg-navy-800 p-3 flex flex-col gap-1">
+                    <div
+                      class="bg-navy-800 p-3 flex flex-col gap-1"
+                    >
                       <dt
                         class="font-mono text-[10px] text-slate-500 uppercase"
                       >
                         Artifact
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Mobile UI: navigation, forms, confirmation and error
-                        pop-ups
+                        Intaliq Mobile Application user interface
                       </dd>
                     </div>
                     <div
@@ -619,9 +633,7 @@
                         Response
                       </dt>
                       <dd class="font-mono text-sm text-slate-200">
-                        Task completes through the bottom navigation with clear
-                        confirmation or error messages next to the related field
-                        (UI-8)
+                        The application guides the user through selecting an activity, entering a goal, and saving it with a confirmation message
                       </dd>
                     </div>
                     <div
@@ -633,8 +645,7 @@
                         Response Measure
                       </dt>
                       <dd class="font-mono text-sm text-cyan-400">
-                        Booking in a few steps (CO-3; proposed: &le; 4 taps);
-                        feedback shown for every action
+                        At least 90% of first-time test users successfully create a fitness goal without assistance
                       </dd>
                     </div>
                   </dl>
@@ -724,9 +735,9 @@
                   font-size="13"
                   fill="#e2e8f0"
                 >
-                  <text x="200" y="35" text-anchor="middle">PERF</text>
+                  <text x="200" y="35" text-anchor="middle">SEC</text>
                   <text x="362" y="205" text-anchor="start">AVAIL</text>
-                  <text x="200" y="378" text-anchor="middle">SEC</text>
+                  <text x="200" y="378" text-anchor="middle">PERF</text>
                   <text x="38" y="205" text-anchor="end">USAB</text>
                 </g>
               </svg>
