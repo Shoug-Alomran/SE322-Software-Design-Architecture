@@ -22,21 +22,6 @@ body::before {
   z-index: -2;
 }
 
-/* CRT scanlines */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 50%,
-    rgba(0, 0, 0, 0.1) 50%
-  );
-  background-size: 100% 4px;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.3;
-}
 
 .grid-dense {
   background-color: rgba(6, 11, 19, 0.4);
@@ -211,16 +196,6 @@ body::after {
   overflow: hidden;
   background: #060b13;
 }
-.diagram-canvas::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
-  background-size: 20px 20px;
-  pointer-events: none;
-}
 .diagram-canvas img {
   position: relative;
   z-index: 1;
@@ -345,9 +320,6 @@ html.light body::before {
     linear-gradient(rgba(8, 145, 178, 0.07) 1px, transparent 1px),
     linear-gradient(90deg, rgba(8, 145, 178, 0.07) 1px, transparent 1px);
 }
-html.light body::after {
-  display: none;
-}
 
 html.light .grid-dense {
   background-color: rgba(255, 255, 255, 0.5);
@@ -394,11 +366,6 @@ html.light .tech-border::after {
 
 html.light .diagram-canvas {
   background: #ffffff;
-}
-html.light .diagram-canvas::before {
-  background-image:
-    linear-gradient(rgba(8, 145, 178, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(8, 145, 178, 0.07) 1px, transparent 1px);
 }
 html.light .diagram-placeholder {
   background: rgba(255, 255, 255, 0.92);
