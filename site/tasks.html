@@ -1828,13 +1828,11 @@
           );
           requestAnimationFrame(() => requestAnimationFrame(progress));
           if (scroll)
-            document
-              .getElementById("packages")
-              .scrollIntoView({
-                behavior: matchMedia("(prefers-reduced-motion:reduce)").matches
-                  ? "auto"
-                  : "smooth",
-              });
+            document.getElementById("packages").scrollIntoView({
+              behavior: matchMedia("(prefers-reduced-motion:reduce)").matches
+                ? "auto"
+                : "smooth",
+            });
           if (history.replaceState) {
             try {
               history.replaceState(null, "", "#part-" + p.l.toLowerCase());
