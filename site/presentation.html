@@ -10,10 +10,51 @@
     />
     <link rel="icon" href="favicon.ico" sizes="48x48" />
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="assets/img/favicon-32.png"
+      type="image/png"
+      sizes="32x32"
+    />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <meta name="theme-color" content="#030712" />
     <link
       rel="canonical"
       href="https://software-architecture.shoug-tech.com/presentation.html"
+    />
+    <!-- Social share preview (Open Graph / Twitter) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SE322 Digital Blueprint" />
+    <meta property="og:title" content="Intaliq — SE322 Presentation" />
+    <meta
+      property="og:description"
+      content="Intaliq — SE322 Software Design &amp; Architecture presentation: 4+1 views, quality attributes, client–server style, design patterns and validation."
+    />
+    <meta
+      property="og:url"
+      content="https://software-architecture.shoug-tech.com/presentation.html"
+    />
+    <meta
+      property="og:image"
+      content="https://software-architecture.shoug-tech.com/assets/img/og-banner.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="SE322 Software Design &amp; Architecture — 4+1 view model blueprint"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Intaliq — SE322 Presentation" />
+    <meta
+      name="twitter:description"
+      content="Intaliq — SE322 Software Design &amp; Architecture presentation: 4+1 views, quality attributes, client–server style, design patterns and validation."
+    />
+    <meta
+      name="twitter:image"
+      content="https://software-architecture.shoug-tech.com/assets/img/og-banner.png"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,6 +62,17 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300..700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        var t = null;
+        try {
+          t = localStorage.getItem("se322-theme");
+        } catch (e) {}
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
     <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     <!--
       HOW TO UPDATE THIS DECK
@@ -33,10 +85,12 @@
       - Anything with class "a" animates in when the slide opens, in order.
       - A slide with data-steps="N" holds N .step-panel blocks (and optional
         .step-tab buttons); the arrow keys walk through them before moving on.
-      - Deliverable status lives on the roadmap (data-status: done, active,
-        next) and in the coverage matrix (chip classes ok, draft, todo, opt).
+      - Deliverable status lives on the divider slides and in the coverage
+        matrix (chip classes ok, draft, todo, opt).
       - Diagrams: <figure class="dg"><img src="assets/diagrams/…"></figure>
         opens full screen on click.
+      - Colours are tokens on :root; light mode overrides them under
+        [data-theme="light"]. Use var(--c-cyan) etc. rather than raw hex.
       - To export a PDF, open the deck in Chrome and print (Save as PDF); every
         slide prints on its own 16:9 page.
     -->
@@ -45,18 +99,70 @@
         --bg: #030712;
         --panel: #060b13;
         --panel-2: #0a1220;
-        --line: rgba(0, 240, 255, 0.16);
-        --line-strong: rgba(0, 240, 255, 0.4);
-        --cyan: #00f0ff;
+        --strong: #f8fafc;
         --text: #e2e8f0;
+        --text-2: #cbd5e1;
         --muted: #94a3b8;
         --dim: #64748b;
-        --ok: #34d399;
-        --warn: #fbbf24;
+        --faint: #475569;
+        --hair: #1e293b;
         --paper: #f8fafc;
-        --acc: var(--cyan);
+        --c-cyan: #00f0ff;
+        --c-indigo: #818cf8;
+        --c-violet: #c084fc;
+        --c-amber: #fbbf24;
+        --c-green: #34d399;
+        --c-red: #f87171;
+        --glow: 16%;
+        --cyan: var(--c-cyan);
+        --ok: var(--c-green);
+        --warn: var(--c-amber);
+        --line: color-mix(in srgb, var(--c-cyan) 16%, transparent);
+        --line-strong: color-mix(in srgb, var(--c-cyan) 40%, transparent);
+        --acc: var(--c-cyan);
         --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
         color-scheme: dark;
+      }
+      :root[data-theme="light"] {
+        --bg: #f5f7fa;
+        --panel: #ffffff;
+        --panel-2: #f8fafc;
+        --strong: #0b1220;
+        --text: #1e293b;
+        --text-2: #334155;
+        --muted: #475569;
+        --dim: #64748b;
+        --faint: #94a3b8;
+        --hair: #cbd5e1;
+        --paper: #ffffff;
+        --c-cyan: #0891b2;
+        --c-indigo: #4f46e5;
+        --c-violet: #9333ea;
+        --c-amber: #c2410c;
+        --c-green: #059669;
+        --c-red: #dc2626;
+        --glow: 10%;
+        --line: color-mix(in srgb, var(--c-cyan) 22%, transparent);
+        --line-strong: color-mix(in srgb, var(--c-cyan) 50%, transparent);
+        color-scheme: light;
+      }
+      :root[data-theme="light"] .card,
+      :root[data-theme="light"] .qa-box {
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04),
+          0 8px 24px -12px rgba(15, 23, 42, 0.12);
+      }
+      :root[data-theme="light"] .dg {
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05),
+          0 20px 40px -24px rgba(15, 23, 42, 0.25);
+      }
+      #stage[data-part="d2"] {
+        --acc: var(--c-indigo);
+      }
+      #stage[data-part="d3"] {
+        --acc: var(--c-violet);
+      }
+      #stage[data-part="d4"] {
+        --acc: var(--c-amber);
       }
       * {
         box-sizing: border-box;
@@ -97,10 +203,10 @@
         position: absolute;
         inset: 0;
         background-image:
-          linear-gradient(rgba(0, 240, 255, 0.045) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 240, 255, 0.045) 1px, transparent 1px),
-          linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+          linear-gradient(color-mix(in srgb, var(--c-cyan) 4.5%, transparent) 1px, transparent 1px),
+          linear-gradient(90deg, color-mix(in srgb, var(--c-cyan) 4.5%, transparent) 1px, transparent 1px),
+          linear-gradient(color-mix(in srgb, var(--c-cyan) 2%, transparent) 1px, transparent 1px),
+          linear-gradient(90deg, color-mix(in srgb, var(--c-cyan) 2%, transparent) 1px, transparent 1px);
         background-size:
           80px 80px,
           80px 80px,
@@ -121,7 +227,7 @@
         transform: translate(-50%, -50%);
         background: radial-gradient(
           circle,
-          color-mix(in srgb, var(--acc) 16%, transparent) 0%,
+          color-mix(in srgb, var(--acc) var(--glow), transparent) 0%,
           transparent 60%
         );
         transition:
@@ -213,7 +319,7 @@
         display: grid;
         place-items: center;
         border: 1px solid var(--line);
-        background: rgba(6, 11, 19, 0.7);
+        background: color-mix(in srgb, var(--panel) 70%, transparent);
         color: var(--muted);
         font-size: 18px;
         cursor: pointer;
@@ -222,16 +328,16 @@
       .icon-btn:hover {
         color: var(--cyan);
         border-color: var(--line-strong);
-        box-shadow: 0 0 18px rgba(0, 240, 255, 0.15);
+        box-shadow: 0 0 18px color-mix(in srgb, var(--c-cyan) 15%, transparent);
       }
       .hint {
         font-size: 12px;
         letter-spacing: 0.12em;
-        color: #475569;
+        color: var(--faint);
       }
       .hint kbd {
         font: inherit;
-        border: 1px solid #1e293b;
+        border: 1px solid var(--hair);
         padding: 1px 6px;
         margin: 0 2px;
         color: var(--dim);
@@ -243,7 +349,7 @@
         height: 3px;
         width: 100%;
         z-index: 21;
-        background: rgba(0, 240, 255, 0.06);
+        background: color-mix(in srgb, var(--c-cyan) 6%, transparent);
       }
       #progress i {
         display: block;
@@ -291,16 +397,16 @@
       .slide[data-part="intro"],
       .slide[data-part="outro"],
       .slide[data-part="d1"] {
-        --acc: #00f0ff;
+        --acc: var(--c-cyan);
       }
       .slide[data-part="d2"] {
-        --acc: #818cf8;
+        --acc: var(--c-indigo);
       }
       .slide[data-part="d3"] {
-        --acc: #c084fc;
+        --acc: var(--c-violet);
       }
       .slide[data-part="d4"] {
-        --acc: #fbbf24;
+        --acc: var(--c-amber);
       }
 
       /* Entrance animation for anything marked .a */
@@ -387,7 +493,7 @@
         font-weight: 500;
         letter-spacing: -0.025em;
         margin: 0 0 18px;
-        color: #f8fafc;
+        color: var(--strong);
       }
       h2.title em {
         font-style: normal;
@@ -432,8 +538,8 @@
         position: relative;
         background: linear-gradient(
           180deg,
-          rgba(10, 18, 32, 0.92),
-          rgba(6, 11, 19, 0.92)
+          color-mix(in srgb, var(--panel-2) 92%, transparent),
+          color-mix(in srgb, var(--panel) 92%, transparent)
         );
         border: 1px solid var(--line);
         padding: 26px 28px;
@@ -474,7 +580,7 @@
         font-size: 24px;
         font-weight: 500;
         letter-spacing: -0.01em;
-        color: #f1f5f9;
+        color: var(--strong);
       }
       .card p {
         margin: 0;
@@ -511,21 +617,21 @@
       }
       .pill.ok {
         color: var(--ok);
-        border-color: rgba(52, 211, 153, 0.35);
-        background: rgba(52, 211, 153, 0.06);
+        border-color: color-mix(in srgb, var(--c-green) 35%, transparent);
+        background: color-mix(in srgb, var(--c-green) 6%, transparent);
       }
       .pill.draft,
       .pill.active {
         color: var(--warn);
-        border-color: rgba(251, 191, 36, 0.35);
-        background: rgba(251, 191, 36, 0.06);
+        border-color: color-mix(in srgb, var(--c-amber) 35%, transparent);
+        background: color-mix(in srgb, var(--c-amber) 6%, transparent);
       }
       .pill.todo,
       .pill.next {
         color: var(--dim);
       }
       .pill.opt {
-        color: #64748b;
+        color: var(--dim);
         border-style: dashed;
       }
       .pill.active::before {
@@ -553,7 +659,7 @@
         gap: 12px;
         font-size: 19px;
         line-height: 1.5;
-        color: #cbd5e1;
+        color: var(--text-2);
         font-weight: 300;
       }
       ul.ticks li::before {
@@ -575,7 +681,7 @@
         min-height: 0;
         cursor: zoom-in;
         box-shadow:
-          0 0 0 6px rgba(0, 240, 255, 0.04),
+          0 0 0 6px color-mix(in srgb, var(--c-cyan) 4%, transparent),
           0 30px 60px -30px rgba(0, 0, 0, 0.8);
       }
       .dg img {
@@ -597,7 +703,7 @@
         letter-spacing: 0.14em;
         color: #0f172a;
         background: rgba(255, 255, 255, 0.85);
-        border: 1px solid #cbd5e1;
+        border: 1px solid var(--text-2);
         padding: 4px 8px;
         opacity: 0;
         transition: opacity 0.25s;
@@ -765,39 +871,195 @@
         }
       }
 
-      /* Lightbox */
+      /* Prototype phones */
+      .phones {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 26px;
+        margin-top: 44px;
+        align-items: start;
+      }
+      .phone {
+        margin: 0;
+        cursor: zoom-in;
+      }
+      .phone:nth-child(even) {
+        margin-top: 34px;
+      }
+      .phone .frame {
+        border: 1px solid var(--line-strong);
+        border-radius: 26px;
+        padding: 7px;
+        background: var(--panel);
+        box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.7);
+        transition:
+          transform 0.4s var(--ease),
+          box-shadow 0.4s,
+          border-color 0.4s;
+      }
+      .phone:hover .frame {
+        transform: translateY(-8px);
+        border-color: var(--acc);
+        box-shadow: 0 30px 60px -24px color-mix(in srgb, var(--acc) 35%, transparent);
+      }
+      .phone img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 9 / 16.6;
+        object-fit: cover;
+        object-position: top;
+        border-radius: 19px;
+      }
+      .phone figcaption {
+        margin-top: 14px;
+        font-size: 17px;
+        color: var(--strong);
+      }
+      .phone figcaption .tag {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--acc);
+      }
+      .dg-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 22px;
+      }
+      .dg-link {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        background: color-mix(in srgb, var(--acc) 8%, transparent);
+        color: var(--acc);
+        border: 1px solid color-mix(in srgb, var(--acc) 40%, transparent);
+        cursor: zoom-in;
+        transition: background 0.25s;
+      }
+      .dg-link:hover {
+        background: color-mix(in srgb, var(--acc) 16%, transparent);
+      }
+
+      /* Lightbox: fit-to-screen viewer with zoom and pan */
       #lightbox {
         position: fixed;
         inset: 0;
         z-index: 100;
-        background: rgba(3, 7, 18, 0.92);
+        background: color-mix(in srgb, var(--bg) 94%, transparent);
         backdrop-filter: blur(6px);
-        display: grid;
-        place-items: center;
-        padding: 40px;
         opacity: 0;
         visibility: hidden;
         transition:
           opacity 0.35s,
           visibility 0s 0.35s;
-        cursor: zoom-out;
+        overflow: hidden;
+        touch-action: none;
+        user-select: none;
+        cursor: grab;
       }
       #lightbox.open {
         opacity: 1;
         visibility: visible;
         transition: opacity 0.35s;
       }
-      #lightbox img {
-        max-width: 100%;
-        max-height: 100%;
+      #lightbox.dragging {
+        cursor: grabbing;
+      }
+      .lb-sheet {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: 0 0;
         background: var(--paper);
         padding: 24px;
         border: 1px solid var(--line-strong);
-        transform: scale(0.96);
-        transition: transform 0.45s var(--ease);
+        box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.6);
+        will-change: transform;
       }
-      #lightbox.open img {
-        transform: none;
+      .lb-sheet.anim {
+        transition: transform 0.35s var(--ease);
+      }
+      .lb-sheet.bare {
+        padding: 0;
+        border-radius: 28px;
+        overflow: hidden;
+      }
+      .lb-sheet img {
+        display: block;
+        pointer-events: none;
+      }
+      .lb-bar {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px;
+        background: color-mix(in srgb, var(--panel) 92%, transparent);
+        border: 1px solid var(--line);
+        box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.6);
+        font: 13px "JetBrains Mono", monospace;
+        color: var(--muted);
+        cursor: default;
+        max-width: calc(100vw - 32px);
+      }
+      .lb-bar .icon-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 17px;
+      }
+      .lb-bar .pct {
+        min-width: 58px;
+        text-align: center;
+        color: var(--text);
+      }
+      .lb-bar .cap {
+        padding: 0 12px;
+        max-width: 420px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border-right: 1px solid var(--line);
+      }
+      .lb-hint {
+        position: absolute;
+        left: 50%;
+        top: 18px;
+        transform: translateX(-50%);
+        font: 12px "JetBrains Mono", monospace;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        white-space: nowrap;
+        pointer-events: none;
+        padding: 8px 14px;
+        background: color-mix(in srgb, var(--panel) 90%, transparent);
+        border: 1px solid var(--line);
+        opacity: 0;
+      }
+      #lightbox.open .lb-hint {
+        animation: hintShow 4s 0.3s both;
+      }
+      @keyframes hintShow {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10%,
+        80% {
+          opacity: 1;
+        }
+      }
+      @media (max-width: 720px) {
+        .lb-bar .cap,
+        .lb-hint {
+          display: none;
+        }
       }
 
       /* Index drawer */
@@ -805,7 +1067,7 @@
         position: fixed;
         inset: 0;
         z-index: 90;
-        background: rgba(3, 7, 18, 0.85);
+        background: color-mix(in srgb, var(--bg) 85%, transparent);
         backdrop-filter: blur(8px);
         opacity: 0;
         visibility: hidden;
@@ -850,13 +1112,13 @@
       }
       #index button span {
         font-family: "JetBrains Mono", monospace;
-        color: #475569;
+        color: var(--faint);
         width: 24px;
       }
       #index button:hover,
       #index button.cur {
-        color: #fff;
-        background: rgba(0, 240, 255, 0.05);
+        color: var(--strong);
+        background: color-mix(in srgb, var(--c-cyan) 5%, transparent);
         border-left-color: var(--cyan);
       }
 
@@ -867,7 +1129,7 @@
         font-weight: 600;
         letter-spacing: -0.05em;
         margin: 0 0 24px;
-        background: linear-gradient(100deg, #fff 20%, var(--cyan) 70%, #818cf8);
+        background: linear-gradient(100deg, var(--strong) 20%, var(--cyan) 70%, var(--c-indigo));
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -891,13 +1153,13 @@
         gap: 10px 36px;
         justify-content: start;
         font-size: 17px;
-        color: #cbd5e1;
+        color: var(--text-2);
         font-weight: 300;
       }
       .stat {
         font: 500 72px/1 "JetBrains Mono", monospace;
         letter-spacing: -0.04em;
-        color: #fff;
+        color: var(--strong);
       }
       .stat small {
         font-size: 28px;
@@ -905,7 +1167,7 @@
       }
       .meter {
         height: 10px;
-        background: rgba(148, 163, 184, 0.12);
+        background: color-mix(in srgb, var(--muted) 12%, transparent);
         position: relative;
         overflow: hidden;
       }
@@ -913,7 +1175,7 @@
         position: absolute;
         inset: 0 auto 0 0;
         width: 0;
-        background: linear-gradient(90deg, var(--acc), #818cf8);
+        background: linear-gradient(90deg, var(--acc), var(--c-indigo));
         box-shadow: 0 0 14px var(--acc);
         transition: width 1.8s 0.6s var(--ease);
       }
@@ -921,90 +1183,72 @@
         width: var(--w);
       }
 
-      /* Roadmap */
-      .road {
+      /* Outline */
+      .outline {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        border-top: 1px solid var(--line);
+      }
+      .outline button {
+        all: unset;
+        box-sizing: border-box;
+        width: 100%;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 88px 1fr auto;
+        align-items: center;
+        gap: 24px;
+        padding: 20px 8px;
+        border-bottom: 1px solid var(--line);
         position: relative;
-        margin-top: 70px;
-        height: 4px;
-        background: rgba(148, 163, 184, 0.14);
+        transition: background 0.3s;
       }
-      .road .fill {
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 0;
-        background: linear-gradient(90deg, var(--ok), var(--cyan));
-        box-shadow: 0 0 14px var(--cyan);
-        transition: width 2s 0.5s var(--ease);
-      }
-      .road .today {
-        position: absolute;
-        top: -44px;
-        transform: translateX(-50%);
-        font: 12px "JetBrains Mono", monospace;
-        letter-spacing: 0.16em;
-        color: var(--cyan);
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.6s 2s;
-      }
-      .road .today::after {
+      .outline button::before {
         content: "";
         position: absolute;
-        left: 50%;
-        top: 22px;
-        width: 1px;
-        height: 30px;
-        background: var(--cyan);
+        left: 0;
+        bottom: -1px;
+        height: 1px;
+        width: 0;
+        background: var(--c);
+        box-shadow: 0 0 10px var(--c);
+        transition: width 0.5s var(--ease);
       }
-      .slide.active .road .today {
-        opacity: 1;
+      .outline button:hover {
+        background: rgba(255, 255, 255, 0.02);
       }
-      .road .node {
-        position: absolute;
-        top: 50%;
-        width: 18px;
-        height: 18px;
-        transform: translate(-50%, -50%) rotate(45deg);
-        background: var(--bg);
-        border: 2px solid var(--dim);
+      .outline button:hover::before {
+        width: 100%;
       }
-      .road .node.done {
-        border-color: var(--ok);
-        background: var(--ok);
+      .outline .n {
+        font: 300 40px/1 "JetBrains Mono", monospace;
+        color: var(--c);
       }
-      .road .node.active {
-        border-color: var(--warn);
-        box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.6);
-        animation: ping 2s infinite;
+      .outline h3 {
+        margin: 0 0 4px;
+        font-size: 27px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: var(--strong);
       }
-      @keyframes ping {
-        70% {
-          box-shadow: 0 0 0 16px rgba(251, 191, 36, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(251, 191, 36, 0);
-        }
+      .outline p {
+        margin: 0;
+        font-size: 17px;
+        color: var(--muted);
+        font-weight: 300;
       }
-      .milestones {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 22px;
-        margin-top: 44px;
+      .outline i {
+        font-size: 22px;
+        color: var(--dim);
+        transition:
+          transform 0.3s var(--ease),
+          color 0.3s;
       }
-      .milestones .card {
-        padding: 22px 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .milestones .head {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-      }
-      .milestones .w {
-        font: 500 34px "JetBrains Mono", monospace;
-        color: #fff;
+      .outline button:hover i {
+        color: var(--c);
+        transform: translateX(6px);
       }
 
       /* Feature tiles */
@@ -1077,7 +1321,7 @@
         gap: 16px;
         align-items: center;
         font-size: 18px;
-        color: #cbd5e1;
+        color: var(--text-2);
         font-weight: 300;
       }
       .flowlist li::before {
@@ -1107,10 +1351,10 @@
         font-weight: 300;
         padding: 12px 16px;
         border: 1px solid var(--line);
-        background: rgba(6, 11, 19, 0.8);
+        background: color-mix(in srgb, var(--panel) 80%, transparent);
       }
       .alt b {
-        color: #f1f5f9;
+        color: var(--strong);
         font-weight: 500;
       }
 
@@ -1124,7 +1368,7 @@
       }
       .qa-box {
         border: 1px solid var(--acc);
-        background: rgba(6, 11, 19, 0.95);
+        background: color-mix(in srgb, var(--panel) 95%, transparent);
         padding: 20px;
         position: relative;
         min-height: 150px;
@@ -1141,7 +1385,7 @@
         margin: 0;
         font-size: 18px;
         line-height: 1.45;
-        color: #e2e8f0;
+        color: var(--text);
       }
       .qa-env {
         border: 1px dashed color-mix(in srgb, var(--acc) 60%, transparent);
@@ -1186,7 +1430,7 @@
       }
       .qa-measure .big {
         font: 500 54px/1 "JetBrains Mono", monospace;
-        color: #fff;
+        color: var(--strong);
         margin-bottom: 10px;
       }
 
@@ -1216,9 +1460,9 @@
         gap: 14px;
         align-items: center;
         padding: 8px 6px;
-        border-bottom: 1px solid rgba(0, 240, 255, 0.06);
+        border-bottom: 1px solid color-mix(in srgb, var(--c-cyan) 6%, transparent);
         font-size: 16px;
-        color: #cbd5e1;
+        color: var(--text-2);
         font-weight: 300;
       }
       .row button {
@@ -1331,7 +1575,7 @@
           style="position: absolute; right: -120px; top: 40px; width: 860px"
           aria-hidden="true"
         >
-          <g class="spin" fill="none" stroke="rgba(0,240,255,.13)">
+          <g class="spin" fill="none" stroke="color-mix(in srgb, var(--c-cyan) 13%, transparent)">
             <path
               d="M400 120c160 0 290 110 290 270s-120 300-290 300S110 580 110 410 240 120 400 120Z"
             />
@@ -1354,18 +1598,18 @@
             style="--d: 400"
             d="M90 660C200 620 220 520 300 500s150 40 210-20 20-170 90-210 120-10 150-80"
             fill="none"
-            stroke="#00f0ff"
+            stroke="var(--c-cyan)"
             stroke-width="3"
             stroke-linecap="round"
           />
-          <circle r="7" fill="#00f0ff">
+          <circle r="7" fill="var(--c-cyan)">
             <animateMotion dur="7s" repeatCount="indefinite" rotate="auto">
               <mpath href="#route" />
             </animateMotion>
           </circle>
-          <circle cx="90" cy="660" r="6" fill="#030712" stroke="#00f0ff" />
-          <circle cx="750" cy="190" r="10" fill="none" stroke="#00f0ff" />
-          <circle cx="750" cy="190" r="4" fill="#00f0ff" />
+          <circle cx="90" cy="660" r="6" fill="var(--bg)" stroke="var(--c-cyan)" />
+          <circle cx="750" cy="190" r="10" fill="none" stroke="var(--c-cyan)" />
+          <circle cx="750" cy="190" r="4" fill="var(--c-cyan)" />
         </svg>
         <div style="margin-top: auto; position: relative; max-width: 900px">
           <div class="kicker a">
@@ -1388,7 +1632,7 @@
           >
             <div>
               <div class="tag" style="margin-bottom: 12px">Instructor</div>
-              <div style="font-size: 17px; color: #cbd5e1">
+              <div style="font-size: 17px; color: var(--text-2)">
                 Dr. Suad Ramouni
               </div>
             </div>
@@ -1406,67 +1650,28 @@
 
       <section
         class="slide"
-        id="roadmap"
+        id="outline"
         data-part="intro"
-        data-title="Project roadmap"
+        data-title="Outline"
       >
-        <div class="kicker a">Roadmap</div>
-        <h2 class="title a">Four deliverables, <em>one architecture</em></h2>
-        <p class="lede a">
-          Each deliverable builds on the last: the 4+1 views first, then the
-          quality attributes and style that shape them, then the design
-          patterns, and finally a validation pass against the SRS.
-        </p>
-        <!-- Positions are days after 30 Sep 2026, over the 35-day span to 4 Nov. -->
-        <div class="road a fade" id="road" data-start="2026-09-30" data-end="2026-11-04">
-          <div class="fill"></div>
-          <div class="today"></div>
-          <div class="node done" style="left: 0%"></div>
-          <div class="node done" style="left: 28.57%"></div>
-          <div class="node active" style="left: 71.43%"></div>
-          <div class="node" style="left: 100%"></div>
-        </div>
-        <div class="milestones">
-          <div class="card bar a" style="--acc: #00f0ff">
-            <div class="head">
-              <span class="tag">D1 · 30 Sep</span><span class="w">40%</span>
-            </div>
-            <h3>Software Architecture Design</h3>
-            <p>Introduction, goals and constraints, and all five 4+1 views.</p>
-            <span class="pill ok" style="margin-top: auto; align-self: start"
-              ><i class="ph ph-check"></i>Submitted</span
-            >
+        <div class="body" style="grid-template-columns: 520px 1fr; gap: 80px; margin-top: 0; align-items: center">
+          <div>
+            <div class="kicker a">Outline</div>
+            <h2 class="title a" style="font-size: 72px">What we'll <em>cover</em></h2>
+            <p class="lede a" style="font-size: 20px">
+              From the problem Intaliq solves to the architecture behind it,
+              the design patterns that shape the code, and how we validated
+              the design.
+            </p>
           </div>
-          <div class="card bar a" style="--acc: #818cf8">
-            <div class="head">
-              <span class="tag">D2 · 10 Oct</span><span class="w">20%</span>
-            </div>
-            <h3>Architecture Documentation</h3>
-            <p>Four quality attributes, their scenarios, and the style.</p>
-            <span class="pill ok" style="margin-top: auto; align-self: start"
-              ><i class="ph ph-check"></i>Submitted</span
-            >
-          </div>
-          <div class="card bar a" style="--acc: #c084fc">
-            <div class="head">
-              <span class="tag">D3 · 25 Oct</span><span class="w">20%</span>
-            </div>
-            <h3>Software Design Documentation</h3>
-            <p>Three design patterns and the reasons for choosing them.</p>
-            <span class="pill active" style="margin-top: auto; align-self: start"
-              >In progress</span
-            >
-          </div>
-          <div class="card bar a" style="--acc: #fbbf24">
-            <div class="head">
-              <span class="tag">D4 · 4 Nov</span><span class="w">20%</span>
-            </div>
-            <h3>Validation &amp; Presentation</h3>
-            <p>Review every design decision and present the result.</p>
-            <span class="pill next" style="margin-top: auto; align-self: start"
-              >Upcoming</span
-            >
-          </div>
+          <ol class="outline">
+            <li class="a"><button data-goto="overview" style="--c: var(--c-cyan)"><span class="n">01</span><div><h3>Introduction</h3><p>Problem, purpose, scope and key definitions</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="four-plus-one" style="--c: var(--c-cyan)"><span class="n">02</span><div><h3>4+1 Architecture</h3><p>Goals, constraints and the five architectural views</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="quality-attributes" style="--c: var(--c-indigo)"><span class="n">03</span><div><h3>Quality Attributes</h3><p>Security, availability, performance and usability</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="style" style="--c: var(--c-indigo)"><span class="n">04</span><div><h3>Architectural Style</h3><p>Client–server, and why it fits Intaliq</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="patterns" style="--c: var(--c-violet)"><span class="n">05</span><div><h3>Design Patterns</h3><p>Observer, Repository and State</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="coverage" style="--c: var(--c-amber)"><span class="n">06</span><div><h3>Validation</h3><p>Requirement coverage and design review</p></div><i class="ph ph-arrow-right"></i></button></li>
+          </ol>
         </div>
       </section>
 
@@ -1702,32 +1907,32 @@
             </g>
             <g font-size="13" text-anchor="middle">
               <g>
-                <rect x="40" y="50" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
-                <text x="165" y="96" fill="#f1f5f9" font-size="20" font-family="Inter">Logical View</text>
-                <text x="165" y="124" fill="#94a3b8">End users · functionality</text>
+                <rect x="40" y="50" width="250" height="110" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-cyan) 45%, transparent)" />
+                <text x="165" y="96" fill="var(--strong)" font-size="20" font-family="Inter">Logical View</text>
+                <text x="165" y="124" fill="var(--muted)">End users · functionality</text>
               </g>
               <g>
-                <rect x="430" y="50" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
-                <text x="555" y="96" fill="#f1f5f9" font-size="20" font-family="Inter">Development View</text>
-                <text x="555" y="124" fill="#94a3b8">Programmers · modules</text>
+                <rect x="430" y="50" width="250" height="110" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-cyan) 45%, transparent)" />
+                <text x="555" y="96" fill="var(--strong)" font-size="20" font-family="Inter">Development View</text>
+                <text x="555" y="124" fill="var(--muted)">Programmers · modules</text>
               </g>
               <g>
-                <rect x="40" y="310" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
-                <text x="165" y="356" fill="#f1f5f9" font-size="20" font-family="Inter">Process View</text>
-                <text x="165" y="384" fill="#94a3b8">Integrators · runtime</text>
+                <rect x="40" y="310" width="250" height="110" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-cyan) 45%, transparent)" />
+                <text x="165" y="356" fill="var(--strong)" font-size="20" font-family="Inter">Process View</text>
+                <text x="165" y="384" fill="var(--muted)">Integrators · runtime</text>
               </g>
               <g>
-                <rect x="430" y="310" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
-                <text x="555" y="356" fill="#f1f5f9" font-size="20" font-family="Inter">Physical View</text>
-                <text x="555" y="384" fill="#94a3b8">Engineers · topology</text>
+                <rect x="430" y="310" width="250" height="110" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-cyan) 45%, transparent)" />
+                <text x="555" y="356" fill="var(--strong)" font-size="20" font-family="Inter">Physical View</text>
+                <text x="555" y="384" fill="var(--muted)">Engineers · topology</text>
               </g>
               <circle cx="360" cy="235" r="92" fill="none" stroke="var(--acc)" stroke-opacity=".2">
                 <animate attributeName="r" values="80;100;80" dur="4s" repeatCount="indefinite" />
                 <animate attributeName="stroke-opacity" values=".35;0;.35" dur="4s" repeatCount="indefinite" />
               </circle>
-              <circle cx="360" cy="235" r="78" fill="#030712" stroke="var(--acc)" stroke-width="2" />
+              <circle cx="360" cy="235" r="78" fill="var(--bg)" stroke="var(--acc)" stroke-width="2" />
               <text x="360" y="228" fill="var(--acc)" font-size="22" font-family="Inter" font-weight="600">Scenarios</text>
-              <text x="360" y="256" fill="#94a3b8">User View · “+1”</text>
+              <text x="360" y="256" fill="var(--muted)">User View · “+1”</text>
             </g>
           </svg>
           <div style="display: grid; gap: 14px">
@@ -1820,6 +2025,45 @@
 
       <section
         class="slide"
+        id="prototype"
+        data-part="d1"
+        data-title="4.1 User view — prototype screens"
+        data-steps="2"
+      >
+        <div style="display: flex; justify-content: space-between; align-items: flex-start">
+          <div>
+            <div class="kicker a">SAD § 4.1 · User View · SE365 Prototype</div>
+            <h2 class="title a">The use cases, <em>on screen</em></h2>
+          </div>
+          <div class="step-tabs a">
+            <button class="step-tab">User</button>
+            <button class="step-tab">Coach</button>
+          </div>
+        </div>
+        <div class="step-panel">
+          <div class="phones">
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/user-home.png" alt="User home screen with weekly stats" loading="lazy" /></div><figcaption><span class="tag">Home</span>Dashboard</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/user-log-activity.png" alt="Log activity screen" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Log activity</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/user-set-goal.png" alt="Set your first goal screen" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Set activity goal</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/user-sessions.png" alt="Sessions list with request-to-join buttons" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Join group sessions</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/user-ai-coach.png" alt="AI Coach chat screen" loading="lazy" /></div><figcaption><span class="tag">Use case</span>AI analysis</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/user-profile.png" alt="Profile with friends and requests" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Find partners</figcaption></figure>
+          </div>
+        </div>
+        <div class="step-panel">
+          <div class="phones">
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-dashboard.png" alt="Coach dashboard with session stats and quick actions" loading="lazy" /></div><figcaption><span class="tag">Home</span>Coach dashboard</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-sessions.png" alt="Coach's list of sessions with pending requests" loading="lazy" /></div><figcaption><span class="tag">Overview</span>My sessions</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-create-session.png" alt="Create group session form" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Create session</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-admissions.png" alt="Admissions screen with Admit buttons" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Admit users</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-session-detail.png" alt="Session detail with admission requests and announcement box" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Session detail</figcaption></figure>
+            <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-announcement.png" alt="Make announcement form" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Announce updates</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
         id="scenarios"
         data-part="d1"
         data-title="4.2 Scenarios"
@@ -1865,6 +2109,7 @@
               <div class="a"><b>Coach rejects</b> → user is notified</div>
               <div class="a"><b>System error</b> → request not completed, user notified</div>
             </div>
+            <div class="dg-links a"><button class="dg-link" data-src="assets/diagrams/sequence-book-session.png" data-alt="Sequence diagram: booking a group session"><i class="ph ph-flow-arrow"></i>Sequence diagram</button></div>
           </div>
         </div>
 
@@ -1924,6 +2169,7 @@
               <div class="a"><b>Invalid data</b> → error message shown</div>
               <div class="a"><b>System error</b> → goal is not saved</div>
             </div>
+            <div class="dg-links a"><button class="dg-link" data-src="assets/diagrams/sequence-set-goal.png" data-alt="Sequence diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Sequence diagram</button><button class="dg-link" data-src="assets/diagrams/activity-set-goal.png" data-alt="Activity diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Activity diagram</button></div>
           </div>
         </div>
       </section>
@@ -2165,65 +2411,65 @@
           <svg viewBox="0 0 1400 470" class="a fade" aria-label="Client–server topology of Intaliq">
             <defs>
               <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M0 0L10 5L0 10z" fill="#818cf8" />
+                <path d="M0 0L10 5L0 10z" fill="var(--c-indigo)" />
               </marker>
             </defs>
             <!-- links -->
-            <path id="l1" d="M330 235H560" stroke="#818cf8" stroke-width="2" fill="none" class="draw" style="--d: 500" marker-end="url(#ah)" />
-            <path id="l2" d="M900 200C980 200 990 110 1060 110" stroke="#818cf8" stroke-width="2" fill="none" class="draw" style="--d: 800" marker-end="url(#ah)" />
-            <path id="l3" d="M900 270C980 270 990 360 1060 360" stroke="#818cf8" stroke-width="2" fill="none" class="draw" style="--d: 900" marker-end="url(#ah)" />
-            <path d="M330 235H560" stroke="#818cf8" stroke-opacity=".35" stroke-width="2" fill="none" class="flow" />
-            <text x="445" y="220" fill="#94a3b8" font-size="15" text-anchor="middle">HTTPS</text>
-            <text x="915" y="96" fill="#94a3b8" font-size="15">DB connection</text>
-            <text x="915" y="400" fill="#94a3b8" font-size="15">API · HTTPS</text>
+            <path id="l1" d="M330 235H560" stroke="var(--c-indigo)" stroke-width="2" fill="none" class="draw" style="--d: 500" marker-end="url(#ah)" />
+            <path id="l2" d="M900 200C980 200 990 110 1060 110" stroke="var(--c-indigo)" stroke-width="2" fill="none" class="draw" style="--d: 800" marker-end="url(#ah)" />
+            <path id="l3" d="M900 270C980 270 990 360 1060 360" stroke="var(--c-indigo)" stroke-width="2" fill="none" class="draw" style="--d: 900" marker-end="url(#ah)" />
+            <path d="M330 235H560" stroke="var(--c-indigo)" stroke-opacity=".35" stroke-width="2" fill="none" class="flow" />
+            <text x="445" y="220" fill="var(--muted)" font-size="15" text-anchor="middle">HTTPS</text>
+            <text x="915" y="96" fill="var(--muted)" font-size="15">DB connection</text>
+            <text x="915" y="400" fill="var(--muted)" font-size="15">API · HTTPS</text>
             <!-- packets -->
-            <circle r="6" fill="#00f0ff"><animateMotion dur="2.4s" repeatCount="indefinite" path="M330 235H560" /></circle>
-            <circle r="6" fill="#c084fc"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M330 235H560" /></circle>
-            <circle r="5" fill="#00f0ff"><animateMotion dur="3s" begin=".6s" repeatCount="indefinite"><mpath href="#l2" /></animateMotion></circle>
-            <circle r="5" fill="#00f0ff"><animateMotion dur="3s" begin="1.8s" repeatCount="indefinite"><mpath href="#l3" /></animateMotion></circle>
+            <circle r="6" fill="var(--c-cyan)"><animateMotion dur="2.4s" repeatCount="indefinite" path="M330 235H560" /></circle>
+            <circle r="6" fill="var(--c-violet)"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M330 235H560" /></circle>
+            <circle r="5" fill="var(--c-cyan)"><animateMotion dur="3s" begin=".6s" repeatCount="indefinite"><mpath href="#l2" /></animateMotion></circle>
+            <circle r="5" fill="var(--c-cyan)"><animateMotion dur="3s" begin="1.8s" repeatCount="indefinite"><mpath href="#l3" /></animateMotion></circle>
             <!-- client -->
             <g>
-              <rect x="120" y="80" width="210" height="310" rx="30" fill="#060b13" stroke="#818cf8" stroke-width="2" />
-              <rect x="190" y="96" width="70" height="8" rx="4" fill="#1e293b" />
-              <text x="225" y="150" fill="#818cf8" font-size="13" text-anchor="middle">CLIENT</text>
-              <text x="225" y="180" fill="#f1f5f9" font-size="19" font-family="Inter" text-anchor="middle">Intaliq</text>
-              <text x="225" y="204" fill="#f1f5f9" font-size="19" font-family="Inter" text-anchor="middle">Mobile App</text>
-              <g font-size="13" fill="#94a3b8" text-anchor="middle">
+              <rect x="120" y="80" width="210" height="310" rx="30" fill="var(--panel)" stroke="var(--c-indigo)" stroke-width="2" />
+              <rect x="190" y="96" width="70" height="8" rx="4" fill="var(--hair)" />
+              <text x="225" y="150" fill="var(--c-indigo)" font-size="13" text-anchor="middle">CLIENT</text>
+              <text x="225" y="180" fill="var(--strong)" font-size="19" font-family="Inter" text-anchor="middle">Intaliq</text>
+              <text x="225" y="204" fill="var(--strong)" font-size="19" font-family="Inter" text-anchor="middle">Mobile App</text>
+              <g font-size="13" fill="var(--muted)" text-anchor="middle">
                 <text x="225" y="250">Activity logging</text>
                 <text x="225" y="274">Goals · Booking</text>
                 <text x="225" y="298">Partners · AI chat</text>
-                <text x="225" y="340" fill="#00f0ff">⟳ Offline Sync</text>
+                <text x="225" y="340" fill="var(--c-cyan)">⟳ Offline Sync</text>
               </g>
             </g>
             <!-- server -->
             <g>
-              <rect x="570" y="40" width="330" height="390" fill="#060b13" stroke="#818cf8" stroke-width="2" />
-              <text x="735" y="76" fill="#818cf8" font-size="13" text-anchor="middle">APPLICATION SERVER</text>
-              <text x="735" y="106" fill="#f1f5f9" font-size="22" font-family="Inter" text-anchor="middle">Intaliq Backend</text>
-              <g font-size="14" fill="#cbd5e1">
-                <rect x="596" y="130" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="153">Authentication &amp; authorization</text>
-                <rect x="596" y="172" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="195">User management</text>
-                <rect x="596" y="214" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="237">Activity &amp; goal management</text>
-                <rect x="596" y="256" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="279">Session management</text>
-                <rect x="596" y="298" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="321">Partner matching</text>
-                <rect x="596" y="340" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="363">AI Chatbox integration</text>
+              <rect x="570" y="40" width="330" height="390" fill="var(--panel)" stroke="var(--c-indigo)" stroke-width="2" />
+              <text x="735" y="76" fill="var(--c-indigo)" font-size="13" text-anchor="middle">APPLICATION SERVER</text>
+              <text x="735" y="106" fill="var(--strong)" font-size="22" font-family="Inter" text-anchor="middle">Intaliq Backend</text>
+              <g font-size="14" fill="var(--text-2)">
+                <rect x="596" y="130" width="278" height="36" fill="color-mix(in srgb, var(--c-indigo) 8%, transparent)" stroke="color-mix(in srgb, var(--c-indigo) 30%, transparent)" /><text x="612" y="153">Authentication &amp; authorization</text>
+                <rect x="596" y="172" width="278" height="36" fill="color-mix(in srgb, var(--c-indigo) 8%, transparent)" stroke="color-mix(in srgb, var(--c-indigo) 30%, transparent)" /><text x="612" y="195">User management</text>
+                <rect x="596" y="214" width="278" height="36" fill="color-mix(in srgb, var(--c-indigo) 8%, transparent)" stroke="color-mix(in srgb, var(--c-indigo) 30%, transparent)" /><text x="612" y="237">Activity &amp; goal management</text>
+                <rect x="596" y="256" width="278" height="36" fill="color-mix(in srgb, var(--c-indigo) 8%, transparent)" stroke="color-mix(in srgb, var(--c-indigo) 30%, transparent)" /><text x="612" y="279">Session management</text>
+                <rect x="596" y="298" width="278" height="36" fill="color-mix(in srgb, var(--c-indigo) 8%, transparent)" stroke="color-mix(in srgb, var(--c-indigo) 30%, transparent)" /><text x="612" y="321">Partner matching</text>
+                <rect x="596" y="340" width="278" height="36" fill="color-mix(in srgb, var(--c-indigo) 8%, transparent)" stroke="color-mix(in srgb, var(--c-indigo) 30%, transparent)" /><text x="612" y="363">AI Chatbox integration</text>
               </g>
             </g>
             <!-- db -->
             <g>
-              <ellipse cx="1170" cy="50" rx="100" ry="18" fill="#0a1220" stroke="#818cf8" stroke-width="2" />
-              <path d="M1070 50V170c0 10 45 18 100 18s100-8 100-18V50" fill="#060b13" stroke="#818cf8" stroke-width="2" />
-              <ellipse cx="1170" cy="50" rx="100" ry="18" fill="#0a1220" stroke="#818cf8" stroke-width="2" />
-              <text x="1170" y="100" fill="#818cf8" font-size="13" text-anchor="middle">DATABASE</text>
-              <text x="1170" y="128" fill="#f1f5f9" font-size="18" font-family="Inter" text-anchor="middle">Intaliq DB</text>
-              <text x="1170" y="154" fill="#94a3b8" font-size="12" text-anchor="middle">users · sessions · goals …</text>
+              <ellipse cx="1170" cy="50" rx="100" ry="18" fill="var(--panel-2)" stroke="var(--c-indigo)" stroke-width="2" />
+              <path d="M1070 50V170c0 10 45 18 100 18s100-8 100-18V50" fill="var(--panel)" stroke="var(--c-indigo)" stroke-width="2" />
+              <ellipse cx="1170" cy="50" rx="100" ry="18" fill="var(--panel-2)" stroke="var(--c-indigo)" stroke-width="2" />
+              <text x="1170" y="100" fill="var(--c-indigo)" font-size="13" text-anchor="middle">DATABASE</text>
+              <text x="1170" y="128" fill="var(--strong)" font-size="18" font-family="Inter" text-anchor="middle">Intaliq DB</text>
+              <text x="1170" y="154" fill="var(--muted)" font-size="12" text-anchor="middle">users · sessions · goals …</text>
             </g>
             <!-- ai -->
             <g>
-              <rect x="1070" y="300" width="200" height="120" fill="#060b13" stroke="#818cf8" stroke-width="2" stroke-dasharray="6 5" />
-              <text x="1170" y="336" fill="#818cf8" font-size="13" text-anchor="middle">EXTERNAL</text>
-              <text x="1170" y="364" fill="#f1f5f9" font-size="18" font-family="Inter" text-anchor="middle">AI Service</text>
-              <text x="1170" y="390" fill="#94a3b8" font-size="12" text-anchor="middle">fitness tips · Q&amp;A</text>
+              <rect x="1070" y="300" width="200" height="120" fill="var(--panel)" stroke="var(--c-indigo)" stroke-width="2" stroke-dasharray="6 5" />
+              <text x="1170" y="336" fill="var(--c-indigo)" font-size="13" text-anchor="middle">EXTERNAL</text>
+              <text x="1170" y="364" fill="var(--strong)" font-size="18" font-family="Inter" text-anchor="middle">AI Service</text>
+              <text x="1170" y="390" fill="var(--muted)" font-size="12" text-anchor="middle">fitness tips · Q&amp;A</text>
             </g>
           </svg>
         </div>
@@ -2323,36 +2569,36 @@
           <div style="display: grid; gap: 16px; align-content: start">
             <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">Announcements and admissions must reach the member list, push, email and open screens at once. Calling each directly ties session code to every consumer.</p></div>
             <div class="card a"><div class="tag acc">Why Observer</div><p style="margin-top: 8px">The session publishes one event; subscribers react. Announcements reach all members (FR-07) and new reactions need no change to the publisher.</p></div>
-            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px"><span class="mono acc" style="font-size: 15px">announcementPosted · memberAdmitted · requestRejected</span></p></div>
+            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px"><span class="mono acc" style="font-size: 15px">announcementPosted · memberAdmitted · requestRejected</span></p><div class="dg-links a"><button class="dg-link" data-src="assets/diagrams/sequence-admit-members.png" data-alt="Sequence diagram: admitting members"><i class="ph ph-flow-arrow"></i>Admit members · sequence</button></div></div>
           </div>
           <svg viewBox="0 0 760 500" class="a fade" aria-label="Observer structure">
-            <rect x="20" y="190" width="230" height="120" fill="#060b13" stroke="#c084fc" stroke-width="2" />
-            <text x="135" y="225" fill="#c084fc" font-size="13" text-anchor="middle">«subject»</text>
-            <text x="135" y="256" fill="#f1f5f9" font-size="22" font-family="Inter" text-anchor="middle">Session</text>
-            <text x="135" y="286" fill="#94a3b8" font-size="13" text-anchor="middle">notify(event)</text>
-            <g fill="none" stroke="#c084fc" stroke-width="1.5">
+            <rect x="20" y="190" width="230" height="120" fill="var(--panel)" stroke="var(--c-violet)" stroke-width="2" />
+            <text x="135" y="225" fill="var(--c-violet)" font-size="13" text-anchor="middle">«subject»</text>
+            <text x="135" y="256" fill="var(--strong)" font-size="22" font-family="Inter" text-anchor="middle">Session</text>
+            <text x="135" y="286" fill="var(--muted)" font-size="13" text-anchor="middle">notify(event)</text>
+            <g fill="none" stroke="var(--c-violet)" stroke-width="1.5">
               <path id="o1" class="draw" style="--d: 400" d="M250 230C380 230 380 90 480 90" />
               <path id="o2" class="draw" style="--d: 550" d="M250 250H480" />
               <path id="o3" class="draw" style="--d: 700" d="M250 270C380 270 380 410 480 410" />
             </g>
-            <g fill="#c084fc">
+            <g fill="var(--c-violet)">
               <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o1" /></animateMotion></circle>
               <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o2" /></animateMotion></circle>
               <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o3" /></animateMotion></circle>
             </g>
             <g font-size="13">
-              <rect x="480" y="40" width="260" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
-              <text x="500" y="72" fill="#c084fc">«observer»</text>
-              <text x="500" y="102" fill="#f1f5f9" font-size="19" font-family="Inter">Push notification</text>
-              <text x="500" y="124" fill="#94a3b8">adapter · SI-4</text>
-              <rect x="480" y="200" width="260" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
-              <text x="500" y="232" fill="#c084fc">«observer»</text>
-              <text x="500" y="262" fill="#f1f5f9" font-size="19" font-family="Inter">Email adapter</text>
-              <text x="500" y="284" fill="#94a3b8">CI-3</text>
-              <rect x="480" y="360" width="260" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
-              <text x="500" y="392" fill="#c084fc">«observer»</text>
-              <text x="500" y="422" fill="#f1f5f9" font-size="19" font-family="Inter">Session screens</text>
-              <text x="500" y="444" fill="#94a3b8">refresh members · feed</text>
+              <rect x="480" y="40" width="260" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
+              <text x="500" y="72" fill="var(--c-violet)">«observer»</text>
+              <text x="500" y="102" fill="var(--strong)" font-size="19" font-family="Inter">Push notification</text>
+              <text x="500" y="124" fill="var(--muted)">adapter · SI-4</text>
+              <rect x="480" y="200" width="260" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
+              <text x="500" y="232" fill="var(--c-violet)">«observer»</text>
+              <text x="500" y="262" fill="var(--strong)" font-size="19" font-family="Inter">Email adapter</text>
+              <text x="500" y="284" fill="var(--muted)">CI-3</text>
+              <rect x="480" y="360" width="260" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
+              <text x="500" y="392" fill="var(--c-violet)">«observer»</text>
+              <text x="500" y="422" fill="var(--strong)" font-size="19" font-family="Inter">Session screens</text>
+              <text x="500" y="444" fill="var(--muted)">refresh members · feed</text>
             </g>
           </svg>
         </div>
@@ -2373,34 +2619,34 @@
             <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px"><span class="mono acc" style="font-size: 15px">SessionRepository · ActivityRepository · GoalRepository · PartnerRepository</span></p></div>
           </div>
           <svg viewBox="0 0 760 500" class="a fade" aria-label="Repository structure">
-            <g font-size="13" fill="#94a3b8">
-              <rect x="10" y="60" width="170" height="380" fill="#060b13" stroke="rgba(192,132,252,.35)" />
-              <text x="95" y="92" text-anchor="middle" fill="#c084fc">FEATURES</text>
-              <text x="95" y="150" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Sessions</text>
-              <text x="95" y="220" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Activities</text>
-              <text x="95" y="290" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Goals</text>
-              <text x="95" y="360" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Partners</text>
+            <g font-size="13" fill="var(--muted)">
+              <rect x="10" y="60" width="170" height="380" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 35%, transparent)" />
+              <text x="95" y="92" text-anchor="middle" fill="var(--c-violet)">FEATURES</text>
+              <text x="95" y="150" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Sessions</text>
+              <text x="95" y="220" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Activities</text>
+              <text x="95" y="290" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Goals</text>
+              <text x="95" y="360" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Partners</text>
             </g>
-            <path class="draw" style="--d: 400" d="M180 250H260" stroke="#c084fc" stroke-width="2" fill="none" />
-            <rect x="260" y="170" width="200" height="160" fill="#0a1220" stroke="#c084fc" stroke-width="2" />
-            <text x="360" y="210" fill="#c084fc" font-size="13" text-anchor="middle">«interface»</text>
-            <text x="360" y="244" fill="#f1f5f9" font-size="21" font-family="Inter" text-anchor="middle">Repository</text>
-            <text x="360" y="274" fill="#94a3b8" font-size="13" text-anchor="middle">get · save · list</text>
-            <text x="360" y="300" fill="#94a3b8" font-size="13" text-anchor="middle">returns domain entities</text>
-            <path id="r1" class="draw" style="--d: 600" d="M460 220C540 220 540 110 600 110" stroke="#c084fc" stroke-width="2" fill="none" />
-            <path id="r2" class="draw" style="--d: 700" d="M460 280C540 280 540 390 600 390" stroke="#c084fc" stroke-width="2" fill="none" stroke-dasharray="6 5" />
-            <text x="604" y="180" fill="#94a3b8" font-size="12">online</text>
-            <text x="604" y="330" fill="#94a3b8" font-size="12">offline</text>
-            <rect x="600" y="60" width="150" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
-            <text x="675" y="100" fill="#f1f5f9" font-size="17" font-family="Inter" text-anchor="middle">Supabase</text>
-            <text x="675" y="124" fill="#94a3b8" font-size="12" text-anchor="middle">client · SI-1</text>
-            <rect x="600" y="340" width="150" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
-            <text x="675" y="380" fill="#f1f5f9" font-size="17" font-family="Inter" text-anchor="middle">Sync queue</text>
-            <text x="675" y="404" fill="#94a3b8" font-size="12" text-anchor="middle">local store · CI-4/5</text>
-            <path id="r3" d="M675 340V160" stroke="#c084fc" stroke-width="1.5" fill="none" class="flow" />
-            <text x="664" y="255" fill="#c084fc" font-size="12" text-anchor="end">sync on reconnect</text>
-            <circle r="5" fill="#c084fc"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#r1" /></animateMotion></circle>
-            <circle r="5" fill="#c084fc"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite"><mpath href="#r2" /></animateMotion></circle>
+            <path class="draw" style="--d: 400" d="M180 250H260" stroke="var(--c-violet)" stroke-width="2" fill="none" />
+            <rect x="260" y="170" width="200" height="160" fill="var(--panel-2)" stroke="var(--c-violet)" stroke-width="2" />
+            <text x="360" y="210" fill="var(--c-violet)" font-size="13" text-anchor="middle">«interface»</text>
+            <text x="360" y="244" fill="var(--strong)" font-size="21" font-family="Inter" text-anchor="middle">Repository</text>
+            <text x="360" y="274" fill="var(--muted)" font-size="13" text-anchor="middle">get · save · list</text>
+            <text x="360" y="300" fill="var(--muted)" font-size="13" text-anchor="middle">returns domain entities</text>
+            <path id="r1" class="draw" style="--d: 600" d="M460 220C540 220 540 110 600 110" stroke="var(--c-violet)" stroke-width="2" fill="none" />
+            <path id="r2" class="draw" style="--d: 700" d="M460 280C540 280 540 390 600 390" stroke="var(--c-violet)" stroke-width="2" fill="none" stroke-dasharray="6 5" />
+            <text x="604" y="180" fill="var(--muted)" font-size="12">online</text>
+            <text x="604" y="330" fill="var(--muted)" font-size="12">offline</text>
+            <rect x="600" y="60" width="150" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
+            <text x="675" y="100" fill="var(--strong)" font-size="17" font-family="Inter" text-anchor="middle">Supabase</text>
+            <text x="675" y="124" fill="var(--muted)" font-size="12" text-anchor="middle">client · SI-1</text>
+            <rect x="600" y="340" width="150" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
+            <text x="675" y="380" fill="var(--strong)" font-size="17" font-family="Inter" text-anchor="middle">Sync queue</text>
+            <text x="675" y="404" fill="var(--muted)" font-size="12" text-anchor="middle">local store · CI-4/5</text>
+            <path id="r3" d="M675 340V160" stroke="var(--c-violet)" stroke-width="1.5" fill="none" class="flow" />
+            <text x="664" y="255" fill="var(--c-violet)" font-size="12" text-anchor="end">sync on reconnect</text>
+            <circle r="5" fill="var(--c-violet)"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#r1" /></animateMotion></circle>
+            <circle r="5" fill="var(--c-violet)"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite"><mpath href="#r2" /></animateMotion></circle>
           </svg>
         </div>
       </section>
@@ -2417,43 +2663,43 @@
           <div style="display: grid; gap: 16px; align-content: start">
             <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">A join request is submitted, reviewed, then accepted, rejected or blocked (FR-01, FR-06). Flags and nested conditions make invalid moves — like admitting into a full session — easy.</p></div>
             <div class="card a"><div class="tag acc">Why State</div><p style="margin-top: 8px">Each stage is an object that decides which actions are allowed and what comes next. The SRS rules live in one place and match the Process View.</p></div>
-            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px">Pending checks capacity and fitness level before moving to Accepted and raising the notification event.</p></div>
+            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px">Pending checks capacity and fitness level before moving to Accepted and raising the notification event.</p><div class="dg-links a"><button class="dg-link" data-src="assets/diagrams/activity-admit-members.png" data-alt="Activity diagram: admitting members"><i class="ph ph-flow-arrow"></i>Admit members · activity</button></div></div>
           </div>
           <svg viewBox="0 0 760 500" class="a fade" aria-label="Booking request state machine">
             <defs>
               <marker id="sh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-                <path d="M0 0L10 5L0 10z" fill="#c084fc" />
+                <path d="M0 0L10 5L0 10z" fill="var(--c-violet)" />
               </marker>
             </defs>
-            <circle cx="60" cy="250" r="12" fill="#c084fc" />
-            <path class="draw" style="--d: 300" d="M72 250H170" stroke="#c084fc" stroke-width="2" fill="none" marker-end="url(#sh)" />
-            <text x="120" y="238" fill="#94a3b8" font-size="12" text-anchor="middle">submit</text>
-            <rect x="172" y="200" width="190" height="100" rx="18" fill="#0a1220" stroke="#c084fc" stroke-width="2.5" />
-            <text x="267" y="246" fill="#f1f5f9" font-size="22" font-family="Inter" text-anchor="middle">Pending</text>
-            <text x="267" y="272" fill="#94a3b8" font-size="12" text-anchor="middle">coach reviews</text>
-            <g fill="none" stroke="#c084fc" stroke-width="2">
+            <circle cx="60" cy="250" r="12" fill="var(--c-violet)" />
+            <path class="draw" style="--d: 300" d="M72 250H170" stroke="var(--c-violet)" stroke-width="2" fill="none" marker-end="url(#sh)" />
+            <text x="120" y="238" fill="var(--muted)" font-size="12" text-anchor="middle">submit</text>
+            <rect x="172" y="200" width="190" height="100" rx="18" fill="var(--panel-2)" stroke="var(--c-violet)" stroke-width="2.5" />
+            <text x="267" y="246" fill="var(--strong)" font-size="22" font-family="Inter" text-anchor="middle">Pending</text>
+            <text x="267" y="272" fill="var(--muted)" font-size="12" text-anchor="middle">coach reviews</text>
+            <g fill="none" stroke="var(--c-violet)" stroke-width="2">
               <path class="draw" style="--d: 600" d="M362 225C450 225 450 90 528 90" marker-end="url(#sh)" />
               <path class="draw" style="--d: 750" d="M362 250H528" marker-end="url(#sh)" />
               <path class="draw" style="--d: 900" d="M362 275C450 275 450 410 528 410" marker-end="url(#sh)" />
             </g>
-            <g font-size="12" fill="#94a3b8">
+            <g font-size="12" fill="var(--muted)">
               <text x="420" y="132">accept</text>
               <text x="420" y="242">reject · full</text>
               <text x="410" y="396">cancel</text>
             </g>
             <g font-family="Inter" font-size="20" text-anchor="middle">
-              <rect x="530" y="45" width="190" height="90" rx="18" fill="#060b13" stroke="#34d399" stroke-width="2" />
-              <text x="625" y="97" fill="#34d399">Accepted</text>
-              <rect x="530" y="205" width="190" height="90" rx="18" fill="#060b13" stroke="#f87171" stroke-width="2" />
-              <text x="625" y="257" fill="#f87171">Rejected</text>
-              <rect x="530" y="365" width="190" height="90" rx="18" fill="#060b13" stroke="#64748b" stroke-width="2" />
-              <text x="625" y="417" fill="#94a3b8">Cancelled</text>
+              <rect x="530" y="45" width="190" height="90" rx="18" fill="var(--panel)" stroke="var(--c-green)" stroke-width="2" />
+              <text x="625" y="97" fill="var(--c-green)">Accepted</text>
+              <rect x="530" y="205" width="190" height="90" rx="18" fill="var(--panel)" stroke="var(--c-red)" stroke-width="2" />
+              <text x="625" y="257" fill="var(--c-red)">Rejected</text>
+              <rect x="530" y="365" width="190" height="90" rx="18" fill="var(--panel)" stroke="var(--dim)" stroke-width="2" />
+              <text x="625" y="417" fill="var(--muted)">Cancelled</text>
             </g>
-            <g font-size="11" fill="#64748b" text-anchor="middle">
-              <text x="625" y="160" fill="#c084fc">[capacity ok ∧ level match]</text>
+            <g font-size="11" fill="var(--dim)" text-anchor="middle">
+              <text x="625" y="160" fill="var(--c-violet)">[capacity ok ∧ level match]</text>
               <text x="625" y="180">→ notify via Observer</text>
             </g>
-            <circle r="7" fill="#c084fc">
+            <circle r="7" fill="var(--c-violet)">
               <animateMotion dur="4s" repeatCount="indefinite" path="M60 250H267" />
               <animate attributeName="opacity" values="0;1;1;0" dur="4s" repeatCount="indefinite" />
             </circle>
@@ -2506,14 +2752,14 @@
             <div class="row a"><span>8 · Physical — deployment diagram</span><span class="pill ok">Covered</span><button data-goto="physical-view">→</button></div>
           </div>
           <div>
-            <h4 class="a" style="color: #818cf8">D2 · Architecture <span>QA + style</span></h4>
+            <h4 class="a" style="color: var(--c-indigo)">D2 · Architecture <span>QA + style</span></h4>
             <div class="row a"><span>3–4 quality attributes</span><span class="pill ok">4</span><button data-goto="quality-attributes">→</button></div>
             <div class="row a"><span>Scenarios drawn &amp; documented</span><span class="pill ok">4</span><button data-goto="qa-scenarios">→</button></div>
             <div class="row a"><span>Style chosen, justified, implemented</span><span class="pill ok">Covered</span><button data-goto="style">→</button></div>
-            <h4 class="a" style="color: #c084fc">D3 · Design <span>SDD</span></h4>
+            <h4 class="a" style="color: var(--c-violet)">D3 · Design <span>SDD</span></h4>
             <div class="row a"><span>≥ 3 design patterns</span><span class="pill draft">3 · draft</span><button data-goto="patterns">→</button></div>
             <div class="row a"><span>Justification for each</span><span class="pill draft">Draft</span><button data-goto="observer">→</button></div>
-            <h4 class="a" style="color: #fbbf24">D4 · Validation <span>Review</span></h4>
+            <h4 class="a" style="color: var(--c-amber)">D4 · Validation <span>Review</span></h4>
             <div class="row a"><span>Design document reviewed &amp; validated</span><span class="pill todo">Pending</span><button data-goto="validation">→</button></div>
           </div>
         </div>
@@ -2561,14 +2807,14 @@
           style="position: absolute; right: -120px; top: 40px; width: 860px"
           aria-hidden="true"
         >
-          <g class="spin" fill="none" stroke="rgba(0,240,255,.13)">
+          <g class="spin" fill="none" stroke="color-mix(in srgb, var(--c-cyan) 13%, transparent)">
             <circle cx="400" cy="400" r="300" />
             <circle cx="400" cy="400" r="240" />
             <circle cx="400" cy="400" r="180" />
             <circle cx="400" cy="400" r="120" stroke-dasharray="4 8" />
             <circle cx="400" cy="400" r="60" />
           </g>
-          <circle cx="400" cy="400" r="10" fill="#00f0ff">
+          <circle cx="400" cy="400" r="10" fill="var(--c-cyan)">
             <animate attributeName="r" values="8;14;8" dur="3s" repeatCount="indefinite" />
           </circle>
         </svg>
@@ -2602,9 +2848,12 @@
       <footer class="chrome bottom">
         <span class="hint"
           ><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>O</kbd> index ·
-          <kbd>F</kbd> full screen</span
+          <kbd>T</kbd> theme · <kbd>F</kbd> full screen</span
         >
         <div class="nav-btns">
+          <button class="icon-btn" id="themeBtn" title="Light / dark (T)">
+            <i class="ph ph-sun"></i>
+          </button>
           <button class="icon-btn" id="fsBtn" title="Full screen (F)">
             <i class="ph ph-corners-out"></i>
           </button>
@@ -2619,7 +2868,21 @@
       <div id="progress"><i></i></div>
     </div>
 
-    <div id="lightbox" role="dialog" aria-label="Diagram"><img alt="" /></div>
+    <div id="lightbox" role="dialog" aria-label="Diagram viewer">
+      <div class="lb-sheet"><img alt="" /></div>
+      <div class="lb-hint">
+        Scroll or drag to move · pinch or Ctrl + scroll to zoom ·
+        double-click to zoom in
+      </div>
+      <div class="lb-bar">
+        <span class="cap"></span>
+        <button class="icon-btn" data-lb="out" title="Zoom out (−)"><i class="ph ph-minus"></i></button>
+        <span class="pct">100%</span>
+        <button class="icon-btn" data-lb="in" title="Zoom in (+)"><i class="ph ph-plus"></i></button>
+        <button class="icon-btn" data-lb="fit" title="Fit to screen (0)"><i class="ph ph-arrows-in"></i></button>
+        <button class="icon-btn" data-lb="close" title="Close (Esc)"><i class="ph ph-x"></i></button>
+      </div>
+    </div>
     <div id="index" role="dialog" aria-label="Slide index"><div class="wrap"></div></div>
 
     <script>
@@ -2635,6 +2898,11 @@
           d3: "D3 · Software Design",
           d4: "D4 · Validation",
           outro: "SE322",
+        };
+        var ACCENTS = {
+          d2: "var(--c-indigo)",
+          d3: "var(--c-violet)",
+          d4: "var(--c-amber)",
         };
         var cur = -1;
         var step = 0;
@@ -2714,29 +2982,6 @@
           });
         }
 
-        function roadmap(slide) {
-          var road = slide.querySelector("#road");
-          if (!road) return;
-          var start = new Date(road.dataset.start).getTime();
-          var end = new Date(road.dataset.end).getTime();
-          var now = Date.now();
-          var p = Math.max(0, Math.min(1, (now - start) / (end - start)));
-          var label = road.querySelector(".today");
-          label.style.left = p * 100 + "%";
-          label.textContent =
-            "TODAY · " +
-            new Date(now)
-              .toLocaleDateString("en-GB", { day: "numeric", month: "short" })
-              .toUpperCase();
-          var fill = road.querySelector(".fill");
-          fill.style.width = "0";
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              fill.style.width = p * 100 + "%";
-            });
-          });
-        }
-
         function go(n, atStep) {
           n = Math.max(0, Math.min(slides.length - 1, n));
           var slide = slides[n];
@@ -2747,13 +2992,9 @@
             });
             cur = n;
             countUp(slide);
-            roadmap(slide);
             var part = slide.dataset.part;
             document.getElementById("partLabel").textContent = PARTS[part] || "";
-            stage.style.setProperty(
-              "--acc",
-              getComputedStyle(slide).getPropertyValue("--acc"),
-            );
+            stage.dataset.part = part;
             // Drift the background glow so every slide change feels like motion.
             var gx = [18, 78, 30, 70, 50, 22, 82][n % 7];
             var gy = [22, 30, 80, 72, 20, 60, 50][n % 7];
@@ -2803,18 +3044,194 @@
         }
         document.getElementById("fsBtn").onclick = toggleFs;
 
-        // Lightbox
+        // Light / dark theme, shared with the rest of the site
+        var root = document.documentElement;
+        var themeIcon = document.querySelector("#themeBtn i");
+        function showTheme() {
+          var light = root.getAttribute("data-theme") === "light";
+          themeIcon.className = "ph " + (light ? "ph-moon" : "ph-sun");
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", light ? "#f5f7fa" : "#030712");
+        }
+        function toggleTheme() {
+          var t = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+          root.setAttribute("data-theme", t);
+          try {
+            localStorage.setItem("se322-theme", t);
+          } catch (e) {}
+          showTheme();
+        }
+        document.getElementById("themeBtn").onclick = toggleTheme;
+        showTheme();
+
+        // Lightbox: opens fitted to the screen; zoom and pan from there.
         var lb = document.getElementById("lightbox");
-        document.querySelectorAll(".dg").forEach(function (fig) {
+        var sheet = lb.querySelector(".lb-sheet");
+        var lbImg = sheet.querySelector("img");
+        var pctEl = lb.querySelector(".pct");
+        var BAR = 76; // space kept clear for the toolbar
+        var view = { s: 1, x: 0, y: 0, fit: 1 };
+
+        function area() {
+          return { w: innerWidth, h: innerHeight - BAR };
+        }
+        function render(animate) {
+          sheet.classList.toggle("anim", !!animate);
+          sheet.style.transform =
+            "translate(" + view.x + "px," + view.y + "px) scale(" + view.s + ")";
+          pctEl.textContent = Math.round(view.s * 100) + "%";
+        }
+        // Keep the sheet centred when it fits, and never let it leave the screen.
+        function clampView() {
+          var A = area(), m = 24;
+          var w = sheet.offsetWidth * view.s, h = sheet.offsetHeight * view.s;
+          view.x = w <= A.w - 2 * m ? (A.w - w) / 2 : Math.min(m, Math.max(A.w - w - m, view.x));
+          view.y = h <= A.h - 2 * m ? (A.h - h) / 2 : Math.min(m, Math.max(A.h - h - m, view.y));
+        }
+        function fitView(animate) {
+          var A = area();
+          view.fit = Math.min(
+            (A.w - 64) / sheet.offsetWidth,
+            (A.h - 64) / sheet.offsetHeight,
+            2,
+          );
+          view.s = view.fit;
+          clampView();
+          render(animate);
+        }
+        function zoomAt(factor, cx, cy, animate) {
+          var min = Math.min(view.fit, 1) * 0.8;
+          var max = Math.max(view.fit * 6, 3);
+          var ns = Math.min(max, Math.max(min, view.s * factor));
+          view.x = cx - (cx - view.x) * (ns / view.s);
+          view.y = cy - (cy - view.y) * (ns / view.s);
+          view.s = ns;
+          clampView();
+          render(animate);
+        }
+        function zoomCentre(factor) {
+          var A = area();
+          zoomAt(factor, A.w / 2, A.h / 2, true);
+        }
+        function openLightbox(src, alt) {
+          sheet.classList.toggle("bare", src.indexOf("/prototype/") > -1);
+          lbImg.src = src;
+          lbImg.alt = alt;
+          lb.querySelector(".cap").textContent = alt;
+          lb.classList.add("open");
+          (lbImg.decode ? lbImg.decode() : Promise.resolve())
+            .catch(function () {})
+            .then(function () {
+              fitView(false);
+            });
+        }
+        function closeLightbox() {
+          lb.classList.remove("open");
+        }
+        document.querySelectorAll(".dg, .phone").forEach(function (fig) {
           fig.addEventListener("click", function () {
             var img = fig.querySelector("img");
-            lb.querySelector("img").src = img.src;
-            lb.querySelector("img").alt = img.alt;
-            lb.classList.add("open");
+            openLightbox(img.src, img.alt);
           });
         });
-        lb.addEventListener("click", function () {
-          lb.classList.remove("open");
+        document.querySelectorAll(".dg-link").forEach(function (b) {
+          b.addEventListener("click", function () {
+            openLightbox(b.dataset.src, b.dataset.alt);
+          });
+        });
+        lb.querySelector(".lb-bar").addEventListener("click", function (e) {
+          var b = e.target.closest("[data-lb]");
+          if (!b) return;
+          var act = b.dataset.lb;
+          if (act === "in") zoomCentre(1.4);
+          else if (act === "out") zoomCentre(1 / 1.4);
+          else if (act === "fit") fitView(true);
+          else closeLightbox();
+        });
+        lb.querySelector(".lb-bar").addEventListener("pointerdown", function (e) {
+          e.stopPropagation();
+        });
+
+        // Scroll pans; pinch (or Ctrl + scroll) zooms at the cursor.
+        lb.addEventListener(
+          "wheel",
+          function (e) {
+            e.preventDefault();
+            if (e.ctrlKey) {
+              zoomAt(Math.exp(-e.deltaY * 0.01), e.clientX, e.clientY, false);
+            } else {
+              var k = e.deltaMode === 1 ? 32 : 1;
+              view.x -= (e.shiftKey ? e.deltaY : e.deltaX) * k;
+              view.y -= (e.shiftKey ? 0 : e.deltaY) * k;
+              clampView();
+              render(false);
+            }
+          },
+          { passive: false },
+        );
+
+        // Drag to pan, two fingers to pinch, a tap on the backdrop closes.
+        var pointers = {};
+        var gesture = null;
+        function pts() {
+          return Object.keys(pointers).map(function (id) {
+            return pointers[id];
+          });
+        }
+        lb.addEventListener("pointerdown", function (e) {
+          lb.setPointerCapture(e.pointerId);
+          pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+          var p = pts();
+          gesture = {
+            moved: false,
+            onSheet: !!e.target.closest(".lb-sheet"),
+            x: e.clientX,
+            y: e.clientY,
+            dist: p.length === 2 ? Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y) : 0,
+          };
+          lb.classList.add("dragging");
+        });
+        lb.addEventListener("pointermove", function (e) {
+          if (!pointers[e.pointerId] || !gesture) return;
+          var prev = pointers[e.pointerId];
+          pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+          var p = pts();
+          if (p.length === 2) {
+            var d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
+            if (gesture.dist) zoomAt(d / gesture.dist, (p[0].x + p[1].x) / 2, (p[0].y + p[1].y) / 2, false);
+            gesture.dist = d;
+            gesture.moved = true;
+            return;
+          }
+          if (Math.hypot(e.clientX - gesture.x, e.clientY - gesture.y) > 4) gesture.moved = true;
+          view.x += e.clientX - prev.x;
+          view.y += e.clientY - prev.y;
+          clampView();
+          render(false);
+        });
+        function endPointer(e) {
+          if (!pointers[e.pointerId]) return;
+          delete pointers[e.pointerId];
+          if (pts().length) return;
+          lb.classList.remove("dragging");
+          if (gesture && !gesture.moved && !gesture.onSheet && e.type === "pointerup") closeLightbox();
+          gesture = null;
+        }
+        lb.addEventListener("pointerup", endPointer);
+        lb.addEventListener("pointercancel", endPointer);
+        lb.addEventListener("dblclick", function (e) {
+          if (e.target.closest(".lb-bar")) return;
+          if (view.s < view.fit * 1.3) zoomAt(Math.max(view.fit * 2.5, 1) / view.s, e.clientX, e.clientY, true);
+          else fitView(true);
+        });
+        addEventListener("resize", function () {
+          if (!lb.classList.contains("open")) return;
+          if (Math.abs(view.s - view.fit) < 0.001) fitView(false);
+          else {
+            clampView();
+            render(false);
+          }
         });
 
         // Slide index
@@ -2827,7 +3244,7 @@
             var col = document.createElement("div");
             var h = document.createElement("h4");
             h.textContent = part === "intro" || part === "outro" ? (part === "intro" ? "Opening" : "Closing") : PARTS[part];
-            h.style.color = getComputedStyle(s).getPropertyValue("--acc");
+            h.style.color = ACCENTS[part] || "var(--c-cyan)";
             col.appendChild(h);
             wrap.appendChild(col);
             groups[part] = col;
@@ -2857,11 +3274,26 @@
           if (e.metaKey || e.ctrlKey || e.altKey) return;
           var k = e.key;
           if (k === "Escape") {
-            lb.classList.remove("open");
+            closeLightbox();
             idx.classList.remove("open");
             return;
           }
-          if (lb.classList.contains("open")) return;
+          if (lb.classList.contains("open")) {
+            var step = 80;
+            if (k === "+" || k === "=") zoomCentre(1.4);
+            else if (k === "-" || k === "_") zoomCentre(1 / 1.4);
+            else if (k === "0") fitView(true);
+            else if (k.indexOf("Arrow") === 0) {
+              e.preventDefault();
+              if (k === "ArrowUp") view.y += step;
+              if (k === "ArrowDown") view.y -= step;
+              if (k === "ArrowLeft") view.x += step;
+              if (k === "ArrowRight") view.x -= step;
+              clampView();
+              render(true);
+            }
+            return;
+          }
           if (k === "o" || k === "O") return toggleIndex();
           if (idx.classList.contains("open")) return;
           if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(k)) {
@@ -2873,6 +3305,7 @@
           } else if (k === "Home") go(0, 0);
           else if (k === "End") go(slides.length - 1, 0);
           else if (k === "f" || k === "F") toggleFs();
+          else if (k === "t" || k === "T") toggleTheme();
         });
 
         // Swipe
@@ -2882,6 +3315,10 @@
         }, { passive: true });
         addEventListener("touchend", function (e) {
           if (sx === null) return;
+          if (lb.classList.contains("open") || idx.classList.contains("open")) {
+            sx = null;
+            return;
+          }
           var dx = e.changedTouches[0].clientX - sx;
           if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
           sx = null;
