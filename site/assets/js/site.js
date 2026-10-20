@@ -964,7 +964,84 @@
     });
   }
 
+  /* --------------------------------------------------------------- roadmap */
+  // A step is completed once its due date has passed (we submit on or before
+  // it); the first step not yet past due is the one in progress.
+  var MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
+  var BOX_STATE = {
+    done: "border-cyan-500 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-navy-900",
+    active: "border-cyan-500 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.2)]",
+    upcoming: "border-navy-700 text-slate-400 group-hover:border-slate-500",
+  };
+  var DIM = ["opacity-60", "hover:opacity-100", "transition-opacity"];
+
+  function isoToday() {
+    var d = new Date();
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+
+  function fmtDate(iso) {
+    var p = iso.split("-");
+    return +p[2] + " " + MONTHS[+p[1] - 1] + " " + p[0];
+  }
+
+  function renderRoadmap() {
+    var root = document.querySelector("[data-roadmap]");
+    if (!root) return;
+    var steps = root.querySelectorAll("[data-due]");
+    var today = isoToday();
+    var activeIdx = steps.length;
+
+    Array.prototype.forEach.call(steps, function (step, i) {
+      var due = step.getAttribute("data-due");
+      var state = due < today ? "done" : activeIdx === steps.length ? "active" : "upcoming";
+      if (state === "active") activeIdx = i;
+
+      var box = step.querySelector("[data-roadmap-box]");
+      Object.keys(BOX_STATE).forEach(function (k) {
+        BOX_STATE[k].split(" ").forEach(function (c) {
+          box.classList.toggle(c, k === state);
+        });
+      });
+      DIM.forEach(function (c) {
+        step.classList.toggle(c, state === "upcoming");
+      });
+
+      var status = step.querySelector("[data-roadmap-status]");
+      var date = fmtDate(due);
+      var weight = step.getAttribute("data-weight");
+      status.classList.toggle("text-cyan-400", state === "active");
+      status.classList.toggle("text-slate-500", state !== "active");
+      ["flex", "items-center", "md:justify-center", "gap-1.5"].forEach(function (c) {
+        status.classList.toggle(c, state === "active");
+      });
+      status.innerHTML =
+        state === "done"
+          ? "Completed &middot; " + date + " &middot; " + weight
+          : state === "active"
+            ? '<span class="w-1.5 h-1.5 bg-cyan-400 animate-pulse"></span> In Progress &middot; due ' +
+              date + " &middot; " + weight
+            : "Due " + date + " &middot; " + weight;
+    });
+
+    // Stretch the cyan line to the centre of the active step (or all the way when done).
+    function fill() {
+      var target = steps[Math.min(activeIdx, steps.length - 1)];
+      var box = target.querySelector("[data-roadmap-box]");
+      var rr = root.getBoundingClientRect();
+      var br = box.getBoundingClientRect();
+      var done = activeIdx === steps.length;
+      var x = root.querySelector('[data-roadmap-fill="x"]');
+      var y = root.querySelector('[data-roadmap-fill="y"]');
+      x.style.width = done ? "100%" : br.left + br.width / 2 - rr.left + "px";
+      y.style.height = done ? "100%" : br.top + br.height / 2 - rr.top + "px";
+    }
+    fill();
+    window.addEventListener("resize", fill);
+  }
+
   renderHeader();
+  renderRoadmap();
   renderViewTabs();
   renderPager();
   renderFooter();
