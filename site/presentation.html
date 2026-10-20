@@ -1,0 +1,2898 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intaliq Presentation</title>
+    <meta
+      name="description"
+      content="Intaliq — SE322 Software Design & Architecture presentation: 4+1 views, quality attributes, client–server style, design patterns and validation."
+    />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#030712" />
+    <link
+      rel="canonical"
+      href="https://software-architecture.shoug-tech.com/presentation.html"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <!--
+      HOW TO UPDATE THIS DECK
+      - Every slide is a <section class="slide"> inside #stage. Add, remove or
+        reorder sections freely; the counter, progress bar and index (press O)
+        are built from them.
+      - data-part groups a slide under a deliverable (intro, d1, d2, d3, d4,
+        outro) and sets its accent colour. data-title is the name shown in the
+        index. The id is used in the URL (presentation.html#scope).
+      - Anything with class "a" animates in when the slide opens, in order.
+      - A slide with data-steps="N" holds N .step-panel blocks (and optional
+        .step-tab buttons); the arrow keys walk through them before moving on.
+      - Deliverable status lives on the roadmap (data-status: done, active,
+        next) and in the coverage matrix (chip classes ok, draft, todo, opt).
+      - Diagrams: <figure class="dg"><img src="assets/diagrams/…"></figure>
+        opens full screen on click.
+      - To export a PDF, open the deck in Chrome and print (Save as PDF); every
+        slide prints on its own 16:9 page.
+    -->
+    <style>
+      :root {
+        --bg: #030712;
+        --panel: #060b13;
+        --panel-2: #0a1220;
+        --line: rgba(0, 240, 255, 0.16);
+        --line-strong: rgba(0, 240, 255, 0.4);
+        --cyan: #00f0ff;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --dim: #64748b;
+        --ok: #34d399;
+        --warn: #fbbf24;
+        --paper: #f8fafc;
+        --acc: var(--cyan);
+        --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      ::selection {
+        background: #155e75;
+        color: #fff;
+      }
+
+      /* ---------- Stage: fixed 1600×900 canvas scaled to fit ---------- */
+      #stage {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1600px;
+        height: 900px;
+        transform-origin: center;
+        overflow: hidden;
+        background: var(--bg);
+        --gx: 20%;
+        --gy: 20%;
+      }
+      #stage::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(0, 240, 255, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 240, 255, 0.045) 1px, transparent 1px),
+          linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+        background-size:
+          80px 80px,
+          80px 80px,
+          16px 16px,
+          16px 16px;
+        mask-image: radial-gradient(
+          ellipse 90% 80% at 50% 50%,
+          #000 40%,
+          transparent 100%
+        );
+      }
+      #glow {
+        position: absolute;
+        width: 1100px;
+        height: 1100px;
+        left: var(--gx);
+        top: var(--gy);
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          circle,
+          color-mix(in srgb, var(--acc) 16%, transparent) 0%,
+          transparent 60%
+        );
+        transition:
+          left 1.4s var(--ease),
+          top 1.4s var(--ease),
+          background 1s;
+        pointer-events: none;
+      }
+
+      /* ---------- Chrome ---------- */
+      .chrome {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 64px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--dim);
+        pointer-events: none;
+      }
+      .chrome.top {
+        top: 0;
+        height: 72px;
+      }
+      .chrome.bottom {
+        bottom: 0;
+        height: 64px;
+      }
+      .chrome button,
+      .chrome a {
+        pointer-events: auto;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: var(--muted);
+      }
+      .brand-mark {
+        width: 26px;
+        height: 26px;
+        border: 1px solid var(--line-strong);
+        display: grid;
+        place-items: center;
+        color: var(--cyan);
+        font-size: 15px;
+      }
+      .brand .sep {
+        width: 28px;
+        height: 1px;
+        background: var(--line-strong);
+      }
+      #partLabel {
+        color: var(--acc);
+        transition: color 0.6s;
+      }
+      .counter {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: none;
+        border: 0;
+        color: var(--muted);
+        font: inherit;
+        letter-spacing: inherit;
+        cursor: pointer;
+        padding: 8px 0;
+      }
+      .counter b {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .counter:hover b {
+        color: var(--cyan);
+      }
+      .nav-btns {
+        display: flex;
+        gap: 8px;
+      }
+      .icon-btn {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        background: rgba(6, 11, 19, 0.7);
+        color: var(--muted);
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.25s;
+      }
+      .icon-btn:hover {
+        color: var(--cyan);
+        border-color: var(--line-strong);
+        box-shadow: 0 0 18px rgba(0, 240, 255, 0.15);
+      }
+      .hint {
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        color: #475569;
+      }
+      .hint kbd {
+        font: inherit;
+        border: 1px solid #1e293b;
+        padding: 1px 6px;
+        margin: 0 2px;
+        color: var(--dim);
+      }
+      #progress {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 100%;
+        z-index: 21;
+        background: rgba(0, 240, 255, 0.06);
+      }
+      #progress i {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, var(--cyan), var(--acc));
+        box-shadow: 0 0 12px var(--acc);
+        transition:
+          width 0.8s var(--ease),
+          background 0.6s;
+      }
+
+      /* ---------- Slides ---------- */
+      .slide {
+        position: absolute;
+        inset: 0;
+        padding: 112px 96px 96px;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(70px) scale(0.985);
+        filter: blur(8px);
+        transition:
+          opacity 0.6s var(--ease),
+          transform 0.9s var(--ease),
+          filter 0.6s var(--ease),
+          visibility 0s 0.6s;
+      }
+      .slide.before {
+        transform: translateX(-70px) scale(0.985);
+      }
+      .slide.active {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        filter: none;
+        transition:
+          opacity 0.6s var(--ease),
+          transform 0.9s var(--ease),
+          filter 0.6s var(--ease),
+          visibility 0s;
+        z-index: 2;
+      }
+      .slide[data-part="intro"],
+      .slide[data-part="outro"],
+      .slide[data-part="d1"] {
+        --acc: #00f0ff;
+      }
+      .slide[data-part="d2"] {
+        --acc: #818cf8;
+      }
+      .slide[data-part="d3"] {
+        --acc: #c084fc;
+      }
+      .slide[data-part="d4"] {
+        --acc: #fbbf24;
+      }
+
+      /* Entrance animation for anything marked .a */
+      .a {
+        opacity: 0;
+      }
+      .slide.active .a,
+      .slide.active .step-panel.on .a {
+        animation: rise 0.75s var(--ease) both;
+        animation-delay: calc(var(--i, 0) * 70ms + 220ms);
+      }
+      .slide.active .a.fade {
+        animation-name: fade;
+      }
+      .slide.active .a.left {
+        animation-name: fromLeft;
+      }
+      .slide.active .a.pop {
+        animation-name: pop;
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(26px);
+          filter: blur(6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes fromLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: scale(0.92);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* Typography */
+      .kicker {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 15px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--acc);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+      .kicker::before {
+        content: "";
+        width: 36px;
+        height: 1px;
+        background: var(--acc);
+        box-shadow: 0 0 8px var(--acc);
+      }
+      h2.title {
+        font-size: 56px;
+        line-height: 1.05;
+        font-weight: 500;
+        letter-spacing: -0.025em;
+        margin: 0 0 18px;
+        color: #f8fafc;
+      }
+      h2.title em {
+        font-style: normal;
+        color: var(--acc);
+      }
+      .lede {
+        font-size: 22px;
+        line-height: 1.55;
+        color: var(--muted);
+        font-weight: 300;
+        max-width: 1080px;
+        margin: 0;
+      }
+      .body {
+        flex: 1;
+        min-height: 0;
+        margin-top: 36px;
+        display: grid;
+        gap: 28px;
+      }
+      .cols-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .dim {
+        color: var(--dim);
+      }
+      .acc {
+        color: var(--acc);
+      }
+
+      /* Cards */
+      .card {
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          rgba(10, 18, 32, 0.92),
+          rgba(6, 11, 19, 0.92)
+        );
+        border: 1px solid var(--line);
+        padding: 26px 28px;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s,
+          transform 0.3s;
+      }
+      .card:hover {
+        border-color: color-mix(in srgb, var(--acc) 50%, transparent);
+        box-shadow: 0 0 28px color-mix(in srgb, var(--acc) 12%, transparent);
+      }
+      .card.bar {
+        border-left: 3px solid var(--acc);
+      }
+      .card::before,
+      .card::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-color: var(--acc);
+        border-style: solid;
+        opacity: 0.6;
+      }
+      .card::before {
+        top: -1px;
+        left: -1px;
+        border-width: 1px 0 0 1px;
+      }
+      .card::after {
+        bottom: -1px;
+        right: -1px;
+        border-width: 0 1px 1px 0;
+      }
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        color: #f1f5f9;
+      }
+      .card p {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.55;
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .card .ico {
+        font-size: 30px;
+        color: var(--acc);
+        margin-bottom: 16px;
+        display: inline-block;
+      }
+      .tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .pill.ok {
+        color: var(--ok);
+        border-color: rgba(52, 211, 153, 0.35);
+        background: rgba(52, 211, 153, 0.06);
+      }
+      .pill.draft,
+      .pill.active {
+        color: var(--warn);
+        border-color: rgba(251, 191, 36, 0.35);
+        background: rgba(251, 191, 36, 0.06);
+      }
+      .pill.todo,
+      .pill.next {
+        color: var(--dim);
+      }
+      .pill.opt {
+        color: #64748b;
+        border-style: dashed;
+      }
+      .pill.active::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+        animation: blink 1.4s ease-in-out infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0.2;
+        }
+      }
+      ul.ticks {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+      }
+      ul.ticks li {
+        display: flex;
+        gap: 12px;
+        font-size: 19px;
+        line-height: 1.5;
+        color: #cbd5e1;
+        font-weight: 300;
+      }
+      ul.ticks li::before {
+        content: "▹";
+        color: var(--acc);
+        flex: none;
+      }
+
+      /* Diagram sheets */
+      .dg {
+        position: relative;
+        margin: 0;
+        background: var(--paper);
+        border: 1px solid var(--line-strong);
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+        cursor: zoom-in;
+        box-shadow:
+          0 0 0 6px rgba(0, 240, 255, 0.04),
+          0 30px 60px -30px rgba(0, 0, 0, 0.8);
+      }
+      .dg img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+        transition: transform 0.6s var(--ease);
+      }
+      .dg:hover img {
+        transform: scale(1.02);
+      }
+      .dg::after {
+        content: "\2922  ZOOM";
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        font: 11px "JetBrains Mono", monospace;
+        letter-spacing: 0.14em;
+        color: #0f172a;
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid #cbd5e1;
+        padding: 4px 8px;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      .dg:hover::after {
+        opacity: 1;
+      }
+      .dg figcaption {
+        position: absolute;
+        left: 0;
+        top: -30px;
+        font: 12px "JetBrains Mono", monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--acc);
+      }
+      .dg::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        top: 0;
+        background: linear-gradient(90deg, transparent, var(--acc), transparent);
+        opacity: 0;
+      }
+      .slide.active .dg::before {
+        animation: scan 1.6s 0.5s var(--ease) both;
+      }
+      @keyframes scan {
+        0% {
+          top: 0;
+          opacity: 0.9;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          top: 100%;
+          opacity: 0;
+        }
+      }
+
+      /* Step tabs */
+      .step-tabs {
+        display: flex;
+        gap: 6px;
+      }
+      .step-tab {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 10px 18px;
+        background: transparent;
+        color: var(--dim);
+        border: 1px solid var(--line);
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s;
+      }
+      .step-tab:hover {
+        color: var(--text);
+      }
+      .step-tab.on {
+        color: var(--bg);
+        background: var(--acc);
+        border-color: var(--acc);
+        box-shadow: 0 0 20px color-mix(in srgb, var(--acc) 35%, transparent);
+      }
+      .step-panel:not(.on) {
+        display: none;
+      }
+
+      /* Section dividers */
+      .divider {
+        justify-content: center;
+      }
+      .divider .num {
+        position: absolute;
+        right: 60px;
+        bottom: 40px;
+        font: 200 440px/1 "JetBrains Mono", monospace;
+        color: transparent;
+        -webkit-text-stroke: 1px color-mix(in srgb, var(--acc) 35%, transparent);
+        letter-spacing: -0.06em;
+        pointer-events: none;
+      }
+      .slide.active.divider .num {
+        animation: numIn 1.4s var(--ease) both;
+      }
+      @keyframes numIn {
+        from {
+          opacity: 0;
+          transform: translateY(80px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .divider h2.title {
+        font-size: 88px;
+        max-width: 1000px;
+      }
+      .divider .meta {
+        display: flex;
+        gap: 14px;
+        margin-top: 28px;
+      }
+      .divider .covers {
+        margin-top: 48px;
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        max-width: 1050px;
+      }
+      .divider .covers div {
+        font-size: 17px;
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .divider .covers b {
+        display: block;
+        font: 500 40px/1.1 "JetBrains Mono", monospace;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+
+      /* SVG helpers */
+      svg text {
+        font-family: "JetBrains Mono", monospace;
+      }
+      .draw {
+        stroke-dasharray: var(--len, 1000);
+        stroke-dashoffset: var(--len, 1000);
+      }
+      .slide.active .draw,
+      .slide.active .step-panel.on .draw {
+        animation: draw 1.4s var(--ease) both;
+        animation-delay: calc(var(--d, 0) * 1ms + 300ms);
+      }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      .flow {
+        stroke-dasharray: 5 9;
+        animation: flow 1.2s linear infinite;
+      }
+      @keyframes flow {
+        to {
+          stroke-dashoffset: -28;
+        }
+      }
+      .spin {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: spin 60s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Lightbox */
+      #lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(3, 7, 18, 0.92);
+        backdrop-filter: blur(6px);
+        display: grid;
+        place-items: center;
+        padding: 40px;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.35s,
+          visibility 0s 0.35s;
+        cursor: zoom-out;
+      }
+      #lightbox.open {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.35s;
+      }
+      #lightbox img {
+        max-width: 100%;
+        max-height: 100%;
+        background: var(--paper);
+        padding: 24px;
+        border: 1px solid var(--line-strong);
+        transform: scale(0.96);
+        transition: transform 0.45s var(--ease);
+      }
+      #lightbox.open img {
+        transform: none;
+      }
+
+      /* Index drawer */
+      #index {
+        position: fixed;
+        inset: 0;
+        z-index: 90;
+        background: rgba(3, 7, 18, 0.85);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.3s,
+          visibility 0s 0.3s;
+        overflow: auto;
+        padding: 64px 16px;
+      }
+      #index.open {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.3s;
+      }
+      #index .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 32px;
+      }
+      #index h4 {
+        font: 12px "JetBrains Mono", monospace;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin: 0 0 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+      #index button {
+        display: flex;
+        gap: 14px;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: 0;
+        padding: 9px 8px;
+        color: var(--muted);
+        font: 15px Inter, sans-serif;
+        cursor: pointer;
+        border-left: 2px solid transparent;
+      }
+      #index button span {
+        font-family: "JetBrains Mono", monospace;
+        color: #475569;
+        width: 24px;
+      }
+      #index button:hover,
+      #index button.cur {
+        color: #fff;
+        background: rgba(0, 240, 255, 0.05);
+        border-left-color: var(--cyan);
+      }
+
+      /* ---------- Slide-specific ---------- */
+      .cover h1 {
+        font-size: 150px;
+        line-height: 0.95;
+        font-weight: 600;
+        letter-spacing: -0.05em;
+        margin: 0 0 24px;
+        background: linear-gradient(100deg, #fff 20%, var(--cyan) 70%, #818cf8);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-size: 200% 100%;
+        animation: sheen 8s ease-in-out infinite alternate;
+      }
+      .slide.active.cover h1.a {
+        animation:
+          rise 0.75s var(--ease) both,
+          sheen 8s ease-in-out infinite alternate;
+        animation-delay: calc(var(--i, 0) * 70ms + 220ms), 0s;
+      }
+      @keyframes sheen {
+        to {
+          background-position: 100% 0;
+        }
+      }
+      .team {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: 10px 36px;
+        justify-content: start;
+        font-size: 17px;
+        color: #cbd5e1;
+        font-weight: 300;
+      }
+      .stat {
+        font: 500 72px/1 "JetBrains Mono", monospace;
+        letter-spacing: -0.04em;
+        color: #fff;
+      }
+      .stat small {
+        font-size: 28px;
+        color: var(--acc);
+      }
+      .meter {
+        height: 10px;
+        background: rgba(148, 163, 184, 0.12);
+        position: relative;
+        overflow: hidden;
+      }
+      .meter i {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0;
+        background: linear-gradient(90deg, var(--acc), #818cf8);
+        box-shadow: 0 0 14px var(--acc);
+        transition: width 1.8s 0.6s var(--ease);
+      }
+      .slide.active .meter i {
+        width: var(--w);
+      }
+
+      /* Roadmap */
+      .road {
+        position: relative;
+        margin-top: 70px;
+        height: 4px;
+        background: rgba(148, 163, 184, 0.14);
+      }
+      .road .fill {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0;
+        background: linear-gradient(90deg, var(--ok), var(--cyan));
+        box-shadow: 0 0 14px var(--cyan);
+        transition: width 2s 0.5s var(--ease);
+      }
+      .road .today {
+        position: absolute;
+        top: -44px;
+        transform: translateX(-50%);
+        font: 12px "JetBrains Mono", monospace;
+        letter-spacing: 0.16em;
+        color: var(--cyan);
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.6s 2s;
+      }
+      .road .today::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 22px;
+        width: 1px;
+        height: 30px;
+        background: var(--cyan);
+      }
+      .slide.active .road .today {
+        opacity: 1;
+      }
+      .road .node {
+        position: absolute;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        transform: translate(-50%, -50%) rotate(45deg);
+        background: var(--bg);
+        border: 2px solid var(--dim);
+      }
+      .road .node.done {
+        border-color: var(--ok);
+        background: var(--ok);
+      }
+      .road .node.active {
+        border-color: var(--warn);
+        box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.6);
+        animation: ping 2s infinite;
+      }
+      @keyframes ping {
+        70% {
+          box-shadow: 0 0 0 16px rgba(251, 191, 36, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(251, 191, 36, 0);
+        }
+      }
+      .milestones {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+        margin-top: 44px;
+      }
+      .milestones .card {
+        padding: 22px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .milestones .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .milestones .w {
+        font: 500 34px "JetBrains Mono", monospace;
+        color: #fff;
+      }
+
+      /* Feature tiles */
+      .tile {
+        padding: 24px;
+      }
+      .tile h3 {
+        font-size: 21px;
+      }
+      .tile p {
+        font-size: 16px;
+      }
+      .tile .tag {
+        position: absolute;
+        right: 18px;
+        top: 20px;
+      }
+
+      /* Data dictionary */
+      .dict .card {
+        padding: 20px 22px;
+      }
+      .dict h3 {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 19px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .dict dl {
+        margin: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px 14px;
+        font-size: 15px;
+        line-height: 1.4;
+      }
+      .dict dt {
+        font-family: "JetBrains Mono", monospace;
+        color: var(--acc);
+        font-size: 14px;
+      }
+      .dict dd {
+        margin: 0;
+        color: var(--muted);
+        font-weight: 300;
+      }
+
+      /* Scenario flow */
+      .flowlist {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        counter-reset: s;
+        position: relative;
+        display: grid;
+        gap: 9px;
+      }
+      .flowlist::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: linear-gradient(var(--acc), transparent);
+      }
+      .flowlist li {
+        counter-increment: s;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        font-size: 18px;
+        color: #cbd5e1;
+        font-weight: 300;
+      }
+      .flowlist li::before {
+        content: counter(s);
+        width: 31px;
+        height: 31px;
+        flex: none;
+        display: grid;
+        place-items: center;
+        font: 13px "JetBrains Mono", monospace;
+        color: var(--acc);
+        background: var(--bg);
+        border: 1px solid var(--acc);
+        position: relative;
+      }
+      .flowlist li.sys::before {
+        border-style: dashed;
+      }
+      .alt {
+        display: grid;
+        gap: 12px;
+      }
+      .alt div {
+        font-size: 17px;
+        line-height: 1.45;
+        color: var(--muted);
+        font-weight: 300;
+        padding: 12px 16px;
+        border: 1px solid var(--line);
+        background: rgba(6, 11, 19, 0.8);
+      }
+      .alt b {
+        color: #f1f5f9;
+        font-weight: 500;
+      }
+
+      /* QA scenario diagram */
+      .qa-diagram {
+        display: grid;
+        grid-template-columns: 230px 1fr 320px 1fr 250px;
+        align-items: center;
+        gap: 0;
+        margin-top: 10px;
+      }
+      .qa-box {
+        border: 1px solid var(--acc);
+        background: rgba(6, 11, 19, 0.95);
+        padding: 20px;
+        position: relative;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: 0 0 30px color-mix(in srgb, var(--acc) 10%, transparent);
+      }
+      .qa-box .tag {
+        color: var(--acc);
+        margin-bottom: 10px;
+      }
+      .qa-box p {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.45;
+        color: #e2e8f0;
+      }
+      .qa-env {
+        border: 1px dashed color-mix(in srgb, var(--acc) 60%, transparent);
+        padding: 46px 18px 18px;
+        position: relative;
+      }
+      .qa-env > .tag {
+        position: absolute;
+        top: 14px;
+        left: 18px;
+      }
+      .qa-env .envtext {
+        font-size: 14px;
+        color: var(--muted);
+        margin: 14px 0 0;
+        line-height: 1.4;
+      }
+      .qa-arrow {
+        position: relative;
+        padding: 0 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+      }
+      .qa-arrow svg {
+        width: 100%;
+        height: 20px;
+        overflow: visible;
+      }
+      .qa-arrow .lbl {
+        font-size: 15px;
+        line-height: 1.45;
+        color: var(--muted);
+        font-weight: 300;
+        text-align: center;
+      }
+      .qa-arrow .lbl .tag {
+        display: block;
+        color: var(--acc);
+        margin-bottom: 6px;
+      }
+      .qa-measure .big {
+        font: 500 54px/1 "JetBrains Mono", monospace;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      /* Coverage matrix */
+      .matrix {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 48px;
+      }
+      .matrix h4 {
+        font: 13px "JetBrains Mono", monospace;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--acc);
+        margin: 18px 0 6px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+      }
+      .matrix h4:first-child {
+        margin-top: 0;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 14px;
+        align-items: center;
+        padding: 8px 6px;
+        border-bottom: 1px solid rgba(0, 240, 255, 0.06);
+        font-size: 16px;
+        color: #cbd5e1;
+        font-weight: 300;
+      }
+      .row button {
+        font: 12px "JetBrains Mono", monospace;
+        color: var(--dim);
+        background: none;
+        border: 0;
+        cursor: pointer;
+        letter-spacing: 0.08em;
+      }
+      .row button:hover {
+        color: var(--cyan);
+      }
+
+      @media print {
+        @page {
+          size: 1600px 900px;
+          margin: 0;
+        }
+        html,
+        body {
+          overflow: visible;
+          height: auto;
+        }
+        #stage {
+          position: static;
+          transform: none !important;
+          height: auto;
+          overflow: visible;
+        }
+        #stage::before,
+        #glow,
+        .chrome,
+        #progress,
+        #index,
+        #lightbox {
+          display: none !important;
+        }
+        .slide {
+          position: relative;
+          height: 900px;
+          opacity: 1 !important;
+          visibility: visible !important;
+          transform: none !important;
+          filter: none !important;
+          break-after: page;
+          background: var(--bg);
+        }
+        .a,
+        .draw {
+          opacity: 1 !important;
+          animation: none !important;
+          stroke-dashoffset: 0 !important;
+        }
+        .meter i {
+          width: var(--w) !important;
+          transition: none;
+        }
+        * {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .slide,
+        .slide.active {
+          transition: opacity 0.3s;
+          transform: none;
+          filter: none;
+        }
+        .slide.active .a,
+        .slide.active .draw {
+          animation-duration: 0.01s !important;
+          animation-delay: 0s !important;
+        }
+        .flow,
+        .spin,
+        .cover h1 {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <div id="glow"></div>
+
+      <header class="chrome top">
+        <div class="brand">
+          <span class="brand-mark"><i class="ph ph-path"></i></span>
+          <span>Intaliq</span><span class="sep"></span
+          ><span id="partLabel">SE322</span>
+        </div>
+        <button class="counter" id="counter" title="Slide index (O)">
+          <i class="ph ph-squares-four"></i>
+          <span><b id="curNum">01</b> / <span id="totNum">01</span></span>
+        </button>
+      </header>
+
+      <!-- ===================== INTRO ===================== -->
+
+      <section
+        class="slide cover"
+        id="title"
+        data-part="intro"
+        data-title="Intaliq"
+      >
+        <svg
+          viewBox="0 0 800 800"
+          style="position: absolute; right: -120px; top: 40px; width: 860px"
+          aria-hidden="true"
+        >
+          <g class="spin" fill="none" stroke="rgba(0,240,255,.13)">
+            <path
+              d="M400 120c160 0 290 110 290 270s-120 300-290 300S110 580 110 410 240 120 400 120Z"
+            />
+            <path
+              d="M400 170c130 0 240 95 240 225s-100 250-240 250-240-100-240-240 110-235 240-235Z"
+            />
+            <path
+              d="M400 220c105 0 190 80 190 180s-80 195-190 195S210 515 210 410s85-190 190-190Z"
+            />
+            <path
+              d="M400 270c75 0 140 60 140 130s-60 145-140 145-140-70-140-140 65-135 140-135Z"
+            />
+            <path
+              d="M400 320c45 0 90 35 90 85s-40 90-90 90-90-45-90-90 45-85 90-85Z"
+            />
+          </g>
+          <path
+            id="route"
+            class="draw"
+            style="--d: 400"
+            d="M90 660C200 620 220 520 300 500s150 40 210-20 20-170 90-210 120-10 150-80"
+            fill="none"
+            stroke="#00f0ff"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <circle r="7" fill="#00f0ff">
+            <animateMotion dur="7s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#route" />
+            </animateMotion>
+          </circle>
+          <circle cx="90" cy="660" r="6" fill="#030712" stroke="#00f0ff" />
+          <circle cx="750" cy="190" r="10" fill="none" stroke="#00f0ff" />
+          <circle cx="750" cy="190" r="4" fill="#00f0ff" />
+        </svg>
+        <div style="margin-top: auto; position: relative; max-width: 900px">
+          <div class="kicker a">
+            SE322 · Software Design &amp; Architecture · Section 1340
+          </div>
+          <h1 class="a">Intaliq</h1>
+          <p class="lede a" style="font-size: 26px">
+            The architecture of an outdoor fitness app for Saudi Arabia,
+            designed with the 4+1 View Model.
+          </p>
+          <div
+            class="a"
+            style="
+              margin-top: 56px;
+              padding-top: 28px;
+              border-top: 1px solid var(--line);
+              display: flex;
+              gap: 72px;
+            "
+          >
+            <div>
+              <div class="tag" style="margin-bottom: 12px">Instructor</div>
+              <div style="font-size: 17px; color: #cbd5e1">
+                Dr. Suad Ramouni
+              </div>
+            </div>
+            <div>
+              <div class="tag" style="margin-bottom: 12px">Prepared by</div>
+              <div class="team">
+                <span>Yara Albugami</span><span>Rose Al Rakan</span
+                ><span>Shoug Alomran</span><span>Fajr Alghofaili</span
+                ><span>Mozoun Almuqrin</span><span>Munira Alfaris</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="roadmap"
+        data-part="intro"
+        data-title="Project roadmap"
+      >
+        <div class="kicker a">Roadmap</div>
+        <h2 class="title a">Four deliverables, <em>one architecture</em></h2>
+        <p class="lede a">
+          Each deliverable builds on the last: the 4+1 views first, then the
+          quality attributes and style that shape them, then the design
+          patterns, and finally a validation pass against the SRS.
+        </p>
+        <!-- Positions are days after 30 Sep 2026, over the 35-day span to 4 Nov. -->
+        <div class="road a fade" id="road" data-start="2026-09-30" data-end="2026-11-04">
+          <div class="fill"></div>
+          <div class="today"></div>
+          <div class="node done" style="left: 0%"></div>
+          <div class="node done" style="left: 28.57%"></div>
+          <div class="node active" style="left: 71.43%"></div>
+          <div class="node" style="left: 100%"></div>
+        </div>
+        <div class="milestones">
+          <div class="card bar a" style="--acc: #00f0ff">
+            <div class="head">
+              <span class="tag">D1 · 30 Sep</span><span class="w">40%</span>
+            </div>
+            <h3>Software Architecture Design</h3>
+            <p>Introduction, goals and constraints, and all five 4+1 views.</p>
+            <span class="pill ok" style="margin-top: auto; align-self: start"
+              ><i class="ph ph-check"></i>Submitted</span
+            >
+          </div>
+          <div class="card bar a" style="--acc: #818cf8">
+            <div class="head">
+              <span class="tag">D2 · 10 Oct</span><span class="w">20%</span>
+            </div>
+            <h3>Architecture Documentation</h3>
+            <p>Four quality attributes, their scenarios, and the style.</p>
+            <span class="pill ok" style="margin-top: auto; align-self: start"
+              ><i class="ph ph-check"></i>Submitted</span
+            >
+          </div>
+          <div class="card bar a" style="--acc: #c084fc">
+            <div class="head">
+              <span class="tag">D3 · 25 Oct</span><span class="w">20%</span>
+            </div>
+            <h3>Software Design Documentation</h3>
+            <p>Three design patterns and the reasons for choosing them.</p>
+            <span class="pill active" style="margin-top: auto; align-self: start"
+              >In progress</span
+            >
+          </div>
+          <div class="card bar a" style="--acc: #fbbf24">
+            <div class="head">
+              <span class="tag">D4 · 4 Nov</span><span class="w">20%</span>
+            </div>
+            <h3>Validation &amp; Presentation</h3>
+            <p>Review every design decision and present the result.</p>
+            <span class="pill next" style="margin-top: auto; align-self: start"
+              >Upcoming</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== D1 ===================== -->
+
+      <section
+        class="slide divider"
+        id="d1"
+        data-part="d1"
+        data-title="Deliverable 1 — SAD"
+      >
+        <div class="num">01</div>
+        <div class="kicker a">Deliverable 1 · 40%</div>
+        <h2 class="title a">Software Architecture <em>Design</em></h2>
+        <div class="meta a">
+          <span class="pill ok"><i class="ph ph-check"></i>Submitted 30 Sep</span
+          ><span class="pill">4+1 View Model</span>
+        </div>
+        <div class="covers">
+          <div class="a"><b>8</b>SAD sections</div>
+          <div class="a"><b>5</b>architectural views</div>
+          <div class="a"><b>11</b>UML diagrams</div>
+          <div class="a"><b>3</b>use-case scenarios</div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="overview"
+        data-part="d1"
+        data-title="1.1 Overview — the problem"
+      >
+        <div class="kicker a">SAD § 1.1 · Overview</div>
+        <h2 class="title a">Getting active outdoors is <em>harder</em> than it should be</h2>
+        <div class="body" style="grid-template-columns: 1.1fr 1fr; margin-top: 30px">
+          <div style="display: grid; gap: 18px; align-content: start">
+            <div class="card bar a left">
+              <i class="ph ph-person-simple-run ico"></i>
+              <h3>Monitoring outdoor activity</h3>
+              <p>Few tools accurately track how active people are outdoors.</p>
+            </div>
+            <div class="card bar a left">
+              <i class="ph ph-users-three ico"></i>
+              <h3>Finding partners</h3>
+              <p>Many struggle to find someone to join their preferred activity.</p>
+            </div>
+            <div class="card bar a left">
+              <i class="ph ph-flag-banner ico"></i>
+              <h3>Joining group sessions</h3>
+              <p>Large, professionally led group events are hard to find in Saudi Arabia.</p>
+            </div>
+          </div>
+          <div class="card a pop" style="padding: 40px; display: flex; flex-direction: column; gap: 36px">
+            <div class="tag acc">Vision 2030 · Quality of Life targets</div>
+            <div>
+              <div class="muted" style="font-size: 18px; margin-bottom: 14px">
+                Population exercising weekly
+              </div>
+              <div style="display: flex; align-items: baseline; gap: 22px">
+                <span class="stat dim" style="font-size: 48px">13%</span>
+                <i class="ph ph-arrow-right acc" style="font-size: 28px"></i>
+                <span class="stat"><span data-count="40">40</span><small>%</small></span>
+              </div>
+              <div class="meter" style="margin-top: 18px"><i style="--w: 40%"></i></div>
+            </div>
+            <div>
+              <div class="muted" style="font-size: 18px; margin-bottom: 14px">
+                Average life expectancy
+              </div>
+              <div style="display: flex; align-items: baseline; gap: 22px">
+                <span class="stat dim" style="font-size: 48px">74</span>
+                <i class="ph ph-arrow-right acc" style="font-size: 28px"></i>
+                <span class="stat"><span data-count="80" data-from="74">80</span><small> yrs</small></span>
+              </div>
+            </div>
+            <p class="muted" style="margin: auto 0 0; font-size: 17px; font-weight: 300; line-height: 1.5">
+              Physical activity is key to reducing chronic disease — Intaliq
+              helps citizens adopt a more active, healthier lifestyle.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="purpose"
+        data-part="d1"
+        data-title="1.2 Purpose"
+      >
+        <div class="kicker a">SAD § 1.2 · Purpose</div>
+        <h2 class="title a">Make running, cycling and hiking <em>accessible</em> and enjoyable</h2>
+        <p class="lede a">
+          Intaliq is a mobile fitness app. Users track daily activity, set
+          goals and join group sessions held daily by a trained team of
+          coaches, through a simple design that makes outdoor activity feel
+          less intimidating.
+        </p>
+        <div class="body cols-3" style="align-content: end">
+          <div class="card a">
+            <div class="stat" style="font-size: 44px; color: var(--acc)">01</div>
+            <h3 style="margin-top: 18px">Easy navigation</h3>
+            <p>Guide users through outdoor activities in Saudi Arabia with an easy-to-use interface.</p>
+          </div>
+          <div class="card a">
+            <div class="stat" style="font-size: 44px; color: var(--acc)">02</div>
+            <h3 style="margin-top: 18px">Accurate tracking</h3>
+            <p>Provide reliable tools for monitoring activity and setting activity goals.</p>
+          </div>
+          <div class="card a">
+            <div class="stat" style="font-size: 44px; color: var(--acc)">03</div>
+            <h3 style="margin-top: 18px">Social connection</h3>
+            <p>Connect people across Saudi Arabia who share an interest in outdoor activity.</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="scope"
+        data-part="d1"
+        data-title="1.3 Scope"
+      >
+        <div class="kicker a">SAD § 1.3 · Scope</div>
+        <h2 class="title a">Eight features, <em>two roles</em></h2>
+        <p class="lede a">
+          A smartphone app that raises the accessibility, motivation and social
+          side of outdoor fitness through tracking, connections and organised
+          sessions.
+        </p>
+        <div class="body cols-4" style="grid-auto-rows: 1fr">
+          <div class="card tile a"><span class="tag">User</span><i class="ph ph-chart-line-up ico"></i><h3>Activity tracking</h3><p>Log daily outdoor activities and track improvement.</p></div>
+          <div class="card tile a"><span class="tag">User</span><i class="ph ph-target ico"></i><h3>Goal setting</h3><p>Set and adjust activity goals to monitor progress.</p></div>
+          <div class="card tile a"><span class="tag">User</span><i class="ph ph-sparkle ico"></i><h3>AI analysis</h3><p>Chat with an AI chatbot for an overview or goal tweaks.</p></div>
+          <div class="card tile a"><span class="tag">User</span><i class="ph ph-handshake ico"></i><h3>Finding partners</h3><p>Chat and pair up with partners to stay motivated.</p></div>
+          <div class="card tile a"><span class="tag">User</span><i class="ph ph-users-three ico"></i><h3>Join group sessions</h3><p>Running, hiking and cycling crews hosted by Intaliq coaches.</p></div>
+          <div class="card tile a"><span class="tag acc">Coach</span><i class="ph ph-calendar-plus ico"></i><h3>Create sessions</h3><p>Create and schedule new group sessions.</p></div>
+          <div class="card tile a"><span class="tag acc">Coach</span><i class="ph ph-user-check ico"></i><h3>Admit members</h3><p>Accept applicants whose goals and level match the session.</p></div>
+          <div class="card tile a"><span class="tag acc">Coach</span><i class="ph ph-megaphone ico"></i><h3>Announce updates</h3><p>Notify members ahead of time about session changes.</p></div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="definitions"
+        data-part="d1"
+        data-title="1.4 Definitions · 1.5 References"
+      >
+        <div class="kicker a">SAD § 1.4 – 1.5 · Definitions &amp; References</div>
+        <h2 class="title a">The data dictionary behind <em>every view</em></h2>
+        <div class="body cols-3 dict" style="margin-top: 22px; grid-template-rows: auto auto auto">
+          <div class="card a">
+            <h3>Session <span class="tag">class</span></h3>
+            <dl>
+              <dt>date</dt><dd>DD/MM/YYYY, realistic</dd>
+              <dt>time</dt><dd>24-hour clock</dd>
+              <dt>location</dt><dd>In KSA, permitted for groups</dd>
+              <dt>capacity</dt><dd>&gt; 1, fits the venue</dd>
+              <dt>intensity</dt><dd>Beginner · Intermediate · Advanced</dd>
+            </dl>
+          </div>
+          <div class="card a">
+            <h3>User <span class="tag">class</span></h3>
+            <dl>
+              <dt>firstName</dt><dd>&lt; 20 characters</dd>
+              <dt>lastName</dt><dd>&lt; 35 characters</dd>
+              <dt>phone</dt><dd>+966 5X-XXX-XXXX or country code</dd>
+              <dt>email</dt><dd>Recognised domain, handle &lt; 64</dd>
+              <dt>password</dt><dd>≥ 8, upper case, number, symbol</dd>
+            </dl>
+          </div>
+          <div class="card a">
+            <h3>Coach <span class="tag">class</span></h3>
+            <dl>
+              <dt>name</dt><dd>First and last &lt; 20 characters</dd>
+              <dt>phone</dt><dd>Same rules as User</dd>
+              <dt>email</dt><dd>Same rules as User</dd>
+              <dt>password</dt><dd>Same rules as User</dd>
+            </dl>
+          </div>
+          <div class="card a">
+            <h3>Goal <span class="tag">class</span></h3>
+            <dl>
+              <dt>type</dt><dd>Hiking · Biking · Running</dd>
+              <dt>targetTime</dt><dd>HH:MM</dd>
+              <dt>calories</dt><dd>&gt; 10 kCal</dd>
+              <dt>deadline</dt><dd>DD/MM/YYYY, not in the past</dd>
+            </dl>
+          </div>
+          <div class="card a">
+            <h3>Partner <span class="tag">class</span></h3>
+            <dl>
+              <dt>location</dt><dd>In KSA, permitted for groups</dd>
+              <dt>goals</dt><dd>One of the three activities</dd>
+              <dt>activities</dt><dd>Hiking · Biking · Running</dd>
+            </dl>
+          </div>
+          <div class="card a">
+            <h3>Activity <span class="tag">class</span></h3>
+            <dl>
+              <dt>type</dt><dd>Hiking · Biking · Running</dd>
+              <dt>duration</dt><dd>5 minutes to 1 day</dd>
+            </dl>
+          </div>
+          <div class="a" style="grid-column: 1 / -1; display: flex; gap: 14px; align-items: center; flex-wrap: wrap">
+            <span class="tag" style="margin-right: 8px">§ 1.5 References</span>
+            <span class="pill">Intaliq Vision &amp; Scope Document</span>
+            <span class="pill">IEEE SRS Template</span>
+            <span class="pill">Intaliq 2.0 SRS · SE311 v1.0</span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="four-plus-one"
+        data-part="d1"
+        data-title="2 Architectural representation"
+      >
+        <div class="kicker a">SAD § 2 · Architectural Representation</div>
+        <h2 class="title a">The <em>4+1</em> View Model</h2>
+        <p class="lede a" style="max-width: 1300px">
+          Philippe Kruchten (1995). Users, coaches and developers each see
+          Intaliq differently, so the architecture is split into four views,
+          tied together by scenarios — the “+1”.
+        </p>
+        <div class="body" style="grid-template-columns: 720px 1fr; align-items: center">
+          <svg viewBox="0 0 720 470" class="a fade" aria-label="4+1 view model diagram">
+            <g stroke="var(--acc)" stroke-width="1.5" fill="none" opacity=".7">
+              <path class="draw" style="--d: 300" d="M210 120 L360 235" />
+              <path class="draw" style="--d: 400" d="M510 120 L360 235" />
+              <path class="draw" style="--d: 500" d="M210 350 L360 235" />
+              <path class="draw" style="--d: 600" d="M510 350 L360 235" />
+            </g>
+            <g font-size="13" text-anchor="middle">
+              <g>
+                <rect x="40" y="50" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
+                <text x="165" y="96" fill="#f1f5f9" font-size="20" font-family="Inter">Logical View</text>
+                <text x="165" y="124" fill="#94a3b8">End users · functionality</text>
+              </g>
+              <g>
+                <rect x="430" y="50" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
+                <text x="555" y="96" fill="#f1f5f9" font-size="20" font-family="Inter">Development View</text>
+                <text x="555" y="124" fill="#94a3b8">Programmers · modules</text>
+              </g>
+              <g>
+                <rect x="40" y="310" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
+                <text x="165" y="356" fill="#f1f5f9" font-size="20" font-family="Inter">Process View</text>
+                <text x="165" y="384" fill="#94a3b8">Integrators · runtime</text>
+              </g>
+              <g>
+                <rect x="430" y="310" width="250" height="110" fill="#060b13" stroke="rgba(0,240,255,.45)" />
+                <text x="555" y="356" fill="#f1f5f9" font-size="20" font-family="Inter">Physical View</text>
+                <text x="555" y="384" fill="#94a3b8">Engineers · topology</text>
+              </g>
+              <circle cx="360" cy="235" r="92" fill="none" stroke="var(--acc)" stroke-opacity=".2">
+                <animate attributeName="r" values="80;100;80" dur="4s" repeatCount="indefinite" />
+                <animate attributeName="stroke-opacity" values=".35;0;.35" dur="4s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="360" cy="235" r="78" fill="#030712" stroke="var(--acc)" stroke-width="2" />
+              <text x="360" y="228" fill="var(--acc)" font-size="22" font-family="Inter" font-weight="600">Scenarios</text>
+              <text x="360" y="256" fill="#94a3b8">User View · “+1”</text>
+            </g>
+          </svg>
+          <div style="display: grid; gap: 14px">
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">+1 · User View</div><p style="margin-top: 6px">Use-case diagram and three scenarios</p></div>
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">Logical</div><p style="margin-top: 6px">Class diagram and five sequence diagrams</p></div>
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">Process</div><p style="margin-top: 6px">Two activity diagrams — user and coach</p></div>
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">Development</div><p style="margin-top: 6px">Component diagram with interfaces</p></div>
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">Physical</div><p style="margin-top: 6px">Deployment diagram — device, server, database, AI</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="goals"
+        data-part="d1"
+        data-title="3 Goals and constraints"
+      >
+        <div class="kicker a">SAD § 3 · Architectural Goals &amp; Constraints</div>
+        <h2 class="title a">What the architecture must <em>protect</em> and <em>respect</em></h2>
+        <div class="body cols-2" style="margin-top: 44px">
+          <div style="display: grid; gap: 18px; align-content: start">
+            <div class="tag a">Goals</div>
+            <div class="card bar a left">
+              <i class="ph ph-device-mobile ico"></i>
+              <h3>Easy-to-use mobile interface</h3>
+              <p>Encourage Saudi citizens to be active and connect through sport, without friction.</p>
+            </div>
+            <div class="card bar a left">
+              <i class="ph ph-lock-key ico"></i>
+              <h3>Protected user accounts</h3>
+              <p>Keep user information safe — its integrity and its confidentiality.</p>
+            </div>
+          </div>
+          <div style="display: grid; gap: 18px; align-content: start">
+            <div class="tag a">Constraints</div>
+            <div class="card a" style="display: flex; gap: 22px; align-items: center">
+              <i class="ph ph-file-js" style="font-size: 44px; color: var(--warn)"></i>
+              <div><h3>Language</h3><p>JavaScript, building on the prototype stack: HTML, CSS, Vite, Supabase, Vercel.</p></div>
+            </div>
+            <div class="card a" style="display: flex; gap: 22px; align-items: center">
+              <i class="ph ph-hourglass-medium" style="font-size: 44px; color: var(--warn)"></i>
+              <div><h3>Time</h3><p>Four fixed milestones between 30 Sep and 4 Nov 2026.</p></div>
+            </div>
+            <div class="card a" style="display: flex; gap: 22px; align-items: center">
+              <i class="ph ph-coins" style="font-size: 44px; color: var(--warn)"></i>
+              <div><h3>Cost</h3><p>Limits the services and hosting the app can rely on.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="user-view"
+        data-part="d1"
+        data-title="4.1 User view — use cases"
+      >
+        <div class="kicker a">SAD § 4.1 · User View · Use-Case Realization</div>
+        <h2 class="title a">Two actors, <em>nine use cases</em></h2>
+        <div class="body" style="grid-template-columns: 520px 1fr; margin-top: 20px">
+          <figure class="dg a pop">
+            <img src="assets/diagrams/use-case-diagram.png" alt="Intaliq use-case diagram with User and Coach actors" />
+          </figure>
+          <div style="display: grid; gap: 22px; align-content: center">
+            <div class="card bar a">
+              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px">
+                <i class="ph ph-user" style="font-size: 28px; color: var(--acc)"></i>
+                <h3 style="margin: 0">User</h3>
+                <span class="pill" style="margin-left: auto">6 use cases</span>
+              </div>
+              <ul class="ticks" style="grid-template-columns: 1fr 1fr">
+                <li>Log in</li><li>Log activity</li><li>Set activity goal</li>
+                <li>Perform AI analysis</li><li>Find partners</li><li>Join group sessions</li>
+              </ul>
+            </div>
+            <div class="card bar a">
+              <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px">
+                <i class="ph ph-whistle" style="font-size: 28px; color: var(--acc)"></i>
+                <h3 style="margin: 0">Coach</h3>
+                <span class="pill" style="margin-left: auto">3 use cases</span>
+              </div>
+              <ul class="ticks" style="grid-template-columns: 1fr 1fr">
+                <li>Create session</li><li>Admit users</li><li>Announce updates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="scenarios"
+        data-part="d1"
+        data-title="4.2 Scenarios"
+        data-steps="3"
+      >
+        <div style="display: flex; justify-content: space-between; align-items: flex-start">
+          <div>
+            <div class="kicker a">SAD § 4.2 · Scenarios</div>
+            <h2 class="title a">Three scenarios, <em>end to end</em></h2>
+          </div>
+          <div class="step-tabs a">
+            <button class="step-tab">Book a session</button>
+            <button class="step-tab">AI Chatbox</button>
+            <button class="step-tab">Activity goal</button>
+          </div>
+        </div>
+
+        <div class="step-panel body" style="grid-template-columns: 360px 1fr 1fr; margin-top: 26px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="card a"><div class="tag acc">Actor</div><p style="margin-top: 6px">User</p></div>
+            <div class="card a"><div class="tag acc">Stimulus</div><p style="margin-top: 6px">User selects and books a session</p></div>
+            <div class="card a"><div class="tag acc">Response</div><p style="margin-top: 6px">Request submitted; user added if the coach accepts, notified if not</p></div>
+          </div>
+          <div>
+            <div class="tag a" style="margin-bottom: 16px">Normal scenario</div>
+            <ol class="flowlist">
+              <li class="a">Open the Intaliq app</li>
+              <li class="a">Log in</li>
+              <li class="a">Browse available group sessions</li>
+              <li class="a">Select a session</li>
+              <li class="a">Review session and coach details</li>
+              <li class="a">Submit a booking request</li>
+              <li class="a sys">Coach reviews the request</li>
+              <li class="a sys">Coach accepts the request</li>
+              <li class="a sys">System confirms and notifies the user</li>
+            </ol>
+          </div>
+          <div>
+            <div class="tag a" style="margin-bottom: 16px">Alternative scenarios</div>
+            <div class="alt">
+              <div class="a"><b>Not logged in</b> → login pop-up</div>
+              <div class="a"><b>Session full</b> → request blocked with a pop-up</div>
+              <div class="a"><b>Coach rejects</b> → user is notified</div>
+              <div class="a"><b>System error</b> → request not completed, user notified</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-panel body" style="grid-template-columns: 360px 1fr 1fr; margin-top: 26px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="card a"><div class="tag acc">Actor</div><p style="margin-top: 6px">User</p></div>
+            <div class="card a"><div class="tag acc">Stimulus</div><p style="margin-top: 6px">User sends a query in the AI chat</p></div>
+            <div class="card a"><div class="tag acc">Response</div><p style="margin-top: 6px">The AI answers and suggests further help</p></div>
+          </div>
+          <div>
+            <div class="tag a" style="margin-bottom: 16px">Normal scenario</div>
+            <ol class="flowlist">
+              <li class="a">Open the Intaliq app</li>
+              <li class="a">Log in</li>
+              <li class="a">Select the “More” tab</li>
+              <li class="a">Select AI Chatbox</li>
+              <li class="a">Pick a suggested prompt or write one</li>
+              <li class="a">Submit the message</li>
+              <li class="a sys">AI coach answers the query</li>
+              <li class="a">User accepts the answer and closes the chat</li>
+            </ol>
+          </div>
+          <div>
+            <div class="tag a" style="margin-bottom: 16px">Alternative scenarios</div>
+            <div class="alt">
+              <div class="a"><b>Not logged in</b> → login pop-up</div>
+              <div class="a"><b>Medical advice requested</b> → chatbox refuses and ends the chat; only specialists should advise</div>
+              <div class="a"><b>System error</b> → chat request not completed, user notified</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-panel body" style="grid-template-columns: 360px 1fr 1fr; margin-top: 26px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="card a"><div class="tag acc">Actor</div><p style="margin-top: 6px">User</p></div>
+            <div class="card a"><div class="tag acc">Stimulus</div><p style="margin-top: 6px">User enters an activity goal</p></div>
+            <div class="card a"><div class="tag acc">Response</div><p style="margin-top: 6px">The system confirms the goal has been saved</p></div>
+          </div>
+          <div>
+            <div class="tag a" style="margin-bottom: 16px">Normal scenario</div>
+            <ol class="flowlist">
+              <li class="a">Open the Intaliq app</li>
+              <li class="a">Log in</li>
+              <li class="a">Select “Activity”</li>
+              <li class="a">Select “Activity Goal”</li>
+              <li class="a">Enter the goal — activity type and target</li>
+              <li class="a">Submit the goal</li>
+              <li class="a sys">System validates and saves the goal</li>
+              <li class="a sys">System confirms it was created</li>
+            </ol>
+          </div>
+          <div>
+            <div class="tag a" style="margin-bottom: 16px">Alternative scenarios</div>
+            <div class="alt">
+              <div class="a"><b>Not logged in</b> → login pop-up</div>
+              <div class="a"><b>Missing field</b> → prompted to complete it</div>
+              <div class="a"><b>Invalid data</b> → error message shown</div>
+              <div class="a"><b>System error</b> → goal is not saved</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="class-diagram"
+        data-part="d1"
+        data-title="5.1 Logical view — class diagram"
+      >
+        <div class="kicker a">SAD § 5.1 · Logical View · Class Diagram</div>
+        <h2 class="title a">Six classes model the <em>domain</em></h2>
+        <div class="body" style="grid-template-columns: 1fr 440px; margin-top: 20px">
+          <figure class="dg a pop">
+            <img src="assets/diagrams/class-diagram.png" alt="Class diagram: Session, User, Coach, Goal, Partner, Activity" />
+          </figure>
+          <div style="display: grid; gap: 14px; align-content: center">
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">Coach → Session</div><p style="margin-top: 6px">creates, admits into, announces</p></div>
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">User → Session</div><p style="margin-top: 6px">books a group session</p></div>
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">User → Goal · Activity</div><p style="margin-top: 6px">sets goals, logs activities</p></div>
+            <div class="card a" style="padding: 18px 22px"><div class="tag acc">User · Coach → Partner</div><p style="margin-top: 6px">find and connect with partners</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="sequence"
+        data-part="d1"
+        data-title="5.2 Logical view — sequence diagrams"
+      >
+        <div class="kicker a">SAD § 5.2 · Logical View · Sequence Diagrams</div>
+        <h2 class="title a">Five interactions, <em>message by message</em></h2>
+        <p class="lede a">Click any diagram to open it full screen.</p>
+        <div class="body" style="grid-template-columns: repeat(5, 1fr); margin-top: 52px; gap: 22px">
+          <figure class="dg a"><figcaption>Log activity</figcaption><img src="assets/diagrams/sequence-log-activity.png" alt="Sequence diagram: logging an activity" /></figure>
+          <figure class="dg a"><figcaption>Set goal</figcaption><img src="assets/diagrams/sequence-set-goal.png" alt="Sequence diagram: setting an activity goal" /></figure>
+          <figure class="dg a"><figcaption>Book session</figcaption><img src="assets/diagrams/sequence-book-session.png" alt="Sequence diagram: booking a group session" /></figure>
+          <figure class="dg a"><figcaption>Create session</figcaption><img src="assets/diagrams/sequence-create-session.png" alt="Sequence diagram: creating a group session" /></figure>
+          <figure class="dg a"><figcaption>Admit members</figcaption><img src="assets/diagrams/sequence-admit-members.png" alt="Sequence diagram: admitting members" /></figure>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="process-view"
+        data-part="d1"
+        data-title="6.1 Process view — activity diagrams"
+      >
+        <div class="kicker a">SAD § 6.1 · Process View · Activity Diagrams</div>
+        <h2 class="title a">How the work <em>flows</em> at runtime</h2>
+        <div class="body cols-2" style="margin-top: 52px">
+          <figure class="dg a pop"><figcaption>Setting an activity goal · User</figcaption><img src="assets/diagrams/activity-set-goal.png" alt="Activity diagram: setting an activity goal" /></figure>
+          <figure class="dg a pop"><figcaption>Admitting members · Coach</figcaption><img src="assets/diagrams/activity-admit-members.png" alt="Activity diagram: admitting members" /></figure>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="development-view"
+        data-part="d1"
+        data-title="7.1 Development view — components"
+      >
+        <div class="kicker a">SAD § 7.1 · Development View · Component Diagram</div>
+        <h2 class="title a">Components and the <em>interfaces</em> between them</h2>
+        <div class="body" style="grid-template-columns: 640px 1fr; margin-top: 20px">
+          <figure class="dg a pop">
+            <img src="assets/diagrams/component-diagram.png" alt="Component diagram: mobile application, backend API, backend components and external services" />
+          </figure>
+          <div style="display: grid; gap: 16px; align-content: center">
+            <div class="card bar a"><h3>Mobile application</h3><p>User &amp; coach screens, plus Offline Sync, which holds actions until the device is back online.</p></div>
+            <div class="card bar a"><h3>Backend API · <span class="mono acc" style="font-size: 18px">IBackendAPI (HTTPS)</span></h3><p>Account &amp; profile, sessions, activities &amp; goals, partner connections, partner chat, AI chatbox and notifications.</p></div>
+            <div class="card bar a"><h3>External services</h3><p>Authentication, cloud database, AI recommendation and push notifications — each behind its own interface.</p></div>
+            <div class="a muted" style="font-size: 16px; font-weight: 300"><i class="ph ph-info acc"></i> Partner Chat is only reachable once a Partner Connection exists.</div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="physical-view"
+        data-part="d1"
+        data-title="8.1 Physical view — deployment"
+      >
+        <div class="kicker a">SAD § 8.1 · Physical View · Deployment Diagram</div>
+        <h2 class="title a">Where the software <em>runs</em></h2>
+        <div class="body" style="grid-template-columns: 470px 1fr; margin-top: 20px">
+          <figure class="dg a pop">
+            <img src="assets/diagrams/deployment-diagram.png" alt="Deployment diagram: smartphone, application server, database, AI service" />
+          </figure>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-content: center">
+            <div class="card a"><i class="ph ph-device-mobile ico"></i><div class="tag">«device»</div><h3 style="margin-top: 6px">User smartphone</h3><p>Runs the Intaliq mobile app: UI, tracking, booking, goals, AI chat.</p></div>
+            <div class="card a"><i class="ph ph-hard-drives ico"></i><div class="tag">«server»</div><h3 style="margin-top: 6px">Application server</h3><p>Intaliq backend: auth, users, activities, goals, sessions, matching.</p></div>
+            <div class="card a"><i class="ph ph-database ico"></i><div class="tag">«database»</div><h3 style="margin-top: 6px">Intaliq database</h3><p>User, coach, activity, goal, session and partner data.</p></div>
+            <div class="card a"><i class="ph ph-sparkle ico"></i><div class="tag">«external service»</div><h3 style="margin-top: 6px">AI service</h3><p>Fitness advice, activity guidance and goal assistance.</p></div>
+            <div class="a" style="grid-column: 1 / -1; display: flex; gap: 12px; flex-wrap: wrap">
+              <span class="pill">Phone → server · HTTPS</span>
+              <span class="pill">Server → DB · connection</span>
+              <span class="pill">Server → AI · API / HTTPS</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== D2 ===================== -->
+
+      <section
+        class="slide divider"
+        id="d2"
+        data-part="d2"
+        data-title="Deliverable 2 — Architecture documentation"
+      >
+        <div class="num">02</div>
+        <div class="kicker a">Deliverable 2 · 20%</div>
+        <h2 class="title a">Architecture <em>Documentation</em></h2>
+        <div class="meta a">
+          <span class="pill ok"><i class="ph ph-check"></i>Submitted 10 Oct</span
+          ><span class="pill">Quality attributes · Style</span>
+        </div>
+        <div class="covers">
+          <div class="a"><b>4</b>quality attributes</div>
+          <div class="a"><b>4</b>measurable scenarios</div>
+          <div class="a"><b>1</b>architectural style</div>
+          <div class="a"><b>4</b>style components</div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="quality-attributes"
+        data-part="d2"
+        data-title="Quality attributes"
+      >
+        <div class="kicker a">D2 § 1 · Quality Attributes</div>
+        <h2 class="title a">The four qualities Intaliq is <em>built around</em></h2>
+        <div class="body cols-4" style="margin-top: 44px">
+          <div class="card bar a" style="display: flex; flex-direction: column">
+            <i class="ph ph-shield-check ico"></i>
+            <h3>Security</h3>
+            <p>Accounts, logs and personal goals are private. Every user and coach is authenticated and limited to their own functions.</p>
+            <div style="margin-top: auto; padding-top: 24px"><div class="stat"><span data-count="100">100</span><small>%</small></div><div class="tag" style="margin-top: 8px">unauthorised attempts rejected</div></div>
+          </div>
+          <div class="card bar a" style="display: flex; flex-direction: column">
+            <i class="ph ph-cloud-check ico"></i>
+            <h3>Availability</h3>
+            <p>Users rely on the app to track, book and connect. Failures are reported, and Offline Sync holds actions until reconnection.</p>
+            <div style="margin-top: auto; padding-top: 24px"><div class="stat"><span data-count="100">100</span><small>%</small></div><div class="tag" style="margin-top: 8px">queued activities synced</div></div>
+          </div>
+          <div class="card bar a" style="display: flex; flex-direction: column">
+            <i class="ph ph-gauge ico"></i>
+            <h3>Performance</h3>
+            <p>Checking sessions, logging activity and recording goals should happen without noticeable delay.</p>
+            <div style="margin-top: auto; padding-top: 24px"><div class="stat"><span data-count="95">95</span><small>% &lt; 3s</small></div><div class="tag" style="margin-top: 8px">session-list requests</div></div>
+          </div>
+          <div class="card bar a" style="display: flex; flex-direction: column">
+            <i class="ph ph-hand-tap ico"></i>
+            <h3>Usability</h3>
+            <p>The goal is motivation: every feature is reachable without complex steps, with alerts confirming each action.</p>
+            <div style="margin-top: auto; padding-top: 24px"><div class="stat"><span data-count="90">90</span><small>%</small></div><div class="tag" style="margin-top: 8px">first-time users succeed unaided</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="qa-scenarios"
+        data-part="d2"
+        data-title="Quality attribute scenarios"
+        data-steps="4"
+      >
+        <div style="display: flex; justify-content: space-between; align-items: flex-start">
+          <div>
+            <div class="kicker a">D2 § 2 · Quality Attribute Scenarios</div>
+            <h2 class="title a">Each quality, <em>made testable</em></h2>
+          </div>
+          <div class="step-tabs a">
+            <button class="step-tab">Security</button>
+            <button class="step-tab">Availability</button>
+            <button class="step-tab">Performance</button>
+            <button class="step-tab">Usability</button>
+          </div>
+        </div>
+
+        <!-- One panel per scenario: Source → Stimulus → [Environment: Artifact] → Response → Measure -->
+        <div class="step-panel" style="margin-top: 80px">
+          <div class="qa-diagram">
+            <div class="qa-box a left"><div class="tag">Source</div><p>An unauthorised user</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Stimulus</span>Tries to open another user's fitness data without authenticating</div></div>
+            <div class="qa-env a pop"><span class="tag">Environment</span><div class="qa-box"><div class="tag">Artifact</div><p>Authentication &amp; authorization component</p></div><p class="envtext">Normal system operation</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Response</span>Verifies identity and permissions, then denies access</div></div>
+            <div class="qa-box qa-measure a"><div class="tag">Response measure</div><div class="big">100%</div><p style="font-size: 15px">of unauthorised attempts in the security test cases rejected</p></div>
+          </div>
+        </div>
+
+        <div class="step-panel" style="margin-top: 80px">
+          <div class="qa-diagram">
+            <div class="qa-box a left"><div class="tag">Source</div><p>A user whose internet connection fails</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Stimulus</span>Tries to log an activity while offline</div></div>
+            <div class="qa-env a pop"><span class="tag">Environment</span><div class="qa-box"><div class="tag">Artifact</div><p>Mobile app &amp; Offline Sync component</p></div><p class="envtext">App running without internet access</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Response</span>Stores the activity locally and syncs it once back online</div></div>
+            <div class="qa-box qa-measure a"><div class="tag">Response measure</div><div class="big">100%</div><p style="font-size: 15px">of queued test activities sync after reconnecting, with no data loss</p></div>
+          </div>
+        </div>
+
+        <div class="step-panel" style="margin-top: 80px">
+          <div class="qa-diagram">
+            <div class="qa-box a left"><div class="tag">Source</div><p>An authenticated user</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Stimulus</span>Asks to view available group sessions</div></div>
+            <div class="qa-env a pop"><span class="tag">Environment</span><div class="qa-box"><div class="tag">Artifact</div><p>Mobile app, backend API &amp; database</p></div><p class="envtext">Normal operation, active connection</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Response</span>Retrieves the sessions and displays their details</div></div>
+            <div class="qa-box qa-measure a"><div class="tag">Response measure</div><div class="big">95% · 3s</div><p style="font-size: 15px">of session-list requests complete within 3 s under normal load</p></div>
+          </div>
+        </div>
+
+        <div class="step-panel" style="margin-top: 80px">
+          <div class="qa-diagram">
+            <div class="qa-box a left"><div class="tag">Source</div><p>A new Intaliq user</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Stimulus</span>Tries to create a personal fitness goal</div></div>
+            <div class="qa-env a pop"><span class="tag">Environment</span><div class="qa-box"><div class="tag">Artifact</div><p>Mobile app user interface</p></div><p class="envtext">Normal app operation</p></div>
+            <div class="qa-arrow a fade"><svg viewBox="0 0 200 20" preserveAspectRatio="none"><path class="flow" d="M0 10H190" stroke="var(--acc)" stroke-width="2" /><path d="M186 4l10 6-10 6" fill="none" stroke="var(--acc)" stroke-width="2" /></svg><div class="lbl"><span class="tag">Response</span>Guides activity choice, goal entry and saving, then confirms</div></div>
+            <div class="qa-box qa-measure a"><div class="tag">Response measure</div><div class="big">≥ 90%</div><p style="font-size: 15px">of first-time test users create a goal without assistance</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="style"
+        data-part="d2"
+        data-title="Architectural style — client–server"
+      >
+        <div class="kicker a">D2 § 3.1 · 3.3 · Architectural Style</div>
+        <h2 class="title a"><em>Client–server</em>, with a central backend</h2>
+        <p class="lede a">
+          The mobile app is the client. One backend handles authentication,
+          business logic and every call to the database and the AI service.
+        </p>
+        <div class="body" style="margin-top: 24px">
+          <svg viewBox="0 0 1400 470" class="a fade" aria-label="Client–server topology of Intaliq">
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0L10 5L0 10z" fill="#818cf8" />
+              </marker>
+            </defs>
+            <!-- links -->
+            <path id="l1" d="M330 235H560" stroke="#818cf8" stroke-width="2" fill="none" class="draw" style="--d: 500" marker-end="url(#ah)" />
+            <path id="l2" d="M900 200C980 200 990 110 1060 110" stroke="#818cf8" stroke-width="2" fill="none" class="draw" style="--d: 800" marker-end="url(#ah)" />
+            <path id="l3" d="M900 270C980 270 990 360 1060 360" stroke="#818cf8" stroke-width="2" fill="none" class="draw" style="--d: 900" marker-end="url(#ah)" />
+            <path d="M330 235H560" stroke="#818cf8" stroke-opacity=".35" stroke-width="2" fill="none" class="flow" />
+            <text x="445" y="220" fill="#94a3b8" font-size="15" text-anchor="middle">HTTPS</text>
+            <text x="915" y="96" fill="#94a3b8" font-size="15">DB connection</text>
+            <text x="915" y="400" fill="#94a3b8" font-size="15">API · HTTPS</text>
+            <!-- packets -->
+            <circle r="6" fill="#00f0ff"><animateMotion dur="2.4s" repeatCount="indefinite" path="M330 235H560" /></circle>
+            <circle r="6" fill="#c084fc"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear" path="M330 235H560" /></circle>
+            <circle r="5" fill="#00f0ff"><animateMotion dur="3s" begin=".6s" repeatCount="indefinite"><mpath href="#l2" /></animateMotion></circle>
+            <circle r="5" fill="#00f0ff"><animateMotion dur="3s" begin="1.8s" repeatCount="indefinite"><mpath href="#l3" /></animateMotion></circle>
+            <!-- client -->
+            <g>
+              <rect x="120" y="80" width="210" height="310" rx="30" fill="#060b13" stroke="#818cf8" stroke-width="2" />
+              <rect x="190" y="96" width="70" height="8" rx="4" fill="#1e293b" />
+              <text x="225" y="150" fill="#818cf8" font-size="13" text-anchor="middle">CLIENT</text>
+              <text x="225" y="180" fill="#f1f5f9" font-size="19" font-family="Inter" text-anchor="middle">Intaliq</text>
+              <text x="225" y="204" fill="#f1f5f9" font-size="19" font-family="Inter" text-anchor="middle">Mobile App</text>
+              <g font-size="13" fill="#94a3b8" text-anchor="middle">
+                <text x="225" y="250">Activity logging</text>
+                <text x="225" y="274">Goals · Booking</text>
+                <text x="225" y="298">Partners · AI chat</text>
+                <text x="225" y="340" fill="#00f0ff">⟳ Offline Sync</text>
+              </g>
+            </g>
+            <!-- server -->
+            <g>
+              <rect x="570" y="40" width="330" height="390" fill="#060b13" stroke="#818cf8" stroke-width="2" />
+              <text x="735" y="76" fill="#818cf8" font-size="13" text-anchor="middle">APPLICATION SERVER</text>
+              <text x="735" y="106" fill="#f1f5f9" font-size="22" font-family="Inter" text-anchor="middle">Intaliq Backend</text>
+              <g font-size="14" fill="#cbd5e1">
+                <rect x="596" y="130" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="153">Authentication &amp; authorization</text>
+                <rect x="596" y="172" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="195">User management</text>
+                <rect x="596" y="214" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="237">Activity &amp; goal management</text>
+                <rect x="596" y="256" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="279">Session management</text>
+                <rect x="596" y="298" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="321">Partner matching</text>
+                <rect x="596" y="340" width="278" height="36" fill="rgba(129,140,248,.08)" stroke="rgba(129,140,248,.3)" /><text x="612" y="363">AI Chatbox integration</text>
+              </g>
+            </g>
+            <!-- db -->
+            <g>
+              <ellipse cx="1170" cy="50" rx="100" ry="18" fill="#0a1220" stroke="#818cf8" stroke-width="2" />
+              <path d="M1070 50V170c0 10 45 18 100 18s100-8 100-18V50" fill="#060b13" stroke="#818cf8" stroke-width="2" />
+              <ellipse cx="1170" cy="50" rx="100" ry="18" fill="#0a1220" stroke="#818cf8" stroke-width="2" />
+              <text x="1170" y="100" fill="#818cf8" font-size="13" text-anchor="middle">DATABASE</text>
+              <text x="1170" y="128" fill="#f1f5f9" font-size="18" font-family="Inter" text-anchor="middle">Intaliq DB</text>
+              <text x="1170" y="154" fill="#94a3b8" font-size="12" text-anchor="middle">users · sessions · goals …</text>
+            </g>
+            <!-- ai -->
+            <g>
+              <rect x="1070" y="300" width="200" height="120" fill="#060b13" stroke="#818cf8" stroke-width="2" stroke-dasharray="6 5" />
+              <text x="1170" y="336" fill="#818cf8" font-size="13" text-anchor="middle">EXTERNAL</text>
+              <text x="1170" y="364" fill="#f1f5f9" font-size="18" font-family="Inter" text-anchor="middle">AI Service</text>
+              <text x="1170" y="390" fill="#94a3b8" font-size="12" text-anchor="middle">fitness tips · Q&amp;A</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="style-why"
+        data-part="d2"
+        data-title="Why client–server · communication"
+      >
+        <div class="kicker a">D2 § 3.2 · 3.3 · Justification &amp; Communication</div>
+        <h2 class="title a">Why this style <em>fits</em> Intaliq</h2>
+        <div class="body" style="grid-template-columns: 1fr 1fr; margin-top: 36px; gap: 56px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="card a left" style="padding: 18px 22px; display: flex; gap: 18px"><i class="ph ph-database" style="font-size: 26px; color: var(--acc)"></i><div><h3 style="font-size: 20px; margin-bottom: 4px">Data centralization</h3><p style="font-size: 16px">Users, actions, goals and sessions controlled through one backend and database.</p></div></div>
+            <div class="card a left" style="padding: 18px 22px; display: flex; gap: 18px"><i class="ph ph-shield-check" style="font-size: 26px; color: var(--acc)"></i><div><h3 style="font-size: 20px; margin-bottom: 4px">Security</h3><p style="font-size: 16px">Authentication and authorization enforced on the server.</p></div></div>
+            <div class="card a left" style="padding: 18px 22px; display: flex; gap: 18px"><i class="ph ph-wrench" style="font-size: 26px; color: var(--acc)"></i><div><h3 style="font-size: 20px; margin-bottom: 4px">Maintainability</h3><p style="font-size: 16px">App and backend evolve independently.</p></div></div>
+            <div class="card a left" style="padding: 18px 22px; display: flex; gap: 18px"><i class="ph ph-lightning" style="font-size: 26px; color: var(--acc)"></i><div><h3 style="font-size: 20px; margin-bottom: 4px">Performance</h3><p style="font-size: 16px">Heavy processing stays on the server; the app focuses on the user.</p></div></div>
+            <div class="card a left" style="padding: 18px 22px; display: flex; gap: 18px"><i class="ph ph-plugs-connected" style="font-size: 26px; color: var(--acc)"></i><div><h3 style="font-size: 20px; margin-bottom: 4px">Integration</h3><p style="font-size: 16px">Clean exchange with third-party services such as the AI chatbox.</p></div></div>
+          </div>
+          <div>
+            <div class="tag a" style="margin-bottom: 18px">Communication process</div>
+            <ol class="flowlist" style="gap: 20px">
+              <li class="a">User performs an action in the mobile app</li>
+              <li class="a">App sends the request to the backend over HTTPS</li>
+              <li class="a sys">Backend authenticates and processes it</li>
+              <li class="a sys">Backend calls the database or AI service if needed</li>
+              <li class="a sys">Backend returns the outcome to the app</li>
+              <li class="a">App shows the result to the user</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== D3 ===================== -->
+
+      <section
+        class="slide divider"
+        id="d3"
+        data-part="d3"
+        data-title="Deliverable 3 — Design patterns"
+      >
+        <div class="num">03</div>
+        <div class="kicker a">Deliverable 3 · 20%</div>
+        <h2 class="title a">Software Design <em>Documentation</em></h2>
+        <div class="meta a">
+          <span class="pill active">In progress · due 25 Oct</span
+          ><span class="pill">Design patterns</span>
+        </div>
+        <div class="covers">
+          <div class="a"><b>3</b>design patterns</div>
+          <div class="a"><b>2</b>behavioural</div>
+          <div class="a"><b>1</b>structural / data access</div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="patterns"
+        data-part="d3"
+        data-title="Design patterns at a glance"
+      >
+        <div class="kicker a">SDD · Selected Patterns</div>
+        <h2 class="title a">Three patterns carry <em>most of the design</em></h2>
+        <div class="body cols-3" style="margin-top: 44px; align-items: start">
+          <div class="card bar a" style="display: flex; flex-direction: column; gap: 12px">
+            <span class="tag">DP-01 · Behavioural</span>
+            <h3 style="font-size: 34px">Observer</h3>
+            <p>Keeps session members informed when a coach acts.</p>
+            <div style="margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 20px"><span class="pill">Announcements</span><span class="pill">Notifications</span></div>
+          </div>
+          <div class="card bar a" style="display: flex; flex-direction: column; gap: 12px">
+            <span class="tag">DP-02 · Structural / data access</span>
+            <h3 style="font-size: 34px">Repository</h3>
+            <p>Puts every read and write to Supabase — and the offline queue — behind one interface.</p>
+            <div style="margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 20px"><span class="pill">Availability</span><span class="pill">Testability</span></div>
+          </div>
+          <div class="card bar a" style="display: flex; flex-direction: column; gap: 12px">
+            <span class="tag">DP-03 · Behavioural</span>
+            <h3 style="font-size: 34px">State</h3>
+            <p>Governs the life cycle of a booking request: pending, accepted, rejected, cancelled.</p>
+            <div style="margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 20px"><span class="pill">Booking</span><span class="pill">Admission</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="observer"
+        data-part="d3"
+        data-title="DP-01 Observer"
+      >
+        <div class="kicker a">DP-01 · Observer · Behavioural</div>
+        <h2 class="title a">One coach action, <em>every member</em> informed</h2>
+        <div class="body" style="grid-template-columns: 560px 1fr; margin-top: 30px; gap: 56px">
+          <div style="display: grid; gap: 16px; align-content: start">
+            <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">Announcements and admissions must reach the member list, push, email and open screens at once. Calling each directly ties session code to every consumer.</p></div>
+            <div class="card a"><div class="tag acc">Why Observer</div><p style="margin-top: 8px">The session publishes one event; subscribers react. Announcements reach all members (FR-07) and new reactions need no change to the publisher.</p></div>
+            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px"><span class="mono acc" style="font-size: 15px">announcementPosted · memberAdmitted · requestRejected</span></p></div>
+          </div>
+          <svg viewBox="0 0 760 500" class="a fade" aria-label="Observer structure">
+            <rect x="20" y="190" width="230" height="120" fill="#060b13" stroke="#c084fc" stroke-width="2" />
+            <text x="135" y="225" fill="#c084fc" font-size="13" text-anchor="middle">«subject»</text>
+            <text x="135" y="256" fill="#f1f5f9" font-size="22" font-family="Inter" text-anchor="middle">Session</text>
+            <text x="135" y="286" fill="#94a3b8" font-size="13" text-anchor="middle">notify(event)</text>
+            <g fill="none" stroke="#c084fc" stroke-width="1.5">
+              <path id="o1" class="draw" style="--d: 400" d="M250 230C380 230 380 90 480 90" />
+              <path id="o2" class="draw" style="--d: 550" d="M250 250H480" />
+              <path id="o3" class="draw" style="--d: 700" d="M250 270C380 270 380 410 480 410" />
+            </g>
+            <g fill="#c084fc">
+              <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o1" /></animateMotion></circle>
+              <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o2" /></animateMotion></circle>
+              <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o3" /></animateMotion></circle>
+            </g>
+            <g font-size="13">
+              <rect x="480" y="40" width="260" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
+              <text x="500" y="72" fill="#c084fc">«observer»</text>
+              <text x="500" y="102" fill="#f1f5f9" font-size="19" font-family="Inter">Push notification</text>
+              <text x="500" y="124" fill="#94a3b8">adapter · SI-4</text>
+              <rect x="480" y="200" width="260" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
+              <text x="500" y="232" fill="#c084fc">«observer»</text>
+              <text x="500" y="262" fill="#f1f5f9" font-size="19" font-family="Inter">Email adapter</text>
+              <text x="500" y="284" fill="#94a3b8">CI-3</text>
+              <rect x="480" y="360" width="260" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
+              <text x="500" y="392" fill="#c084fc">«observer»</text>
+              <text x="500" y="422" fill="#f1f5f9" font-size="19" font-family="Inter">Session screens</text>
+              <text x="500" y="444" fill="#94a3b8">refresh members · feed</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="repository"
+        data-part="d3"
+        data-title="DP-02 Repository"
+      >
+        <div class="kicker a">DP-02 · Repository · Structural / Data Access</div>
+        <h2 class="title a">One door to the data, <em>online or offline</em></h2>
+        <div class="body" style="grid-template-columns: 560px 1fr; margin-top: 30px; gap: 56px">
+          <div style="display: grid; gap: 16px; align-content: start">
+            <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">All data lives in Supabase and unsent actions must sync later. Scattering database calls through screens duplicates the offline logic and blocks testing.</p></div>
+            <div class="card a"><div class="tag acc">Why Repository</div><p style="margin-top: 8px">Each entity gets one read/write interface that hides whether data comes from the local store or the network — so no activity log is lost after reconnecting.</p></div>
+            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px"><span class="mono acc" style="font-size: 15px">SessionRepository · ActivityRepository · GoalRepository · PartnerRepository</span></p></div>
+          </div>
+          <svg viewBox="0 0 760 500" class="a fade" aria-label="Repository structure">
+            <g font-size="13" fill="#94a3b8">
+              <rect x="10" y="60" width="170" height="380" fill="#060b13" stroke="rgba(192,132,252,.35)" />
+              <text x="95" y="92" text-anchor="middle" fill="#c084fc">FEATURES</text>
+              <text x="95" y="150" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Sessions</text>
+              <text x="95" y="220" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Activities</text>
+              <text x="95" y="290" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Goals</text>
+              <text x="95" y="360" text-anchor="middle" fill="#f1f5f9" font-size="16" font-family="Inter">Partners</text>
+            </g>
+            <path class="draw" style="--d: 400" d="M180 250H260" stroke="#c084fc" stroke-width="2" fill="none" />
+            <rect x="260" y="170" width="200" height="160" fill="#0a1220" stroke="#c084fc" stroke-width="2" />
+            <text x="360" y="210" fill="#c084fc" font-size="13" text-anchor="middle">«interface»</text>
+            <text x="360" y="244" fill="#f1f5f9" font-size="21" font-family="Inter" text-anchor="middle">Repository</text>
+            <text x="360" y="274" fill="#94a3b8" font-size="13" text-anchor="middle">get · save · list</text>
+            <text x="360" y="300" fill="#94a3b8" font-size="13" text-anchor="middle">returns domain entities</text>
+            <path id="r1" class="draw" style="--d: 600" d="M460 220C540 220 540 110 600 110" stroke="#c084fc" stroke-width="2" fill="none" />
+            <path id="r2" class="draw" style="--d: 700" d="M460 280C540 280 540 390 600 390" stroke="#c084fc" stroke-width="2" fill="none" stroke-dasharray="6 5" />
+            <text x="604" y="180" fill="#94a3b8" font-size="12">online</text>
+            <text x="604" y="330" fill="#94a3b8" font-size="12">offline</text>
+            <rect x="600" y="60" width="150" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
+            <text x="675" y="100" fill="#f1f5f9" font-size="17" font-family="Inter" text-anchor="middle">Supabase</text>
+            <text x="675" y="124" fill="#94a3b8" font-size="12" text-anchor="middle">client · SI-1</text>
+            <rect x="600" y="340" width="150" height="100" fill="#060b13" stroke="rgba(192,132,252,.5)" />
+            <text x="675" y="380" fill="#f1f5f9" font-size="17" font-family="Inter" text-anchor="middle">Sync queue</text>
+            <text x="675" y="404" fill="#94a3b8" font-size="12" text-anchor="middle">local store · CI-4/5</text>
+            <path id="r3" d="M675 340V160" stroke="#c084fc" stroke-width="1.5" fill="none" class="flow" />
+            <text x="664" y="255" fill="#c084fc" font-size="12" text-anchor="end">sync on reconnect</text>
+            <circle r="5" fill="#c084fc"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#r1" /></animateMotion></circle>
+            <circle r="5" fill="#c084fc"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite"><mpath href="#r2" /></animateMotion></circle>
+          </svg>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="state"
+        data-part="d3"
+        data-title="DP-03 State"
+      >
+        <div class="kicker a">DP-03 · State · Behavioural</div>
+        <h2 class="title a">Booking rules that <em>can't be bypassed</em></h2>
+        <div class="body" style="grid-template-columns: 560px 1fr; margin-top: 30px; gap: 56px">
+          <div style="display: grid; gap: 16px; align-content: start">
+            <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">A join request is submitted, reviewed, then accepted, rejected or blocked (FR-01, FR-06). Flags and nested conditions make invalid moves — like admitting into a full session — easy.</p></div>
+            <div class="card a"><div class="tag acc">Why State</div><p style="margin-top: 8px">Each stage is an object that decides which actions are allowed and what comes next. The SRS rules live in one place and match the Process View.</p></div>
+            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px">Pending checks capacity and fitness level before moving to Accepted and raising the notification event.</p></div>
+          </div>
+          <svg viewBox="0 0 760 500" class="a fade" aria-label="Booking request state machine">
+            <defs>
+              <marker id="sh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0 0L10 5L0 10z" fill="#c084fc" />
+              </marker>
+            </defs>
+            <circle cx="60" cy="250" r="12" fill="#c084fc" />
+            <path class="draw" style="--d: 300" d="M72 250H170" stroke="#c084fc" stroke-width="2" fill="none" marker-end="url(#sh)" />
+            <text x="120" y="238" fill="#94a3b8" font-size="12" text-anchor="middle">submit</text>
+            <rect x="172" y="200" width="190" height="100" rx="18" fill="#0a1220" stroke="#c084fc" stroke-width="2.5" />
+            <text x="267" y="246" fill="#f1f5f9" font-size="22" font-family="Inter" text-anchor="middle">Pending</text>
+            <text x="267" y="272" fill="#94a3b8" font-size="12" text-anchor="middle">coach reviews</text>
+            <g fill="none" stroke="#c084fc" stroke-width="2">
+              <path class="draw" style="--d: 600" d="M362 225C450 225 450 90 528 90" marker-end="url(#sh)" />
+              <path class="draw" style="--d: 750" d="M362 250H528" marker-end="url(#sh)" />
+              <path class="draw" style="--d: 900" d="M362 275C450 275 450 410 528 410" marker-end="url(#sh)" />
+            </g>
+            <g font-size="12" fill="#94a3b8">
+              <text x="420" y="132">accept</text>
+              <text x="420" y="242">reject · full</text>
+              <text x="410" y="396">cancel</text>
+            </g>
+            <g font-family="Inter" font-size="20" text-anchor="middle">
+              <rect x="530" y="45" width="190" height="90" rx="18" fill="#060b13" stroke="#34d399" stroke-width="2" />
+              <text x="625" y="97" fill="#34d399">Accepted</text>
+              <rect x="530" y="205" width="190" height="90" rx="18" fill="#060b13" stroke="#f87171" stroke-width="2" />
+              <text x="625" y="257" fill="#f87171">Rejected</text>
+              <rect x="530" y="365" width="190" height="90" rx="18" fill="#060b13" stroke="#64748b" stroke-width="2" />
+              <text x="625" y="417" fill="#94a3b8">Cancelled</text>
+            </g>
+            <g font-size="11" fill="#64748b" text-anchor="middle">
+              <text x="625" y="160" fill="#c084fc">[capacity ok ∧ level match]</text>
+              <text x="625" y="180">→ notify via Observer</text>
+            </g>
+            <circle r="7" fill="#c084fc">
+              <animateMotion dur="4s" repeatCount="indefinite" path="M60 250H267" />
+              <animate attributeName="opacity" values="0;1;1;0" dur="4s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ===================== D4 ===================== -->
+
+      <section
+        class="slide divider"
+        id="d4"
+        data-part="d4"
+        data-title="Deliverable 4 — Validation"
+      >
+        <div class="num">04</div>
+        <div class="kicker a">Deliverable 4 · 20%</div>
+        <h2 class="title a">Validation &amp; <em>Presentation</em></h2>
+        <div class="meta a">
+          <span class="pill next">Due 4 Nov</span
+          ><span class="pill">Review every design decision</span>
+        </div>
+        <div class="covers">
+          <div class="a"><b>SRS</b>traced to every view</div>
+          <div class="a"><b>SE365</b>usability findings applied</div>
+          <div class="a"><b>16</b>course requirements checked</div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="coverage"
+        data-part="d4"
+        data-title="Requirements coverage"
+      >
+        <div class="kicker a">Validation · Requirements Coverage</div>
+        <h2 class="title a">Does the design meet <em>every requirement?</em></h2>
+        <div class="body matrix" style="margin-top: 22px; align-content: start">
+          <div>
+            <h4 class="a">D1 · SAD outline <span>4+1</span></h4>
+            <div class="row a"><span>1 · Introduction (overview → references)</span><span class="pill ok">Covered</span><button data-goto="overview">→</button></div>
+            <div class="row a"><span>2 · Architectural representation</span><span class="pill ok">Covered</span><button data-goto="four-plus-one">→</button></div>
+            <div class="row a"><span>3 · Goals &amp; constraints</span><span class="pill ok">Covered</span><button data-goto="goals">→</button></div>
+            <div class="row a"><span>4 · User view — use cases + ≥ 3 scenarios</span><span class="pill ok">3 of 3</span><button data-goto="scenarios">→</button></div>
+            <div class="row a"><span>5a · Class diagram</span><span class="pill ok">Covered</span><button data-goto="class-diagram">→</button></div>
+            <div class="row a"><span>5b · Collaboration diagram</span><span class="pill opt">Optional</span><button disabled>—</button></div>
+            <div class="row a"><span>5c · Sequence diagrams</span><span class="pill ok">5 drawn</span><button data-goto="sequence">→</button></div>
+            <div class="row a"><span>6 · Process — activity diagrams</span><span class="pill ok">2 drawn</span><button data-goto="process-view">→</button></div>
+            <div class="row a"><span>7 · Development — component diagram</span><span class="pill ok">Covered</span><button data-goto="development-view">→</button></div>
+            <div class="row a"><span>8 · Physical — deployment diagram</span><span class="pill ok">Covered</span><button data-goto="physical-view">→</button></div>
+          </div>
+          <div>
+            <h4 class="a" style="color: #818cf8">D2 · Architecture <span>QA + style</span></h4>
+            <div class="row a"><span>3–4 quality attributes</span><span class="pill ok">4</span><button data-goto="quality-attributes">→</button></div>
+            <div class="row a"><span>Scenarios drawn &amp; documented</span><span class="pill ok">4</span><button data-goto="qa-scenarios">→</button></div>
+            <div class="row a"><span>Style chosen, justified, implemented</span><span class="pill ok">Covered</span><button data-goto="style">→</button></div>
+            <h4 class="a" style="color: #c084fc">D3 · Design <span>SDD</span></h4>
+            <div class="row a"><span>≥ 3 design patterns</span><span class="pill draft">3 · draft</span><button data-goto="patterns">→</button></div>
+            <div class="row a"><span>Justification for each</span><span class="pill draft">Draft</span><button data-goto="observer">→</button></div>
+            <h4 class="a" style="color: #fbbf24">D4 · Validation <span>Review</span></h4>
+            <div class="row a"><span>Design document reviewed &amp; validated</span><span class="pill todo">Pending</span><button data-goto="validation">→</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="validation"
+        data-part="d4"
+        data-title="Validation log & next steps"
+      >
+        <div class="kicker a">Validation · Review Log</div>
+        <h2 class="title a">Checked against the <em>SRS</em> and the <em>prototype</em></h2>
+        <div class="body cols-2" style="margin-top: 40px; gap: 48px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="tag a">Review checklist</div>
+            <div class="card a left" style="display: flex; gap: 18px; align-items: center; padding: 20px 24px"><i class="ph ph-check-circle" style="font-size: 30px; color: var(--ok)"></i><p style="flex: 1">Every 4+1 view traced to SRS features FR-01 – FR-07</p><span class="pill ok">Done</span></div>
+            <div class="card a left" style="display: flex; gap: 18px; align-items: center; padding: 20px 24px"><i class="ph ph-check-circle" style="font-size: 30px; color: var(--ok)"></i><p style="flex: 1">SE365 prototype usability findings folded into design decisions</p><span class="pill ok">Done</span></div>
+            <div class="card a left" style="display: flex; gap: 18px; align-items: center; padding: 20px 24px"><i class="ph ph-circle-half" style="font-size: 30px; color: var(--warn)"></i><p style="flex: 1">Trade-off: security checks vs. unaided first-time goal creation</p><span class="pill active">In progress</span></div>
+            <div class="card a left" style="display: flex; gap: 18px; align-items: center; padding: 20px 24px"><i class="ph ph-circle-dashed" style="font-size: 30px; color: var(--dim)"></i><p style="flex: 1">Peer review of views and patterns with the instructor</p><span class="pill todo">Pending</span></div>
+          </div>
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="tag a">Next steps</div>
+            <ol class="flowlist" style="gap: 22px">
+              <li class="a">Finalise the Software Design Document — 25 Oct</li>
+              <li class="a">Add structure diagrams for Observer, Repository and State</li>
+              <li class="a">Close the security ↔ usability trade-off</li>
+              <li class="a">Instructor review of views and patterns</li>
+              <li class="a">Final presentation and validation — 4 Nov</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== OUTRO ===================== -->
+
+      <section
+        class="slide cover"
+        id="thanks"
+        data-part="outro"
+        data-title="Thank you"
+      >
+        <svg
+          viewBox="0 0 800 800"
+          style="position: absolute; right: -120px; top: 40px; width: 860px"
+          aria-hidden="true"
+        >
+          <g class="spin" fill="none" stroke="rgba(0,240,255,.13)">
+            <circle cx="400" cy="400" r="300" />
+            <circle cx="400" cy="400" r="240" />
+            <circle cx="400" cy="400" r="180" />
+            <circle cx="400" cy="400" r="120" stroke-dasharray="4 8" />
+            <circle cx="400" cy="400" r="60" />
+          </g>
+          <circle cx="400" cy="400" r="10" fill="#00f0ff">
+            <animate attributeName="r" values="8;14;8" dur="3s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+        <div style="margin-top: auto; position: relative; max-width: 900px">
+          <div class="kicker a">Intaliq · SE322</div>
+          <h1 class="a">Thank you</h1>
+          <p class="lede a" style="font-size: 28px">Questions?</p>
+          <div
+            class="a mono"
+            style="
+              margin-top: 56px;
+              padding-top: 28px;
+              border-top: 1px solid var(--line);
+              display: flex;
+              gap: 16px;
+              align-items: center;
+              font-size: 18px;
+              color: var(--muted);
+            "
+          >
+            <i class="ph ph-globe-simple" style="color: var(--cyan); font-size: 22px"></i>
+            <a
+              href="index.html"
+              style="color: var(--cyan); text-decoration: none"
+              >software-architecture.shoug-tech.com</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <footer class="chrome bottom">
+        <span class="hint"
+          ><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>O</kbd> index ·
+          <kbd>F</kbd> full screen</span
+        >
+        <div class="nav-btns">
+          <button class="icon-btn" id="fsBtn" title="Full screen (F)">
+            <i class="ph ph-corners-out"></i>
+          </button>
+          <button class="icon-btn" id="prevBtn" title="Previous (←)">
+            <i class="ph ph-caret-left"></i>
+          </button>
+          <button class="icon-btn" id="nextBtn" title="Next (→)">
+            <i class="ph ph-caret-right"></i>
+          </button>
+        </div>
+      </footer>
+      <div id="progress"><i></i></div>
+    </div>
+
+    <div id="lightbox" role="dialog" aria-label="Diagram"><img alt="" /></div>
+    <div id="index" role="dialog" aria-label="Slide index"><div class="wrap"></div></div>
+
+    <script>
+      (function () {
+        var stage = document.getElementById("stage");
+        var slides = Array.prototype.slice.call(
+          document.querySelectorAll(".slide"),
+        );
+        var PARTS = {
+          intro: "SE322",
+          d1: "D1 · Software Architecture Design",
+          d2: "D2 · Architecture Documentation",
+          d3: "D3 · Software Design",
+          d4: "D4 · Validation",
+          outro: "SE322",
+        };
+        var cur = -1;
+        var step = 0;
+        var pad = function (n) {
+          return String(n).padStart(2, "0");
+        };
+
+        // Fit the 1600×900 stage to the window.
+        function fit() {
+          var s = Math.min(innerWidth / 1600, innerHeight / 900);
+          stage.style.transform = "translate(-50%, -50%) scale(" + s + ")";
+        }
+        addEventListener("resize", fit);
+        fit();
+
+        // Stagger order for .a elements, restarting inside each step panel.
+        slides.forEach(function (slide) {
+          var i = 0;
+          slide.querySelectorAll(".a").forEach(function (el) {
+            if (el.closest(".step-panel")) return;
+            el.style.setProperty("--i", i++);
+          });
+          slide.querySelectorAll(".step-panel").forEach(function (panel) {
+            var j = 0;
+            panel.querySelectorAll(".a").forEach(function (el) {
+              el.style.setProperty("--i", j++);
+            });
+          });
+          slide.querySelectorAll(".step-tab").forEach(function (tab, k) {
+            tab.addEventListener("click", function () {
+              setStep(slide, k);
+            });
+          });
+          if (slide.dataset.steps) showStep(slide, 0);
+        });
+
+        // Path lengths for draw-in strokes.
+        document.querySelectorAll("path.draw").forEach(function (p) {
+          try {
+            p.style.setProperty("--len", Math.ceil(p.getTotalLength()) + 1);
+          } catch (e) {}
+        });
+
+        function stepsOf(slide) {
+          return +slide.dataset.steps || 1;
+        }
+
+        function setStep(slide, k) {
+          step = k;
+          showStep(slide, k);
+        }
+        function showStep(slide, k) {
+          slide.querySelectorAll(".step-panel").forEach(function (p, i) {
+            p.classList.toggle("on", i === k);
+          });
+          slide.querySelectorAll(".step-tab").forEach(function (t, i) {
+            t.classList.toggle("on", i === k);
+          });
+        }
+
+        function countUp(slide) {
+          slide.querySelectorAll("[data-count]").forEach(function (el) {
+            var to = +el.dataset.count;
+            var from = +(el.dataset.from || 0);
+            var t0 = null;
+            var dur = 1600;
+            function tick(t) {
+              if (t0 === null) t0 = t;
+              var p = Math.min((t - t0 - 500) / dur, 1);
+              if (p < 0) p = 0;
+              var e = 1 - Math.pow(1 - p, 3);
+              el.textContent = Math.round(from + (to - from) * e);
+              if (p < 1) requestAnimationFrame(tick);
+            }
+            el.textContent = from;
+            requestAnimationFrame(tick);
+          });
+        }
+
+        function roadmap(slide) {
+          var road = slide.querySelector("#road");
+          if (!road) return;
+          var start = new Date(road.dataset.start).getTime();
+          var end = new Date(road.dataset.end).getTime();
+          var now = Date.now();
+          var p = Math.max(0, Math.min(1, (now - start) / (end - start)));
+          var label = road.querySelector(".today");
+          label.style.left = p * 100 + "%";
+          label.textContent =
+            "TODAY · " +
+            new Date(now)
+              .toLocaleDateString("en-GB", { day: "numeric", month: "short" })
+              .toUpperCase();
+          var fill = road.querySelector(".fill");
+          fill.style.width = "0";
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              fill.style.width = p * 100 + "%";
+            });
+          });
+        }
+
+        function go(n, atStep) {
+          n = Math.max(0, Math.min(slides.length - 1, n));
+          var slide = slides[n];
+          if (n !== cur) {
+            slides.forEach(function (s, i) {
+              s.classList.toggle("active", i === n);
+              s.classList.toggle("before", i < n);
+            });
+            cur = n;
+            countUp(slide);
+            roadmap(slide);
+            var part = slide.dataset.part;
+            document.getElementById("partLabel").textContent = PARTS[part] || "";
+            stage.style.setProperty(
+              "--acc",
+              getComputedStyle(slide).getPropertyValue("--acc"),
+            );
+            // Drift the background glow so every slide change feels like motion.
+            var gx = [18, 78, 30, 70, 50, 22, 82][n % 7];
+            var gy = [22, 30, 80, 72, 20, 60, 50][n % 7];
+            stage.style.setProperty("--gx", gx + "%");
+            stage.style.setProperty("--gy", gy + "%");
+            document.getElementById("curNum").textContent = pad(n + 1);
+            document.querySelector("#progress i").style.width =
+              ((n + 1) / slides.length) * 100 + "%";
+            history.replaceState(null, "", "#" + slide.id);
+          }
+          var total = stepsOf(slide);
+          setStep(slide, atStep === "last" ? total - 1 : atStep || 0);
+        }
+
+        function next() {
+          var slide = slides[cur];
+          if (step < stepsOf(slide) - 1) setStep(slide, step + 1);
+          else if (cur < slides.length - 1) go(cur + 1, 0);
+        }
+        function prev() {
+          var slide = slides[cur];
+          if (step > 0) setStep(slide, step - 1);
+          else if (cur > 0) go(cur - 1, "last");
+        }
+        function goId(id) {
+          var i = slides.findIndex(function (s) {
+            return s.id === id;
+          });
+          if (i >= 0) go(i, 0);
+        }
+
+        document.getElementById("totNum").textContent = pad(slides.length);
+        document.getElementById("nextBtn").onclick = next;
+        document.getElementById("prevBtn").onclick = prev;
+        document.querySelectorAll("[data-goto]").forEach(function (b) {
+          b.onclick = function () {
+            goId(b.dataset.goto);
+          };
+        });
+
+        // Full screen
+        function toggleFs() {
+          if (!document.fullscreenElement)
+            document.documentElement.requestFullscreen &&
+              document.documentElement.requestFullscreen();
+          else document.exitFullscreen();
+        }
+        document.getElementById("fsBtn").onclick = toggleFs;
+
+        // Lightbox
+        var lb = document.getElementById("lightbox");
+        document.querySelectorAll(".dg").forEach(function (fig) {
+          fig.addEventListener("click", function () {
+            var img = fig.querySelector("img");
+            lb.querySelector("img").src = img.src;
+            lb.querySelector("img").alt = img.alt;
+            lb.classList.add("open");
+          });
+        });
+        lb.addEventListener("click", function () {
+          lb.classList.remove("open");
+        });
+
+        // Slide index
+        var idx = document.getElementById("index");
+        var wrap = idx.querySelector(".wrap");
+        var groups = {};
+        slides.forEach(function (s, i) {
+          var part = s.dataset.part;
+          if (!groups[part]) {
+            var col = document.createElement("div");
+            var h = document.createElement("h4");
+            h.textContent = part === "intro" || part === "outro" ? (part === "intro" ? "Opening" : "Closing") : PARTS[part];
+            h.style.color = getComputedStyle(s).getPropertyValue("--acc");
+            col.appendChild(h);
+            wrap.appendChild(col);
+            groups[part] = col;
+          }
+          var b = document.createElement("button");
+          b.innerHTML = "<span>" + pad(i + 1) + "</span>";
+          b.appendChild(document.createTextNode(s.dataset.title || s.id));
+          b.onclick = function () {
+            go(i, 0);
+            idx.classList.remove("open");
+          };
+          groups[part].appendChild(b);
+        });
+        function toggleIndex() {
+          idx.classList.toggle("open");
+          idx.querySelectorAll("button").forEach(function (b, i) {
+            b.classList.toggle("cur", i === cur);
+          });
+        }
+        document.getElementById("counter").onclick = toggleIndex;
+        idx.addEventListener("click", function (e) {
+          if (e.target === idx) idx.classList.remove("open");
+        });
+
+        // Keyboard
+        addEventListener("keydown", function (e) {
+          if (e.metaKey || e.ctrlKey || e.altKey) return;
+          var k = e.key;
+          if (k === "Escape") {
+            lb.classList.remove("open");
+            idx.classList.remove("open");
+            return;
+          }
+          if (lb.classList.contains("open")) return;
+          if (k === "o" || k === "O") return toggleIndex();
+          if (idx.classList.contains("open")) return;
+          if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(k)) {
+            e.preventDefault();
+            next();
+          } else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(k)) {
+            e.preventDefault();
+            prev();
+          } else if (k === "Home") go(0, 0);
+          else if (k === "End") go(slides.length - 1, 0);
+          else if (k === "f" || k === "F") toggleFs();
+        });
+
+        // Swipe
+        var sx = null;
+        addEventListener("touchstart", function (e) {
+          sx = e.touches[0].clientX;
+        }, { passive: true });
+        addEventListener("touchend", function (e) {
+          if (sx === null) return;
+          var dx = e.changedTouches[0].clientX - sx;
+          if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
+          sx = null;
+        });
+
+        // Start at the slide named in the URL, if any.
+        var start = slides.findIndex(function (s) {
+          return "#" + s.id === location.hash;
+        });
+        go(start < 0 ? 0 : start, 0);
+      })();
+    </script>
+  </body>
+</html>
