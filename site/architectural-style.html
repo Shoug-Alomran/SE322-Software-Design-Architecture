@@ -838,6 +838,119 @@
           </figure>
         </section>
 
+        <!-- SEC_08 -->
+        <section id="design-views" class="mt-4 scroll-mt-header">
+          <div class="flex items-center gap-2 mb-4">
+            <span
+              class="font-mono text-[10px] text-slate-500 tracking-widest uppercase"
+              >SEC_08</span
+            >
+            <div class="h-px w-8 bg-cyan-900/50"></div>
+            <h2
+              class="font-mono text-xs text-cyan-400 tracking-widest uppercase"
+            >
+              Inside the Client and the Server
+            </h2>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed max-w-3xl mb-6">
+            The Software Design Document (Deliverable 3) refines each side of
+            the client–server split with its own design view: the mobile
+            application follows MVC, and the backend is organised in layers.
+          </p>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <figure
+              class="panel flex flex-col border border-cyan-500/20 bg-[#060b13]"
+            >
+              <div class="ch ch-tl"></div>
+              <div class="ch ch-br"></div>
+              <div class="p-5 border-b border-cyan-500/20">
+                <span
+                  class="font-mono text-[10px] text-cyan-600 tracking-widest uppercase"
+                  >Client · Mobile Application</span
+                >
+                <h3 class="font-mono text-sm text-slate-100 mt-1">
+                  MVC Design View
+                </h3>
+              </div>
+              <div class="diagram-canvas h-[340px] md:h-[460px]">
+                <img
+                  src="assets/diagrams/mvc-diagram.png"
+                  alt="MVC design diagram: View, Controller and Model inside the Intaliq mobile application, with the Model calling the Intaliq Backend API over HTTPS"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-5 flex flex-col gap-3 border-t border-cyan-500/20">
+                <ul class="text-xs text-slate-400 leading-relaxed space-y-2">
+                  <li>
+                    <span class="font-mono text-slate-200">Model</span> — holds
+                    session, activity and goal data and talks to the backend
+                    API to read and update it.
+                  </li>
+                  <li>
+                    <span class="font-mono text-slate-200">View</span> — shows
+                    the screens, collects input, and presents results and error
+                    messages.
+                  </li>
+                  <li>
+                    <span class="font-mono text-slate-200">Controller</span> —
+                    handles actions from the View, works through the Model, and
+                    updates the View with the result.
+                  </li>
+                </ul>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Separating interface, data and control logic makes the app
+                  easier to maintain, extend and test. When a user books a
+                  session, the View passes the request to the Controller, which
+                  calls the backend through the Model and tells the View to
+                  show a confirmation or an error.
+                </p>
+              </div>
+            </figure>
+
+            <figure
+              class="panel flex flex-col border border-cyan-500/20 bg-[#060b13]"
+            >
+              <div class="ch ch-tl"></div>
+              <div class="ch ch-br"></div>
+              <div class="p-5 border-b border-cyan-500/20">
+                <span
+                  class="font-mono text-[10px] text-cyan-600 tracking-widest uppercase"
+                  >Server · Intaliq Backend</span
+                >
+                <h3 class="font-mono text-sm text-slate-100 mt-1">
+                  Layered Architecture Design View
+                </h3>
+              </div>
+              <div class="diagram-canvas h-[340px] md:h-[460px]">
+                <img
+                  src="assets/diagrams/layered-architecture.png"
+                  alt="Layered architecture diagram: presentation, business, services, persistence and database layers"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-5 flex flex-col gap-3 border-t border-cyan-500/20">
+                <ul class="text-xs text-slate-400 leading-relaxed space-y-2">
+                  <li>
+                    <span class="font-mono text-slate-200">Presentation</span>
+                    · <span class="font-mono text-slate-200">Business</span> ·
+                    <span class="font-mono text-slate-200">Services</span> ·
+                    <span class="font-mono text-slate-200">Persistence</span> ·
+                    <span class="font-mono text-slate-200">Database</span> —
+                    each layer only talks to the layer next to it.
+                  </li>
+                </ul>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  A change in one layer does not ripple into the others, and
+                  the database can only be reached through the layers above it,
+                  which supports security. Each layer can be tested on its own,
+                  lower layers are reused by many features, and developers can
+                  work on different layers at the same time.
+                </p>
+              </div>
+            </figure>
+          </div>
+        </section>
+
         <div id="site-pager"></div>
       </main>
     </div>

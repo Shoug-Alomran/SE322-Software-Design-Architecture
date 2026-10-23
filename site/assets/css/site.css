@@ -873,4 +873,7 @@ html.light .hover\:text-slate-100:hover {
 html.light .placeholder\:text-slate-500::placeholder {
   color: #64748b;
 }
+html.light .text-cyan-400\/80 {
+  color: rgba(14, 116, 144, 0.8);
+}
 /* === light-mode:generated end === */

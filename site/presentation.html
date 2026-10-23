@@ -1511,6 +1511,9 @@
           break-after: page;
           background: var(--bg);
         }
+        .slide:last-of-type {
+          break-after: auto;
+        }
         .a,
         .draw {
           opacity: 1 !important;
@@ -1669,7 +1672,7 @@
             <li class="a"><button data-goto="four-plus-one" style="--c: var(--c-cyan)"><span class="n">02</span><div><h3>4+1 Architecture</h3><p>Goals, constraints and the five architectural views</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="quality-attributes" style="--c: var(--c-indigo)"><span class="n">03</span><div><h3>Quality Attributes</h3><p>Security, availability, performance and usability</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="style" style="--c: var(--c-indigo)"><span class="n">04</span><div><h3>Architectural Style</h3><p>Client–server, and why it fits Intaliq</p></div><i class="ph ph-arrow-right"></i></button></li>
-            <li class="a"><button data-goto="patterns" style="--c: var(--c-violet)"><span class="n">05</span><div><h3>Design Patterns</h3><p>Observer, Repository and State</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="design-concerns" style="--c: var(--c-violet)"><span class="n">05</span><div><h3>Software Design</h3><p>MVC and layered views; Factory Method, Observer and Adapter</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="coverage" style="--c: var(--c-amber)"><span class="n">06</span><div><h3>Validation</h3><p>Requirement coverage and design review</p></div><i class="ph ph-arrow-right"></i></button></li>
           </ol>
         </div>
@@ -2511,19 +2514,61 @@
         class="slide divider"
         id="d3"
         data-part="d3"
-        data-title="Deliverable 3 — Design patterns"
+        data-title="Deliverable 3 — Software design"
       >
         <div class="num">03</div>
         <div class="kicker a">Deliverable 3 · 20%</div>
         <h2 class="title a">Software Design <em>Documentation</em></h2>
         <div class="meta a">
-          <span class="pill active">In progress · due 25 Oct</span
-          ><span class="pill">Design patterns</span>
+          <span class="pill ok"><i class="ph ph-check"></i>Issued 25 Oct</span
+          ><span class="pill">Gang of Four patterns</span>
         </div>
         <div class="covers">
+          <div class="a"><b>5</b>design concerns</div>
+          <div class="a"><b>3</b>design views</div>
           <div class="a"><b>3</b>design patterns</div>
-          <div class="a"><b>2</b>behavioural</div>
-          <div class="a"><b>1</b>structural / data access</div>
+          <div class="a"><b>5</b>new diagrams</div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="design-concerns"
+        data-part="d3"
+        data-title="Stakeholders &amp; design concerns"
+      >
+        <div class="kicker a">SDD 2.2 – 2.3 · Stakeholders &amp; Design Concerns</div>
+        <h2 class="title a">Every decision answers <em>someone's concern</em></h2>
+        <p class="lede a">
+          End users, coaches, developers, testers and maintainers each need
+          something different from the design.
+        </p>
+        <div class="body" style="margin-top: 34px; align-content: start; gap: 12px">
+          <div class="card bar a left" style="display: grid; grid-template-columns: 60px 1fr 330px; align-items: center; gap: 24px; padding: 18px 26px"><span class="stat" style="font-size: 30px; color: var(--acc)">01</span><div><div class="tag">Developers · maintainers</div><p style="margin-top: 4px; color: var(--text)">Add new activity types without changing existing code</p></div><button class="pill" data-goto="factory-method" style="justify-self: end; cursor: pointer; background: none"><i class="ph ph-arrow-right"></i>Factory Method</button></div>
+          <div class="card bar a left" style="display: grid; grid-template-columns: 60px 1fr 330px; align-items: center; gap: 24px; padding: 18px 26px"><span class="stat" style="font-size: 30px; color: var(--acc)">02</span><div><div class="tag">End users · coaches</div><p style="margin-top: 4px; color: var(--text)">Get timely updates about sessions and booking decisions</p></div><button class="pill" data-goto="observer" style="justify-self: end; cursor: pointer; background: none"><i class="ph ph-arrow-right"></i>Observer</button></div>
+          <div class="card bar a left" style="display: grid; grid-template-columns: 60px 1fr 330px; align-items: center; gap: 24px; padding: 18px 26px"><span class="stat" style="font-size: 30px; color: var(--acc)">03</span><div><div class="tag">Developers · product owners</div><p style="margin-top: 4px; color: var(--text)">Use external services without depending on one provider</p></div><button class="pill" data-goto="adapter" style="justify-self: end; cursor: pointer; background: none"><i class="ph ph-arrow-right"></i>Adapter</button></div>
+          <div class="card bar a left" style="display: grid; grid-template-columns: 60px 1fr 330px; align-items: center; gap: 24px; padding: 18px 26px"><span class="stat" style="font-size: 30px; color: var(--acc)">04</span><div><div class="tag">Testers</div><p style="margin-top: 4px; color: var(--text)">Test each part of the system on its own</p></div><button class="pill" data-goto="design-views" style="justify-self: end; cursor: pointer; background: none"><i class="ph ph-arrow-right"></i>Client–server · layers</button></div>
+          <div class="card bar a left" style="display: grid; grid-template-columns: 60px 1fr 330px; align-items: center; gap: 24px; padding: 18px 26px"><span class="stat" style="font-size: 30px; color: var(--acc)">05</span><div><div class="tag">End users</div><p style="margin-top: 4px; color: var(--text)">Keep personal data secure</p></div><button class="pill" data-goto="style" style="justify-self: end; cursor: pointer; background: none"><i class="ph ph-arrow-right"></i>Data only behind the server</button></div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="design-views"
+        data-part="d3"
+        data-title="Design views — MVC &amp; layered"
+      >
+        <div class="kicker a">SDD 2.4 – 2.6 · Architectural Viewpoints</div>
+        <h2 class="title a">Inside the client, and <em>inside the server</em></h2>
+        <div class="body" style="grid-template-columns: 1.25fr 1fr; margin-top: 52px; gap: 36px">
+          <div style="display: grid; grid-template-rows: 1fr auto; gap: 16px; min-height: 0">
+            <figure class="dg a pop"><figcaption>Mobile app · MVC</figcaption><img src="assets/diagrams/mvc-diagram.png" alt="MVC design diagram: View, Controller and Model inside the Intaliq mobile application" /></figure>
+            <p class="a muted" style="margin: 0; font-size: 17px; line-height: 1.5; font-weight: 300"><b style="color: var(--strong); font-weight: 500">View</b> shows screens, <b style="color: var(--strong); font-weight: 500">Controller</b> handles actions, <b style="color: var(--strong); font-weight: 500">Model</b> holds data and calls the backend API — easier to maintain, extend and test.</p>
+          </div>
+          <div style="display: grid; grid-template-rows: 1fr auto; gap: 16px; min-height: 0">
+            <figure class="dg a pop"><figcaption>Backend · Layered</figcaption><img src="assets/diagrams/layered-architecture.png" alt="Layered architecture diagram: presentation, business, services, persistence and database layers" /></figure>
+            <p class="a muted" style="margin: 0; font-size: 17px; line-height: 1.5; font-weight: 300">Each layer talks only to its neighbour, so changes stay local, the database is reached only through the layers above it, and each layer is tested alone.</p>
+          </div>
         </div>
       </section>
 
@@ -2533,27 +2578,47 @@
         data-part="d3"
         data-title="Design patterns at a glance"
       >
-        <div class="kicker a">SDD · Selected Patterns</div>
-        <h2 class="title a">Three patterns carry <em>most of the design</em></h2>
+        <div class="kicker a">SDD 3.1 · Detailed Design</div>
+        <h2 class="title a">Three Gang of Four patterns, <em>one of each kind</em></h2>
         <div class="body cols-3" style="margin-top: 44px; align-items: start">
-          <div class="card bar a" style="display: flex; flex-direction: column; gap: 12px">
-            <span class="tag">DP-01 · Behavioural</span>
-            <h3 style="font-size: 34px">Observer</h3>
-            <p>Keeps session members informed when a coach acts.</p>
-            <div style="margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 20px"><span class="pill">Announcements</span><span class="pill">Notifications</span></div>
+          <button class="card bar a" data-goto="factory-method" style="all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 12px; position: relative; padding: 26px 28px; border: 1px solid var(--line); border-left: 3px solid var(--acc); background: var(--panel)">
+            <span class="tag">DP-01 · Creational</span>
+            <h3 style="font-size: 34px; margin: 0">Factory Method</h3>
+            <p>Creates the right activity — running, hiking or cycling — without the logging process knowing which.</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; padding-top: 14px"><span class="pill">Activity logging</span><span class="pill">Concern 01</span></div>
+          </button>
+          <button class="card bar a" data-goto="observer" style="all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 12px; position: relative; padding: 26px 28px; border: 1px solid var(--line); border-left: 3px solid var(--acc); background: var(--panel)">
+            <span class="tag">DP-02 · Behavioural</span>
+            <h3 style="font-size: 34px; margin: 0">Observer</h3>
+            <p>Notifies users and coaches automatically when a session changes or a booking is decided.</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; padding-top: 14px"><span class="pill">Notifications</span><span class="pill">Concern 02</span></div>
+          </button>
+          <button class="card bar a" data-goto="adapter" style="all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 12px; position: relative; padding: 26px 28px; border: 1px solid var(--line); border-left: 3px solid var(--acc); background: var(--panel)">
+            <span class="tag">DP-03 · Structural</span>
+            <h3 style="font-size: 34px; margin: 0">Adapter</h3>
+            <p>Lets the AI chatbox talk to an external AI service through one standard interface.</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; padding-top: 14px"><span class="pill">AI chatbox</span><span class="pill">Concern 03</span></div>
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="factory-method"
+        data-part="d3"
+        data-title="DP-01 Factory Method"
+      >
+        <div class="kicker a">DP-01 · Factory Method · Creational</div>
+        <h2 class="title a">One logging process, <em>any activity</em></h2>
+        <div class="body" style="grid-template-columns: 520px 1fr; margin-top: 26px; gap: 40px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="card a" style="padding: 20px 24px"><div class="tag acc">How it's applied</div><p style="margin-top: 8px; font-size: 17px">RunningLogger, HikingLogger and CyclingLogger each override <span class="mono acc" style="font-size: 15px">createActivity()</span>. Pick hiking, and the HikingLogger builds a HikingActivity that the logging process uses without knowing its type.</p></div>
+            <div class="card a" style="padding: 20px 24px"><div class="tag acc">Why Factory Method</div><p style="margin-top: 8px; font-size: 17px">Every activity is validated and saved the same way but counts calories differently. A new sport such as padel only needs its own logger and activity class — nothing else changes.</p></div>
+            <div class="dg-links a" style="margin-top: 4px"><button class="dg-link" data-src="assets/diagrams/sequence-log-activity.png" data-alt="Sequence diagram: logging an activity"><i class="ph ph-flow-arrow"></i>Log activity · sequence</button></div>
           </div>
-          <div class="card bar a" style="display: flex; flex-direction: column; gap: 12px">
-            <span class="tag">DP-02 · Structural / data access</span>
-            <h3 style="font-size: 34px">Repository</h3>
-            <p>Puts every read and write to Supabase — and the offline queue — behind one interface.</p>
-            <div style="margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 20px"><span class="pill">Availability</span><span class="pill">Testability</span></div>
-          </div>
-          <div class="card bar a" style="display: flex; flex-direction: column; gap: 12px">
-            <span class="tag">DP-03 · Behavioural</span>
-            <h3 style="font-size: 34px">State</h3>
-            <p>Governs the life cycle of a booking request: pending, accepted, rejected, cancelled.</p>
-            <div style="margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 20px"><span class="pill">Booking</span><span class="pill">Admission</span></div>
-          </div>
+          <figure class="dg a pop">
+            <img src="assets/diagrams/pattern-factory-method.png" alt="Factory Method class diagram: ActivityLogger with RunningLogger, HikingLogger and CyclingLogger creating RunningActivity, HikingActivity and CyclingActivity" />
+          </figure>
         </div>
       </section>
 
@@ -2561,149 +2626,39 @@
         class="slide"
         id="observer"
         data-part="d3"
-        data-title="DP-01 Observer"
+        data-title="DP-02 Observer"
       >
-        <div class="kicker a">DP-01 · Observer · Behavioural</div>
-        <h2 class="title a">One coach action, <em>every member</em> informed</h2>
-        <div class="body" style="grid-template-columns: 560px 1fr; margin-top: 30px; gap: 56px">
-          <div style="display: grid; gap: 16px; align-content: start">
-            <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">Announcements and admissions must reach the member list, push, email and open screens at once. Calling each directly ties session code to every consumer.</p></div>
-            <div class="card a"><div class="tag acc">Why Observer</div><p style="margin-top: 8px">The session publishes one event; subscribers react. Announcements reach all members (FR-07) and new reactions need no change to the publisher.</p></div>
-            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px"><span class="mono acc" style="font-size: 15px">announcementPosted · memberAdmitted · requestRejected</span></p><div class="dg-links a"><button class="dg-link" data-src="assets/diagrams/sequence-admit-members.png" data-alt="Sequence diagram: admitting members"><i class="ph ph-flow-arrow"></i>Admit members · sequence</button></div></div>
+        <div class="kicker a">DP-02 · Observer · Behavioural</div>
+        <h2 class="title a">One change, <em>everyone informed</em></h2>
+        <div class="body" style="grid-template-columns: 520px 1fr; margin-top: 26px; gap: 40px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="card a" style="padding: 20px 24px"><div class="tag acc">How it's applied</div><p style="margin-top: 8px; font-size: 17px">SessionService is the subject; UserNotification and ReminderService observe it. When a class is cancelled, each observer reacts on its own — one alerts the user, the other reschedules reminders.</p></div>
+            <div class="card a" style="padding: 20px 24px"><div class="tag acc">Why Observer</div><p style="margin-top: 8px; font-size: 17px">Announcements reach every admitted member, and booking decisions reach the requester (Book a Session). Session never handles delivery, so new channels such as email plug in without changing it.</p></div>
+            <div class="dg-links a" style="margin-top: 4px"><button class="dg-link" data-src="assets/diagrams/sequence-book-session.png" data-alt="Sequence diagram: booking a group session"><i class="ph ph-flow-arrow"></i>Book session · sequence</button><button class="dg-link" data-src="assets/diagrams/sequence-admit-members.png" data-alt="Sequence diagram: admitting members"><i class="ph ph-flow-arrow"></i>Admit members · sequence</button></div>
           </div>
-          <svg viewBox="0 0 760 500" class="a fade" aria-label="Observer structure">
-            <rect x="20" y="190" width="230" height="120" fill="var(--panel)" stroke="var(--c-violet)" stroke-width="2" />
-            <text x="135" y="225" fill="var(--c-violet)" font-size="13" text-anchor="middle">«subject»</text>
-            <text x="135" y="256" fill="var(--strong)" font-size="22" font-family="Inter" text-anchor="middle">Session</text>
-            <text x="135" y="286" fill="var(--muted)" font-size="13" text-anchor="middle">notify(event)</text>
-            <g fill="none" stroke="var(--c-violet)" stroke-width="1.5">
-              <path id="o1" class="draw" style="--d: 400" d="M250 230C380 230 380 90 480 90" />
-              <path id="o2" class="draw" style="--d: 550" d="M250 250H480" />
-              <path id="o3" class="draw" style="--d: 700" d="M250 270C380 270 380 410 480 410" />
-            </g>
-            <g fill="var(--c-violet)">
-              <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o1" /></animateMotion></circle>
-              <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o2" /></animateMotion></circle>
-              <circle r="6"><animateMotion dur="2.2s" repeatCount="indefinite"><mpath href="#o3" /></animateMotion></circle>
-            </g>
-            <g font-size="13">
-              <rect x="480" y="40" width="260" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
-              <text x="500" y="72" fill="var(--c-violet)">«observer»</text>
-              <text x="500" y="102" fill="var(--strong)" font-size="19" font-family="Inter">Push notification</text>
-              <text x="500" y="124" fill="var(--muted)">adapter · SI-4</text>
-              <rect x="480" y="200" width="260" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
-              <text x="500" y="232" fill="var(--c-violet)">«observer»</text>
-              <text x="500" y="262" fill="var(--strong)" font-size="19" font-family="Inter">Email adapter</text>
-              <text x="500" y="284" fill="var(--muted)">CI-3</text>
-              <rect x="480" y="360" width="260" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
-              <text x="500" y="392" fill="var(--c-violet)">«observer»</text>
-              <text x="500" y="422" fill="var(--strong)" font-size="19" font-family="Inter">Session screens</text>
-              <text x="500" y="444" fill="var(--muted)">refresh members · feed</text>
-            </g>
-          </svg>
+          <figure class="dg a pop">
+            <img src="assets/diagrams/pattern-observer.png" alt="Observer class diagram: SessionService implements Subject and holds Observers; UserNotification and ReminderService implement Observer" />
+          </figure>
         </div>
       </section>
 
       <section
         class="slide"
-        id="repository"
+        id="adapter"
         data-part="d3"
-        data-title="DP-02 Repository"
+        data-title="DP-03 Adapter"
       >
-        <div class="kicker a">DP-02 · Repository · Structural / Data Access</div>
-        <h2 class="title a">One door to the data, <em>online or offline</em></h2>
-        <div class="body" style="grid-template-columns: 560px 1fr; margin-top: 30px; gap: 56px">
-          <div style="display: grid; gap: 16px; align-content: start">
-            <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">All data lives in Supabase and unsent actions must sync later. Scattering database calls through screens duplicates the offline logic and blocks testing.</p></div>
-            <div class="card a"><div class="tag acc">Why Repository</div><p style="margin-top: 8px">Each entity gets one read/write interface that hides whether data comes from the local store or the network — so no activity log is lost after reconnecting.</p></div>
-            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px"><span class="mono acc" style="font-size: 15px">SessionRepository · ActivityRepository · GoalRepository · PartnerRepository</span></p></div>
+        <div class="kicker a">DP-03 · Adapter · Structural</div>
+        <h2 class="title a">Any AI provider, <em>one interface</em></h2>
+        <div class="body" style="grid-template-columns: 520px 1fr; margin-top: 26px; gap: 40px">
+          <div style="display: grid; gap: 14px; align-content: start">
+            <div class="card a" style="padding: 20px 24px"><div class="tag acc">How it's applied</div><p style="margin-top: 8px; font-size: 17px">ChatboxService only calls <span class="mono acc" style="font-size: 15px">AIChatService.sendMessage()</span>. AIServiceAdapter converts the question into the external service's format, sends it over HTTPS, and converts the answer back.</p></div>
+            <div class="card a" style="padding: 20px 24px"><div class="tag acc">Why Adapter</div><p style="margin-top: 8px; font-size: 17px">Provider-specific formats stay out of the chatbox logic. If the external API changes, only the adapter changes; switching provider means writing a new adapter.</p></div>
+            <div class="dg-links a" style="margin-top: 4px"><button class="dg-link" data-src="assets/diagrams/component-diagram.png" data-alt="Component diagram: mobile application, backend API, backend components and external services"><i class="ph ph-flow-arrow"></i>Component diagram</button></div>
           </div>
-          <svg viewBox="0 0 760 500" class="a fade" aria-label="Repository structure">
-            <g font-size="13" fill="var(--muted)">
-              <rect x="10" y="60" width="170" height="380" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 35%, transparent)" />
-              <text x="95" y="92" text-anchor="middle" fill="var(--c-violet)">FEATURES</text>
-              <text x="95" y="150" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Sessions</text>
-              <text x="95" y="220" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Activities</text>
-              <text x="95" y="290" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Goals</text>
-              <text x="95" y="360" text-anchor="middle" fill="var(--strong)" font-size="16" font-family="Inter">Partners</text>
-            </g>
-            <path class="draw" style="--d: 400" d="M180 250H260" stroke="var(--c-violet)" stroke-width="2" fill="none" />
-            <rect x="260" y="170" width="200" height="160" fill="var(--panel-2)" stroke="var(--c-violet)" stroke-width="2" />
-            <text x="360" y="210" fill="var(--c-violet)" font-size="13" text-anchor="middle">«interface»</text>
-            <text x="360" y="244" fill="var(--strong)" font-size="21" font-family="Inter" text-anchor="middle">Repository</text>
-            <text x="360" y="274" fill="var(--muted)" font-size="13" text-anchor="middle">get · save · list</text>
-            <text x="360" y="300" fill="var(--muted)" font-size="13" text-anchor="middle">returns domain entities</text>
-            <path id="r1" class="draw" style="--d: 600" d="M460 220C540 220 540 110 600 110" stroke="var(--c-violet)" stroke-width="2" fill="none" />
-            <path id="r2" class="draw" style="--d: 700" d="M460 280C540 280 540 390 600 390" stroke="var(--c-violet)" stroke-width="2" fill="none" stroke-dasharray="6 5" />
-            <text x="604" y="180" fill="var(--muted)" font-size="12">online</text>
-            <text x="604" y="330" fill="var(--muted)" font-size="12">offline</text>
-            <rect x="600" y="60" width="150" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
-            <text x="675" y="100" fill="var(--strong)" font-size="17" font-family="Inter" text-anchor="middle">Supabase</text>
-            <text x="675" y="124" fill="var(--muted)" font-size="12" text-anchor="middle">client · SI-1</text>
-            <rect x="600" y="340" width="150" height="100" fill="var(--panel)" stroke="color-mix(in srgb, var(--c-violet) 50%, transparent)" />
-            <text x="675" y="380" fill="var(--strong)" font-size="17" font-family="Inter" text-anchor="middle">Sync queue</text>
-            <text x="675" y="404" fill="var(--muted)" font-size="12" text-anchor="middle">local store · CI-4/5</text>
-            <path id="r3" d="M675 340V160" stroke="var(--c-violet)" stroke-width="1.5" fill="none" class="flow" />
-            <text x="664" y="255" fill="var(--c-violet)" font-size="12" text-anchor="end">sync on reconnect</text>
-            <circle r="5" fill="var(--c-violet)"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#r1" /></animateMotion></circle>
-            <circle r="5" fill="var(--c-violet)"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite"><mpath href="#r2" /></animateMotion></circle>
-          </svg>
-        </div>
-      </section>
-
-      <section
-        class="slide"
-        id="state"
-        data-part="d3"
-        data-title="DP-03 State"
-      >
-        <div class="kicker a">DP-03 · State · Behavioural</div>
-        <h2 class="title a">Booking rules that <em>can't be bypassed</em></h2>
-        <div class="body" style="grid-template-columns: 560px 1fr; margin-top: 30px; gap: 56px">
-          <div style="display: grid; gap: 16px; align-content: start">
-            <div class="card a"><div class="tag acc">Problem</div><p style="margin-top: 8px">A join request is submitted, reviewed, then accepted, rejected or blocked (FR-01, FR-06). Flags and nested conditions make invalid moves — like admitting into a full session — easy.</p></div>
-            <div class="card a"><div class="tag acc">Why State</div><p style="margin-top: 8px">Each stage is an object that decides which actions are allowed and what comes next. The SRS rules live in one place and match the Process View.</p></div>
-            <div class="card a"><div class="tag acc">In Intaliq</div><p style="margin-top: 8px">Pending checks capacity and fitness level before moving to Accepted and raising the notification event.</p><div class="dg-links a"><button class="dg-link" data-src="assets/diagrams/activity-admit-members.png" data-alt="Activity diagram: admitting members"><i class="ph ph-flow-arrow"></i>Admit members · activity</button></div></div>
-          </div>
-          <svg viewBox="0 0 760 500" class="a fade" aria-label="Booking request state machine">
-            <defs>
-              <marker id="sh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-                <path d="M0 0L10 5L0 10z" fill="var(--c-violet)" />
-              </marker>
-            </defs>
-            <circle cx="60" cy="250" r="12" fill="var(--c-violet)" />
-            <path class="draw" style="--d: 300" d="M72 250H170" stroke="var(--c-violet)" stroke-width="2" fill="none" marker-end="url(#sh)" />
-            <text x="120" y="238" fill="var(--muted)" font-size="12" text-anchor="middle">submit</text>
-            <rect x="172" y="200" width="190" height="100" rx="18" fill="var(--panel-2)" stroke="var(--c-violet)" stroke-width="2.5" />
-            <text x="267" y="246" fill="var(--strong)" font-size="22" font-family="Inter" text-anchor="middle">Pending</text>
-            <text x="267" y="272" fill="var(--muted)" font-size="12" text-anchor="middle">coach reviews</text>
-            <g fill="none" stroke="var(--c-violet)" stroke-width="2">
-              <path class="draw" style="--d: 600" d="M362 225C450 225 450 90 528 90" marker-end="url(#sh)" />
-              <path class="draw" style="--d: 750" d="M362 250H528" marker-end="url(#sh)" />
-              <path class="draw" style="--d: 900" d="M362 275C450 275 450 410 528 410" marker-end="url(#sh)" />
-            </g>
-            <g font-size="12" fill="var(--muted)">
-              <text x="420" y="132">accept</text>
-              <text x="420" y="242">reject · full</text>
-              <text x="410" y="396">cancel</text>
-            </g>
-            <g font-family="Inter" font-size="20" text-anchor="middle">
-              <rect x="530" y="45" width="190" height="90" rx="18" fill="var(--panel)" stroke="var(--c-green)" stroke-width="2" />
-              <text x="625" y="97" fill="var(--c-green)">Accepted</text>
-              <rect x="530" y="205" width="190" height="90" rx="18" fill="var(--panel)" stroke="var(--c-red)" stroke-width="2" />
-              <text x="625" y="257" fill="var(--c-red)">Rejected</text>
-              <rect x="530" y="365" width="190" height="90" rx="18" fill="var(--panel)" stroke="var(--dim)" stroke-width="2" />
-              <text x="625" y="417" fill="var(--muted)">Cancelled</text>
-            </g>
-            <g font-size="11" fill="var(--dim)" text-anchor="middle">
-              <text x="625" y="160" fill="var(--c-violet)">[capacity ok ∧ level match]</text>
-              <text x="625" y="180">→ notify via Observer</text>
-            </g>
-            <circle r="7" fill="var(--c-violet)">
-              <animateMotion dur="4s" repeatCount="indefinite" path="M60 250H267" />
-              <animate attributeName="opacity" values="0;1;1;0" dur="4s" repeatCount="indefinite" />
-            </circle>
-          </svg>
+          <figure class="dg a pop">
+            <img src="assets/diagrams/pattern-adapter.png" alt="Adapter class diagram: ChatboxService uses AIChatService, implemented by AIServiceAdapter, which calls ExternalAIService" />
+          </figure>
         </div>
       </section>
 
@@ -2725,7 +2680,7 @@
         <div class="covers">
           <div class="a"><b>SRS</b>traced to every view</div>
           <div class="a"><b>SE365</b>usability findings applied</div>
-          <div class="a"><b>16</b>course requirements checked</div>
+          <div class="a"><b>17</b>course requirements checked</div>
         </div>
       </section>
 
@@ -2757,8 +2712,9 @@
             <div class="row a"><span>Scenarios drawn &amp; documented</span><span class="pill ok">4</span><button data-goto="qa-scenarios">→</button></div>
             <div class="row a"><span>Style chosen, justified, implemented</span><span class="pill ok">Covered</span><button data-goto="style">→</button></div>
             <h4 class="a" style="color: var(--c-violet)">D3 · Design <span>SDD</span></h4>
-            <div class="row a"><span>≥ 3 design patterns</span><span class="pill draft">3 · draft</span><button data-goto="patterns">→</button></div>
-            <div class="row a"><span>Justification for each</span><span class="pill draft">Draft</span><button data-goto="observer">→</button></div>
+            <div class="row a"><span>≥ 3 design patterns</span><span class="pill ok">3</span><button data-goto="patterns">→</button></div>
+            <div class="row a"><span>Justification for each</span><span class="pill ok">Covered</span><button data-goto="factory-method">→</button></div>
+            <div class="row a"><span>Software Design Document (SDD)</span><span class="pill ok">Issued</span><button data-goto="design-concerns">→</button></div>
             <h4 class="a" style="color: var(--c-amber)">D4 · Validation <span>Review</span></h4>
             <div class="row a"><span>Design document reviewed &amp; validated</span><span class="pill todo">Pending</span><button data-goto="validation">→</button></div>
           </div>
@@ -2784,8 +2740,7 @@
           <div style="display: grid; gap: 14px; align-content: start">
             <div class="tag a">Next steps</div>
             <ol class="flowlist" style="gap: 22px">
-              <li class="a">Finalise the Software Design Document — 25 Oct</li>
-              <li class="a">Add structure diagrams for Observer, Repository and State</li>
+              <li class="a">Check the SDD's patterns against the SRS and Deliverables 1–2</li>
               <li class="a">Close the security ↔ usability trade-off</li>
               <li class="a">Instructor review of views and patterns</li>
               <li class="a">Final presentation and validation — 4 Nov</li>

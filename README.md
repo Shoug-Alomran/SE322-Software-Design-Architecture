@@ -58,7 +58,12 @@ The navigation bar, footer and the Previous / Next buttons are generated from th
 
 - **Text** — replace any `[Placeholder]` text directly in the HTML page.
 - **Diagrams** — save the image to `site/assets/diagrams/` and replace the `diagram-placeholder` block with the `<img>` tag shown in the HTML comment right above it. Clicking a diagram image opens it full screen.
-- **Documents** — save PDFs to `site/assets/documents/` using the file names referenced in `documentation.html` (`software-architecture-document.pdf`, `architecture-documentation.pdf`, `software-design-document.pdf`, `final-presentation.pdf`).
+- **Documents** — save PDFs to `site/assets/documents/` using the file names referenced in `documentation.html` (`deliverable-1.pdf`, `deliverable-2.pdf`, `deliverable-3.pdf`, `final-presentation.pdf`).
+- **Presentation** — the slide deck is `site/presentation.html`. `final-presentation.pdf` is generated from it in light mode (one page per slide, one per tab on tabbed slides). **After changing the deck, run:**
+  ```bash
+  python3 tools/build-presentation-pdf.py
+  ```
+  It needs Playwright for Python (`pip install playwright && playwright install chromium`).
 
 ## Preview locally
 
