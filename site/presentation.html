@@ -1524,6 +1524,20 @@
           width: var(--w) !important;
           transition: none;
         }
+        /* Apple's PDF renderer (Preview, iOS) draws blurred shadows as grey
+           blocks and clipped gradient text as a black box, so print without them. */
+        *,
+        *::before,
+        *::after {
+          box-shadow: none !important;
+          text-shadow: none !important;
+          backdrop-filter: none !important;
+        }
+        .cover h1 {
+          background: none !important;
+          color: var(--strong) !important;
+          animation: none !important;
+        }
         * {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
@@ -2014,7 +2028,7 @@
             </div>
             <div class="card bar a">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px">
-                <i class="ph ph-whistle" style="font-size: 28px; color: var(--acc)"></i>
+                <i class="ph ph-chalkboard-teacher" style="font-size: 28px; color: var(--acc)"></i>
                 <h3 style="margin: 0">Coach</h3>
                 <span class="pill" style="margin-left: auto">3 use cases</span>
               </div>
