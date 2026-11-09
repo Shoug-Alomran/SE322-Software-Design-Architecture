@@ -1068,6 +1068,40 @@
         color: var(--strong);
         font-weight: 500;
       }
+      .v-result {
+        margin-top: 8px !important;
+        color: var(--text) !important;
+      }
+      .v-result b {
+        color: var(--strong);
+        font-weight: 500;
+      }
+      .v-step {
+        padding: 20px 22px;
+      }
+      .v-step p {
+        margin-top: 8px;
+        font-size: 18px;
+        line-height: 1.4;
+        color: var(--text);
+      }
+      /* Arrow to the next step: across on the stage, down when stacked. */
+      .v-step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -22px;
+        top: 50%;
+        width: auto;
+        height: auto;
+        border: 0;
+        transform: translateY(-50%);
+        color: var(--acc);
+        font-size: 18px;
+        opacity: 1;
+      }
+      .v-step:nth-child(4n)::after {
+        display: none;
+      }
       .fluid-only {
         display: none;
       }
@@ -1904,6 +1938,9 @@
           font-size: 15px;
           gap: 8px;
         }
+        html.fluid .v-step:not(:last-child)::after {
+          display: none;
+        }
         html.fluid .fluid-only {
           display: block;
         }
@@ -2168,7 +2205,7 @@
             <li class="a"><button data-goto="quality-attributes" data-goto-short="short-qa" style="--c: var(--c-indigo)"><span class="n">03</span><div><h3>Quality Attributes</h3><p>Security, availability, performance and usability</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="style" style="--c: var(--c-indigo)"><span class="n">04</span><div><h3>Architectural Style</h3><p>Client–server, and why it fits Intaliq</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="design-concerns" data-goto-short="short-patterns" style="--c: var(--c-violet)"><span class="n">05</span><div><h3>Software Design</h3><p>MVC and layered views; Factory Method, Observer and Adapter</p></div><i class="ph ph-arrow-right"></i></button></li>
-            <li class="a"><button data-goto="coverage" style="--c: var(--c-amber)"><span class="n">06</span><div><h3>Validation</h3><p>Requirement coverage and design review</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="coverage" data-goto-short="short-validation" style="--c: var(--c-amber)"><span class="n">06</span><div><h3>Validation</h3><p>Requirement coverage and design review</p></div><i class="ph ph-arrow-right"></i></button></li>
           </ol>
         </div>
       </section>
@@ -2559,43 +2596,8 @@
 
       <section
         class="slide"
-        id="short-scenarios"
-        data-short
-        data-short-only
-        data-full="scenarios"
-        data-part="d1"
-        data-title="4.2 Scenarios at a glance"
-      >
-        <div class="kicker a">SAD 4.2 · Scenarios</div>
-        <h2 class="title a">Three scenarios, <em>end to end</em></h2>
-        <div class="body cols-3" style="margin-top: 26px">
-          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
-            <h3 style="margin: 0">Book a session</h3>
-            <div class="tag">Actor · User — books a session</div>
-            <ol class="flowlist"><li class="">Browse group sessions</li><li class="">Review session and coach</li><li class="">Submit a booking request</li><li class="sys">Coach reviews and accepts</li><li class="sys">User is confirmed and notified</li></ol>
-            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, session full, coach rejects, or system error.</p>
-            <div class="dg-links" style="margin-top: auto; padding-top: 14px"><button class="dg-link" data-src="assets/diagrams/sequence-book-session.png" data-alt="Sequence diagram: booking a group session"><i class="ph ph-flow-arrow"></i>Sequence diagram</button></div>
-          </div>
-          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
-            <h3 style="margin: 0">AI Chatbox</h3>
-            <div class="tag">Actor · User — sends a query</div>
-            <ol class="flowlist"><li class="">Open the AI Chatbox</li><li class="">Choose or write a question</li><li class="">Submit the message</li><li class="sys">AI coach answers</li><li class="">User closes the chat</li></ol>
-            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, medical advice is refused, or system error.</p>
-            
-          </div>
-          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
-            <h3 style="margin: 0">Enter activity goal</h3>
-            <div class="tag">Actor · User — enters a goal</div>
-            <ol class="flowlist"><li class="">Open Activity Goal</li><li class="">Enter type and target</li><li class="">Submit the goal</li><li class="sys">System validates and saves</li><li class="sys">System confirms it was created</li></ol>
-            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, missing field, invalid data, or system error.</p>
-            <div class="dg-links" style="margin-top: auto; padding-top: 14px"><button class="dg-link" data-src="assets/diagrams/sequence-set-goal.png" data-alt="Sequence diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Sequence</button><button class="dg-link" data-src="assets/diagrams/activity-set-goal.png" data-alt="Activity diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Activity</button></div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="slide"
         id="prototype"
+        data-short
         data-part="d1"
         data-title="4.1 User view — prototype screens"
         data-steps="2"
@@ -2628,6 +2630,42 @@
             <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-admissions.png" alt="Admissions screen with Admit buttons" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Admit users</figcaption></figure>
             <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-session-detail.png" alt="Session detail with admission requests and announcement box" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Session detail</figcaption></figure>
             <figure class="phone a"><div class="frame"><img src="assets/img/prototype/coach-announcement.png" alt="Make announcement form" loading="lazy" /></div><figcaption><span class="tag">Use case</span>Announce updates</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="short-scenarios"
+        data-short
+        data-short-only
+        data-full="scenarios"
+        data-part="d1"
+        data-title="4.2 Scenarios at a glance"
+      >
+        <div class="kicker a">SAD 4.2 · Scenarios</div>
+        <h2 class="title a">Three scenarios, <em>end to end</em></h2>
+        <div class="body cols-3" style="margin-top: 26px">
+          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0">Book a session</h3>
+            <div class="tag">Actor · User — books a session</div>
+            <ol class="flowlist"><li class="">Browse group sessions</li><li class="">Review session and coach</li><li class="">Submit a booking request</li><li class="sys">Coach reviews and accepts</li><li class="sys">User is confirmed and notified</li></ol>
+            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, session full, coach rejects, or system error.</p>
+            <div class="dg-links" style="margin-top: auto; padding-top: 14px"><button class="dg-link" data-src="assets/diagrams/sequence-book-session.png" data-alt="Sequence diagram: booking a group session"><i class="ph ph-flow-arrow"></i>Sequence diagram</button></div>
+          </div>
+          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0">AI Chatbox</h3>
+            <div class="tag">Actor · User — sends a query</div>
+            <ol class="flowlist"><li class="">Open the AI Chatbox</li><li class="">Choose or write a question</li><li class="">Submit the message</li><li class="sys">AI coach answers</li><li class="">User closes the chat</li></ol>
+            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, medical advice is refused, or system error.</p>
+            
+          </div>
+          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0">Enter activity goal</h3>
+            <div class="tag">Actor · User — enters a goal</div>
+            <ol class="flowlist"><li class="">Open Activity Goal</li><li class="">Enter type and target</li><li class="">Submit the goal</li><li class="sys">System validates and saves</li><li class="sys">System confirms it was created</li></ol>
+            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, missing field, invalid data, or system error.</p>
+            <div class="dg-links" style="margin-top: auto; padding-top: 14px"><button class="dg-link" data-src="assets/diagrams/sequence-set-goal.png" data-alt="Sequence diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Sequence</button><button class="dg-link" data-src="assets/diagrams/activity-set-goal.png" data-alt="Activity diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Activity</button></div>
           </div>
         </div>
       </section>
@@ -3400,6 +3438,77 @@
 
       <section
         class="slide"
+        id="short-validation"
+        data-short
+        data-short-only
+        data-full="validation"
+        data-part="d4"
+        data-title="How we validated the design"
+      >
+        <div class="kicker a">Validation · What We Checked</div>
+        <h2 class="title a">Four questions we asked <em>of the design</em></h2>
+        <p class="lede a">
+          Validation means confirming the design does what it was meant to do,
+          so we checked it against the SRS and the prototype evaluation.
+        </p>
+        <div class="body cols-2" style="margin-top: 24px; gap: 16px 22px; align-content: start">
+          <div class="card bar a">
+            <div class="tag acc">1 · Requirements</div>
+            <h3 style="margin: 8px 0 6px">Does every requirement have a design?</h3>
+            <p>We traced the seven SRS features, FR-01 to FR-07, through the 4+1 views.</p>
+            <p class="v-result"><b>Result:</b> all seven appear as use cases and are carried through the design.</p>
+          </div>
+          <div class="card bar a">
+            <div class="tag acc">2 · Quality</div>
+            <h3 style="margin: 8px 0 6px">Can the quality goals be tested?</h3>
+            <p>Each quality became a six-part scenario with a number to hit.</p>
+            <p class="v-result"><b>Result:</b> four measurable targets: 100%, 100%, 95% within 3 s, and 90% unaided.</p>
+          </div>
+          <div class="card bar a">
+            <div class="tag acc">3 · Usability</div>
+            <h3 style="margin: 8px 0 6px">Did we act on real user feedback?</h3>
+            <p>We reviewed the SE365 evaluation by 3 users, 2 coaches and 4 experts, who found missing pop-ups and an AI chatbox that didn't work yet.</p>
+            <p class="v-result"><b>Result:</b> scenarios end in a confirmation or error, and Adapter connects the chatbox to an AI service.</p>
+          </div>
+          <div class="card bar a">
+            <div class="tag acc">4 · Trade-offs</div>
+            <h3 style="margin: 8px 0 6px">Do any of the goals conflict?</h3>
+            <p>Security checks could get in the way of a first-time user setting a goal.</p>
+            <p class="v-result"><b>Result:</b> checks run on the server at login, so the goal screen itself stays simple.</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="short-trace"
+        data-short
+        data-short-only
+        data-full="coverage"
+        data-part="d4"
+        data-title="One requirement, end to end"
+      >
+        <div class="kicker a">Validation · Traceability Example</div>
+        <h2 class="title a">One requirement, <em>followed end to end</em></h2>
+        <p class="lede a">
+          Here is how the check works for FR-01, Book a session. Each view
+          answers one part of the same requirement.
+        </p>
+        <div class="body cols-4 v-trace" style="margin-top: 28px; gap: 18px 26px; align-content: start">
+          <div class="card a v-step"><div class="tag acc">SRS · FR-01</div><p>A user requests a session; the coach accepts or rejects; the user is notified.</p></div>
+          <div class="card a v-step"><div class="tag acc">User view</div><p>Join Group Sessions use case and the Book a session scenario.</p></div>
+          <div class="card a v-step"><div class="tag acc">Logical view</div><p>User books Session; the booking sequence diagram shows each message.</p></div>
+          <div class="card a v-step"><div class="tag acc">Process view</div><p>Admit members activity: capacity and activity level are checked first.</p></div>
+          <div class="card a v-step"><div class="tag acc">Development view</div><p>Handled by the Session Management component behind the Backend API.</p></div>
+          <div class="card a v-step"><div class="tag acc">Physical view</div><p>Runs on the application server, with sessions stored in the database.</p></div>
+          <div class="card a v-step"><div class="tag acc">Quality target</div><p>95% of session lists load within 3 seconds.</p></div>
+          <div class="card a v-step"><div class="tag acc">Design pattern</div><p>Observer notifies the user of the coach's decision.</p></div>
+        </div>
+        <div class="dg-links a" style="align-items: center; margin-top: 20px"><span class="tag" style="margin-right: 4px">See it</span><button class="dg-link" data-src="assets/diagrams/sequence-book-session.png" data-alt="Sequence diagram: booking a group session"><i class="ph ph-flow-arrow"></i>Booking sequence</button><button class="dg-link" data-src="assets/diagrams/activity-admit-members.png" data-alt="Activity diagram: admitting members"><i class="ph ph-flow-arrow"></i>Admit members activity</button><button class="dg-link" data-src="assets/diagrams/component-diagram.png" data-alt="Component diagram: mobile application, backend API, backend components and external services"><i class="ph ph-flow-arrow"></i>Component diagram</button></div>
+      </section>
+
+      <section
+        class="slide"
         id="coverage"
         data-short
         data-part="d4"
@@ -3431,7 +3540,7 @@
             <div class="row a"><span>Justification for each</span><span class="pill ok">Covered</span><button data-goto="factory-method" data-goto-short="short-patterns">→</button></div>
             <div class="row a"><span>Software Design Document (SDD)</span><span class="pill ok">Issued</span><button data-goto="design-concerns" data-goto-short="short-patterns">→</button></div>
             <h4 class="a" style="color: var(--c-amber)">D4 · Validation <span>Review</span></h4>
-            <div class="row a"><span>Design document reviewed &amp; validated</span><span class="pill ok">Done</span><button data-goto="validation">→</button></div>
+            <div class="row a"><span>Design document reviewed &amp; validated</span><span class="pill ok">Done</span><button data-goto="validation" data-goto-short="short-validation">→</button></div>
           </div>
         </div>
       </section>
