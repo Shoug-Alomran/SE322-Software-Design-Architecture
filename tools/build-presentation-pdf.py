@@ -27,6 +27,7 @@ OUT = ROOT / "assets" / "documents" / "final-presentation.pdf"
 PREPARE = """
 () => {
   document.documentElement.setAttribute("data-theme", "light");
+  document.querySelectorAll("[data-short-only]").forEach((slide) => slide.remove());
   document.querySelectorAll("img[loading=lazy]").forEach((img) => img.removeAttribute("loading"));
   document.querySelectorAll(".slide[data-steps]").forEach((slide) => {
     const steps = +slide.dataset.steps;

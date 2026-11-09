@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Intaliq Presentation</title>
     <meta
       name="description"
@@ -84,7 +84,11 @@
         index. The id is used in the URL (presentation.html#scope).
       - data-short puts a slide in the short version (button at the bottom, or
         press S; presentation.html?short opens it directly). The counter,
-        progress bar and index update from these automatically.
+        progress bar and index update from these automatically. Slides that
+        also have data-short-only appear only there and are left out of the
+        full deck and its PDF; data-full names their full-deck counterpart.
+      - Below a scale of 0.55 (phones, portrait tablets) the deck switches to
+        the html.fluid single-column layout. Check new slides at both sizes.
       - Anything with class "a" animates in when the slide opens, in order.
       - A slide with data-steps="N" holds N .step-panel blocks (and optional
         .step-tab buttons); the arrow keys walk through them before moving on.
@@ -977,6 +981,97 @@
         background: color-mix(in srgb, var(--acc) 16%, transparent);
       }
 
+      /* Condensed slides */
+      .sq {
+        margin-top: 28px;
+        display: grid;
+        gap: 12px;
+      }
+      .sq-row {
+        display: grid;
+        grid-template-columns: 170px 1fr 1fr 1.2fr 1.1fr 170px;
+        gap: 14px;
+        align-items: center;
+      }
+      .sq-head {
+        font: 12px "JetBrains Mono", monospace;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+      .sq-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--strong);
+      }
+      .sq-name i {
+        color: var(--acc);
+        font-size: 24px;
+      }
+      .sq-box {
+        min-height: 96px;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 1px solid var(--acc);
+        background: var(--panel);
+        font-size: 17px;
+        line-height: 1.3;
+        color: var(--text);
+      }
+      .sq-box.dashed {
+        border-style: dashed;
+      }
+      .sq-box small {
+        margin-top: 4px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .sq-box.measure b {
+        font: 500 30px/1 "JetBrains Mono", monospace;
+        color: var(--strong);
+      }
+      .sq-arrow {
+        font-size: 16px;
+        line-height: 1.35;
+        color: var(--muted);
+        text-align: center;
+      }
+      .sq-arrow::after {
+        content: "";
+        display: block;
+        height: 2px;
+        margin: 10px 0 0;
+        background: linear-gradient(90deg, transparent, var(--acc));
+      }
+      .sp {
+        display: contents;
+      }
+      .cols-3 > .sp > .dg {
+        grid-row: 1;
+      }
+      .cols-3 > .sp > div {
+        grid-row: 2;
+      }
+      .sp-t {
+        margin: 0 0 4px !important;
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .sp-t b {
+        color: var(--strong);
+        font-weight: 500;
+      }
+      .fluid-only {
+        display: none;
+      }
+
       /* Lightbox: fit-to-screen viewer with zoom and pan */
       #lightbox {
         position: fixed;
@@ -1510,6 +1605,354 @@
         color: var(--cyan);
       }
 
+      /* Phones and portrait tablets: real single-column layout instead of a
+         scaled-down 1600x900 stage. Slides with inline layouts need !important. */
+      @media screen {
+        html.fluid #stage {
+          position: fixed;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          height: 100dvh;
+          transform: none !important;
+        }
+        html.fluid .chrome {
+          padding-left: max(14px, env(safe-area-inset-left));
+          padding-right: max(14px, env(safe-area-inset-right));
+          background: color-mix(in srgb, var(--bg) 94%, transparent);
+          font-size: 11px;
+          letter-spacing: 0.08em;
+        }
+        html.fluid .chrome.top {
+          height: 52px;
+          gap: 12px;
+          border-bottom: 1px solid var(--line);
+        }
+        html.fluid .chrome.bottom {
+          height: calc(60px + env(safe-area-inset-bottom));
+          padding-bottom: env(safe-area-inset-bottom);
+          justify-content: center;
+          border-top: 1px solid var(--line);
+        }
+        html.fluid .brand {
+          min-width: 0;
+          gap: 8px;
+        }
+        html.fluid .brand > span:nth-of-type(2),
+        html.fluid .brand .sep {
+          display: none;
+        }
+        html.fluid #partLabel {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        html.fluid .counter {
+          flex: none;
+        }
+        html.fluid .hint,
+        html.fluid #fsBtn,
+        html.fluid .wide,
+        html.fluid .fluid-hide,
+        html.fluid .sq-head {
+          display: none !important;
+        }
+        html.fluid .icon-btn,
+        html.fluid .mode-btn {
+          height: 44px;
+        }
+        html.fluid .icon-btn {
+          width: 44px;
+        }
+        html.fluid .slide {
+          padding: 72px max(18px, env(safe-area-inset-right))
+            calc(84px + env(safe-area-inset-bottom))
+            max(18px, env(safe-area-inset-left));
+          overflow-x: hidden;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        html.fluid .slide > * {
+          flex-shrink: 0;
+        }
+        html.fluid .divider {
+          justify-content: safe center;
+        }
+        html.fluid .kicker {
+          font-size: 11px;
+          letter-spacing: 0.14em;
+          gap: 10px;
+          margin-bottom: 10px;
+        }
+        html.fluid .kicker::before {
+          width: 20px;
+          flex: none;
+        }
+        html.fluid h2.title {
+          font-size: clamp(28px, 7vw, 44px);
+          margin-bottom: 12px;
+        }
+        html.fluid .divider h2.title {
+          font-size: clamp(38px, 10vw, 68px);
+        }
+        html.fluid .lede {
+          font-size: 17px !important;
+        }
+        html.fluid .body {
+          flex: none;
+          margin-top: 20px !important;
+          gap: 16px !important;
+        }
+        html.fluid .slide [style*="grid-template-columns"],
+        html.fluid .cols-2,
+        html.fluid .cols-3,
+        html.fluid .cols-4,
+        html.fluid .matrix,
+        html.fluid .qa-diagram,
+        html.fluid .sq-row {
+          grid-template-columns: minmax(0, 1fr) !important;
+        }
+        html.fluid .slide [style*="grid-template-rows"],
+        html.fluid .slide .cols-3 {
+          grid-template-rows: none !important;
+        }
+        html.fluid .slide [style*="grid-column"] {
+          grid-column: auto !important;
+        }
+        html.fluid .slide > div[style*="justify-content: space-between"] {
+          flex-direction: column;
+          gap: 8px;
+        }
+        html.fluid .step-tabs {
+          flex-wrap: wrap;
+        }
+        html.fluid .step-tab {
+          padding: 9px 12px;
+          font-size: 12px;
+        }
+        html.fluid .step-panel[style*="margin-top"] {
+          margin-top: 18px !important;
+        }
+        html.fluid .card {
+          padding: 16px 18px !important;
+        }
+        html.fluid .card h3 {
+          font-size: 20px;
+        }
+        html.fluid .card p {
+          font-size: 16px !important;
+        }
+        html.fluid .stat {
+          font-size: 48px;
+        }
+        html.fluid .card .ico {
+          margin-bottom: 8px;
+        }
+        html.fluid .slide svg:not(.ph) {
+          width: 100%;
+          height: auto;
+        }
+        html.fluid #four-plus-one svg text[fill="var(--muted)"] {
+          display: none;
+        }
+        html.fluid .cover > svg {
+          width: min(100%, 560px) !important;
+          right: 0 !important;
+          top: 52px !important;
+          opacity: 0.2;
+          pointer-events: none;
+        }
+        html.fluid .cover h1 {
+          font-size: clamp(64px, 19vw, 120px);
+          margin-bottom: 12px;
+        }
+        html.fluid .cover [style*="gap: 72px"] {
+          flex-direction: column;
+          gap: 18px !important;
+          margin-top: 24px !important;
+        }
+        html.fluid .team {
+          grid-template-columns: 1fr 1fr;
+          gap: 6px 18px;
+          font-size: 15px;
+        }
+        html.fluid .divider .num {
+          font-size: 40vw;
+          right: 10px;
+          bottom: 76px;
+          opacity: 0.45;
+        }
+        html.fluid .pill {
+          white-space: normal;
+          max-width: 100%;
+        }
+        html.fluid .slide button.pill {
+          justify-self: start !important;
+        }
+        html.fluid .divider .meta {
+          flex-wrap: wrap;
+          margin-top: 14px;
+        }
+        html.fluid .divider .covers {
+          gap: 18px 26px;
+          margin-top: 24px;
+        }
+        html.fluid .divider .covers b {
+          font-size: 30px;
+        }
+        html.fluid .outline button {
+          grid-template-columns: 44px minmax(0, 1fr) auto;
+          gap: 12px;
+          padding: 12px 4px;
+        }
+        html.fluid .outline .n {
+          font-size: 26px;
+        }
+        html.fluid .outline h3 {
+          font-size: 20px;
+        }
+        html.fluid .outline p {
+          font-size: 15px;
+        }
+        html.fluid .dg {
+          flex-direction: column;
+          gap: 8px;
+          padding: 10px;
+          height: auto;
+          min-height: 0;
+        }
+        html.fluid .dg img {
+          max-height: 70vh;
+          width: auto;
+        }
+        html.fluid .dg figcaption {
+          position: static;
+          align-self: flex-start;
+          font-size: 11px;
+          color: #0e7490;
+        }
+        html.fluid #sequence .body {
+          grid-template-columns: 1fr 1fr !important;
+        }
+        html.fluid .phones {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+          margin-top: 18px;
+        }
+        html.fluid .phone:nth-child(even) {
+          margin-top: 0;
+        }
+        html.fluid .phone figcaption {
+          font-size: 15px;
+        }
+        html.fluid .qa-box {
+          min-height: 0;
+          padding: 14px;
+        }
+        html.fluid .qa-arrow {
+          padding: 10px 0;
+          gap: 4px;
+        }
+        html.fluid .qa-arrow svg {
+          display: none;
+        }
+        html.fluid .qa-arrow::before,
+        html.fluid .sq-arrow::before {
+          content: "↓";
+          display: block;
+          text-align: center;
+          color: var(--acc);
+          font-size: 20px;
+        }
+        html.fluid .sq-arrow::before {
+          content: "↓ " attr(data-l);
+          font: 11px "JetBrains Mono", monospace;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          margin-bottom: 2px;
+        }
+        html.fluid .sq {
+          margin-top: 16px;
+          gap: 26px;
+        }
+        html.fluid .sq-row {
+          gap: 6px;
+        }
+        html.fluid .sq-box {
+          min-height: 0;
+        }
+        html.fluid .sq-box::before {
+          content: attr(data-l);
+          font: 11px "JetBrains Mono", monospace;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--acc);
+          margin-bottom: 4px;
+        }
+        html.fluid .sq-arrow::after {
+          display: none;
+        }
+        html.fluid .sp {
+          display: grid;
+          gap: 10px;
+        }
+        html.fluid .cols-3 > .sp > .dg,
+        html.fluid .cols-3 > .sp > div {
+          grid-row: auto;
+        }
+        html.fluid .row {
+          font-size: 15px;
+          gap: 8px;
+        }
+        html.fluid .fluid-only {
+          display: block;
+        }
+        .stack {
+          text-align: center;
+        }
+        .stack-node {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          padding: 14px;
+          border: 1px solid var(--acc);
+          background: var(--panel);
+        }
+        .stack-node b {
+          font-size: 18px;
+          font-weight: 500;
+          color: var(--strong);
+        }
+        .stack-node small {
+          font-size: 14px;
+          line-height: 1.35;
+          color: var(--muted);
+        }
+        .stack-link {
+          padding: 8px 0;
+          font: 12px "JetBrains Mono", monospace;
+          color: var(--acc);
+        }
+        .stack-link::before {
+          content: "↕ ";
+        }
+        .stack-pair {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+      }
+      /* Wider phones in landscape and portrait tablets can take two columns. */
+      @media screen and (min-width: 640px) {
+        html.fluid .cols-3,
+        html.fluid .cols-4 {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+        html.fluid .phones {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
       @media print {
         @page {
           size: 1600px 900px;
@@ -1546,6 +1989,9 @@
         }
         .slide:last-of-type {
           break-after: auto;
+        }
+        .slide[data-short-only] {
+          display: none !important;
         }
         .a,
         .draw {
@@ -1719,9 +2165,9 @@
           <ol class="outline">
             <li class="a"><button data-goto="overview" style="--c: var(--c-cyan)"><span class="n">01</span><div><h3>Introduction</h3><p>Problem, purpose, scope and key definitions</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="four-plus-one" style="--c: var(--c-cyan)"><span class="n">02</span><div><h3>4+1 Architecture</h3><p>Goals, constraints and the five architectural views</p></div><i class="ph ph-arrow-right"></i></button></li>
-            <li class="a"><button data-goto="quality-attributes" style="--c: var(--c-indigo)"><span class="n">03</span><div><h3>Quality Attributes</h3><p>Security, availability, performance and usability</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="quality-attributes" data-goto-short="short-qa" style="--c: var(--c-indigo)"><span class="n">03</span><div><h3>Quality Attributes</h3><p>Security, availability, performance and usability</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="style" style="--c: var(--c-indigo)"><span class="n">04</span><div><h3>Architectural Style</h3><p>Client–server, and why it fits Intaliq</p></div><i class="ph ph-arrow-right"></i></button></li>
-            <li class="a"><button data-goto="design-concerns" data-goto-short="patterns" style="--c: var(--c-violet)"><span class="n">05</span><div><h3>Software Design</h3><p>MVC and layered views; Factory Method, Observer and Adapter</p></div><i class="ph ph-arrow-right"></i></button></li>
+            <li class="a"><button data-goto="design-concerns" data-goto-short="short-patterns" style="--c: var(--c-violet)"><span class="n">05</span><div><h3>Software Design</h3><p>MVC and layered views; Factory Method, Observer and Adapter</p></div><i class="ph ph-arrow-right"></i></button></li>
             <li class="a"><button data-goto="coverage" style="--c: var(--c-amber)"><span class="n">06</span><div><h3>Validation</h3><p>Requirement coverage and design review</p></div><i class="ph ph-arrow-right"></i></button></li>
           </ol>
         </div>
@@ -1843,8 +2289,39 @@
 
       <section
         class="slide"
-        id="scope"
+        id="short-intro"
         data-short
+        data-short-only
+        data-full="purpose"
+        data-part="d1"
+        data-title="1.2 – 1.5 Purpose, scope, definitions"
+      >
+        <div class="kicker a">SAD 1.2 – 1.5 · Purpose, Scope, Definitions, References</div>
+        <h2 class="title a">One app, <em>two roles</em></h2>
+        <div class="body cols-2" style="margin-top: 26px">
+          <div style="display: grid; gap: 16px; align-content: start">
+            <div class="card bar a"><div class="tag acc">Purpose</div><p style="margin-top: 8px">A mobile fitness app that makes running, cycling and hiking accessible and enjoyable in Saudi Arabia.</p></div>
+            <div class="card a"><div class="tag acc">Scope · User</div><p style="margin-top: 8px">Log activities, set goals, get AI analysis, find partners and join group sessions.</p></div>
+            <div class="card a"><div class="tag acc">Scope · Coach</div><p style="margin-top: 8px">Create group sessions, admit members and announce updates.</p></div>
+            <div class="a" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap"><span class="tag" style="margin-right: 4px">References</span><span class="pill">Vision &amp; Scope</span><span class="pill">IEEE SRS Template</span><span class="pill">Intaliq 2.0 SRS</span></div>
+          </div>
+          <div class="card a dict" style="padding: 24px 28px; align-self: start">
+            <div class="tag acc" style="margin-bottom: 16px">Definitions · data dictionary</div>
+            <dl>
+              <dt>Session</dt><dd>Date, time, location in KSA, capacity, intensity</dd>
+              <dt>User</dt><dd>Name, Saudi or international phone, email, password</dd>
+              <dt>Coach</dt><dd>Same account details as a user</dd>
+              <dt>Goal</dt><dd>Activity type, target time, calories, deadline</dd>
+              <dt>Partner</dt><dd>Location, goals, activities</dd>
+              <dt>Activity</dt><dd>Hiking, biking or running; 5 minutes to 1 day</dd>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="scope"
         data-part="d1"
         data-title="1.3 Scope"
       >
@@ -2003,6 +2480,7 @@
       <section
         class="slide"
         id="goals"
+        data-short
         data-part="d1"
         data-title="3 Goals and constraints"
       >
@@ -2075,6 +2553,42 @@
                 <li>Create session</li><li>Admit users</li><li>Announce updates</li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="short-scenarios"
+        data-short
+        data-short-only
+        data-full="scenarios"
+        data-part="d1"
+        data-title="4.2 Scenarios at a glance"
+      >
+        <div class="kicker a">SAD 4.2 · Scenarios</div>
+        <h2 class="title a">Three scenarios, <em>end to end</em></h2>
+        <div class="body cols-3" style="margin-top: 26px">
+          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0">Book a session</h3>
+            <div class="tag">Actor · User — books a session</div>
+            <ol class="flowlist"><li class="">Browse group sessions</li><li class="">Review session and coach</li><li class="">Submit a booking request</li><li class="sys">Coach reviews and accepts</li><li class="sys">User is confirmed and notified</li></ol>
+            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, session full, coach rejects, or system error.</p>
+            <div class="dg-links" style="margin-top: auto; padding-top: 14px"><button class="dg-link" data-src="assets/diagrams/sequence-book-session.png" data-alt="Sequence diagram: booking a group session"><i class="ph ph-flow-arrow"></i>Sequence diagram</button></div>
+          </div>
+          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0">AI Chatbox</h3>
+            <div class="tag">Actor · User — sends a query</div>
+            <ol class="flowlist"><li class="">Open the AI Chatbox</li><li class="">Choose or write a question</li><li class="">Submit the message</li><li class="sys">AI coach answers</li><li class="">User closes the chat</li></ol>
+            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, medical advice is refused, or system error.</p>
+            
+          </div>
+          <div class="card a" style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0">Enter activity goal</h3>
+            <div class="tag">Actor · User — enters a goal</div>
+            <ol class="flowlist"><li class="">Open Activity Goal</li><li class="">Enter type and target</li><li class="">Submit the goal</li><li class="sys">System validates and saves</li><li class="sys">System confirms it was created</li></ol>
+            <p style="font-size: 16px"><b style="color: var(--strong); font-weight: 500">If not:</b> not logged in, missing field, invalid data, or system error.</p>
+            <div class="dg-links" style="margin-top: auto; padding-top: 14px"><button class="dg-link" data-src="assets/diagrams/sequence-set-goal.png" data-alt="Sequence diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Sequence</button><button class="dg-link" data-src="assets/diagrams/activity-set-goal.png" data-alt="Activity diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Activity</button></div>
           </div>
         </div>
       </section>
@@ -2232,8 +2746,51 @@
 
       <section
         class="slide"
-        id="class-diagram"
+        id="short-logical"
         data-short
+        data-short-only
+        data-full="class-diagram"
+        data-part="d1"
+        data-title="5 – 6 Logical and process views"
+      >
+        <div class="kicker a">SAD 5 – 6 · Logical &amp; Process Views</div>
+        <h2 class="title a">What the system is, <em>how it behaves</em></h2>
+        <div class="body" style="grid-template-columns: 1.5fr 0.62fr 1.25fr; grid-template-rows: minmax(0, 1fr) auto; margin-top: 50px; gap: 20px 26px">
+          <figure class="dg a pop"><figcaption>Logical · Class diagram</figcaption><img src="assets/diagrams/class-diagram.png" alt="Class diagram: Session, User, Coach, Goal, Partner, Activity" /></figure>
+          <figure class="dg a pop"><figcaption>Logical · Sequence</figcaption><img src="assets/diagrams/sequence-book-session.png" alt="Sequence diagram: booking a group session" /></figure>
+          <figure class="dg a pop"><figcaption>Process · Activity</figcaption><img src="assets/diagrams/activity-admit-members.png" alt="Activity diagram: admitting members" /></figure>
+          <div class="a" style="grid-column: 1 / -1; display: flex; gap: 14px 22px; align-items: center; flex-wrap: wrap">
+            <p class="muted" style="margin: 0; font-size: 17px; font-weight: 300">Six classes model the domain; messages and workflows show how they work at runtime.</p>
+            <div class="dg-links" style="margin-top: 0"><button class="dg-link" data-src="assets/diagrams/sequence-log-activity.png" data-alt="Sequence diagram: logging an activity"><i class="ph ph-flow-arrow"></i>Log activity</button><button class="dg-link" data-src="assets/diagrams/sequence-set-goal.png" data-alt="Sequence diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Set goal</button><button class="dg-link" data-src="assets/diagrams/sequence-create-session.png" data-alt="Sequence diagram: creating a group session"><i class="ph ph-flow-arrow"></i>Create session</button><button class="dg-link" data-src="assets/diagrams/sequence-admit-members.png" data-alt="Sequence diagram: admitting members"><i class="ph ph-flow-arrow"></i>Admit members</button><button class="dg-link" data-src="assets/diagrams/activity-set-goal.png" data-alt="Activity diagram: setting an activity goal"><i class="ph ph-flow-arrow"></i>Goal activity</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="short-platform"
+        data-short
+        data-short-only
+        data-full="development-view"
+        data-part="d1"
+        data-title="7 – 8 Development and physical views"
+      >
+        <div class="kicker a">SAD 7 – 8 · Development &amp; Physical Views</div>
+        <h2 class="title a">How it's built, <em>where it runs</em></h2>
+        <div class="body" style="grid-template-columns: 1fr 0.72fr 1.05fr; margin-top: 50px; gap: 26px">
+          <figure class="dg a pop"><figcaption>Development · Components</figcaption><img src="assets/diagrams/component-diagram.png" alt="Component diagram: mobile application, backend API, backend components and external services" /></figure>
+          <figure class="dg a pop"><figcaption>Physical · Deployment</figcaption><img src="assets/diagrams/deployment-diagram.png" alt="Deployment diagram: smartphone, application server, database, AI service" /></figure>
+          <div style="display: grid; gap: 14px; align-content: center">
+            <div class="card bar a"><h3>Mobile app</h3><p>Runs on the user's smartphone. Offline Sync holds actions until it reconnects.</p></div>
+            <div class="card bar a"><h3>Application server</h3><p>The backend's seven components, reached over HTTPS.</p></div>
+            <div class="card bar a"><h3>Data and services</h3><p>Database, authentication, push notifications and the external AI service.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="class-diagram"
         data-part="d1"
         data-title="5.1 Logical view — class diagram"
       >
@@ -2287,7 +2844,6 @@
       <section
         class="slide"
         id="development-view"
-        data-short
         data-part="d1"
         data-title="7.1 Development view — components"
       >
@@ -2357,8 +2913,55 @@
 
       <section
         class="slide"
-        id="quality-attributes"
+        id="short-qa"
         data-short
+        data-short-only
+        data-full="quality-attributes"
+        data-part="d2"
+        data-title="Quality attributes and scenarios"
+      >
+        <div class="kicker a">D2 1 – 2 · Quality Attributes &amp; Scenarios</div>
+        <h2 class="title a">Four qualities, <em>each made testable</em></h2>
+        <div class="sq">
+          <div class="sq-row sq-head a"><span>Quality</span><span>Source</span><span>Stimulus</span><span>Artifact · environment</span><span>Response</span><span>Measure</span></div>
+          <div class="sq-row a">
+            <div class="sq-name"><i class="ph ph-shield-check"></i>Security</div>
+            <div class="sq-box" data-l="Source">Unauthorised user</div>
+            <div class="sq-arrow" data-l="Stimulus">Opens another user's data</div>
+            <div class="sq-box dashed" data-l="Artifact · environment">Authentication &amp; authorization<small>Normal operation</small></div>
+            <div class="sq-arrow" data-l="Response">Verifies, then denies access</div>
+            <div class="sq-box measure" data-l="Response measure"><b>100%</b><small>attempts rejected</small></div>
+          </div>
+          <div class="sq-row a">
+            <div class="sq-name"><i class="ph ph-cloud-check"></i>Availability</div>
+            <div class="sq-box" data-l="Source">User who loses connection</div>
+            <div class="sq-arrow" data-l="Stimulus">Logs an activity offline</div>
+            <div class="sq-box dashed" data-l="Artifact · environment">App &amp; Offline Sync<small>No internet</small></div>
+            <div class="sq-arrow" data-l="Response">Stores locally, syncs later</div>
+            <div class="sq-box measure" data-l="Response measure"><b>100%</b><small>synced, no data lost</small></div>
+          </div>
+          <div class="sq-row a">
+            <div class="sq-name"><i class="ph ph-gauge"></i>Performance</div>
+            <div class="sq-box" data-l="Source">Authenticated user</div>
+            <div class="sq-arrow" data-l="Stimulus">Views group sessions</div>
+            <div class="sq-box dashed" data-l="Artifact · environment">App, API &amp; database<small>Normal load</small></div>
+            <div class="sq-arrow" data-l="Response">Retrieves and shows sessions</div>
+            <div class="sq-box measure" data-l="Response measure"><b>95%</b><small>within 3 seconds</small></div>
+          </div>
+          <div class="sq-row a">
+            <div class="sq-name"><i class="ph ph-hand-tap"></i>Usability</div>
+            <div class="sq-box" data-l="Source">New user</div>
+            <div class="sq-arrow" data-l="Stimulus">Creates a fitness goal</div>
+            <div class="sq-box dashed" data-l="Artifact · environment">App interface<small>Normal operation</small></div>
+            <div class="sq-arrow" data-l="Response">Guides, saves and confirms</div>
+            <div class="sq-box measure" data-l="Response measure"><b>≥ 90%</b><small>succeed unaided</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="quality-attributes"
         data-part="d2"
         data-title="Quality attributes"
       >
@@ -2468,7 +3071,7 @@
           business logic and every call to the database and the AI service.
         </p>
         <div class="body" style="margin-top: 24px">
-          <svg viewBox="0 0 1400 470" class="a fade" aria-label="Client–server topology of Intaliq">
+          <svg viewBox="0 0 1400 470" class="a fade fluid-hide" aria-label="Client–server topology of Intaliq">
             <defs>
               <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                 <path d="M0 0L10 5L0 10z" fill="var(--c-indigo)" />
@@ -2532,12 +3135,23 @@
               <text x="1170" y="390" fill="var(--muted)" font-size="12" text-anchor="middle">fitness tips · Q&amp;A</text>
             </g>
           </svg>
+          <div class="fluid-only stack a">
+            <div class="stack-node"><span class="tag acc">Client</span><b>Intaliq mobile app</b><small>Activities, goals, booking, partners, AI chat, Offline Sync</small></div>
+            <div class="stack-link">HTTPS</div>
+            <div class="stack-node"><span class="tag acc">Application server</span><b>Intaliq backend</b><small>Authentication, users, activities and goals, sessions, partner matching, AI integration</small></div>
+            <div class="stack-link">Database connection · API over HTTPS</div>
+            <div class="stack-pair">
+              <div class="stack-node"><span class="tag acc">Database</span><b>Intaliq database</b></div>
+              <div class="stack-node"><span class="tag acc">External</span><b>AI service</b></div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section
         class="slide"
         id="style-why"
+        data-short
         data-part="d2"
         data-title="Why client–server · communication"
       >
@@ -2631,8 +3245,50 @@
 
       <section
         class="slide"
-        id="patterns"
+        id="short-patterns"
         data-short
+        data-short-only
+        data-full="patterns"
+        data-part="d3"
+        data-title="Design patterns and justification"
+      >
+        <div class="kicker a">SDD 3 · Design Patterns &amp; Justification</div>
+        <h2 class="title a">Three patterns, <em>each justified</em></h2>
+        <div class="body cols-3" style="grid-template-rows: minmax(0, 1fr) auto; margin-top: 26px; gap: 18px 26px">
+          <div class="sp a">
+            <figure class="dg"><img src="assets/diagrams/pattern-factory-method.png" alt="Factory Method class diagram" /></figure>
+            <div>
+              <div class="tag acc">Creational · Activity logging</div>
+              <h3 style="font-size: 26px; margin: 4px 0 8px; color: var(--strong); font-weight: 500">Factory Method</h3>
+              <p class="sp-t">Each activity type has its own logger that creates the right activity.</p>
+              <p class="sp-t"><b>Why:</b> a new sport needs no change to existing code.</p>
+            </div>
+          </div>
+          <div class="sp a">
+            <figure class="dg"><img src="assets/diagrams/pattern-observer.png" alt="Observer class diagram" /></figure>
+            <div>
+              <div class="tag acc">Behavioural · Notifications</div>
+              <h3 style="font-size: 26px; margin: 4px 0 8px; color: var(--strong); font-weight: 500">Observer</h3>
+              <p class="sp-t">SessionService notifies UserNotification and ReminderService of changes.</p>
+              <p class="sp-t"><b>Why:</b> updates reach everyone without tying Session to delivery.</p>
+            </div>
+          </div>
+          <div class="sp a">
+            <figure class="dg"><img src="assets/diagrams/pattern-adapter.png" alt="Adapter class diagram" /></figure>
+            <div>
+              <div class="tag acc">Structural · AI chatbox</div>
+              <h3 style="font-size: 26px; margin: 4px 0 8px; color: var(--strong); font-weight: 500">Adapter</h3>
+              <p class="sp-t">AIServiceAdapter translates between AIChatService and the external AI.</p>
+              <p class="sp-t"><b>Why:</b> changing provider means writing one new adapter.</p>
+            </div>
+          </div>
+          <div class="dg-links a" style="grid-column: 1 / -1; margin-top: 0; align-items: center"><span class="tag" style="margin-right: 4px">Design views</span><button class="dg-link" data-src="assets/diagrams/mvc-diagram.png" data-alt="MVC design diagram"><i class="ph ph-flow-arrow"></i>Mobile app · MVC</button><button class="dg-link" data-src="assets/diagrams/layered-architecture.png" data-alt="Layered architecture diagram"><i class="ph ph-flow-arrow"></i>Backend · Layered</button></div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="patterns"
         data-part="d3"
         data-title="Design patterns at a glance"
       >
@@ -2757,23 +3413,23 @@
             <div class="row a"><span>1 · Introduction (overview → references)</span><span class="pill ok">Covered</span><button data-goto="overview">→</button></div>
             <div class="row a"><span>2 · Architectural representation</span><span class="pill ok">Covered</span><button data-goto="four-plus-one">→</button></div>
             <div class="row a"><span>3 · Goals &amp; constraints</span><span class="pill ok">Covered</span><button data-goto="goals">→</button></div>
-            <div class="row a"><span>4 · User view — use cases + ≥ 3 scenarios</span><span class="pill ok">3 of 3</span><button data-goto="scenarios">→</button></div>
-            <div class="row a"><span>5a · Class diagram</span><span class="pill ok">Covered</span><button data-goto="class-diagram">→</button></div>
+            <div class="row a"><span>4 · User view — use cases + ≥ 3 scenarios</span><span class="pill ok">3 of 3</span><button data-goto="scenarios" data-goto-short="short-scenarios">→</button></div>
+            <div class="row a"><span>5a · Class diagram</span><span class="pill ok">Covered</span><button data-goto="class-diagram" data-goto-short="short-logical">→</button></div>
             <div class="row a"><span>5b · Collaboration diagram</span><span class="pill opt">Optional</span><button disabled>—</button></div>
-            <div class="row a"><span>5c · Sequence diagrams</span><span class="pill ok">5 drawn</span><button data-goto="sequence">→</button></div>
-            <div class="row a"><span>6 · Process — activity diagrams</span><span class="pill ok">2 drawn</span><button data-goto="process-view">→</button></div>
-            <div class="row a"><span>7 · Development — component diagram</span><span class="pill ok">Covered</span><button data-goto="development-view">→</button></div>
-            <div class="row a"><span>8 · Physical — deployment diagram</span><span class="pill ok">Covered</span><button data-goto="physical-view">→</button></div>
+            <div class="row a"><span>5c · Sequence diagrams</span><span class="pill ok">5 drawn</span><button data-goto="sequence" data-goto-short="short-logical">→</button></div>
+            <div class="row a"><span>6 · Process — activity diagrams</span><span class="pill ok">2 drawn</span><button data-goto="process-view" data-goto-short="short-logical">→</button></div>
+            <div class="row a"><span>7 · Development — component diagram</span><span class="pill ok">Covered</span><button data-goto="development-view" data-goto-short="short-platform">→</button></div>
+            <div class="row a"><span>8 · Physical — deployment diagram</span><span class="pill ok">Covered</span><button data-goto="physical-view" data-goto-short="short-platform">→</button></div>
           </div>
           <div>
             <h4 class="a" style="color: var(--c-indigo)">D2 · Architecture <span>QA + style</span></h4>
-            <div class="row a"><span>3–4 quality attributes</span><span class="pill ok">4</span><button data-goto="quality-attributes">→</button></div>
-            <div class="row a"><span>Scenarios drawn &amp; documented</span><span class="pill ok">4</span><button data-goto="qa-scenarios">→</button></div>
+            <div class="row a"><span>3–4 quality attributes</span><span class="pill ok">4</span><button data-goto="quality-attributes" data-goto-short="short-qa">→</button></div>
+            <div class="row a"><span>Scenarios drawn &amp; documented</span><span class="pill ok">4</span><button data-goto="qa-scenarios" data-goto-short="short-qa">→</button></div>
             <div class="row a"><span>Style chosen, justified, implemented</span><span class="pill ok">Covered</span><button data-goto="style">→</button></div>
             <h4 class="a" style="color: var(--c-violet)">D3 · Design <span>SDD</span></h4>
-            <div class="row a"><span>≥ 3 design patterns</span><span class="pill ok">3</span><button data-goto="patterns">→</button></div>
-            <div class="row a"><span>Justification for each</span><span class="pill ok">Covered</span><button data-goto="factory-method">→</button></div>
-            <div class="row a"><span>Software Design Document (SDD)</span><span class="pill ok">Issued</span><button data-goto="design-concerns">→</button></div>
+            <div class="row a"><span>≥ 3 design patterns</span><span class="pill ok">3</span><button data-goto="patterns" data-goto-short="short-patterns">→</button></div>
+            <div class="row a"><span>Justification for each</span><span class="pill ok">Covered</span><button data-goto="factory-method" data-goto-short="short-patterns">→</button></div>
+            <div class="row a"><span>Software Design Document (SDD)</span><span class="pill ok">Issued</span><button data-goto="design-concerns" data-goto-short="short-patterns">→</button></div>
             <h4 class="a" style="color: var(--c-amber)">D4 · Validation <span>Review</span></h4>
             <div class="row a"><span>Design document reviewed &amp; validated</span><span class="pill ok">Done</span><button data-goto="validation">→</button></div>
           </div>
@@ -2930,9 +3586,15 @@
         };
 
         // Fit the 1600×900 stage to the window.
+        // Scale the stage while its text stays readable; below that, reflow.
+        var fluid = false;
         function fit() {
           var s = Math.min(innerWidth / 1600, innerHeight / 900);
-          stage.style.transform = "translate(-50%, -50%) scale(" + s + ")";
+          fluid = s < 0.55;
+          document.documentElement.classList.toggle("fluid", fluid);
+          stage.style.transform = fluid
+            ? ""
+            : "translate(-50%, -50%) scale(" + s + ")";
         }
         addEventListener("resize", fit);
         fit();
@@ -3008,10 +3670,12 @@
         });
         var short = new URLSearchParams(location.search).has("short");
         function inVersion(s) {
-          return !short || s.hasAttribute("data-short");
+          return short
+            ? s.hasAttribute("data-short")
+            : !s.hasAttribute("data-short-only");
         }
         function showPosition() {
-          var list = short ? shortSlides : slides;
+          var list = slides.filter(inVersion);
           var num = list.filter(function (s) {
             return slides.indexOf(s) <= cur;
           }).length;
@@ -3024,6 +3688,7 @@
         function go(n, atStep) {
           n = Math.max(0, Math.min(slides.length - 1, n));
           var slide = slides[n];
+          slide.scrollTop = 0;
           if (n !== cur) {
             slides.forEach(function (s, i) {
               s.classList.toggle("active", i === n);
@@ -3075,15 +3740,16 @@
           var btn = document.getElementById("modeBtn");
           btn.classList.toggle("on", short);
           btn.setAttribute("aria-pressed", short);
-          btn.querySelector("span").textContent = short
-            ? "Short · " + shortSlides.length + " slides"
-            : "Short version";
+          btn.querySelector("span").innerHTML = short
+            ? "Short · " + shortSlides.length + '<span class="wide"> slides</span>'
+            : 'Short<span class="wide"> version</span>';
           if (cur >= 0) showPosition();
         }
         function toggleVersion() {
           short = !short;
           history.replaceState(null, "", (short ? "?short" : location.pathname) + location.hash);
           showVersion();
+          if (!short && slides[cur].hasAttribute("data-short-only")) goId(slides[cur].dataset.full);
         }
         document.getElementById("modeBtn").onclick = toggleVersion;
         document.getElementById("nextBtn").onclick = next;
@@ -3325,6 +3991,7 @@
             if (on) num++;
             b.querySelector("span").textContent = on ? pad(num) : "–";
             b.classList.toggle("off", !on);
+            b.style.display = !short && slides[i].hasAttribute("data-short-only") ? "none" : "";
             b.classList.toggle("cur", i === cur);
           });
         }
@@ -3360,6 +4027,7 @@
           }
           if (k === "o" || k === "O") return toggleIndex();
           if (idx.classList.contains("open")) return;
+          if (fluid && (k === "ArrowUp" || k === "ArrowDown")) return; // scroll the slide
           if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(k)) {
             e.preventDefault();
             next();
@@ -3375,8 +4043,10 @@
 
         // Swipe
         var sx = null;
+        var sy = null;
         addEventListener("touchstart", function (e) {
           sx = e.touches[0].clientX;
+          sy = e.touches[0].clientY;
         }, { passive: true });
         addEventListener("touchend", function (e) {
           if (sx === null) return;
@@ -3385,7 +4055,9 @@
             return;
           }
           var dx = e.changedTouches[0].clientX - sx;
-          if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
+          var dy = e.changedTouches[0].clientY - sy;
+          // Mostly vertical movement is the slide scrolling, not a swipe.
+          if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) (dx < 0 ? next : prev)();
           sx = null;
         });
 
@@ -3393,6 +4065,7 @@
         var start = slides.findIndex(function (s) {
           return "#" + s.id === location.hash;
         });
+        if (start >= 0 && slides[start].hasAttribute("data-short-only")) short = true;
         go(start < 0 ? 0 : start, 0);
         showVersion();
       })();
